@@ -1,0 +1,14 @@
+
+; Colours
+(df adjective
+	(lit red) (space) (flags colour) (seme (head red)))
+	
+(df adjective
+	(lit pink) (space) (flags colour) (seme (head pink)))
+
+(df adjective
+	(lit blue) (space) (flags colour) (seme (head blue)))
+
+; Animacy
+(df adjective
+	(lit dead) (space) (flags animacy) (seme (head dead)))

@@ -1,0 +1,14 @@
+(df verb
+	(rection -object)
+	(constituent subject-prefix)
+	(constituent tense-marker)
+	(constituent verbstem)
+	(space))
+
+(df verb
+	(rection object)
+	(constituent subject-prefix)
+	(constituent tense-marker)
+	(constituent object-prefix)
+	(constituent verbstem)
+	(space))

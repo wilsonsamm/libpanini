@@ -1,0 +1,29 @@
+(df pronoun
+	(flags explicit)
+	(lit kuani) (space)
+	(rection (person kuani))
+	(seme explicit (head referential) (person first) (number singular)))
+
+(df pronoun
+	(rection (person kuani))
+	(seme -explicit (head referential) (person first) (number singular)))
+
+(df pronoun
+	(flags explicit)
+	(lit eani) (space)
+	(rection (person eani))
+	(seme explicit (head referential) (person second) (number singular)))
+
+(df pronoun
+	(rection (person eani))
+	(seme -explicit (head referential) (person second) (number singular)))
+
+(df pronoun
+	(flags explicit)
+	(lit ani) (space)
+	(rection (person ani))
+	(seme explicit (head referential) (person third) (number singular)))
+
+(df pronoun
+	(seme -explicit (head referential) (person third) (number singular))
+	(rection (person ani)))

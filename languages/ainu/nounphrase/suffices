@@ -1,0 +1,10 @@
+
+(df noun
+	(constituent nounstem)
+	(rection countable (person ani))
+	(seme (number singular)))
+
+(df noun
+	(constituent nounstem)
+	(rection countable (person okay))
+	(seme (number plural)))

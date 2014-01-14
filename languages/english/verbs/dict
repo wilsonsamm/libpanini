@@ -1,0 +1,52 @@
+(df verbroot
+	(lit help)
+	(flags transitive intransitive arg1:agent arg2:patient)
+	(seme (head help))
+	(rection -spatiodeixis))
+
+(df verbroot
+	(lit watch)
+	(flags transitive intransitive arg1:agent arg2:patient)
+	(seme (head watch))
+	(rection -spatiodeixis))
+
+(df verbroot
+	(lit see)
+	(flags transitive intransitive arg1:agent arg2:patient)
+	(seme (head see))
+	(rection -spatiodeixis))
+
+(df verbroot
+	(lit go)
+	(flags motive intransitive)
+	(seme (head motion) (spatiodeixis hither)))
+
+(df verbroot
+	(lit understand)
+	(flags transitive intransitive arg1:agent arg2:patient)
+	(seme (head understand))
+	(rection -spatiodeixis))
+
+(df verbroot
+	(lit kill)
+	(flags transitive intransitive arg1:agent arg2:patient)
+	(seme (head die) agent patient)
+	(rection -spatiodeixis))
+
+(df verbroot
+	(lit die)
+	(flags intransitive arg1:patient)
+	(seme (head die) -agent patient)
+	(rection -spatiodeixis))
+	
+(df verbroot
+	(lit take)
+	(flags transitive arg1:agent arg2:patient)
+	(fork
+		((seme (head take) -target))
+		((seme (head bring)) (into target nop))))
+
+(df verbroot
+	(lit hold)
+	(flags transitive arg1:agent arg2:patient)
+	(seme (head hold)))

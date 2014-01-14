@@ -1,0 +1,26 @@
+(df argument
+	(rection (person nehuatl))
+	(lit nehuatl) (space)
+	(seme (head referential)	(person first)	(number singular) explicit))
+
+(df argument
+	(rection (person nehuatl))
+	(seme (head referential)	(person first)	(number singular) -explicit))
+
+(df argument
+	(rection (person tehuatl))
+	(lit tehuatl) (space)
+	(seme (head referential)	(person second)	(number singular) explicit))
+
+(df argument
+	(rection (person tehuatl))
+	(seme (head referential)	(person second)	(number singular) -explicit))
+	
+(df argument
+	(rection (person yehuatl))
+	(lit yehuatl) (space)
+	(seme (head referential)	(person third)	(number singular) explicit))
+
+(df argument
+	(rection (person yehuatl))
+	(seme (head referential)	(person third)	(number singular) -explicit))

@@ -1,0 +1,23 @@
+(df verbstem
+	(theta (subject patient) -object)
+	(flags intransitive)
+	(lit mizqui)
+	(seme (head dead)))
+
+(df verbstem
+	(theta (subject agent) (object patient))
+	(flags transitive)
+	(lit palehuia)
+	(seme (head help)))
+
+(df verbstem
+	(theta (subject agent) (object patient))
+	(flags transitive)
+	(lit tlazotla)
+	(seme (head love)))
+
+(df verbstem
+	(theta (subject agent) (object patient))
+	(flags transitive)
+	(lit itta)
+	(seme (head see)))

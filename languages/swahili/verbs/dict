@@ -1,0 +1,24 @@
+(df verb-root
+	(lit f)
+	(seme (head dead))
+	(flags a-vowel stative))
+
+(df verb-root
+	(lit pend)
+	(seme (head love))
+	(flags a-vowel arg1:agent arg2:patient intransitive transitive))
+
+(df verb-root
+	(lit saidi)
+	(flags a-vowel arg1:agent arg2:patient intransitive transitive)
+	(seme (head help)))
+
+(df verb-root
+	(lit angali)
+	(flags a-vowel arg1:agent arg2:patient intransitive transitive)
+	(seme (head watch)))
+
+(df verb-root
+	(lit on)
+	(flags a-vowel arg1:agent arg2:patient intransitive transitive)
+	(seme (head see)))

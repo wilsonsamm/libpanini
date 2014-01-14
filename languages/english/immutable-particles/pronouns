@@ -1,0 +1,47 @@
+(df pronoun
+	(flags subject)
+	(lit I) (space)
+	(rection (person I))
+	(seme (head referential) (person first) (number singular)))
+
+(df pronoun
+	(flags subject object)
+	(lit you) (space)
+	(rection (person you))
+	(seme (head referential) (person second)))
+
+(df pronoun
+	(flags subject)
+	(lit he) (space)
+	(rection (person he-she-it) (gender he))
+	(seme (head referential) (person third) (number singular) (gender male)))
+
+(df pronoun
+	(flags subject)
+	(lit she) (space)
+	(rection (person he-she-it) (gender she))
+	(seme (head referential) (person third) (number singular) (gender female)))
+
+(df pronoun
+	(flags object)
+	(lit me) (space)
+	(rection (person I))
+	(seme (head referential) (person first) (number singular)))
+
+(df pronoun
+	(flags object)
+	(lit him) (space)
+	(rection (person he-she-it) (gender he))
+	(seme (head referential) (person third) (number singular) (gender male)))
+
+(df pronoun
+	(flags object)
+	(lit her) (space)
+	(rection (person he-she-it) (gender she))
+	(seme (head referential) (person third) (number singular) (gender female)))
+
+(df pronoun
+	(flags object)
+	(lit here) (space)
+	(rection (person he-she-it))
+	(seme (head here)))

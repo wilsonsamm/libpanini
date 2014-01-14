@@ -1,0 +1,11 @@
+(df nounstem
+	(flags regular -possessed)
+	(lit tlaca)
+	(rection (abs tl))
+	(seme (head man)))
+
+(df nounstem
+	(flags regular -possessed)
+	(lit pil)
+	(rection (abs li))
+	(seme (head child)))

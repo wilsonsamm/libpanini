@@ -1,0 +1,17 @@
+(df function
+	(flags nullary)
+	(constituent verb nullary))
+
+(df function
+	(flags nullary)
+	(constituent subject)
+	(constituent function unary))
+
+(df function
+	(flags unary)
+	(constituent verb monovalent))
+
+(df function
+	(flags unary)
+	(constituent object)
+	(constituent verb bivalent))

@@ -1,0 +1,13 @@
+; V tom souboru se opisuou různé zájmena čestiny
+
+(df pronoun
+	(lit já) (space)
+	(flags nominative)
+	(seme (head referential) (person first) (number singular))
+	(rection (person já)))
+
+(df pronoun
+	(lit ty) (space)
+	(flags nominative)
+	(seme (head referential) (person second) (number singular))
+	(rection (person ty)))

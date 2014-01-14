@@ -1,0 +1,95 @@
+(df noun
+	(flags learn)
+	(open noun))
+
+(df noun
+	(seme (number singular))
+	(constituent nounstem) (space)
+	(flags lemma)
+	(rection (person he-she-it)))
+(df noun
+	(seme (number plural))
+	(constituent nounstem)
+	(lit s) (space)
+	(rection countable plural (person they)))
+
+(df nounstem
+	(rection -plural)
+	(lit east) (seme (head east)))
+	
+(df nounstem
+	(rection -plural)
+	(lit west) (seme (head west)))
+	
+(df nounstem
+	(rection -plural)
+	(lit north) (seme (head north)))
+	
+(df nounstem
+	(rection -plural)
+	(lit south) (seme (head south)))
+
+(df nounstem
+	(lit uncle)
+	(rection countable)
+	(seme (head uncle)))
+
+(df nounstem
+	(lit whale)
+	(rection countable)
+	(seme (head whale)))
+
+(df nounstem
+	(lit road)
+	(rection countable enclosed-space)
+	(seme (head road)))
+
+(df nounstem
+	(lit house)
+	(rection countable enclosed-space)
+	(seme (head house)))
+	
+(df nounstem
+	(lit cave)
+	(rection countable enclosed-space)
+	(seme (head cave)))
+
+(df nounstem
+	(lit beach)
+	(seme (head beach)))
+
+(df nounstem
+	(sandhi vowel)
+	(fork ((lit axe)) ((lit ax)))
+	(rection countable)
+	(seme (head axe)))
+
+(df nounstem
+	(rection countable)
+	(lit man)
+	(seme (head man)))
+(df nounstem
+	(rection countable)
+	(lit person)
+	(seme (head person)))
+(df nounstem
+	(rection countable enclosed-space)
+	(lit book)
+	(seme (head book)))
+	
+(df nounstem
+	(lit village)
+	(rection enclosed-space countable)
+	(seme (head village)))
+
+;;; Irregular nouns go down here. And they are defined as "noun", not
+;;; "nounstem". That way, we won't end up with wrong things like
+;;; "childs" or "oxes".
+(df noun
+	(lit child) (space)
+	(rection countable -enclosed-space (person he-she-it))
+	(seme (head child) (number singular)))
+(df noun
+	(lit children) (space)
+	(rection countable -enclosed-space (person they))
+	(seme (head child) (number plural)))

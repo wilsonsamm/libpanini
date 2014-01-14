@@ -1,0 +1,49 @@
+
+(df subject-prefix
+	(lit ni)
+	(sandhi coda)
+	(into (theta subject) rection (person nehuatl)))
+
+(df subject-prefix
+	(lit ti)
+	(sandhi coda)
+	(into (theta subject) rection (person tehuatl)))
+
+(df subject-prefix
+	(into (theta subject) rection (person yehuatl)))
+
+(df subject-prefix
+	(sandhi coda)
+	(into (theta subject) rection (person yehuantin)))
+
+(df object-prefix
+	(rection -object)
+	(theta -object))
+	
+(df object-prefix
+	(rection object)
+	(lit nech)
+	(into (theta object) rection (person nehuatl)))
+
+(df object-prefix
+	(rection object)
+	(lit mitz)
+	(into (theta object) rection (person tehuatl)))
+
+(df object-prefix
+	(rection object)
+	(lit c)
+	(sandhi -consonant coda)
+	(into (theta object) rection (person yehuatl)))
+
+(df object-prefix
+	(rection object)
+	(into (theta object) rection (person yehuatl))
+	(lit qui)
+	(sandhi -consonant))
+
+(df object-prefix
+	(rection object)
+	(into (theta object) rection (person yehuantin))
+	(lit quim)
+	(sandhi consonant))

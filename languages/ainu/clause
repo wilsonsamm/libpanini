@@ -1,0 +1,9 @@
+; This is the Ainu clause.
+
+(df clause
+	(adjunct constraint)
+	(constituent function nullary)
+	(fork
+		((constituent modal-particle))
+		((seme (mood realis))))
+	(constituent complementiser))

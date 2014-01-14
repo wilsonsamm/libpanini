@@ -1,0 +1,4 @@
+(df thema
+	(into (rection subject) constituent pronoun nominative))
+(df thema
+	(into (rection subject) constituent nounphrase nominative))

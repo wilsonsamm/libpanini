@@ -1,0 +1,43 @@
+;;;; This file puts the verb suffixes onto the end of the root,
+; such things as -a or -isha. And the same functions put the rections in
+; place for things like the theta roles of the arguments.
+
+;;; STATIVE VERBS LIKE -fa
+(df verbstem
+	(constituent verb-root stative a-vowel)
+	(flags lemma)
+	(lit a)
+	(theta (subject patient))
+	(seme -agent patient))
+	
+(df verbstem
+	(constituent verb-root stative a-vowel)
+	(flags lemma)
+	(lit wa)
+	(theta (subject agent) (object patient))
+	(seme agent patient))
+
+;;; AMBITRANSITIVE VERBS LIKE -penda
+;; Active, transitive
+(df verbstem
+	(constituent verb-root transitive a-vowel arg1:agent arg2:patient)
+	(lit a)
+	(flags lemma)
+	(theta (subject agent) (object patient))
+	(seme patient))
+
+;; Active, intransitive
+(df verbstem
+	(constituent verb-root transitive a-vowel arg1:agent arg2:patient)
+	(lit a)
+	(flags lemma)
+	(theta (subject agent) -object)
+	(seme -patient))
+
+;; Passive
+(df verbstem
+	(constituent verb-root transitive a-vowel arg1:agent arg2:patient)
+	(lit wa)
+	(theta (subject patient) -object)
+	(seme -agent))
+

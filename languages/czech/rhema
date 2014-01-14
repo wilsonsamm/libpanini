@@ -1,0 +1,6 @@
+(df rhema
+	(constituent verb transitive)
+	(constituent object))
+
+(df rhema
+	(constituent verb intransitive))

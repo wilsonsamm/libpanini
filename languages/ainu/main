@@ -1,0 +1,28 @@
+(include functions/functions)
+(include functions/verbs)
+(include functions/verb-surface)
+
+(include arguments/arguments)
+(include arguments/personal-affices)
+(include arguments/pronouns)
+
+(include nounphrase/np)
+(include nounphrase/dict)
+(include nounphrase/suffices)
+(include nounphrase/rel-clauses)
+
+(include clause)
+(include complementiser)
+(include constraint)
+(include modal-particles)
+
+(include learned)
+
+(df main
+	(rection (complementiser none))
+	(constituent clause)
+	(fullstop))
+
+(df Word (constituent verb))
+(df Word (constituent noun))
+(df Word (constituent constraint))

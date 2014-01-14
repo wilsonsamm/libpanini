@@ -1,0 +1,11 @@
+(include sentence)
+(include complementiser)
+(include thema)
+(include rhema)
+(include verbs)
+(include pronouns)
+(include nouns)
+
+(df main
+	(rection -complementiser)
+	(constituent sentence))

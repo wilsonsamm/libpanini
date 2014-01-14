@@ -1,0 +1,15 @@
+(df verb
+	(sandhi -coda)
+	(flags transitive)
+	(constituent subject-prefix)
+	(constituent object-prefix)
+	(constituent verbstem)
+	(space))
+
+(df verb
+	(sandhi -coda)
+	(flags intransitive)
+	(constituent subject-prefix)
+	(constituent object-prefix)
+	(constituent verbstem)
+	(space))

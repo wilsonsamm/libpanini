@@ -1,0 +1,68 @@
+;
+(df verbstem
+	(open verbstem))
+
+; "An", to exist.
+(df verbstem
+	(lit an)
+	(flags existential)
+	(seme (head exist)))
+
+; "Hure" means "red" or "pink" (to the Ainu, and many other peoples, 
+; these are just two shades of the one colour, "hure").
+(df verbstem
+	(lit hure)
+	(flags stative colour)
+	(fork
+		((seme (head red)))
+		((seme (head pink)))))
+
+; "Inkar" means "see"
+(df verbstem
+	(lit inkar)
+	(flags unary perception)
+	(fork
+		((seme (head see)))
+		((seme (head watch)))))
+
+; "Isam" can mean "dead"
+(df verbstem
+	(lit isam)
+	(flags stative animacy)
+	(seme (head dead)))
+
+; Kasiw means "help"
+(df verbstem
+	(lit kasiw)
+	(flags binary assistance)
+	(seme (head help)))
+	
+; Pirka means "beautiful" or "good"
+(df verbstem
+	(lit pirka)
+	(flags stative)
+	(fork
+		((seme (head good)))
+		((seme (head beautiful)))))
+
+; Mean means "cold"
+(df verbstem
+	(lit mean)
+	(flags nullary)
+	(seme (head cold)))
+
+; "Nukar" means "see"
+(df verbstem
+	(lit nukar)
+	(flags binary perception)
+	(fork
+		((seme (head see)))
+		((seme (head watch)))))
+
+; "Ruy" means "strong"
+(df verbstem
+	(lit ruy)
+	(flags stative)
+	(seme (head strong)))
+
+

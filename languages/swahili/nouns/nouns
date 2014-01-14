@@ -1,0 +1,15 @@
+(df noun
+	(lit m)
+	(flags class-1 singular)
+	(constituent nounstem class-1)
+	(space)
+	(rection (class class-1))
+	(seme (number singular)))
+
+(df noun
+	(lit wa)
+	(flags class-1 plural)
+	(constituent nounstem class-1)
+	(space)
+	(rection (class class-2))
+	(seme (number plural)))

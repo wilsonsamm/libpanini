@@ -1,0 +1,32 @@
+(df verb
+	(flags monovalent)
+	(theta (subject theta))
+	(seme -agent)
+	(constituent personal-prefix monovalent)
+	(constituent verbstem stative))
+	
+(df verb
+	(flags monovalent)
+	(theta (subject agent))
+	(seme (head exist))
+	(constituent personal-prefix monovalent)
+	(constituent verbstem existential))
+
+(df verb
+	(flags monovalent)
+	(theta (subject agent))
+	(seme -patient)
+	(constituent personal-prefix monovalent)
+	(constituent verbstem unary perception) (space))
+
+(df verb
+	(flags bivalent)
+	(theta (subject agent) (object patient))
+	(constituent personal-prefix bivalent)
+	(constituent verbstem binary perception) (space))
+
+(df verb
+	(flags bivalent)
+	(theta (subject agent) (object patient))
+	(constituent personal-prefix bivalent)
+	(constituent verbstem binary assistance) (space))

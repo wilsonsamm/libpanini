@@ -1,0 +1,4 @@
+(df noun
+	(constituent nounstem regular -possessed)
+	(flags unpossessed)
+	(constituent absolutive-suffix))

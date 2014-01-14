@@ -1,0 +1,11 @@
+These programs generate dictionaries and wordfiles from the installed
+tranny languages. All you need to do is run the script, and this will
+generate these dictionaries:
+	- Ainu to English
+	- Swahili to Japanese
+
+and these wordlists (ideal for running through a spellchecker for 
+example):
+	- Ainu
+	- English
+	- Swahili

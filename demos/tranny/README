@@ -1,0 +1,8 @@
+	This is a program that has been written to showcase libtranny, the 
+implementation of Tranny, the natural language parsing concepts. Invoke 
+the program by giving it the name of the source language and target
+language, plus a sentence in the source language, and if possible you
+will be given a translation of the same sentence in the target language.
+
+	Build the program and run the enclosed script for an example of how
+this works.

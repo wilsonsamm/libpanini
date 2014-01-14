@@ -1,0 +1,24 @@
+; "ru" is the ainu word for the english noun "road".
+(df nounstem (lit ru) (seme (head road) ) ) 
+
+; "cise" is the ainu word for the english noun "house".
+(df nounstem (lit cise) (seme (head house) ) ) 
+
+; "kotan" is the ainu word for the english noun "village".
+(df nounstem (lit kotan) (seme (head village) ) ) 
+
+; "kampisos" is the ainu word for the english noun "book".
+(df nounstem (lit kampisos) (seme (head book) ) ) 
+
+; "epis" is the ainu word for the english noun "beach".
+(df nounstem (lit epis) (seme (head beach) ) ) 
+
+; "poru" is the ainu word for the english noun "cave".
+;(df nounstem (lit poru) (seme (head cave) ) ) 
+
+; "mukara" is the ainu word for the english noun "axe".
+(df nounstem (lit mukara) (seme (head axe) ) ) 
+
+; "ani" is the ainu word for the english verb "take".
+(df verbstem (lit ani) (seme (head take) -target) ) 
+

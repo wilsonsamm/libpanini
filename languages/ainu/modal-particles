@@ -1,0 +1,17 @@
+; Modal particles.
+; "Kue" means "I eat".
+; "Kue rusuy" means "I want to eat".
+; "Kue easkay" means "I can eat".
+
+(df modal-particle
+	(lit rusuy)
+	(seme (mood desiderative)))
+
+(df modal-particle
+	(lit easkay)
+	(seme (mood potential)))
+
+(df modal-particle
+	(lit yan)
+	(into (theta subject) rection (person eani))
+	(seme (mood imperative)))

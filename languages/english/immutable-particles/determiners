@@ -1,0 +1,22 @@
+(df determiner
+	(lit the) (space)
+	(seme (definition definite))
+	(rection (definition definite)))
+
+(df determiner
+	(fork
+		((lit a) (space) (sandhi -vowel))
+		((lit an) (space) (sandhi vowel)))
+	(seme (definition indefinite) (number singular))
+	(rection (definition indefinite))
+	(rection countable))
+
+(df determiner
+	(rection countable)
+	(seme (definition indefinite) (number plural))
+	(rection (definition indefinite)))
+	
+(df determiner
+	(rection -countable)
+	(seme (definition indefinite) (number singular))
+	(rection (definition indefinite)))

@@ -1,0 +1,20 @@
+(include args/subject)
+(include args/object)
+(include args/nounphrase)
+(include args/pronouns)
+
+(include nouns/nouns)
+(include nouns/dict)
+(include nouns/absolutive)
+
+(include verb/dict)
+(include verb/personal-prefixes)
+(include verb/verb)
+(include verb/verbphrase)
+
+(df main
+	(constituent verbphrase)
+	(fullstop))
+
+(sandhi-initial (m n p q y) ((segment consonant)))
+(sandhi-initial (a e i o u) ((segment vowel)))

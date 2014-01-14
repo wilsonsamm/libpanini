@@ -1,0 +1,5 @@
+(df dp
+	(constituent determiner)
+	(constituent adjp attributive)
+	(constituent noun)
+	(adjunct prepositional-phrases))

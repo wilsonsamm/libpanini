@@ -1,0 +1,30 @@
+
+(df subject
+	(rection (subject argument))
+	(into (theta subject) constituent dp))
+	
+(df subject
+	(rection (subject argument))
+	(into (theta subject) constituent pronoun subject))
+
+(df object
+	(rection object)
+	(into (theta object) constituent dp))
+
+(df object
+	(rection object)
+	(into (theta object) constituent pronoun object))
+
+; This "subject" is the subject of imperative clauses (which may seem to
+; have no subject but actually do).
+(df subject
+	(confidence 100)
+	(into (theta subject) seme (head referential) (person second))
+	(into (theta subject) rection (person second))
+	(seme (mood imperative)))
+
+(df where?
+	(into location constituent pp))
+
+(df where?
+	(into location constituent locative-particle))

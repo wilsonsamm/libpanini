@@ -1,0 +1,61 @@
+;;;; THE VERBS
+; Modal verbs
+(df vp
+	(flags finite)
+	(constituent verb modal)
+	(constituent vp infinitive))
+
+;; Main verbs
+(df vp
+	(flags finite)
+	(seme (mood realis) -negative)
+	(constituent verb finite)
+	(constituent verbal-argument))
+
+; Make sure that only "you" can occur as subject in imperative sentences
+(df vp
+	(flags finite)
+	(into (theta subject) rection (person you))
+	(seme (mood imperative))
+	(constituent verb finite)
+	(constituent verbal-argument))
+
+(df vp
+	(flags infinitive)
+	(constituent verb infinitive)
+	(constituent verbal-argument))
+
+
+;; To be -- Takes different arguments from other verbs.
+(df vp
+	(flags finite)
+	(seme (mood realis))
+	(constituent copula finite)
+	(adjunct where?)
+	(seme (head exist)))
+
+;; To be -- Takes different arguments from other verbs.
+; to be [adjective].
+(df vp
+	(flags finite)
+	(theta (subject patient))
+	(into patient fuzzy 35 rection (definition definite))
+	(seme (mood realis))
+	(constituent copula finite)
+	(constituent adjp predicative))
+
+;; There is, there are
+(df vp
+	(confidence 100)
+	(flags dummy)
+	(theta (subject agent))
+	(constituent copula)
+	(into agent constituent dp)
+	(adjunct where?)
+	(seme (head exist)))
+
+;;;; THE ARGUMENTS
+(df verbal-argument
+	(adjunct object)
+	(adjunct spatiodeictic-particle)
+	(adjunct to-target))

@@ -1,0 +1,18 @@
+(df verb-ending
+	(flags 97)
+	(lit u)
+	(into (rection subject) rection (person já)))
+(df verb-ending
+	(flags 97)
+	(lit eš)
+	(into (rection subject) rection (person ty)))
+(df verb-ending
+	(flags 97)
+	(lit e)
+	(into (rection subject) rection (person on)))
+
+(df verb
+	(rection -object (aspect perfective) (subject patient))
+	(lit umř) (constituent verb-ending 97)
+	(flags intransitive)
+	(seme (head dead) (aspect inchoative)))

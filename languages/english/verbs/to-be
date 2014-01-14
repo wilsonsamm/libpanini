@@ -1,0 +1,25 @@
+; TO BE: This verb gets a file all to itself, since it's so incredibly 
+; irregular and doesn't really mean anything.
+
+(df copula
+	(flags finite)
+	(lit am) (space)
+	(flags finite)
+	(into (theta subject) rection (person I))
+	(seme (tense present)))
+
+(df copula
+	(flags finite)
+	(lit is) (space)
+	(flags finite)
+	(into (theta subject) rection (person he-she-it))
+	(seme (tense present)))
+
+(df copula
+	(flags finite)
+	(lit are) (space)
+	(flags finite)
+	(fork
+		((into (theta subject) rection (person you)))
+		((into (theta subject) rection (person they))))
+	(seme (tense present)))

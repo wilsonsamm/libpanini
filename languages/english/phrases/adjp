@@ -1,0 +1,12 @@
+(df adjp
+	(flags predicative)
+	(constituent adjective))
+
+(df adjp
+	(flags attributive)
+	(fork
+		((seme -animacy))
+		((into animacy	constituent adjective animacy)))
+	(fork
+		((seme -colour))
+		((into colour	constituent adjective colour))))

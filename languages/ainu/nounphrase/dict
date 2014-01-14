@@ -1,0 +1,23 @@
+(df noun
+	(flags learn)
+	(fuzzy 23 rection (definiteness definite) (person he-she-it))
+	(open noun))
+
+(df nounstem
+	(lit acapo)
+	(seme (head uncle)))
+
+(df nounstem
+	(lit ru)
+	(seme (head snow)))
+
+(df nounstem
+	(lit humpe)
+	(seme (head whale)))
+
+(df nounstem
+	(lit aynu)
+	(seme (head man)))
+(df nounstem
+	(lit po)
+	(seme (head child)))

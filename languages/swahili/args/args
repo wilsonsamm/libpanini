@@ -1,0 +1,14 @@
+(df subject
+	(into (theta subject) constituent argument))
+(df subject
+	(into (theta subject) constituent pronoun))
+
+(df object
+	(rection object)
+	(into (theta object) constituent argument))
+(df object
+	(rection object)
+	(into (theta object) constituent pronoun))
+
+(df argument
+	(constituent noun))

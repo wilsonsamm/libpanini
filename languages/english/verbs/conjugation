@@ -1,0 +1,51 @@
+;; Here are the verb endings. I eat, you eat, he eats.
+(df verb-conjugation
+	(into (theta subjecta) rection (person I)))
+	
+(df verb-conjugation
+	(into (theta subject) rection (person he-she-it))
+	(sandhi -sibilant) (lit s))
+
+(df verb-conjugation
+	(into (theta subject) rection (person he-she-it))
+	(sandhi sibilant) (lit es))
+
+(df verb-conjugation
+	(into (theta subject) rection (person we)))
+
+(df verb-conjugation
+	(into (theta subject) rection (person you)))
+
+(df verb-conjugation
+	(into (theta subject) rection (person they)))
+
+
+;; This part makes sure that there's an object if one is needed.
+(df verb
+	(constituent verbroot arg1:agent arg2:patient)
+	(constituent verb-conjugation)
+	(flags finite)
+	(theta (subject agent) (object patient))
+	(space))
+
+;; 
+(df verb
+	(constituent verbroot intransitive arg1:patient)
+	(constituent verb-conjugation)
+	(flags finite)
+	(theta (subject patient) -object)
+	(space))
+
+;; This is for motive verbs like "bring" or "go".
+(df verb
+	(constituent verbroot motive intransitive)
+	(constituent verb-conjugation)
+	(flags finite)
+	(theta (subject agent)) (seme -patient) (space))
+
+;; Infinitive
+(df verb
+	(constituent verbroot arg1:agent arg2:patient)
+	(flags infinitive)
+	(theta (subject agent) (object patient))
+	(space))

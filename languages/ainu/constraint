@@ -1,0 +1,10 @@
+; Constraints are much the same as adverbs in other languages. They 
+; "constrain" the predication to a temporal, spatial or other range.
+
+(df constraint
+	(lit hoskanuman) (space)
+	(into when seme (head day) (which previous-but-one)))
+
+(df constraint
+	(lit numan) (space)
+	(into when seme (head day) (which previous)))

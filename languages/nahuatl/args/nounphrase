@@ -1,0 +1,16 @@
+(df argument
+	(rection (person yehuatl))
+	(seme (number singular))
+	(constituent nounphrase))
+
+(df argument
+	(rection (person yehuantin))
+	(seme (number plural))
+	(constituent nounphrase))
+
+(df determiner
+	(lit in) (space))
+
+(df nounphrase
+	(constituent determiner)
+	(constituent noun))

@@ -1,0 +1,29 @@
+(df preposition
+	(lit on) (space)
+	(flags target location)
+	(seme (relation surface))
+	(rection enclosed-space (preposition in)))
+
+(df preposition
+	(fork
+		((lit in) (rection (preposition in)))
+		((lit inside) (rection (preposition inside)))) (space)
+	(flags target location)
+	(seme (relation inside))
+	(rection enclosed-space (preposition in)))
+
+(df preposition
+	(lit at) (space)
+	(flags location)
+	(seme (relation side))
+	(rection enclosed-space (preposition at)))
+
+(df preposition
+	(lit to) (space)
+	(flags location)
+	(seme (relation side))
+	(rection enclosed-space (preposition to)))
+
+(df pp
+	(constituent preposition)
+	(constituent dp))

@@ -1,0 +1,23 @@
+(df from-source
+	(lit from) (space)
+	(into source constituent object))
+
+(df to-target
+	(lit to) (space)
+	(into target constituent object))
+
+(df in-location
+	(lit in) (space)
+	(into location rection (location-preposition in))
+	(into location constituent object))
+
+(df to-location
+	(lit to) (space)
+	(into location rection (location-preposition to))
+	(into location constituent pp-substantive))
+
+(df prepositional-phrases
+	(adjunct from-source)
+	(adjunct to-target)
+	(adjunct in-location)
+	(adjunct to-location))

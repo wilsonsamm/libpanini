@@ -1,0 +1,24 @@
+(df noun-ending
+	(flags pl-i)
+	(lit i)
+	(seme (number plural) -plurality))
+
+(df noun-ending
+	(flags pl-r)
+	(lit r)
+	(seme (number plural) -plurality))
+
+(df noun
+	(lit elen)
+	(constituent noun-ending pl-i)
+	(seme (head star)))
+
+(df noun
+	(lit elen)
+	(constituent noun-ending pl-i)
+	(seme (head star)))
+
+(df noun
+	(lit rocco)
+	(constituent noun-ending pl-r)
+	(seme (head horse)))
