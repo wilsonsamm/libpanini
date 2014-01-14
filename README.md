@@ -1,4 +1,0 @@
-libtranny
-=========
-
-The Tranny Project
