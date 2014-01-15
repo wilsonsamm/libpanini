@@ -82,6 +82,8 @@ int main(int argc, char * argv[]) {
 	for(i = 0; i < threshold; i++) {
 		if(monad_map(m, tranny_parse, (void *)0, i)) break;
 	}
+	monad_map(m, kill_not_done, (void*)0, -1);
+	i++;
 	
 	/* Do we want to only use the most likely interpretation? */
 	if(cl_one) monad_map(m, kill_least_confident, (void *)0, -1);

@@ -164,6 +164,28 @@ int monad_popcom(monad * m) {
 	return 0;
 }
 
+void print_debugging_info(monad * m) {
+	printf("\n\nStepping Monad %d. ", m->id);
+	printf("This monad is %s.\n", m->alive ? "alive":"dead");
+	if(m->stack) {
+		printf("Stack:");
+		list_prettyprinter(m->stack);
+	} else {
+		printf("This monad has no stack.");
+	}
+	printf("\nNamespace: ");
+	if(m->namespace) list_prettyprinter(m->namespace);
+	printf("\nHowtobind flags: ");
+	if(m->howtobind & STRICT) printf("STRICT ");
+	if(m->howtobind & WRITE) printf("WRITE ");
+	if(m->howtobind & CREATE) printf("CREATE ");
+	if(m->howtobind & BLOCK) printf("BLOCK ");
+	printf("\n");
+	printf("Outtext: %s\n", m->outtext);
+	printf("Scopestack:");
+	if(m->scopestack) list_prettyprinter(m->scopestack);
+	printf("\nParent: %d\n", m->parent_id);
+}
 
 /* This function calls the chosen function on the monads that:
  *  - are still alive. 
@@ -181,24 +203,8 @@ int monad_map(monad * m, int(*fn)(monad * m, void * argp), void * arg, int thr) 
 	/* Run! */
 	while(m) {
 		if(m->trace == m->id) m->debug = 1;
-		if(m->debug && m->stack) {
-			printf("\n\nStepping Monad %d. ", m->id);
-			printf("This monad is %s.\n", m->alive ? "alive":"dead");
-			printf("Stack:");
-			list_prettyprinter(m->stack);
-			printf("\nNamespace: ");
-			if(m->namespace) list_prettyprinter(m->namespace);
-			printf("\nHowtobind flags: ");
-			if(m->howtobind & STRICT) printf("STRICT ");
-			if(m->howtobind & WRITE) printf("WRITE ");
-			if(m->howtobind & CREATE) printf("CREATE ");
-			if(m->howtobind & BLOCK) printf("BLOCK ");
-			printf("\n");
-			printf("Outtext: %s\n", m->outtext);
-			printf("Scopestack:");
-			if(m->scopestack) list_prettyprinter(m->scopestack);
-			printf("\nParent: %d\n", m->parent_id);
-		}
+		if(m->debug) print_debugging_info(m);
+
 		if(!m->alive) {
 			m = m->child;
 			continue;
@@ -213,6 +219,18 @@ int monad_map(monad * m, int(*fn)(monad * m, void * argp), void * arg, int thr) 
 		if(!fn(m, arg))	{
 			if(m->alive) retval = 1;
 			m = m->child;
+			continue;
+		}
+		
+		if(m->child) {
+			while(!m->child->alive) {
+				if(m->child->stack) list_free(m->child->stack);
+				if(m->child->namespace) list_free(m->child->namespace);
+				if(m->child->outtext) free(m->child->outtext);
+				monad * tmp = m->child->child;
+				free(m->child);
+				m->child = tmp;
+			}
 		}
 		
 	}
@@ -283,5 +301,18 @@ int kill_identical_outtexts(monad * m, void * nothing) {
 	if(!m->outtext) return 0;
 	
 	monad_map(m->child, kio, m->outtext, -1);
+	return 0;
+}
+int kill_braked_monads(monad * m, int * thr) {
+	
+	if(!m->brake > *thr) m->alive = 0;
+	
+	return 0;
+}
+int kill_not_done(monad * m, int * thr) {
+	if(!m->stack) return 0;
+	
+	if(m->stack->length) m->alive = 0;
+	
 	return 0;
 }
