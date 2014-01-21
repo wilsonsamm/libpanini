@@ -221,13 +221,46 @@ void ainu_english() {
 	helpfulinfo("Ainu - English");
 }	
 
+void nahuatl_english() {
+	from = "nahuatl";
+	From = "Nahuatl";
+	to = "english";
+	To = "English";
+	
+	open_output("nahuatl-english.txt");
+
+	/* Nahuatl nouns correspond to English ones. */
+	lemma = "(seme (number singular)) (constituent noun)";
+	translations = "(constituent noun)";
+	label = "(n.)";
+	entries();
+
+	/* Nahuatl verbstems correspond to English verbstems. */
+	lemma = "(constituent verbstem)";
+	translations = "(constituent verbroot)";
+	label = "(v.)";
+	entries();
+	
+	/* Nahuatl stative verbs may correspond to English adjectives. */
+	lemma = "(constituent verbstem stative)";
+	translations = "(constituent adjective)";
+	label = "(v. st.)";
+	entries();
+	helpfulinfo("Nahuatl - English");
+}
+
 int main(int argc, char * argv[]) {
 	hwcount = 0;
 	trcount = 0;
 	
 	if(!strcmp(argv[1], "swahili-english")) swahili_english();
-	if(!strcmp(argv[1], "ainu-english")) ainu_english();
-	if(!strcmp(argv[1], "english-ainu")) english_ainu();
+	else if(!strcmp(argv[1], "ainu-english")) ainu_english();
+	else if(!strcmp(argv[1], "english-ainu")) english_ainu();
+	else if(!strcmp(argv[1], "nahuatl-english")) nahuatl_english();
+	else {
+		printf("I was called with the argument \"%s\", which I don't know.\n", argv[1]);
+		exit(1);
+	}
 	
 	unlink("headwords");
 	unlink("temp");

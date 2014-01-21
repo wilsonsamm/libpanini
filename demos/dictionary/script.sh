@@ -2,7 +2,7 @@
 
 make
 
-for i in ainu-english english-ainu swahili-english; do
+for i in ainu-english english-ainu swahili-english nahuatl-english; do
 	echo
 	rm -rf $i
 	./dictionary $i

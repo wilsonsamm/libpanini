@@ -81,7 +81,11 @@
 	(lit village)
 	(rection enclosed-space countable)
 	(seme (head village)))
-
+	
+(df nounstem
+	(lit worm)
+	(rection countable)
+	(seme (head worm)))
 ;;; Irregular nouns go down here. And they are defined as "noun", not
 ;;; "nounstem". That way, we won't end up with wrong things like
 ;;; "childs" or "oxes".

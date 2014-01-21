@@ -12,8 +12,8 @@ wordlist.o: wordlist.c
 	gcc -g -c -Wall wordlist.c
 
 clean:
-	rm -rf dictionary dictionary.o wordlist.o wordlist
-	
+	rm -rf dictionary dictionary.o wordlist.o wordlist *.txt
+
 install:
 	cp tranny /usr/bin/
 

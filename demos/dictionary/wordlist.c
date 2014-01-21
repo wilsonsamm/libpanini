@@ -15,9 +15,6 @@ int main(int argc, char * argv[]) {
 	monad * m = monad_new();
 	monad_rules(m, argv[1]);
 	
-	int t = 6;
-	monad_map(m, set_trace, &t, 0);
-	
 	/* Generate words */
 	monad_map(m, set_stack, "(constituent Word)", 0);
 	monad_map(m, tranny_gowild, (void *)0, 0);

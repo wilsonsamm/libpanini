@@ -16,6 +16,7 @@ int cl_trim = 0;
 int main(int argc, char * argv[]) {
 
 	int threshold = 20;
+	int retval;
 	
 	/* create a new monad. */
 	monad * m = monad_new();
@@ -78,9 +79,19 @@ int main(int argc, char * argv[]) {
 	
 	/* Parse! */
 	monad_map(m, set_stack, "(constituent main)", -1);
-
 	for(i = 0; i < threshold; i++) {
-		if(monad_map(m, tranny_parse, (void *)0, i)) break;
+		retval = monad_map(m, tranny_parse, (void *)0, i);
+		if(retval) break;
+	}
+	
+	/* If the parse wasn't successful, then exit. */
+	if(!retval) {
+		if(cl_verbose) {
+			printf("Could not parse the input; maybe you put gibberish in.\n");
+			printf("You can also try a higher threshold with the commandline option \"t [number]\".\n");
+		}
+		monad_free(m);
+		exit(1);
 	}
 	monad_map(m, kill_not_done, (void*)0, -1);
 	i++;
@@ -107,7 +118,12 @@ int main(int argc, char * argv[]) {
 		monad_map(m, set_stack, "(constituent main)", -1);
 		
 		for(; i <= threshold; i++) {
-			if(monad_map(m, tranny_generate, (void *)0, i)) break;
+			retval = monad_map(m, tranny_generate, (void *)0, i);
+			if(retval) break;
+		}
+		if((!retval) && cl_verbose) {
+			printf("I understood the input but I don't know of a way to say it in %s.\n", argv[2]);
+			printf("Try another language maybe?\n");
 		}
 		
 		monad_map(m, kill_identical_outtexts, (void *)0, -1);

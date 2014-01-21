@@ -1,20 +1,19 @@
-(include args/subject)
-(include args/object)
-(include args/nounphrase)
-(include args/pronouns)
+(include pers/number)
+(include pers/pers)
+(include pers/personal-affices)
+(include pers/case-marker)
 
-(include nouns/nouns)
-(include nouns/dict)
-(include nouns/absolutive)
+(include tense/tense-markers)
+
+(include valence/valence)
 
 (include verb/dict)
-(include verb/personal-prefixes)
-(include verb/verb)
-(include verb/verbphrase)
+
+(include vnc/intransitive-vnc)
+(include vnc/transitive-vnc)
+
 
 (df main
-	(constituent verbphrase)
+	(constituent nuclear-clause)
 	(fullstop))
 
-(sandhi-initial (m n p q y) ((segment consonant)))
-(sandhi-initial (a e i o u) ((segment vowel)))

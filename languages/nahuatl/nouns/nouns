@@ -2,3 +2,9 @@
 	(constituent nounstem regular -possessed)
 	(flags unpossessed)
 	(constituent absolutive-suffix))
+
+(df noun
+	(rection -abs)
+	(constituent nounstem regular -possessed)
+	(flags unpossessed)
+	(constituent absolutive-suffix))

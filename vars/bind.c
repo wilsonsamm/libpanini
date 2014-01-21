@@ -152,7 +152,7 @@ void speculate(monad * m, char * namespace, char * varname) {
 			if(list_contains(values, value)) continue;
 			
 			list_append_token(values, value);
-			list * r =list_append_list(list_append_list(rections));
+			list * r = list_append_list(list_append_list(rections));
 			list_append_token(r, namespace);
 			list_append_copy(list_append_list(r), gotcha);
 			
@@ -162,6 +162,7 @@ void speculate(monad * m, char * namespace, char * varname) {
 	/* Now let's spawn all the monads to bind them. */
 	monad_spawn(m, rections, 0);
 	list_free(rections);
+	list_free(values);
 }
 
 char * evaluate(monad * m, list * e) {

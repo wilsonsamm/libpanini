@@ -27,6 +27,7 @@ monad * monad_new() {
 	m->howtobind = 0;
 	m->intext = 0;
 	m->outtext = 0;
+	m->parent_id = 0;
 
 	return m;
 }
@@ -181,6 +182,7 @@ void print_debugging_info(monad * m) {
 	if(m->howtobind & CREATE) printf("CREATE ");
 	if(m->howtobind & BLOCK) printf("BLOCK ");
 	printf("\n");
+	printf("Intext: (%d) %s\n", m->index, m->intext);
 	printf("Outtext: %s\n", m->outtext);
 	printf("Scopestack:");
 	if(m->scopestack) list_prettyprinter(m->scopestack);
@@ -192,7 +194,7 @@ void print_debugging_info(monad * m) {
  *  - the BRAKE register must not be higher than the given threshold 
  * And returns:
  *  0 if none if the monads are still alive after calling the function 
- *  1 if there are alive functions.
+ *  1 if there are live monads left.
  *
  * If the function returns a non-zero value, then it will be called on the monad again.
  */
@@ -205,34 +207,63 @@ int monad_map(monad * m, int(*fn)(monad * m, void * argp), void * arg, int thr) 
 		if(m->trace == m->id) m->debug = 1;
 		if(m->debug) print_debugging_info(m);
 
+		/* Removing the dead monads is the first thing to do. It saves time later. */
+		if(m->child) {
+			if(!m->alive) {
+				if(m->command) list_free(m->command);
+				m->command = m->child->command;
+				
+				if(m->stack) list_free(m->stack);
+				m->stack = m->child->stack;
+				
+				if(m->namespace) list_free(m->namespace);
+				m->namespace = m->child->namespace;
+				
+				if(m->scopestack) list_free(m->scopestack);
+				m->scopestack = m->child->scopestack;
+				
+				if(m->outtext) free(m->outtext);
+				m->outtext = m->child->outtext;
+				
+				m->intext = m->child->intext;
+				m->brake = m->child->brake;
+				m->howtobind = m->child->howtobind;
+				m->alive = m->child->alive;
+				m->debug = m->child->debug;
+				m->trace = m->child->trace;
+				m->confidence = m->child->confidence;
+				m->capital = m->child->capital;
+				m->parent_id = m->child->parent_id;
+				m->id = m->child->id;
+				m->index = m->child->index;
+				
+				monad * tmp = m->child->child;
+				free(m->child);
+				m->child = tmp;
+				
+				continue;
+			}
+		}
+		
+		/* Make sure the monad we are about to process really is alive. */
 		if(!m->alive) {
 			m = m->child;
 			continue;
 		}
 		
+		/* And its BRAKE register must be below the threshold (if there is a threshold at all */
 		if(thr != -1 && m->brake > thr) {
 			if(m->debug && m->stack) fprintf(stderr, "This monad has been skipped since it's BRAKE register is too high.\n");
 			m = m->child;
 			continue;
 		}
 		
+		/* Call the function then! */
 		if(!fn(m, arg))	{
 			if(m->alive) retval = 1;
 			m = m->child;
 			continue;
 		}
-		
-		if(m->child) {
-			while(!m->child->alive) {
-				if(m->child->stack) list_free(m->child->stack);
-				if(m->child->namespace) list_free(m->child->namespace);
-				if(m->child->outtext) free(m->child->outtext);
-				monad * tmp = m->child->child;
-				free(m->child);
-				m->child = tmp;
-			}
-		}
-		
 	}
 	return retval;
 }
