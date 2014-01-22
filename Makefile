@@ -111,9 +111,14 @@ clean: lang-clean
 	rm -f demos/dictionary/*.txt demos/dictionary/*.o demos/dictionary/*.gch demos/dictionary/wordlist demos/dictionary/dictionary
 	rm -f demos/tranny/*.o demos/tranny/*.gch demos/tranny/tranny
 	
-	
-	
-	
+# Git commands might be useful to have in a Makefile.
+pull:
+	git push
+
+commit:
+	git commit -a
+push: commit
+	git push
 
 # I keep making this typo.
 celan: clean
