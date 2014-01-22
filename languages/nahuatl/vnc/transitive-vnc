@@ -1,0 +1,8 @@
+(df nuclear-clause (constituent vnc transitive))
+
+(df vnc
+	(flags transitive)
+	(constituent pers subject)
+	(constituent valence)
+	(constituent verbstem transitive)
+	(constituent number subject))

@@ -1,0 +1,4 @@
+; The valence position in transitive nuclear clauses encoding the object pronoun.
+(df valence
+	(constituent pers object)
+	(into (theta object) constituent case-marker object))

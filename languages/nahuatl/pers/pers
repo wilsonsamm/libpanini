@@ -1,0 +1,18 @@
+;; This rule says "If the sentence is NOT in the optative mode, then the subject has the ordinary pronominal affices" (like ti- for
+; second person singular and an- for second person plural)".
+(df pers
+	(flags subject)
+	(rection -optative)
+	(into (theta subject) constituent personal-affix realis))
+
+;; This rule says "If the sentence is in the optative mode, then the subject has slightly different pronominal affices" (like xi- 
+; for second person singular and plural).
+(df pers
+	(flags subject)
+	(rection optative)
+	(into (theta subject) constituent personal-affix optative))
+
+;; This rule says "the object pronoun goes here".
+(df pers
+	(flags object)
+	(into (theta object) constituent personal-affix realis))

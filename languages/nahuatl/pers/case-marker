@@ -1,0 +1,11 @@
+(df case-marker
+	(sandhi -full-personal-affix)
+	(lit itz)
+	(rection (person second) (number singular) pronominal)
+	(flags object))
+
+(df case-marker
+	(sandhi -full-personal-affix)
+	(lit ech)
+	(rection (person first) (number singular) pronominal)
+	(flags object))

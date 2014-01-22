@@ -1,0 +1,8 @@
+(df number
+	(flags subject)
+	(into (theta subject) seme (number singular))
+	(into (theta subject) rection countable))
+
+(df number
+	(flags subject)
+	(into (theta subject) rection -countable))

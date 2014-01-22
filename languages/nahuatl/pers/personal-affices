@@ -1,0 +1,35 @@
+;; First person singular
+(df personal-affix
+	(sandhi full-personal-affix)
+	(fork
+		((lit ni)	(sandhi full-personal-affix))
+		((lit n)	(sandhi -full-personal-affix)))
+	(flags realis optative)
+	(rection pronominal (person first))
+	(seme (head referential) (person first) (number singular)))
+
+;; Second person singular
+(df personal-affix
+	(sandhi full-personal-affix)
+	(fork
+		((lit ti)	(sandhi full-personal-affix))
+		((lit t)	(sandhi -full-personal-affix)))
+	(flags realis)
+	(rection pronominal (person second))
+	(seme (head referential) (person second) (number singular)))
+
+(df personal-affix
+	(sandhi full-personal-affix)
+	(fork
+		((lit xi)	(sandhi full-personal-affix))
+		((lit x)	(sandhi -full-personal-affix)))
+	(sandhi full-personal-affix)
+	(flags optative)
+	(seme (head referential) (person second)))
+
+;; Third person
+(df personal-affix
+	(rection referential)
+	(sandhi full-personal-affix)
+	(flags realis optative)
+	(seme (head referential) (person third) (number singular)))
