@@ -115,7 +115,7 @@ clean: lang-clean
 pull:
 	git push
 
-commit:
+commit: clean
 	git commit -a
 push: commit
 	git push

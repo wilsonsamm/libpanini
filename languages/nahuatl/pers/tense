@@ -1,0 +1,52 @@
+; Indicative
+(df tense
+	(rection (mood indicative) (tense present))
+	(seme (tense present) (mood indicative)))
+
+(df tense
+	(lit ni)
+	(rection (mood indicative) (tense customary-present))
+	(seme (tense present) (aspect habitual) (mood indicative)))
+
+(df tense
+	(lit ya)
+	(rection (mood indicative) (tense imperfect))
+	(seme (tense past) (mood indicative) (aspect imperfective)))
+
+(df tense
+	(lit z)
+	(rection (mood indicative) (tense future))
+	(seme (tense future) (mood indicative)))
+
+(df tense
+	(rection (mood indicative) (tense preterit))
+	(seme (tense past) (mood indicative) (aspect perfective)))
+
+(df tense
+	(lit ca)
+	(rection (mood indicative) (tense distant-past))
+	(seme (tense past) (mood indicative) (past distant)))
+
+; Optative
+;(df tense
+;	(rection (mood optative) (tense present)))
+
+;(df tense
+;	(lit ni)
+;	(rection (mood optative) (tense customary-present)))
+;
+;(df tense
+;	(lit ni)
+;	(rection (mood optative) (tense imperfect)))
+;
+;(df tense
+;	(rection (mood optative) (tense future)))
+;
+;(df tense
+;	(lit ni)
+;	(rection (mood optative) (tense preterit)))
+;
+;(df tense
+;	(lit ni)
+;	(rection (mood optative) (tense distant-past)))
+;

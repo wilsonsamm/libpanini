@@ -1,0 +1,17 @@
+; The valence position in transitive nuclear clauses encoding the object pronoun.
+(df valence
+	(constituent pers object)
+	(into (theta object) constituent case-marker object))
+
+; The indefinite pronouns in the valence position of transitive nuclear clauses.
+(df valence
+	(into (theta object) seme (head referential) (person indefinite) human animate)
+	(sandhi full-personal-affix)
+	(lit te))
+
+(df valence
+	(into (theta object) seme (head referential) (person indefinite) -human)
+	(sandhi full-personal-affix)
+	(lit tla))
+
+; Reflexive pronouns are not implemented. See Introduction to Classical Nahuatl (Andrews) near to the end of chapter 6. 
