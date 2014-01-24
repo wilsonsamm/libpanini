@@ -5,4 +5,5 @@
 	(constituent pers subject)
 	(constituent valence)
 	(constituent verbstem transitive)
-	(constituent number subject))
+	(constituent tense)
+	(constituent number))

@@ -1,8 +1,63 @@
-(df number
-	(flags subject)
-	(into (theta subject) seme (number singular))
-	(into (theta subject) rection countable))
+(df num1
+	(lit qu)
+	(sandhi front)
+	(rection (num1 k)))
 
+(df num1
+	(lit c)
+	(sandhi -front)
+	(rection (num1 k)))
+
+(df num1
+	(rection (num1 nil)))
+
+(df num2
+	(into (theta subject) rection (number singular)))
+
+(df num2
+	(sandhi front)
+	(rection (num1 k))
+	(lit eh)
+	(seme (tense present) (mood indicative))
+	(into (theta subject) rection (number plural)))
+
+(df num2
+	(sandhi front)
+	(rection (num1 k))
+	(lit eh)
+	(seme (tense future) (mood indicative))
+	(into (theta subject) rection (number plural)))
+	
+(df num2
+	(lit h)
+	(rection (tense present))
+	(into (theta subject) rection (number plural)))
+	
+(df num2
+	(lit h)
+	(rection (tense customary-present))
+	(into (theta subject) rection (number plural)))
+	
+(df num2
+	(lit h)
+	(rection (tense imperfect))
+	(into (theta subject) rection (number plural)))
+	
+(df num2
+	(lit h)
+	(rection (tense distant-past))
+	(into (theta subject) rection (number plural)))
+	
+(df num2
+	(lit h)
+	(rection (tense past) (mood indicative))
+	(into (theta subject) rection (number plural)))
+	
+(df num2
+	(lit h)
+	(rection (tense past) (mood admonitive))
+	(into (theta subject) rection (number plural)))
+	
 (df number
-	(flags subject)
-	(into (theta subject) rection -countable))
+	(constituent num1)
+	(constituent num2))

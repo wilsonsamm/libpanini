@@ -9,3 +9,15 @@
 	(lit ech)
 	(rection (person first) (number singular) pronominal)
 	(flags object))
+
+(df case-marker
+	(rection (person third) (number singular) pronominal)
+	(flags object))
+	
+(df case-marker
+	(flags object)
+	(rection (person third) (number plural) pronominal)
+	(sandhi full-personal-affix)
+	(fork
+		((lit m) (sandhi -alveolar))
+		((lit n) (sandhi alveolar))))

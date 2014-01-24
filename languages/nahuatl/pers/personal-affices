@@ -4,8 +4,8 @@
 	(fork
 		((lit ni)	(sandhi full-personal-affix))
 		((lit n)	(sandhi -full-personal-affix)))
-	(flags realis optative)
-	(rection pronominal (person first))
+	(flags realis optative object)
+	(rection pronominal (person first) (number singular))
 	(seme (head referential) (person first) (number singular)))
 
 ;; Second person singular
@@ -15,9 +15,18 @@
 		((lit ti)	(sandhi full-personal-affix))
 		((lit t)	(sandhi -full-personal-affix)))
 	(flags realis)
-	(rection pronominal (person second))
+	(rection pronominal (person second) (number singular))
 	(seme (head referential) (person second) (number singular)))
 
+(df personal-affix
+	(sandhi full-personal-affix)
+	(fork
+		((lit mi)	(sandhi full-personal-affix))
+		((lit m)	(sandhi -full-personal-affix)))
+	(flags object)
+	(rection pronominal (person second) (number singular))
+	(seme (head referential) (person second) (number singular)))
+	
 (df personal-affix
 	(sandhi full-personal-affix)
 	(fork
@@ -25,6 +34,7 @@
 		((lit x)	(sandhi -full-personal-affix)))
 	(sandhi full-personal-affix)
 	(flags optative)
+	(rection pronominal (person second) (number singular))
 	(seme (head referential) (person second)))
 
 ;; Third person
@@ -33,3 +43,15 @@
 	(sandhi full-personal-affix)
 	(flags realis optative)
 	(seme (head referential) (person third) (number singular)))
+
+(df personal-affix
+	(sandhi full-personal-affix)
+	(fork
+		((lit c) (sandhi -full-personal-affix onset -front))
+		((lit qu) (sandhi -full-personal-affix onset front))
+		((sandhi onset)(lit qui) (sandhi full-personal-affix onset front)))
+	(flags object)
+	(rection pronominal (person third))
+	(fork
+		((seme (head referential) (person third) (number singular)) (rection (number singular)))
+		((seme (head referential) (person third) (number plural)) (rection (number plural)))))

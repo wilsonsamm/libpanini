@@ -1,17 +1,14 @@
+(include dicts/verb)
+
+(include pers/case-marker)
 (include pers/number)
 (include pers/pers)
 (include pers/personal-affices)
-(include pers/case-marker)
-
-(include tense/tense-markers)
-
-(include valence/valence)
-
-(include verb/dict)
+(include pers/tense)
+(include pers/valence)
 
 (include vnc/intransitive-vnc)
 (include vnc/transitive-vnc)
-
 
 (df main
 	(constituent nuclear-clause)
