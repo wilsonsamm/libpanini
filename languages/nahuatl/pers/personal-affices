@@ -55,3 +55,13 @@
 	(fork
 		((seme (head referential) (person third) (number singular)) (rection (number singular)))
 		((seme (head referential) (person third) (number plural)) (rection (number plural)))))
+
+;; First person singular
+(df personal-affix
+	(sandhi full-personal-affix)
+	(fork
+		((lit ti)	(sandhi full-personal-affix))
+		((lit t)	(sandhi -full-personal-affix)))
+	(flags realis optative)
+	(rection pronominal (person first) (number plural))
+	(seme (head referential) (person first) (number plural)))

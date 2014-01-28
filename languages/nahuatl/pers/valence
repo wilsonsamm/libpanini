@@ -14,4 +14,4 @@
 	(sandhi full-personal-affix)
 	(lit tla))
 
-; Reflexive pronouns are not implemented. See Introduction to Classical Nahuatl (Andrews) near to the end of chapter 6. 
+; Reflexive pronouns are not implemented (yet). See Introduction to Classical Nahuatl (Andrews) near to the end of chapter 6. 

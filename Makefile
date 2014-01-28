@@ -115,9 +115,8 @@ clean: lang-clean
 pull:
 	git push
 
-commit: clean
+push: clean
 	git commit -a
-push: commit
 	git push
 
 # I keep making this typo.

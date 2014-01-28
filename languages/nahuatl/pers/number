@@ -1,11 +1,11 @@
 (df num1
 	(lit qu)
-	(sandhi front)
+	(sandhi front -saltillo -#)
 	(rection (num1 k)))
 
 (df num1
 	(lit c)
-	(sandhi -front)
+	(sandhi -saltillo -front)
 	(rection (num1 k)))
 
 (df num1
@@ -29,31 +29,37 @@
 	(into (theta subject) rection (number plural)))
 	
 (df num2
+	(sandhi -front saltillo)
 	(lit h)
 	(rection (tense present))
 	(into (theta subject) rection (number plural)))
 	
 (df num2
+	(sandhi -front saltillo)
 	(lit h)
 	(rection (tense customary-present))
 	(into (theta subject) rection (number plural)))
 	
 (df num2
+	(sandhi -front saltillo)
 	(lit h)
 	(rection (tense imperfect))
 	(into (theta subject) rection (number plural)))
 	
 (df num2
+	(sandhi -front saltillo)
 	(lit h)
 	(rection (tense distant-past))
 	(into (theta subject) rection (number plural)))
 	
 (df num2
+	(sandhi -front saltillo)
 	(lit h)
 	(rection (tense past) (mood indicative))
 	(into (theta subject) rection (number plural)))
 	
 (df num2
+	(sandhi -front saltillo)
 	(lit h)
 	(rection (tense past) (mood admonitive))
 	(into (theta subject) rection (number plural)))
