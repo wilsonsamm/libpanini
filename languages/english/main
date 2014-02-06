@@ -25,6 +25,8 @@
 
 (include prepositions/phrases)
 
+(include learn)
+
 ; Evaluation starts with "main".
 (df main
 	(rection (complementiser none))

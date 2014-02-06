@@ -72,8 +72,9 @@ void monad_parse_lit(monad * m) {
 }
 
 void monad_parse_space(monad * m) {
-//	if(m->namespace) list_remove(m->namespace, "sandhi");
+
 	if(m->index == 0) return;
+	if(m->intext[m->index-1] == ' ') return;
 	
 	if(m->debug) 
 		printf("INDEX: %d \t INTEXT_LENGTH: %d\n", m->index, strlen(m->intext));
@@ -247,6 +248,31 @@ void monad_parse_block(monad * m) {
 	return;
 }
 
+void monad_parse_attest(monad * m, char * langname) {
+	if(!langname) return;
+	
+	/* Open the attest file */
+	char * fn = malloc(strlen(langname) + strlen("/usr/tranny/attest/") + 1);
+	strcpy(fn, "/usr/tranny/attest/");
+	strcpy(fn + strlen(fn), langname);
+	FILE * at_file = fopen(fn, "a+");
+	if(!at_file) {
+		fprintf(stderr, "Could not open %s for writing.\n", fn);;
+		free(fn);
+		return;
+	}
+	
+	free(fn);
+	
+	/* Construct the rule that will be written to the attest file */
+	list * attest = list_new();
+	list_append_token(attest, "df");
+	list_drop(m->command, 1);
+	list_append_copy(attest, m->command);
+	list_fprettyprinter(at_file, attest);
+	return;
+}
+
 void monad_parse_open(monad * m) {
 	/* how long is the instring? */
 	char word[1024];
@@ -265,30 +291,9 @@ void monad_parse_open(monad * m) {
 	}
 	word[i] = '\0'; /* null-termination */
 	if(m->debug) printf("(open) found the word \"%s\".\n",word);
-	/* Skip whitespace */
-	//while(m->intext[m->index] == ' ') m->index++;
-	/* */
-	
-	/* Set up the variables to bind */
-	list_drop(m->command, 1);
-	list_drop(m->command, 1);
-	list_append_token(m->command, "seme");
-	list * rel = list_append_list(m->command);
-	list * open = list_append_list(m->command);
-	list_append_token(rel, "head");
-	list_append_token(rel, "open");
-	list_append_token(open,"open");
-	list_append_token(open,word);
-	
-	if(m->debug) {
-		printf("The next thing is to execute: ");
-		list_prettyprinter(m->command);
-	}
-	m->howtobind |= CREATE | WRITE;
-	bind_vars(m);
 }	
 	
-int tranny_parse(monad * m) {
+int tranny_parse(monad * m, void * nothing) {
 	if(!m->alive) return 0;
 	
 	monad_popcom(m);
@@ -456,6 +461,12 @@ int tranny_parse(monad * m) {
 	}
 	if(!strcmp(command, "open")) {
 		monad_parse_open(m);
+		list_free(m->command);
+		m->command = 0;
+		return 1;
+	}
+	if(!strcmp(command, "attest")) {
+		monad_parse_brake(m);
 		list_free(m->command);
 		m->command = 0;
 		return 1;

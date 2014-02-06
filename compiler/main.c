@@ -1,4 +1,7 @@
 #define LANGPATH "./languages/"
+#define LEARNEDPATH "/usr/tranny/learned/"
+#define ATTESTEDPATH "/usr/tranny/attested/"
+
 #include "../list/list.h"
 #include "compiler.h"
 
@@ -81,6 +84,58 @@ void printout(list * output) {
 	return;
 }
 
+int load_learned_file(list * input, char * langname) {
+	/* Construct the filename we want */
+	char * filename = malloc(strlen(LEARNEDPATH) + strlen(langname) + 1);
+
+	strcpy(filename, LEARNEDPATH);
+	strcpy(filename + strlen(filename), langname);
+
+	FILE * fp = fopen(filename, "r");
+	if(!fp) {
+		free(filename);
+		return 0;
+	}
+	
+	int retval = paren_tester(fp);
+	if(retval) {
+		fprintf(stderr, "\tParenthesis mismatch %d in %s.\n", retval, filename);
+		return 1;
+	}
+	
+	list_tokenise_file(input, fp);
+	fclose(fp);
+
+	free(filename);
+	return 0;
+	
+}
+int load_attested_file(list * input, char * langname) {
+	/* Construct the filename we want */
+	char * filename = malloc(strlen(ATTESTEDPATH) + strlen(langname) + 1);
+
+	strcpy(filename, ATTESTEDPATH);
+	strcpy(filename + strlen(filename), langname);
+
+	FILE * fp = fopen(filename, "r");
+	if(!fp) {
+		free(filename);
+		return 0;
+	}
+	
+	int retval = paren_tester(fp);
+	if(retval) {
+		fprintf(stderr, "\tParenthesis mismatch %d in %s.\n", retval, filename);
+		return 1;
+	}
+	
+	list_tokenise_file(input, fp);
+	fclose(fp);
+
+	free(filename);
+	return 0;
+	
+}
 int main(int argv, char * argc[]) {
 	list * input = list_new();
 	list * output = list_new();
@@ -89,6 +144,8 @@ int main(int argv, char * argc[]) {
 	
 	/* Neat trick to get the thing to load the file called main. */
 	list_tokenise_chars(input, "(include main)");
+	load_learned_file(input, argc[1]);
+	load_attested_file(input, argc[1]);
 
 	/* First run all the (include) commands. They take a filename as the first
 	 * argument, and loads that file, and appends it to the end of the input.

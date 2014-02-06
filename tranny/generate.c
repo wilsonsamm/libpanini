@@ -129,7 +129,7 @@ void monad_generate_open(monad * m) {
 	return;
 }
 
-int tranny_generate(monad * m) {
+int tranny_generate(monad * m, void * nothing) {
 	if(!m->alive) return 0;
 	
 	/* Pop the next command */
@@ -300,6 +300,12 @@ int tranny_generate(monad * m) {
 	}
 	if(!strcmp(command, "nop")) {
 		monad_parse_nop(m);
+		list_free(m->command);
+		m->command = 0;
+		return 1;
+	}
+	if(!strcmp(command, "attest")) {
+		monad_parse_brake(m);
 		list_free(m->command);
 		m->command = 0;
 		return 1;

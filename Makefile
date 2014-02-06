@@ -7,8 +7,8 @@ learner: learner.c libtranny.a
 vlad: validate.o list.o list-tokenise.o monad.o parse.o generate.o gowild.o learn.o bind.o spawn.o variables.o
 	gcc -o vlad validate.o list.o list-tokenise.o monad.o parse.o generate.o gowild.o bind.o learn.o spawn.o variables.o
 
-libtranny.a: list.o list-tokenise.o generate.o gowild.o parse.o spawn.o learn.o monad.o bind.o variables.o 
-	ar rcs libtranny.a list.o list-tokenise.o generate.o gowild.o parse.o spawn.o learn.o monad.o bind.o variables.o
+libtranny.a: list.o list-tokenise.o generate.o gowild.o parse.o spawn.o learn.o attest.o monad.o bind.o variables.o 
+	ar rcs libtranny.a list.o list-tokenise.o generate.o gowild.o parse.o spawn.o learn.o attest.o monad.o bind.o variables.o
 
 validate.o: validate.c
 	gcc -ggdb -c -Wall validate.c
@@ -34,6 +34,9 @@ parse.o: monad/monad.h monad/monad.c tranny/parse.c
 generate.o: monad/monad.h monad/monad.c tranny/generate.c
 	gcc -ggdb -c -Wall tranny/generate.c
 
+attest.o: monad/monad.h monad/monad.c tranny/attest.c
+	gcc -ggdb -c -Wall tranny/attest.c
+	
 gowild.o: monad/monad.h monad/monad.c tranny/gowild.c
 	gcc -ggdb -c -Wall tranny/gowild.c
 
@@ -89,14 +92,11 @@ swahili: compiler
 ainu: compiler
 	@echo Compiling Ainu.
 	@./tc ainu > ainu
-
-learn-ainu: learn 
-	@./learner ainu
-	@cat learn.out | uniq >> languages/ainu/learned 
-	@rm -rf learn.out
 	
 install: 
 	mkdir -p /usr/tranny/languages
+	mkdir -p /usr/tranny/learned
+	mkdir -p /usr/tranny/attested
 	mv nahuatl swahili ainu czech english quenya /usr/tranny/languages
 	cp libtranny.a /usr/lib/
 	cp tranny.h /usr/include
@@ -108,12 +108,12 @@ uninstall:
 clean: lang-clean
 	rm -f *.o *.gch *.a vlad core tc learn a.out 
 	rm -f monad/*.o monad/*.gch tranny/*.o tranny/*.gch list/*.o list/*.gch vars/*.o vars/*.gch
-	rm -f demos/dictionary/*.txt demos/dictionary/*.o demos/dictionary/*.gch demos/dictionary/wordlist demos/dictionary/dictionary
-	rm -f demos/tranny/*.o demos/tranny/*.gch demos/tranny/tranny
+	make -C demos/dictionary clean
+	make -C demos/tranny clean
 	
 # Git commands might be useful to have in a Makefile.
 pull:
-	git push
+	git pull
 
 push: clean
 	git commit -a

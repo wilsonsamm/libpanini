@@ -308,7 +308,7 @@ int print_ns(monad * m, void * nothing) {
 	return 0;
 }
 int remove_ns(monad * m, char * n) {
-	list_remove(m->namespace, n);
+	if(m->namespace) list_remove(m->namespace, n);
 	return 0;
 }
 int kill_least_confident(monad * m, void * nothing) {

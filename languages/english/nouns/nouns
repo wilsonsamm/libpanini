@@ -1,8 +1,4 @@
 (df noun
-	(flags learn)
-	(open noun))
-
-(df noun
 	(seme (number singular))
 	(constituent nounstem) (space)
 	(flags lemma)
@@ -68,10 +64,12 @@
 	(rection countable)
 	(lit man)
 	(seme (head man)))
+	
 (df nounstem
 	(rection countable)
 	(lit person)
 	(seme (head person)))
+	
 (df nounstem
 	(rection countable enclosed-space)
 	(lit book)
@@ -86,6 +84,60 @@
 	(lit worm)
 	(rection countable)
 	(seme (head worm)))
+
+(df nounstem
+	(lit time)
+	(rection countable)
+	(seme (head occasion)))
+
+(df nounstem
+	(lit time)
+	(rection -countable)
+	(seme (head time)))
+
+(df nounstem
+	(lit year)
+	(rection -countable)
+	(seme (head year)))
+
+(df nounstem
+	(lit way)
+	(rection countable)
+	(seme (head road)))
+
+(df nounstem
+	(lit day)
+	(rection countable)
+	(seme (head day)))
+
+(df nounstem
+	(lit thing)
+	(rection countable)
+	(seme (head thing)))
+
+(df nounstem
+	(lit world)
+	(rection countable)
+	(seme (head world)))
+
+;    life
+;    hand
+;    part
+;    child
+;    eye
+;    woman
+;    place
+;    work
+;    week
+;    case
+;    point
+;    government
+;    company
+;    number
+;    group
+;    problem
+;    fact
+
 ;;; Irregular nouns go down here. And they are defined as "noun", not
 ;;; "nounstem". That way, we won't end up with wrong things like
 ;;; "childs" or "oxes".

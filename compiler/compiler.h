@@ -10,3 +10,4 @@ int check_recursion(list * output);
 int check_removenops(list * output);
 int check_removetags(list * output);
 int check_main_exists(list * output);
+int check_deprecated(list * output);

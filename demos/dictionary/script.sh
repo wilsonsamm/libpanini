@@ -2,19 +2,39 @@
 
 make
 
-for i in ainu-english english-ainu swahili-english nahuatl-english; do
-	echo
-	rm -rf $i
-	./dictionary $i
-	mv $i.txt $i.tmp
-	cat $i.tmp | sort > $i.txt
-	rm $i.tmp
+rm -rf dictionary*.txt wordlist*.txt learned.out
+
+LANGS="ainu english nahuatl"
+
+echo GENERATING THE BILINGUAL DICTIONARIES
+for i in $LANGS; do
+	for j in $LANGS; do
+		if [ "$i" != "$j" ]; then
+			echo dictionary $i $j
+			FN="dictionary-"
+			FN+="$i"
+			FN+="-"
+			FN+="$j"
+			FN+=".txt"
+			./dictionary bilingual $i $j | sort > dictionary-$i-$j.txt
+		fi
+	done
 done
 
-for i in ainu english swahili nahuatl quenya czech; do
-	echo
-	rm -rf $i.txt
-	./wordlist $i | sort | uniq > $i.txt
-	wordcount=$(cat $i.txt | wc -l)
-	echo The $i wordlist has $wordcount words.
+echo GENERATING WORDLISTS
+for i in $LANGS; do
+	./dictionary wordlist $i > wordlist-$i
+done
+
+echo LEARNING WORDS
+for i in $LANGS; do
+	for j in $LANGS; do
+		if [ "$i" != "$j" ]; then
+			echo $i $j
+			./dictionary learn $i $j
+			sudo cat /usr/tranny/learned/$j learned.out | uniq >> tmp
+			sudo mv tmp /usr/tranny/learned/$j
+			rm learned.out
+		fi
+	done
 done

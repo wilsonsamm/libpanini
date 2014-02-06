@@ -6,7 +6,8 @@ tranny.o: tranny.c
 	gcc -g -c -Wall tranny.c
 	
 clean:
-	rm -rf tranny-gowild tranny.o
+	rm -rf tranny tranny.o
+	
 install:
 	cp tranny /usr/bin/
 

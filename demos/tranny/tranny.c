@@ -80,7 +80,7 @@ int main(int argc, char * argv[]) {
 	/* Parse! */
 	monad_map(m, set_stack, "(constituent main)", -1);
 	for(i = 0; i < threshold; i++) {
-		retval = monad_map(m, tranny_parse, (void *)0, i);
+		retval = monad_map(m, tranny_parse, argv[1], i);
 		if(retval) break;
 	}
 	

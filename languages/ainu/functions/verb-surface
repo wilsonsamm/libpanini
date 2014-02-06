@@ -1,6 +1,6 @@
 (df verb
 	(flags monovalent)
-	(theta (subject theta))
+	(theta (subject patient))
 	(seme -agent)
 	(constituent personal-prefix monovalent)
 	(constituent verbstem stative))

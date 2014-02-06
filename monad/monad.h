@@ -60,10 +60,10 @@ char * eval(list * namespace, char * varname);
 
 monad * monad_spawn(monad * m, list * rules, list * flags);
 
-int tranny_parse(monad * m);
-int tranny_generate(monad * m);
-int tranny_gowild(monad * m);
-int tranny_learn(monad * m);
+int tranny_parse(monad * m, void * nothing);
+int tranny_generate(monad * m, void * nothing);
+int tranny_gowild(monad * m, void * nothing);
+int tranny_learn(monad * m, FILE * output);
 
 void monad_parse_constituent(monad * m);
 void monad_parse_nop();
@@ -78,12 +78,17 @@ void monad_parse_fork(monad * m);
 void monad_parse_fuzzy(monad * m);
 void monad_parse_block(monad * m);
 void monad_parse_adjunct(monad * m);
+void monad_parse_strict(monad * m);
+void monad_parse_lit(monad * m);
+void monad_parse_space(monad * m);
+void monad_parse_fullstop(monad * m);
+void monad_parse_forgive(monad * m);
+void monad_parse_open(monad * m);
 void monad_generate_lit(monad * m);
 void monad_generate_space(monad * m);
 void monad_generate_fullstop(monad * m);
 void monad_generate_strict(monad * m);
 void monad_generate_forgive(monad * m);
-
 
 char * evaluate(monad * m, list * var);
 void speculate(monad * m, char * namespace, char * varname);

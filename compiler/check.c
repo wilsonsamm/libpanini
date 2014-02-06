@@ -100,6 +100,7 @@ int check_wronginstruction(list * output) {
 			if(!strcmp(iname, "strict")) continue;
 			if(!strcmp(iname, "open")) continue;
 			if(!strcmp(iname, "theta")) continue;
+			if(!strcmp(iname, "attest")) continue;
 			
 			fprintf(stderr, "\tWhat is this?\n");
 			fprintf(stderr, "\tA definition of %s has an ", name);

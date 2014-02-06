@@ -76,7 +76,6 @@ int bind_token(list * l, list * a) {
 		return 0;
 	}
 
-
 	for(i = 2; i <= a->length; i++) {
 		char * t = list_get_token(a, i);
 		if(!list_contains(k, t)) return 1;
@@ -84,7 +83,6 @@ int bind_token(list * l, list * a) {
 	
 	return 0;
 }
-
 
 int bind(list * l, list * a) {
 	int i;
@@ -112,7 +110,7 @@ char * eval(list * namespace, char * varname) {
 }
 	
 void speculate(monad * m, char * namespace, char * varname) {
-	/* This function speculates what a variable might be bu looking at the program.
+	/* This function speculates what a variable might be by looking at the program.
 	 * (But first the instruction which is currently executing must be 
 	 * saved on the stack) */
 	list * newstack = list_new();

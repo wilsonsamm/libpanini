@@ -1,18 +1,12 @@
-all: clean dictionary wordlist
+all: clean dictionary 
 dictionary: dictionary.o
 	gcc -o dictionary dictionary.o -ltranny
 	
-wordlist: wordlist.o
-	gcc -o wordlist wordlist.o -ltranny
-
 dictionary.o: dictionary.c
 	gcc -g -c -Wall dictionary.c
 
-wordlist.o: wordlist.c
-	gcc -g -c -Wall wordlist.c
-
 clean:
-	rm -rf dictionary dictionary.o wordlist.o wordlist *.txt
+	rm -rf dictionary dictionary.o wordlist.o wordlist *.txt *-learned
 
 install:
 	cp tranny /usr/bin/

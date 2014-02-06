@@ -1,42 +1,45 @@
-
-#include <tranny.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <tranny.h>
 
 // To use this program, type:
 //  $ dict srclang dstlang
+
+#define NOM	1	// Must be first
+#define ADJ 2
+#define VRB 3	// Must be last
+
+#define LEMMA  1 // The tranny code to generate a lemma (lemma is another word for headword)
+#define LEARN  2 // The tranny code to learn a word
+#define LABEL  3 // The short label that comes after a headword in a dictionary (eg. (n.) for noun)
+#define VLABEL 4 // The English word for the part of speech (eg. verb, adjective)
+
 
 int hwcount;
 int trcount;
 
 char * from;
-char * From;
 char * to;
-char * To;
 
-char * lemma;			/* How to generate the lemma */
-char * translations;	/* How to translate the lemma */
-
-char * label;			/* Each headword could be labelled (noun) or (verb) or something */
-
-FILE * temp;
-FILE * output;
-FILE * headwords;
-
-void helpfulinfo(char * name) {
-	fprintf(stderr, "The %s dictionary has been compiled,\n", name);
-	fprintf(stderr, "\twith %d headwords and ", hwcount);
+void d_info(char * name) {
+	fprintf(stderr, "The %s dictionary has been compiled, ", name);
+	fprintf(stderr, "with %d headwords and ", hwcount);
 	fprintf(stderr, "%d translations.\n", trcount);
 }
 
-void open_output(char * fname) {
-	output = fopen(fname, "w+");
+void l_info(char * name) {
+	fprintf(stderr, "%d %s words have been learned by interrogating the user.\n", trcount, to);
+}
+
+FILE * open_output(char * fname) {
+	FILE * output = fopen(fname, "w+");
 	if(!output) {
 		printf("Could not open the output file %s!\n", fname);
 		exit(1);
 	}
+	return output;
 }
 
 char * next_word(FILE *fp) {
@@ -62,13 +65,13 @@ char * next_word(FILE *fp) {
 }
 
 /* This function will generate all the lemmas in the language. */
-int generate_lemmas() {
+int generate_lemmas(char * lemma) {
 	
-	printf("Generating %s %s lemmas ... \n", From, label);
-	fflush(stdout);
+//	printf("Generating %s %s lemmas ... \n", from, label);
+//	fflush(stdout);
 	
 	/* Open the headwords file. This is what we'll use to store the headwords */
-	headwords = fopen("headwords", "w");
+	FILE * headwords = fopen("headwords", "w");
 	
 	/* create a new monad. */
 	monad * m = monad_new();
@@ -90,7 +93,7 @@ int generate_lemmas() {
 	return 0;
 }
 
-void format(char * lemma) {
+void format(char * lemma, char * label) {
 	FILE * tmp = fopen("temp", "r");
 	
 	char * l;
@@ -98,165 +101,267 @@ void format(char * lemma) {
 	if(!l) return;
 	
 	hwcount++;
-	fprintf(output, "%s %s; %s", lemma, label, l);
+	trcount++;
+	printf("%s %s; %s", lemma, label, l);
 	
 	while((l = next_word(tmp))) {
-		fprintf(output,", %s", l);
+		printf(", %s", l);
 		trcount++;
 	}
-	fprintf(output, ".\n");
+	printf(".\n");
 }
 
-void generate_translations() {
+void generate_translations(char * tranny_from, char * tranny_to, char * label) {
+        
+	FILE * headwords = fopen("headwords", "r");
 	
-	char * l; /* This variable will store each word as it's read in from the headwords file */
+	char * hw;
 	
-	headwords = fopen("headwords", "r");
-	
-	while((l = next_word(headwords))) {
-		
+	while((hw = next_word(headwords))) {
 		FILE * tmp = fopen("temp", "w");
-		
 		monad * m = monad_new();
 		monad_rules(m, from);
 		
-		/* Get the meaning of the headwords */
-//		printf("Interpreting \"%s\" as %s.\n", l, label);
-		monad_map(m, set_stack, lemma, 0);
-		monad_map(m, set_intext, l, 0);
+		/* Get the meaning of each headword */
+		monad_map(m, set_stack, tranny_from, -1);
+		monad_map(m, set_intext, hw, -1);
 		if(!monad_map(m, tranny_parse, (void *)0, 0)) continue;
-		
-//		printf("Translating \"%s\" to %s.\n", l, To);
-		fflush(stdout);
-	
+	               
 		/* And then make translations, printing them to the temporary file. */
 		monad_rules(m, to);
-		monad_map(m, set_stack, translations, 0);
+		monad_map(m, set_stack, tranny_to, -1);
 		if(monad_map(m, tranny_generate, (void *)0, 0)) {
-			monad_map(m, kill_identical_outtexts, (void*)0, 0);
-			monad_map(m, print_out, tmp, 0);
-		} else {
-//			printf("There is no %s word for \"%s\"!\n", To, l);
+			monad_map(m, kill_identical_outtexts, (void*)0, -1);
+			monad_map(m, print_out, tmp, -1);
 		}
-		
 		monad_free(m);
 		fclose(tmp);
-		
-		format(l);
-		free(l);
+		format(hw, label);
+		unlink("temp");
 	}
+}
+
+void ask_for_translations(char * tranny_from, char * tranny_to, char * learn, char * label_from, char * label_to) {
+	     
+	FILE * headwords = fopen("headwords", "r");
+	
+	FILE * output = fopen("learned.out", "a+");
+	
+	char * hw;
+	
+	while((hw = next_word(headwords))) {
+		monad * m = monad_new();
+		monad_rules(m, from);
+		
+		/* Get the meaning of the headwords, ... */
+		monad_map(m, set_intext, hw, 0);
+		monad_map(m, set_stack, tranny_from, 0);
+			
+		if(!monad_map(m, tranny_parse, (void *)0, 0)) continue;
+		monad_map(m, remove_ns, "theta", -1);
+		monad_map(m, remove_ns, "rection", -1);
+			
+		/* Do we already know how to translate this word? then skip it. */
+		monad_rules(m, to);
+		monad_map(m, set_stack, tranny_to, -1);
+		if(monad_map(m, tranny_generate, (void *)0, -1)) continue;
+		
+		/* That test actually destroys the state of the monad, so I suppose we'll have to parse it again. */
+		monad_free(m);
+		m = monad_new();
+		monad_rules(m, from);
+		monad_map(m, set_stack, tranny_from, -1);
+		monad_map(m, set_intext, hw, -1);
+		if(!monad_map(m, tranny_parse, (void *)0, -1)) {
+			fprintf(stderr, "Couldn't reparse '%s'. Wat?\n", hw);
+			continue;
+		} 
+			
+		/* Otherwise, ask the user how to translate it. */
+		printf("\"%s\" is a %s %s. ", hw, from, label_from);
+		printf("What is a %s %s for this? ", to, label_to);
+		fflush(stdout);
+		char string[256];
+		fgets(string, 256, stdin);
+		string[strlen(string)-1] = '\0'; // Remove trailing newline
+		if(!strlen(string)) continue;
+		
+		/* Try to understand the translation */
+		monad_rules(m, to);
+		monad_map(m, set_stack, learn, -1);
+		monad_map(m, set_intext, string, -1);
+		if(monad_map(m, tranny_learn, output, 1)) trcount++;
+
+		monad_free(m);
+	}
+	fclose(output);
+}
+
+
+char * ainu(int class, int ret) {
+	switch(class) {
+		case NOM:
+			switch(ret) {
+				case LEMMA:  return "(constituent noun)";
+				case LABEL:  return "(n.)";
+				case VLABEL: return "nounstem";
+				case LEARN:  return "(constituent noun learn)";
+			}
+			return 0;
+		case VRB:
+			switch(ret) {
+				case LEMMA:  return "(constituent verbstem)";
+				case LABEL:  return "(v.)";
+				case VLABEL: return "verbstem";
+			}
+			return 0;
+		case ADJ:
+			switch(ret) {
+				case LEMMA:  return "(constituent verbstem stative)";
+				case LABEL:  return "(v. st.)";
+				case VLABEL: return "stative verbstem";
+			}
+			return 0;
+	}
+	return 0;
+}
+
+char * nahuatl(int class, int ret) {
+		switch(class) {
+		case NOM:
+			switch(ret) {
+				case LEMMA:  return "(rection (number singular)) (constituent noun)";
+				case LABEL:  return "(n.)";
+				case VLABEL: return "nounstem";
+			}
+			return 0;
+		case VRB:
+			switch(ret) {
+				case LEMMA:  return "(constituent verbstem)";
+				case LABEL:  return "(v.)";
+				case VLABEL: return "verbstem";
+			}
+			return 0;
+		case ADJ:
+			switch(ret) {
+				case LEMMA:  return "(constituent verbstem stative)";
+				case LABEL:  return "(v. st.)";
+				case VLABEL: return "stative verbstem";
+			}
+			return 0;
+	}
+	return 0;
+}
+
+char * english(int class, int ret) {
+	switch(class) {
+		case NOM:
+			switch(ret) {
+				case LEMMA:	return "(rection (number singular)) (constituent noun)";
+				case LEARN:	return "(constituent noun learn)";
+				case LABEL:		return "(n.)";
+				case VLABEL:	return "noun";
+			}
+			return 0;
+		case VRB:
+			switch(ret) {
+				case LEMMA:	return "(constituent verbstem)";
+				case LABEL:		return "(v.)";
+				case VLABEL:	return "verb";
+			}
+			return 0;
+		case ADJ:
+			switch(ret) {
+				case LEMMA:	return "(constituent adjective)";
+				case LEARN: return "(constituent adjective learn)";
+				case LABEL:		return "(adj.)";
+				case VLABEL:	return "adjective";
+			}
+			return 0;
+	}
+	return 0;
+}
+
+char * call_language(char * which, int class, int what) {
+	if(!strcmp(which, "nahuatl")) return nahuatl(class, what);
+	if(!strcmp(which, "english")) return english(class, what);
+	if(!strcmp(which, "ainu"))    return ainu(class, what);
+	return 0;
 }	
 
-void entries() {
-	generate_lemmas();
-	generate_translations();
+void bilingual() {
+	
+	int i;
+	for(i = NOM; i<=VRB; i++) {
+		/* Generate lemmas */
+		char * tranny_from = call_language(from, i, LEMMA);
+		char * label = call_language(from, i, LABEL);
+		char * tranny_to = call_language(to, i, LEMMA);
+		
+		generate_lemmas(tranny_from);
+		generate_translations(tranny_from, tranny_to, label);
+	}
 }
 
-void swahili_english() {
-	from = "swahili";
-	From = "Swahili";
-	to = "english";
-	To = "English";
+void learn() {
 	
-	open_output("swahili-english.txt");
-
-	/* Swahili nouns correspond to English nouns. */
-	lemma = "(constituent noun class-1 singular)";
-	translations = "(constituent noun)";
-	label = "(m/wa)";
-	entries();
-
-	/* Swahili verbstems correspond to English verbs. */
-	lemma = "(constituent verbstem lemma)";
-	translations = "(constituent verbroot)";
-	label = "(v.)";
-	entries();
-	
-	helpfulinfo("Swahili - English");
+	int i;
+	for(i = NOM; i<=VRB; i++) {
+		
+		/* Generate lemmas */
+		char * tranny_from = call_language(from, i, LEMMA);
+		char * tranny_to = call_language(to, i, LEMMA);
+		char * learn = call_language(to, i, LEARN);
+		char * label_from = call_language(from, i, VLABEL);
+		char * label_to = call_language(to, i, VLABEL);
+		
+		if(!tranny_to) continue;
+		if(!learn) continue;
+		
+		generate_lemmas(tranny_from);
+		ask_for_translations(tranny_from, tranny_to, learn, label_from, label_to);
+	}
 }
 
-void english_ainu() {
-	from = "english";
-	From = "English";
-	to = "ainu";
-	To = "Ainu";
+void print_lemmas() {
+	FILE * headwords = fopen("headwords", "r");
 	
-	open_output("english-ainu.txt");
-
-	/* English nouns correspond to Ainu nouns. */
-	lemma = "(constituent nounstem)";
-	translations = "(constituent nounstem)";
-	label = "(n.)";
-	entries();
-
-	/* English verbstems correspond to Ainu verbstems. */
-	lemma = "(constituent verbstem)";
-	translations = "(constituent verbstem)";
-	label = "(v.)";
-	entries();
-	
-	helpfulinfo("English - Ainu");
+	char * hw;
+	while((hw = next_word(headwords))) printf("%s ", hw);
 }
 
-void ainu_english() {
-	from = "ainu";
-	From = "Ainu";
-	to = "english";
-	To = "English";
-	
-	open_output("ainu-english.txt");
-
-	/* English nouns correspond to Ainu nouns. */
-	lemma = "(constituent nounstem)";
-	translations = "(constituent nounstem)";
-	label = "(n.)";
-	entries();
-
-	/* English verbstems correspond to Ainu verbstems. */
-	lemma = "(constituent verbstem)";
-	translations = "(constituent verbstem)";
-	label = "(v.)";
-	entries();
-	
-	helpfulinfo("Ainu - English");
-}	
-
-void nahuatl_english() {
-	from = "nahuatl";
-	From = "Nahuatl";
-	to = "english";
-	To = "English";
-	
-	open_output("nahuatl-english.txt");
-
-	/* Nahuatl nouns correspond to English ones. */
-	lemma = "(seme (number singular)) (constituent noun)";
-	translations = "(constituent noun)";
-	label = "(n.)";
-	entries();
-
-	/* Nahuatl verbstems correspond to English verbstems. */
-	lemma = "(constituent verbstem)";
-	translations = "(constituent verbroot)";
-	label = "(v.)";
-	entries();
-	
-	/* Nahuatl stative verbs may correspond to English adjectives. */
-	lemma = "(constituent verbstem stative)";
-	translations = "(constituent adjective)";
-	label = "(v. st.)";
-	entries();
-	helpfulinfo("Nahuatl - English");
+void wordlist() {	
+	int i;
+	for(i = NOM; i<=VRB; i++) {
+		
+		/* Generate lemmas */
+		char * l = call_language(from, i, LEMMA);
+		generate_lemmas(l);
+		print_lemmas();
+	}
 }
 
 int main(int argc, char * argv[]) {
 	hwcount = 0;
 	trcount = 0;
 	
-	if(!strcmp(argv[1], "swahili-english")) swahili_english();
-	else if(!strcmp(argv[1], "ainu-english")) ainu_english();
-	else if(!strcmp(argv[1], "english-ainu")) english_ainu();
-	else if(!strcmp(argv[1], "nahuatl-english")) nahuatl_english();
+	if(!strcmp(argv[1], "bilingual")) {
+		from = argv[2];
+		to = argv[3];
+		bilingual();
+	}
+	
+	else if(!strcmp(argv[1], "learn")) {
+		from = argv[2];
+		to = argv[3];
+		learn();
+	}
+	
+	else if(!strcmp(argv[1], "wordlist")) {
+		from = argv[2];
+		wordlist();
+	}
+	
 	else {
 		printf("I was called with the argument \"%s\", which I don't know.\n", argv[1]);
 		exit(1);
@@ -265,5 +370,5 @@ int main(int argc, char * argv[]) {
 	unlink("headwords");
 	unlink("temp");
 	
-	return 1;
+	return 0;
 }

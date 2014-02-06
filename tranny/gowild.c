@@ -40,7 +40,7 @@ void monad_gowild_adjunct(monad * m) {
 }
 	
 
-int tranny_gowild(monad * m) {
+int tranny_gowild(monad * m, void * nothing) {
 	if(!m->alive) return 0;
 
 	monad_popcom(m);
@@ -214,6 +214,12 @@ int tranny_gowild(monad * m) {
 	}
 	if(!strcmp(command, "fork")) {
 		monad_parse_fork(m);
+		list_free(m->command);
+		m->command = 0;
+		return 1;
+	}
+	if(!strcmp(command, "attest")) {
+		monad_parse_brake(m);
 		list_free(m->command);
 		m->command = 0;
 		return 1;
