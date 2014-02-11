@@ -1,29 +1,43 @@
 (df pronoun
 	(flags explicit)
 	(lit kuani) (space)
-	(rection (person kuani))
+	(rection (person kuani) -plural)
 	(seme explicit (head referential) (person first) (number singular)))
 
 (df pronoun
-	(rection (person kuani))
+	(rection (person kuani) -plural)
 	(seme -explicit (head referential) (person first) (number singular)))
 
 (df pronoun
 	(flags explicit)
 	(lit eani) (space)
-	(rection (person eani))
+	(rection (person eani) -plural)
 	(seme explicit (head referential) (person second) (number singular)))
 
 (df pronoun
-	(rection (person eani))
+	(rection (person eani) -plural)
 	(seme -explicit (head referential) (person second) (number singular)))
 
 (df pronoun
 	(flags explicit)
 	(lit ani) (space)
-	(rection (person ani))
+	(rection (person ani) -plural)
 	(seme explicit (head referential) (person third) (number singular)))
 
 (df pronoun
+	(flags explicit)
+	(lit okayan) (space)
+	(rection (person okayan) plural)
+	(seme explicit (head referential) (person first) (number plural)))
+
+(df pronoun
+	(rection (person okayan) plural)
+	(seme -explicit (head referential) (person first) (number plural)))
+	
+(df pronoun
 	(seme -explicit (head referential) (person third) (number singular))
-	(rection (person ani)))
+	(rection (person ani)) -plural)
+
+(df pronoun
+	(seme -explicit (head referential) (person third) (number plural))
+	(rection (person ani)) plural)

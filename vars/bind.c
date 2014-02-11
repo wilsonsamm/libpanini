@@ -17,9 +17,8 @@
  * implies that is is not already bound to be a token variable.
  */
 
-int bind_bool(list * l, char * token) {
-	
-	/* What is the token's negative counterpart? */
+
+char * negative(char * token) {
 	char * neg = malloc(strlen(token) + 2);
 
 	if(token[0] == '-') {
@@ -28,6 +27,13 @@ int bind_bool(list * l, char * token) {
 		neg[0] = '-';
 		strcpy(neg + 1, token);
 	}
+	return neg;
+}
+
+int bind_bool(list * l, char * token) {
+	
+	/* What is the token's negative counterpart? */
+	char * neg = negative(token);
 	
 	/* Does the list contain the negative? */
 	if(list_contains(l, neg)) {
@@ -57,9 +63,7 @@ int bind_token(list * l, list * a) {
 
 	/* First, check that this assignment has not been blocked by some
 	 * boolean binding. */
-	char * neg = malloc(strlen(lname) + 2);
-	neg[0] = '-';
-	strcpy(neg+1, lname);
+	char * neg = negative(lname);
 	if(list_contains(l, neg)) {
 		free(neg);
 		return 1;
@@ -144,16 +148,31 @@ void speculate(monad * m, char * namespace, char * varname) {
 			if(!rection) continue;
 			
 			list * gotcha = list_find_list(rection, varname);
-			if(!gotcha) continue;
+			if(gotcha) {
+				char * value = list_get_token(gotcha, 2);
+				if(list_contains(values, value)) continue;
+				
+				list_append_token(values, value);
+				list * r = list_append_list(list_append_list(rections));
+				list_append_token(r, namespace);
+				list_append_copy(list_append_list(r), gotcha);
+				continue;
+			}
 			
-			char * value = list_get_token(gotcha, 2);
-			if(list_contains(values, value)) continue;
+			char * neg = negative(varname);
 			
-			list_append_token(values, value);
-			list * r = list_append_list(list_append_list(rections));
-			list_append_token(r, namespace);
-			list_append_copy(list_append_list(r), gotcha);
-			
+			if(list_contains(rection, neg)) {
+				if(list_contains(values, neg)) {
+					free(neg);
+					continue;
+				}
+				
+				list_append_token(values, neg);
+				list * r = list_append_list(list_append_list(rections));
+				list_append_token(r, namespace);
+				list_append_token(r, neg);
+			}
+			free(neg);
 		}
 	}
 	
@@ -192,6 +211,12 @@ char * evaluate(monad * m, list * e) {
 	/* The variable's name (which can itself be evaluated) */
 	char * varname = list_get_token(e,2); 
 	if(!varname) return 0;
+	char * neg = negative(varname);
+	if(list_contains(namespace, neg)) {
+		free(neg);
+		return 0;
+	}
+	free(neg);
 	
 	/* See if this variable can just be looked up in the namespace. */
 	char * retval = 0;

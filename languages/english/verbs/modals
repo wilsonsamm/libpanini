@@ -25,8 +25,8 @@
 	(seme (mood realis))
 	(confidence 20)
 	(fork 
-		((seme (rel see)))
-		((seme (rel hear)))))
+		((seme (head see)))
+		((seme (head hear)))))
 
 (df verb
 	(flags modal)

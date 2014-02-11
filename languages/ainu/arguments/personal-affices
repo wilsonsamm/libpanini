@@ -1,21 +1,26 @@
 (df personal-prefix
 	(lit ku)
 	(flags monovalent)
-	(into (theta subject) rection (person kuani)))
+	(into (theta absolutive) rection (person kuani)))
 
 (df personal-prefix
 	(lit e)
 	(flags monovalent)
-	(into (theta subject) rection (person eani)))
+	(into (theta absolutive) rection (person eani)))
 
 (df personal-prefix
 	(seme (mood imperative))
 	(flags monovalent)
-	(into (theta subject) rection (person eani)))
+	(into (theta absolutive) rection (person eani)))
 
 (df personal-prefix
 	(flags monovalent)
-	(into (theta subject) rection (person ani)))
+	(into (theta absolutive) rection (person ani)))
+	
+(df personal-suffix
+	(flags monovalent)
+	(lit an)
+	(into (theta absolutive) rection (person okayan)))
 
 (df personal-prefix
 	(flags bivalent)

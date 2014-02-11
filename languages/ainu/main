@@ -1,7 +1,3 @@
-(include functions/functions)
-(include functions/verbs)
-(include functions/verb-surface)
-
 (include arguments/arguments)
 (include arguments/personal-affices)
 (include arguments/pronouns)
@@ -11,12 +7,18 @@
 (include nounphrase/suffices)
 (include nounphrase/rel-clauses)
 
+(include verbphrase/dictionary)
+(include verbphrase/theta-underived)
+(include verbphrase/theta-causative)
+(include verbphrase/surface)
+(include verbphrase/verbphrase)
+
 (include clause)
 (include complementiser)
 (include constraint)
 (include modal-particles)
 
-(include learned)
+(include learn)
 
 (df main
 	(rection (complementiser none))

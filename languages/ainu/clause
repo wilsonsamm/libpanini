@@ -2,8 +2,8 @@
 
 (df clause
 	(adjunct constraint)
-	(constituent function nullary)
 	(fork
-		((constituent modal-particle))
-		((seme (mood realis))))
+		((constituent argument subject))
+		((constituent argument absolutive)))
+	(constituent verbphrase)
 	(constituent complementiser))

@@ -20,6 +20,7 @@
 	(lit are) (space)
 	(flags finite)
 	(fork
+		((into (theta subject) rection (person we)))
 		((into (theta subject) rection (person you)))
 		((into (theta subject) rection (person they))))
 	(seme (tense present)))

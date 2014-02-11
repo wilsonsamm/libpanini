@@ -23,6 +23,12 @@
 	(seme (head referential) (person third) (number singular) (gender female)))
 
 (df pronoun
+	(flags subject)
+	(lit we) (space)
+	(rection (person we))
+	(seme (head referential) (person first) (number plural)))
+	
+(df pronoun
 	(flags object)
 	(lit me) (space)
 	(rection (person I))
@@ -39,6 +45,12 @@
 	(lit her) (space)
 	(rection (person he-she-it) (gender she))
 	(seme (head referential) (person third) (number singular) (gender female)))
+
+(df pronoun
+	(flags object)
+	(lit us) (space)
+	(rection (person we))
+	(seme (head referential) (person first) (number plural)))
 
 (df pronoun
 	(flags object)
