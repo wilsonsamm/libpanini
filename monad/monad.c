@@ -15,6 +15,7 @@ monad * monad_new() {
 	m->stack = 0;
 	m->child = 0;
 	m->command = 0;
+	m->readahead = 0;
 	m->id = 1;
 	m->capital = 1;
 	m->outtext = strdup("");
@@ -52,6 +53,8 @@ monad * monad_duplicate(monad * m) {
 	if(m->command) list_append_copy(n->command, m->command);
 	
 	n->id = m->id;
+	if(m->readahead) n->readahead = strdup(m->readahead);
+	
 	n->capital = m->id;
 	if(m->outtext) n->outtext = strdup(m->outtext);
 	n->index = m->index;
@@ -82,6 +85,7 @@ void __monad_free(monad * m) {
 	if(m->namespace)	list_free(m->namespace);
 	if(m->scopestack)	list_free(m->scopestack);
 	if(m->stack)	list_free(m->stack);
+	if(m->readahead)	free(m->readahead);
 	if(m->child)	__monad_free(m->child);
 
 	free(m);
@@ -184,6 +188,7 @@ void print_debugging_info(monad * m) {
 	printf("\n");
 	printf("Intext: (%d) %s\n", m->index, m->intext);
 	printf("Outtext: %s\n", m->outtext);
+	printf("Readahead: %s\n", m->readahead);
 	printf("Scopestack:");
 	if(m->scopestack) list_prettyprinter(m->scopestack);
 	printf("\nParent: %d\n", m->parent_id);
@@ -205,46 +210,9 @@ int monad_map(monad * m, int(*fn)(monad * m, void * argp), void * arg, int thr) 
 	/* Run! */
 	while(m) {
 		if(m->trace == m->id) m->debug = 1;
+		if(!m->alive) m->debug = 0;
 		if(m->debug) print_debugging_info(m);
 
-		/* Removing the dead monads is the first thing to do. It saves time later. */
-		if(m->child) {
-			if(!m->alive) {
-				if(m->command) list_free(m->command);
-				m->command = m->child->command;
-				
-				if(m->stack) list_free(m->stack);
-				m->stack = m->child->stack;
-				
-				if(m->namespace) list_free(m->namespace);
-				m->namespace = m->child->namespace;
-				
-				if(m->scopestack) list_free(m->scopestack);
-				m->scopestack = m->child->scopestack;
-				
-				if(m->outtext) free(m->outtext);
-				m->outtext = m->child->outtext;
-				
-				m->intext = m->child->intext;
-				m->brake = m->child->brake;
-				m->howtobind = m->child->howtobind;
-				m->alive = m->child->alive;
-				m->debug = m->child->debug;
-				m->trace = m->child->trace;
-				m->confidence = m->child->confidence;
-				m->capital = m->child->capital;
-				m->parent_id = m->child->parent_id;
-				m->id = m->child->id;
-				m->index = m->child->index;
-				
-				monad * tmp = m->child->child;
-				free(m->child);
-				m->child = tmp;
-				
-				continue;
-			}
-		}
-		
 		/* Make sure the monad we are about to process really is alive. */
 		if(!m->alive) {
 			m = m->child;
@@ -253,7 +221,11 @@ int monad_map(monad * m, int(*fn)(monad * m, void * argp), void * arg, int thr) 
 		
 		/* And its BRAKE register must be below the threshold (if there is a threshold at all */
 		if(thr != -1 && m->brake > thr) {
-			if(m->debug && m->stack) fprintf(stderr, "This monad has been skipped since it's BRAKE register is too high.\n");
+			if(m->debug && m->stack) {
+				fprintf(stderr, "BRAKE = %d.  THRESHOLD = %d.\n", m->brake, thr);
+				fprintf(stderr, "This monad has been skipped since it's BRAKE register is too high.\n");
+			}
+			
 			m = m->child;
 			continue;
 		}
@@ -272,11 +244,13 @@ int set_trace(monad * m, int * n) {
 	m->trace = *n;
 	return 0;
 }
+
 int set_intext(monad * m, char * n) {
 	m->intext = n;
 	m->index = 0;
 	return 0;
 }
+
 int set_stack(monad * m, char * stack) {
 	if(m->stack) list_free(m->stack);
 	
@@ -346,4 +320,42 @@ int kill_not_done(monad * m, int * thr) {
 	if(m->stack->length) m->alive = 0;
 	
 	return 0;
+}
+int unlink_the_dead(monad * m, void * nothing) {
+	if(m->alive) return 0;
+	
+	if(m->command) list_free(m->command);
+	m->command = m->child->command;
+	
+	if(m->stack) list_free(m->stack);
+	m->stack = m->child->stack;
+	
+	if(m->namespace) list_free(m->namespace);
+	m->namespace = m->child->namespace;
+		
+	if(m->scopestack) list_free(m->scopestack);
+	m->scopestack = m->child->scopestack;
+				
+	if(m->outtext) free(m->outtext);
+	m->outtext = m->child->outtext;
+	if(m->readahead) free(m->readahead);
+	m->readahead = m->child->readahead;
+	
+	m->intext = m->child->intext;
+	m->brake = m->child->brake;
+	m->howtobind = m->child->howtobind;
+	m->alive = m->child->alive;
+	m->debug = m->child->debug;
+	m->trace = m->child->trace;
+	m->confidence = m->child->confidence;
+	m->capital = m->child->capital;
+	m->parent_id = m->child->parent_id;
+	m->id = m->child->id;
+	m->index = m->child->index;
+	
+	monad * tmp = m->child->child;
+	free(m->child);
+	m->child = tmp;
+	
+	return 1;
 }

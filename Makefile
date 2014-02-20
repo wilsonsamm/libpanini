@@ -4,8 +4,8 @@ learner: learner.c libtranny.a
 	gcc -ggdb -c -Wall learn.c
 	gcc -o learn learn.o list.o list-tokenise.o monad.o monad-parse.o monad-generate.o monad-gowild.o bind.o monad-learn.o monad-spawn.o variables.o
 
-vlad: validate.o list.o list-tokenise.o monad.o parse.o generate.o gowild.o learn.o bind.o spawn.o variables.o
-	gcc -o vlad validate.o list.o list-tokenise.o monad.o parse.o generate.o gowild.o bind.o learn.o spawn.o variables.o
+vlad: validate.o list.o list-tokenise.o monad.o parse.o generate.o learn.o bind.o spawn.o variables.o
+	gcc -o vlad validate.o list.o list-tokenise.o monad.o parse.o generate.o bind.o learn.o spawn.o variables.o
 
 libtranny.a: list.o list-tokenise.o generate.o gowild.o parse.o spawn.o learn.o attest.o monad.o bind.o variables.o 
 	ar rcs libtranny.a list.o list-tokenise.o generate.o gowild.o parse.o spawn.o learn.o attest.o monad.o bind.o variables.o
@@ -37,17 +37,14 @@ generate.o: monad/monad.h monad/monad.c tranny/generate.c
 attest.o: monad/monad.h monad/monad.c tranny/attest.c
 	gcc -ggdb -c -Wall tranny/attest.c
 	
-gowild.o: monad/monad.h monad/monad.c tranny/gowild.c
-	gcc -ggdb -c -Wall tranny/gowild.c
-
 spawn.o: monad/monad.h monad/monad.c monad/spawn.c
 	gcc -ggdb -c -Wall monad/spawn.c
 
 learn.o: monad/monad.h monad/monad.c tranny/learn.c
 	gcc -ggdb -c -Wall tranny/learn.c
 	
-compiler: compiler-main.o compiler-definition.o compiler-check.o compiler-sandhi-init.o compiler/compiler.h list.o list-tokenise.o compiler-sandhi-fin.o
-	gcc -o tc compiler-main.o list.o list-tokenise.o compiler-check.o compiler-sandhi-init.o compiler-definition.o compiler-sandhi-fin.o
+compiler: compiler-main.o compiler-definition.o compiler-check.o compiler-sandhi-init.o compiler/compiler.h list.o list-tokenise.o compiler-sandhi-fin.o compiler-for.o
+	gcc -o tc compiler-main.o list.o list-tokenise.o compiler-check.o compiler-sandhi-init.o compiler-definition.o compiler-sandhi-fin.o compiler-for.o
 
 compiler-main.o: compiler/main.c compiler/compiler.h
 	gcc -ggdb -c -Wall -o compiler-main.o compiler/main.c
@@ -63,6 +60,9 @@ compiler-sandhi-init.o: compiler/sandhi-init.c compiler/compiler.h
 
 compiler-sandhi-fin.o: compiler/sandhi-fin.c compiler/compiler.h
 	gcc -ggdb -c -Wall -o compiler-sandhi-fin.o compiler/sandhi-fin.c
+
+compiler-for.o: compiler/for.c compiler/compiler.h
+	gcc -ggdb -c -Wall -o compiler-for.o compiler/for.c
 	
 languages: lang-clean nahuatl swahili ainu english czech quenya
 

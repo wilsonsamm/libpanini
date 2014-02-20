@@ -8,7 +8,7 @@
 ;; Main verbs
 (df vp
 	(flags finite)
-	(seme (mood realis) -negative)
+	(seme -irrealis -negative)
 	(constituent verb finite)
 	(constituent verbal-argument))
 
@@ -16,7 +16,7 @@
 (df vp
 	(flags finite)
 	(into (theta subject) rection (person you))
-	(seme (mood imperative))
+	(seme (irrealis imperative))
 	(constituent verb finite)
 	(constituent verbal-argument))
 
@@ -29,7 +29,7 @@
 ;; To be -- Takes different arguments from other verbs.
 (df vp
 	(flags finite)
-	(seme (mood realis))
+	(seme -irrealis)
 	(constituent copula finite)
 	(adjunct where?)
 	(seme (head exist)))
@@ -40,7 +40,7 @@
 	(flags finite)
 	(theta (subject patient))
 	(into patient fuzzy 35 rection (definition definite))
-	(seme (mood realis))
+	(seme -irrealis (aspect imperfective))
 	(constituent copula finite)
 	(constituent adjp predicative))
 

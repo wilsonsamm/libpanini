@@ -2,6 +2,7 @@
 #include "../list/list.h"
 #include <string.h>
 #include <stdlib.h>
+char * negative(char * token);
 
 list * get_namespace(monad * m, char * nsname) {
 	list * namespace;
@@ -65,15 +66,19 @@ void bind_vars(monad * m) {
 			list * var = list_get_list(m->command, i);
 			if(!var) continue;
 			char * varname = list_get_token(var, 1);
-			if(!list_find_list(namespace, varname)) {
-				if(m->debug) {
-					printf("The WRITE flag is off.\n");
-					printf("There is no variable %s in the ", varname);
-					printf("relevant namespace so I'm not going to ");
-					printf("create it either.\n");
-				}
-				list_drop(m->command, i);
+			char * neg = negative(varname);
+			if(list_find_list(namespace, varname)) continue;
+			if(list_contains(namespace, neg)) continue;
+			
+			if(m->debug) {
+				printf("The WRITE flag is off.\n");
+				printf("There is no variable %s in the ", varname);
+				printf("relevant namespace so I'm not going to ");
+				printf("create it either.\n");
 			}
+			list_drop(m->command, i);
+			
+			free(neg);
 		}
 	}
 	

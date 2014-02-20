@@ -25,13 +25,15 @@
 
 (include prepositions/phrases)
 
+(include punctuation)
+
 (include learn)
 
 ; Evaluation starts with "main".
 (df main
 	(rection (complementiser none))
 	(constituent cp)
-	(fullstop))
+	(constituent punctuation sentence-final))
 
 ; The Sandhi rules of English
 (sandhi-initial (b c d f g j k l m n p q r s t v w x z) (-vowel))

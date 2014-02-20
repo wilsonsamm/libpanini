@@ -12,6 +12,7 @@ int cl_best = 0;
 int cl_one = 0;
 int cl_none = 0;
 int cl_trim = 0;
+int cl_all = 0;
 
 int main(int argc, char * argv[]) {
 
@@ -43,16 +44,20 @@ int main(int argc, char * argv[]) {
 		if(!strcmp(argv[i], "verbose")) {	// Verbose
 			cl_verbose = 1;
 		} else
-		if(!strcmp(argv[i], "trim")) {	// Verbose
+		if(!strcmp(argv[i], "trim")) {	// After parsing, only keep the monad which has the highest confidence.
 			cl_trim = 1;
+		} else
+		if(!strcmp(argv[i], "all")) {	// Don't stop when monad_map succeeds at a threshold level
+			cl_all = 1;
 		} else
 		if(!strcmp(argv[i], "d")) {		// Debug a monad (takes numerical argument)
 			int t = atoi(argv[++i]);
 			monad_map(m, set_trace, &t, -1);
 		} else
 		if(!strcmp(argv[i], "t")) {		// Set threshold to something other than the default 20 (takes numerical argument)
-			int t = atoi(argv[++i]);
-			monad_map(m, set_trace, &t, -1);
+//			printf("%s = %d\n", argv[ i+1], atoi(argv[i+1]));
+			threshold = atoi(argv[++i]);
+//			printf("Threshold = %d\n", threshold);
 		}else {
 			printf("No such option as: %s\n",argv[i]);
 			exit(99);
@@ -81,7 +86,7 @@ int main(int argc, char * argv[]) {
 	monad_map(m, set_stack, "(constituent main)", -1);
 	for(i = 0; i < threshold; i++) {
 		retval = monad_map(m, tranny_parse, argv[1], i);
-		if(retval) break;
+		if(retval && !cl_all) break;
 	}
 	
 	/* If the parse wasn't successful, then exit. */
@@ -117,9 +122,9 @@ int main(int argc, char * argv[]) {
 		monad_map(m, remove_ns, "theta", -1);
 		monad_map(m, set_stack, "(constituent main)", -1);
 		
-		for(; i <= threshold; i++) {
+		for(; i <= threshold * 2; i++) {
 			retval = monad_map(m, tranny_generate, (void *)0, i);
-			if(retval) break;
+			if(retval && !cl_all) break;
 		}
 		if((!retval) && cl_verbose) {
 			printf("I understood the input but I don't know of a way to say it in %s.\n", argv[2]);

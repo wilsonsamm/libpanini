@@ -9,7 +9,7 @@
 	(into (theta absolutive) rection (person eani)))
 
 (df personal-prefix
-	(seme (mood imperative))
+	(seme (irrealis imperative))
 	(flags monovalent)
 	(into (theta absolutive) rection (person eani)))
 

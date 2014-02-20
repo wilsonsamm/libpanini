@@ -84,11 +84,11 @@ void printout(list * output) {
 	return;
 }
 
-int load_learned_file(list * input, char * langname) {
+int load_file(list * input, char * directory, char * langname) {
 	/* Construct the filename we want */
-	char * filename = malloc(strlen(LEARNEDPATH) + strlen(langname) + 1);
+	char * filename = malloc(strlen(directory) + strlen(langname) + 1);
 
-	strcpy(filename, LEARNEDPATH);
+	strcpy(filename, directory);
 	strcpy(filename + strlen(filename), langname);
 
 	FILE * fp = fopen(filename, "r");
@@ -110,32 +110,7 @@ int load_learned_file(list * input, char * langname) {
 	return 0;
 	
 }
-int load_attested_file(list * input, char * langname) {
-	/* Construct the filename we want */
-	char * filename = malloc(strlen(ATTESTEDPATH) + strlen(langname) + 1);
 
-	strcpy(filename, ATTESTEDPATH);
-	strcpy(filename + strlen(filename), langname);
-
-	FILE * fp = fopen(filename, "r");
-	if(!fp) {
-		free(filename);
-		return 0;
-	}
-	
-	int retval = paren_tester(fp);
-	if(retval) {
-		fprintf(stderr, "\tParenthesis mismatch %d in %s.\n", retval, filename);
-		return 1;
-	}
-	
-	list_tokenise_file(input, fp);
-	fclose(fp);
-
-	free(filename);
-	return 0;
-	
-}
 int main(int argv, char * argc[]) {
 	list * input = list_new();
 	list * output = list_new();
@@ -144,8 +119,8 @@ int main(int argv, char * argc[]) {
 	
 	/* Neat trick to get the thing to load the file called main. */
 	list_tokenise_chars(input, "(include main)");
-	load_learned_file(input, argc[1]);
-	load_attested_file(input, argc[1]);
+	load_file(input, LEARNEDPATH, argc[1]);
+	load_file(input, ATTESTEDPATH, argc[1]);
 
 	/* First run all the (include) commands. They take a filename as the first
 	 * argument, and loads that file, and appends it to the end of the input.
@@ -161,6 +136,7 @@ int main(int argv, char * argc[]) {
 		return 1;
 	}
 
+	pass(input, output, "for", for_);
 	/* Next pass is to create all the definitions.
 	 * (def's are mostly dictionary definitions and such) */
 	pass(input, output, "df", df);
@@ -177,6 +153,7 @@ int main(int argv, char * argc[]) {
 	
 	/* */
 	check_deprecated(output);
+	check_space(output);
 	
 	/* Here are some optimisations we can do. */
 	check_removenops(output);

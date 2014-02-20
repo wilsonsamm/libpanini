@@ -18,14 +18,14 @@
 	(sandhi front)
 	(rection (num1 k))
 	(lit eh)
-	(seme (tense present) (mood indicative))
+	(seme (tense present) -irrealis)
 	(into (theta subject) rection (number plural)))
 
 (df num2
 	(sandhi front)
 	(rection (num1 k))
 	(lit eh)
-	(seme (tense future) (mood indicative))
+	(seme (tense future) -irrealis)
 	(into (theta subject) rection (number plural)))
 	
 (df num2

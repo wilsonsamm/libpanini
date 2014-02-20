@@ -43,7 +43,7 @@ FILE * open_output(char * fname) {
 }
 
 char * next_word(FILE *fp) {
-	/* In this buffer we'll store the word to read in fromt he file. */
+	/* In this buffer we'll store the word to read in from the file. */
 	char w[1024];
 	
 	/* We'll read the word in from the file. */
@@ -66,9 +66,6 @@ char * next_word(FILE *fp) {
 
 /* This function will generate all the lemmas in the language. */
 int generate_lemmas(char * lemma) {
-	
-//	printf("Generating %s %s lemmas ... \n", from, label);
-//	fflush(stdout);
 	
 	/* Open the headwords file. This is what we'll use to store the headwords */
 	FILE * headwords = fopen("headwords", "w");
@@ -210,7 +207,7 @@ char * ainu(int class, int ret) {
 			return 0;
 		case VRB:
 			switch(ret) {
-				case LEMMA:  return "(constituent verbstem)";
+				case LEMMA:  return "(constituent verbstem active)";
 				case LABEL:  return "(v.)";
 				case VLABEL: return "verbstem";
 			}
@@ -237,7 +234,7 @@ char * nahuatl(int class, int ret) {
 			return 0;
 		case VRB:
 			switch(ret) {
-				case LEMMA:  return "(constituent verbstem)";
+				case LEMMA:  return "(constituent verbstem active)";
 				case LABEL:  return "(v.)";
 				case VLABEL: return "verbstem";
 			}
@@ -282,10 +279,27 @@ char * english(int class, int ret) {
 	return 0;
 }
 
+char * czech(int class, int ret) {
+	switch(class) {
+		case NOM:
+			return 0;
+		case VRB:
+			switch(ret) {
+				case LEMMA:	return "(constituent verb infinitive)";
+				case LABEL:		return "(v.)";
+				case VLABEL:	return "verb";
+			}
+			return 0;
+		case ADJ:
+			return 0;
+	}
+	return 0;
+}
 char * call_language(char * which, int class, int what) {
 	if(!strcmp(which, "nahuatl")) return nahuatl(class, what);
 	if(!strcmp(which, "english")) return english(class, what);
 	if(!strcmp(which, "ainu"))    return ainu(class, what);
+	if(!strcmp(which, "czech"))   return czech(class, what);
 	return 0;
 }	
 
@@ -315,8 +329,11 @@ void learn() {
 		char * label_from = call_language(from, i, VLABEL);
 		char * label_to = call_language(to, i, VLABEL);
 		
+		if(!tranny_from) continue;
 		if(!tranny_to) continue;
 		if(!learn) continue;
+		if(!label_from) continue;
+		if(!label_to) continue;
 		
 		generate_lemmas(tranny_from);
 		ask_for_translations(tranny_from, tranny_to, learn, label_from, label_to);
@@ -336,6 +353,7 @@ void wordlist() {
 		
 		/* Generate lemmas */
 		char * l = call_language(from, i, LEMMA);
+		if(!l) continue;
 		generate_lemmas(l);
 		print_lemmas();
 	}

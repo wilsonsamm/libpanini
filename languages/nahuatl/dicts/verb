@@ -1,7 +1,7 @@
 (df verbstem
 	(theta (subject patient) -object)
 	(sandhi full-personal-affix -alveolar -front onset)
-	(flags intransitive)
+	(flags intransitive active)
 	(lit mizqui)
 	(seme (head dead) (aspect inchoative)))
 
@@ -14,21 +14,21 @@
 	
 (df verbstem
 	(theta (subject agent) (object patient))
-	(flags transitive)
+	(flags transitive active)
 	(sandhi full-personal-affix -alveolar -front onset)
 	(lit palehuia)
 	(seme (head help)))
 
 (df verbstem
 	(theta (subject agent) (object patient))
-	(flags transitive)
+	(flags transitive active)
 	(sandhi full-personal-affix alveolar -front onset)
 	(lit tlazotla)
 	(seme (head love)))
 
 (df verbstem
 	(theta (subject agent) (object patient))
-	(flags transitive)
+	(flags transitive active)
 	(sandhi -full-personal-affix -alveolar front onset)
 	(lit itta)
 	(seme (head see)))

@@ -1,33 +1,33 @@
 ; Indicative
 (df tense
 	(rection (mood indicative) (tense present))
-	(seme (tense present) (mood indicative)))
+	(seme (tense present) -irrealis))
 
 (df tense
 	(lit ni)
 	(rection (mood indicative) (tense customary-present))
-	(seme (tense present) (aspect habitual) (mood indicative))
+	(seme (tense present) (aspect habitual) -irrealis)
 	(confidence 10))
 
 (df tense
 	(lit ya)
 	(rection (mood indicative) (tense imperfect))
-	(seme (tense past) (mood indicative) (aspect imperfective))
+	(seme (tense past) -irrealis (aspect imperfective))
 	(confidence 10))
 
 (df tense
 	(lit z)
 	(rection (mood indicative) (tense future))
-	(seme (tense future) (mood indicative)))
+	(seme (tense future) -irrealis))
 
 (df tense
 	(rection (mood indicative) (tense preterit))
-	(seme (tense past) (mood indicative) (aspect perfective)))
+	(seme (tense past) -irrealis (aspect perfective)))
 
 (df tense
 	(lit ca)
 	(rection (mood indicative) (tense distant-past))
-	(seme (tense past) (mood indicative) (past distant)))
+	(seme (tense past) -irrealis (past distant)))
 
 ; Optative
 ;(df tense

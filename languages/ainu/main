@@ -21,7 +21,6 @@
 (include learn)
 
 (df main
-	(rection (complementiser none))
 	(constituent clause)
 	(fullstop))
 

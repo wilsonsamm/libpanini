@@ -5,13 +5,13 @@
 
 (df modal-particle
 	(lit rusuy)
-	(seme (mood desiderative)))
+	(seme (irrealis desiderative)))
 
 (df modal-particle
 	(lit easkay)
-	(seme (mood potential)))
+	(seme (irrealis potential)))
 
 (df modal-particle
 	(lit yan)
 	(into (theta subject) rection (person eani))
-	(seme (mood imperative)))
+	(seme (irrealis imperative)))

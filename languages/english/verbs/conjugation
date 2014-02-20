@@ -1,23 +1,29 @@
 ;; Here are the verb endings. I eat, you eat, he eats.
 (df verb-conjugation
-	(into (theta subjecta) rection (person I)))
+	(into (theta subject) rection (person I))
+	(seme (tense present)))
 	
 (df verb-conjugation
 	(into (theta subject) rection (person he-she-it))
-	(sandhi -sibilant) (lit s))
+	(sandhi -sibilant) (lit s)
+	(seme (tense present)))
 
 (df verb-conjugation
 	(into (theta subject) rection (person he-she-it))
-	(sandhi sibilant) (lit es))
+	(sandhi sibilant) (lit es)
+	(seme (tense present)))
 
 (df verb-conjugation
-	(into (theta subject) rection (person we)))
+	(into (theta subject) rection (person we))
+	(seme (tense present)))
 
 (df verb-conjugation
-	(into (theta subject) rection (person you)))
+	(into (theta subject) rection (person you))
+	(seme (tense present)))
 
 (df verb-conjugation
-	(into (theta subject) rection (person they)))
+	(into (theta subject) rection (person they))
+	(seme (tense present)))
 
 
 ;; This part makes sure that there's an object if one is needed.
@@ -33,6 +39,11 @@
 	(constituent verbroot intransitive arg1:patient)
 	(constituent verb-conjugation)
 	(flags finite)
+	(theta (subject patient) -object)
+	(space))
+(df verb
+	(constituent verbroot intransitive arg1:patient)
+	(flags infinitive)
 	(theta (subject patient) -object)
 	(space))
 

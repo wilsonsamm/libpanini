@@ -71,6 +71,18 @@ void monad_parse_lit(monad * m) {
 	return;
 }
 
+void monad_parse_readahead(monad * m) {
+	if(m->namespace) list_remove(m->namespace, "sandhi");
+	char * morpheme = list_get_token(m->command, 2);
+	if(partialstrcmp(m->intext + m->index, morpheme)){
+		if(m->debug) {
+			printf("%s does not match %s.\n", morpheme, m->intext + m->index);
+		}
+		m->alive = 0;
+	}
+	return;
+}
+
 void monad_parse_space(monad * m) {
 
 	if(m->index == 0) return;
@@ -171,7 +183,6 @@ void monad_parse_confidence(monad * m) {
 
 void monad_parse_brake(monad * m) {
 	m->brake++;
-	if(m->brake > 20) m->alive = 0;
 }
 
 void monad_parse_unbrake(monad * m) {
@@ -181,6 +192,7 @@ void monad_parse_unbrake(monad * m) {
 void monad_parse_forgive(monad * m) {
 	list * rules = list_new();
 	list * parent = list_append_list(rules);
+	
 	list * child = list_append_list(rules);
 	list * brake = list_append_list(parent);
 	list * todo = list_append_list(child);
@@ -291,7 +303,24 @@ void monad_parse_open(monad * m) {
 	}
 	word[i] = '\0'; /* null-termination */
 	if(m->debug) printf("(open) found the word \"%s\".\n",word);
-}	
+}
+
+void monad_parse_check(monad * m) {
+	list * checks = get_namespace(m, "checks");
+	char * check = list_get_token(m->command, 2);
+	
+	if(list_contains(checks, check)) {
+		if(m->debug) {
+			printf("This monad has kicked the bucket since \"%s\" was found ", check);
+			printf("to already have been checked. ");
+		}
+		m->alive = 0;
+		return;
+	}
+	
+	list_append_token(checks, check);
+	return;
+}
 	
 int tranny_parse(monad * m, void * nothing) {
 	if(!m->alive) return 0;
@@ -371,6 +400,13 @@ int tranny_parse(monad * m, void * nothing) {
 		return 1;
 	}
 	if(!strcmp(command, "seme")) {
+		m->howtobind |= CREATE | WRITE;
+		bind_vars(m);
+		list_free(m->command);
+		m->command = 0;
+		return 1;
+	}
+	if(!strcmp(command, "language")) {
 		m->howtobind |= CREATE | WRITE;
 		bind_vars(m);
 		list_free(m->command);
@@ -467,6 +503,18 @@ int tranny_parse(monad * m, void * nothing) {
 	}
 	if(!strcmp(command, "attest")) {
 		monad_parse_brake(m);
+		list_free(m->command);
+		m->command = 0;
+		return 1;
+	}
+	if(!strcmp(command, "check")) {
+		monad_parse_check(m);
+		list_free(m->command);
+		m->command = 0;
+		return 1;
+	}
+	if(!strcmp(command, "read-ahead")) {
+		monad_parse_readahead(m);
 		list_free(m->command);
 		m->command = 0;
 		return 1;

@@ -26,6 +26,7 @@ typedef struct _monad {
 	
 	char * outtext;		/* This is where the translation will be put */
 	char * intext;		/* This is where the original text should be */
+	char * readahead;	/* What needs to be appended to the outtext next? */
 	int index;			/* How far through the intext have we already 
 						   scanned ? */
 	int brake;			/* Brake -- If this number increases beyond some
@@ -84,11 +85,14 @@ void monad_parse_space(monad * m);
 void monad_parse_fullstop(monad * m);
 void monad_parse_forgive(monad * m);
 void monad_parse_open(monad * m);
+void monad_parse_check(monad * m);
+void monad_parse_readahead(monad * m);
 void monad_generate_lit(monad * m);
 void monad_generate_space(monad * m);
 void monad_generate_fullstop(monad * m);
 void monad_generate_strict(monad * m);
 void monad_generate_forgive(monad * m);
+void monad_generate_readahead(monad * m);
 
 char * evaluate(monad * m, list * var);
 void speculate(monad * m, char * namespace, char * varname);

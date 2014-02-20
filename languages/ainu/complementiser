@@ -1,6 +1,17 @@
 (df complementiser
+	(seme -exclamation -interrogative -imperative)
 	(rection (complementiser none)))
 
 (df complementiser
 	(lit awa)
 	(rection (complementiser awa)))
+
+(df complementiser
+	(lit yan)
+	(seme -exclamation -interrogative imperative)
+	(rection (complementiser yan)))
+
+(df complementiser
+	(lit wa)
+	(seme exclamation -interrogative -imperative)
+	(rection (complementiser wa)))

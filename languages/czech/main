@@ -1,10 +1,22 @@
-(include sentence)
-(include complementiser)
-(include thema)
-(include rhema)
-(include pronouns)
-(include verbs)
+(include arguments/arguments)
+(include arguments/pronouns)
+
+(include punctuation)
+
+(include sentence/sentence)
+(include sentence/slots)
+(include sentence/thema)
+(include sentence/rhema)
+(include sentence/pozice2)
+
+(include verbs/aspect)
+(include verbs/byt)
+(include verbs/conjugation)
+(include verbs/dictionary)
+(include verbs/verbs)
 
 (df main
-	(rection -complementiser)
 	(constituent sentence))
+
+(df dummy
+	(theta (nominative patient)))

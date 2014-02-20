@@ -21,7 +21,7 @@
 	(confidence 100)
 	(into (theta subject) seme (head referential) (person second))
 	(into (theta subject) rection (person second))
-	(seme (mood imperative)))
+	(seme (irrealis imperative)))
 
 (df where?
 	(into location constituent pp))

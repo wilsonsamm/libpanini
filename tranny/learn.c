@@ -211,6 +211,24 @@ int tranny_learn(monad * m, FILE * output) {
 		m->command = 0;
 		return 1;
 	}
+	if(!strcmp(command, "language")) {
+		m->howtobind |= CREATE | WRITE;
+		bind_vars(m);
+		list_free(m->command);
+		m->command = 0;
+		return 1;
+	}
+	if(!strcmp(command, "check")) {
+		monad_parse_check(m);
+		list_free(m->command);
+		m->command = 0;
+		return 1;
+	}
+	if(!strcmp(command, "read-ahead")) {
+		list_free(m->command);
+		m->command = 0;
+		return 1;
+	}
 	
 	printf("No such command as %s in the program LEARN.\n", command);
 

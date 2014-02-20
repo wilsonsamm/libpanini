@@ -32,6 +32,12 @@ monad * __preparenewmonad(monad * m) {
 		child->outtext = 0;
 	}
 	if(m->outtext) child->outtext = strdup(m->outtext);
+	
+	if(child->readahead) {
+		free(child->readahead);
+		child->readahead = 0;
+	}
+	if(m->readahead) child->readahead = strdup(m->readahead);
 
 	child->intext = m->intext;
 	child->index = m->index;
