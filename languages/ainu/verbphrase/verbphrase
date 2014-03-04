@@ -1,0 +1,6 @@
+(df verbphrase
+	(constituent verb monovalent))
+	
+(df verbphrase
+	(constituent argument object)
+	(constituent verb bivalent))

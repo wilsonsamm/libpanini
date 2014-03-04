@@ -1,0 +1,13 @@
+(df aspect
+	(flags u)
+	(lit u)
+	(seme (aspect perfect))
+	(fork
+		((seme (tense future)))
+		((seme (tense past)))))
+
+(df aspect
+	(flags u)
+	(fork
+		((seme (tense present)))
+		((seme (tense past)))))

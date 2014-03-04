@@ -1,0 +1,11 @@
+(df verbstem
+	(flags bivalent)
+	(constituent verbstem stative)
+	(constituent causative-suffix)
+	(theta -absolutive (subject agent) (object patient)))
+
+(df verbstem
+	(flags trivalent)
+	(constituent verbstem perception transitive)
+	(constituent causative-suffix)
+	(theta -absolutive (subject causative) (object agent) (obj2 patient)))

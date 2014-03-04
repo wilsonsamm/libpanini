@@ -1,0 +1,14 @@
+(df verbroot
+	(flags monovalent)
+	(constituent verbstem stative)
+	(theta (absolutive patient) -subject -object))
+
+(df verbroot
+	(flags monovalent)
+	(constituent verbstem intransitive perception)
+	(theta (absolutive agent) -subject -object))
+
+(df verbroot
+	(flags bivalent)
+	(constituent verbstem perception transitive)
+	(theta (subject agent) (object patient) -absolutive))

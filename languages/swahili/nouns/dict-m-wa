@@ -1,0 +1,51 @@
+(df noun
+	(flags m/wa singular)
+	(rection (class m/wa) (number singular))
+	(lit m)
+	(sandhi -vowel)
+	(constituent nounstem m/wa)
+	(space)
+	(seme (number singular)))
+	
+(df noun
+	(flags m/wa singular)
+	(rection (class m/wa) (number singular))
+	(lit mw)
+	(sandhi vowel)
+	(constituent nounstem m/wa)
+	(space)
+	(seme (number singular)))
+
+(df noun
+	(flags m/wa plural)
+	(lit wa)
+	(rection (class m/wa) (number plural))
+	(constituent nounstem m/wa)
+	(space)
+	(seme (number plural)))
+
+; To add a M/WA-class noun to the dictionary, include these flags:
+;    m/wa    - this is M/WA class nounstem
+
+
+(df nounstem
+	(flags m/wa)
+	(lit tu)
+	(fork
+		((seme (head person)))
+		((seme (head man)))))
+
+(df nounstem
+	(flags m/wa)
+	(lit toto)
+	(seme (head child)))
+
+(df nounstem
+	(flags m/wa)
+	(lit ana)
+	(seme (head offspring)))
+	
+(df nounstem
+	(flags m/wa)
+	(lit jomba)
+	(seme (head uncle) (side mother)))

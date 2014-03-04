@@ -1,0 +1,74 @@
+;;;; Verb endings
+;;; Finite verbal endings
+;; First person singular
+(df verb-ending
+	(flags finite 97)
+	(lit u)
+	(into (theta nominative) rection (person first) (number singular))
+	(seme -irrealis)
+	(fork 
+		((rection -perfective) (seme (tense present)))
+		((rection perfective)  (seme (tense future))))
+	(block rection verb-ending))
+
+(df verb-ending
+	(flags finite 113)
+	(lit ím)
+	(into (theta nominative) rection (person first) (number singular))
+	(seme -irrealis)
+	(fork 
+		((rection -perfective) (seme (tense present)))
+		((rection perfective)  (seme (tense future))))
+	(block rection verb-ending))
+
+;; Second person singular
+(df verb-ending
+	(flags finite 97)
+	(lit eš)
+	(into (theta nominative) rection (person second) (number singular))
+	(seme -irrealis)
+	(fork 
+		((rection -perfective) (seme (tense present)))
+		((rection perfective)  (seme (tense future))))
+	(block rection verb-ending))
+(df verb-ending
+	(flags finite 113)
+	(lit íš)
+	(into (theta nominative) rection  (person second) (number singular))
+	(seme -irrealis)
+	(fork 
+		((rection -perfective) (seme (tense present)))
+		((rection perfective)  (seme (tense future))))
+	(block rection verb-ending))
+
+;; Third person singular
+(df verb-ending
+	(flags finite 97)
+	(lit e)
+	(into (theta nominative) rection (person third) (number singular))
+	(seme -irrealis)
+	(fork 
+		((rection -perfective) (seme (tense present)))
+		((rection perfective)  (seme (tense future))))
+	(block rection verb-ending))
+(df verb-ending
+	(flags finite 113)
+	(lit í)
+	(into (theta nominative) rection (person third) (number singular))
+	(seme -irrealis)
+	(fork 
+		((rection -perfective) (seme (tense present)))
+		((rection perfective)  (seme (tense future))))
+	(block rection verb-ending))
+
+;;; Infinitive verb endings
+(df verb-ending
+	(flags infinitive 97)
+	(lit et)
+	(seme -irrealis)
+	(block rection verb-ending))
+(df verb-ending
+	(flags infinitive 113)
+	(lit ět)
+	(seme -irrealis)
+	(block rection verb-ending))

@@ -1,0 +1,4 @@
+(df slot
+	(flags thema)
+	(constituent subject)
+	(constituent slot pozice2))

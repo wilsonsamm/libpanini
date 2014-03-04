@@ -1,0 +1,5 @@
+;
+(df verbstem
+	(flags learn)
+	(open verbstem
+		(remove number)))

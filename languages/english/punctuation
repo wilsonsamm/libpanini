@@ -1,0 +1,20 @@
+(df punctuation
+	(flags sentence-final)
+	(lit .)
+	(seme -exclamation -interrogative))
+
+(df punctuation
+	(flags sentence-final)
+	(lit !)
+	(seme exclamation -interrogative))
+
+(df punctuation
+	(flags sentence-final)
+	(lit ?)
+	(seme interrogative))
+
+(df space (read-ahead .))
+(df space (read-ahead '))
+(df space (read-ahead !))
+(df space (read-ahead ?))
+(df space (space))

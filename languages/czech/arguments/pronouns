@@ -1,0 +1,32 @@
+
+;; FIRST PERSON SINGULAR
+(df pronoun
+	(lit já) (space)
+	(rection (case nominative) (person first) (number singular))
+	(seme (head referential) (person first) (number singular)))
+
+(df pronoun
+	(lit mě) (space)
+	(rection (case accusative) (person first) (number singular))
+	(seme (head referential) (person first) (number singular)))
+	
+(df pronoun
+	(lit mi) (space)
+	(rection (case dative) (person first) (number singular))
+	(seme (head referential) (person first) (number singular)))
+	
+;; SECOND PERSON SINGULAR
+(df pronoun
+	(lit ty) (space)
+	(rection (case nominative) (person second) (number singular))
+	(seme (head referential) (person second) (number singular)))
+
+(df pronoun
+	(fork ((lit tě)) ((lit tebe))) (space)
+	(rection (case accusative) (person second) (number singular))
+	(seme (head referential) (person second) (number singular)))
+	
+(df pronoun
+	(fork ((lit ti)) ((lit tobě))) (space)
+	(rection (case dative) (person second) (number singular))
+	(seme (head referential) (person second) (number singular)))

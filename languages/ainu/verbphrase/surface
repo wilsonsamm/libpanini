@@ -1,0 +1,18 @@
+(df verb
+	(flags monovalent)
+	(constituent personal-prefix monovalent)
+	(constituent verbroot)
+	(space))
+
+(df verb
+	(flags monovalent)
+	(constituent verbroot monovalent)
+	(constituent personal-suffix monovalent)
+	(space))
+
+(df verb
+	(flags bivalent)
+	(constituent personal-prefix bivalent)
+	(constituent verbroot bivalent)
+	(space))
+

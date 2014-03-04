@@ -1,0 +1,10 @@
+;;;; Combining verbstems and endings into verbs
+
+(for aspect (imperfective perfective)
+(for conjugation (97 113)
+(for form (finite infinitive)
+	(df verb
+		(flags main .aspect .form)
+		(constituent verbstem .aspect .conjugation)
+		(constituent verb-ending finite .conjugation .form)
+		(space)))))

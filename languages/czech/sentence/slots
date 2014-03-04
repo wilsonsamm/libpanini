@@ -1,0 +1,5 @@
+(df slots
+	(constituent slot thema))
+
+(df clause
+	(constituent slots))

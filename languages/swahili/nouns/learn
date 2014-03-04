@@ -1,0 +1,35 @@
+(df noun-learn
+	(lit m)                      ; Consume an "m"; M/WA clas s nouns all start with this.
+	(flags m/wa)                 ; Flags
+	(open nounstem               ; This will learn a noun 
+	                             ;    (find out what string matches what meaning, and generate corresponding sourcecode.)
+		(flags m/wa countable)   ; Add this to the flags in the generated source code.
+		(remove number)))        ; Do not add "number" to the (seme...) command in the generated source code.
+		
+(df noun-learn
+	(lit mw)
+	(flags m/wa)
+	(confidence 10)
+	(open nounstem
+		(flags m/wa countable)
+		(remove number)))
+				
+(df noun-learn
+	(flags n)
+	(open nounstem
+		(flags n countable inanimate)
+		(remove number)))
+
+(df noun-learn
+	(flags n)
+	(open nounstem
+		(flags n uncountable animate)
+		(remove number)))
+
+(for animacy (inanimate animate)
+(df noun-learn
+	(flags ki/vi)
+	(constituent noun-prefix ki/vi)
+	(open nounstem
+		(flags ki/vi .animacy)
+		(remove number))))

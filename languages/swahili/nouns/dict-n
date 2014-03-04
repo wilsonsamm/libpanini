@@ -1,0 +1,44 @@
+(for number (singular plural)
+(df noun
+	(flags n-class)
+	(seme (number .number))
+	(rection (number .number) (class n) -animate)
+	(constituent nounstem n countable inanimate) (space))
+	
+(df noun
+	(flags n-class)
+	(seme (number .number))
+	(rection (number .number) (class n) animate)
+	(constituent nounstem n countable animate) (space)))
+
+(df noun
+	(flags n-class)
+	(seme -number)
+	(rection (number singular) (class n))
+	(constituent nounstem n uncountable) (space))
+
+; To add a N-class noun to the dictionary, include these flags:
+;      n     - this is N class nounstem
+;  countable - this noun is uncountable (always used with singular verb-prefix, like "mvua")
+;   animate  - this noun takes M/WA verb-prefix (like rafiki or askari)
+;  inanimate - if the noun is not animate, as above, then it should have this flag.
+
+(df nounstem
+	(seme (head banana))
+	(lit ndizi)
+	(flags n countable inanimate))
+
+(df nounstem
+	(seme (head house))
+	(lit nyumba)
+	(flags n countable inanimate))
+
+(df nounstem
+	(lit mvua)
+	(seme (head rain))
+	(flags n uncountable inanimate))
+
+(df nounstem
+	(lit rafiki)
+	(seme (head friend))
+	(flags n countable animate))

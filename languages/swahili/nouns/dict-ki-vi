@@ -1,0 +1,21 @@
+(for number (singular plural)
+(df noun
+	(flags ki/vi/ .number)
+	(rection (class ki/vi) (number .number))
+	(constituent prefix ki/vi .number)
+	(constituent nounstem ki/vi)
+	(space)
+	(seme (number .number))))
+
+; To add a KI/VI-class noun to the dictionary, include these flags:
+;    ki/vi    - this is N class nounstem
+;   animate   - this noun takes M/WA verb-prefix (like kijana or kiziwi)
+;  inanimate  - if the noun is not animate, as above, then it should have this flag.
+
+(df nounstem
+	(lit umba)
+	(seme (head room)))
+
+(df nounstem
+	(lit tabu)
+	(seme (head book)))

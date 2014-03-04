@@ -1,0 +1,23 @@
+;;;; Dictionary entries
+
+
+; umřet, meaning to die
+(df verbstem
+	(theta (nominative patient))
+	(lit umř)
+	(flags perfective 97)
+	(seme (head dead) (aspect inchoative))
+	(rection perfective)
+	(fork ((seme (tense future))) ((seme (tense past)))))
+
+; vidět, meaning to see
+(df verbstem
+	(theta (nominative agent) (accusative patient))
+	(lit vid)
+	(flags imperfective 113)
+	(seme (head see)))
+(df verbstem
+	(theta (nominative agent) (accusative patient))
+	(lit uvid)
+	(flags perfective 113)
+	(seme (head see)))

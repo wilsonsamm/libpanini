@@ -1,0 +1,83 @@
+; First person singular
+(df prefix
+	(lit ni)
+	(flags subject object)
+	(rection (class mimi)))
+
+; First person plural
+(df prefix
+	(lit tu)
+	(flags subject object)
+	(rection (class sisi)))
+
+; Second person singular
+(df prefix
+	(lit u)
+	(flags subject)
+	(rection (class wewe)))
+
+(df prefix
+	(lit ku)
+	(flags object)
+	(rection (class wewe)))
+
+; Second person plural
+(df prefix
+	(lit u)
+	(flags subject)
+	(rection (class ninyi)))
+(df prefix
+	(lit wa)
+	(flags object)
+	(rection (class ninyi)))
+	
+;; M/WA class
+(df prefix
+	(lit a)
+	(flags subject)
+	(rection (class m/wa) (number singular)))
+(df prefix
+	(lit m)
+	(sandhi -vowel)
+	(flags object)
+	(rection (class m/wa) (number singular)))
+(df prefix
+	(lit mw)
+	(sandhi vowel)
+	(flags object)
+	(rection (class m/wa) (number singular)))
+(df prefix
+	(lit wa)
+	(flags subject object)
+	(rection (class m/wa) (number plural)))
+
+;; N class
+(df prefix
+	(lit i)
+	(flags subject object)
+	(rection (class n) (number singular)))
+(df prefix
+	(lit zi)
+	(flags subject object)
+	(rection (class n) (number plural)))
+
+;; KI/VI class
+(df prefix 
+	(flags ki/vi singular subject object)
+	(lit ki)
+	(sandhi -vowel))
+	
+(df prefix
+	(flags ki/vi singular subject object)
+	(lit ch)
+	(sandhi -vowel))
+	
+(df prefix 
+	(flags ki/vi plural subject object)
+	(lit vi)
+	(sandhi -vowel))
+	
+(df prefix
+	(flags ki/vi plural subject object)
+	(lit vy)
+	(sandhi -vowel))

@@ -1,0 +1,19 @@
+(df argument (constituent nounphrase))
+(df argument (constituent pronoun))
+
+(df subject
+	(into (theta nominative) rection (case nominative))
+	(into (theta nominative) constituent argument))
+
+(df object
+	(flags accusative)
+	(into (theta accusative) rection (case accusative))
+	(into (theta accusative) constituent argument))
+
+(df object
+	(flags dative)
+	(into (theta dative) rection (case dative))
+	(into (theta dative) constituent argument))
+
+(df object (flags accusative)	(seme -patient)	(theta (accusative patient)))
+(df object (flags accusative)	(seme -agent)	(theta (accusative agent)))
