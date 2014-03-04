@@ -1,24 +1,24 @@
-(df verb-root
+(df verbroot
 	(lit f)
 	(seme (head dead))
-	(flags a-vowel stative))
+	(flags stative bantu))
 
-(df verb-root
+(df verbroot
 	(lit pend)
 	(seme (head love))
-	(flags a-vowel arg1:agent arg2:patient intransitive transitive))
+	(flags arg1:agent arg2:patient intransitive transitive bantu))
 
-(df verb-root
+(df verbroot
 	(lit saidi)
-	(flags a-vowel arg1:agent arg2:patient intransitive transitive)
+	(flags arg1:agent arg2:patient intransitive transitive bantu)
 	(seme (head help)))
 
-(df verb-root
+(df verbroot
 	(lit angali)
-	(flags a-vowel arg1:agent arg2:patient intransitive transitive)
+	(flags arg1:agent arg2:patient intransitive transitive bantu)
 	(seme (head watch)))
 
-(df verb-root
+(df verbroot
 	(lit on)
-	(flags a-vowel arg1:agent arg2:patient intransitive transitive)
+	(flags arg1:agent arg2:patient intransitive transitive bantu)
 	(seme (head see)))

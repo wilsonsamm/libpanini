@@ -40,7 +40,7 @@
 	(flags finite)
 	(theta (subject patient))
 	(into patient fuzzy 35 rection (definition definite))
-	(seme -irrealis (aspect imperfective))
+	(seme -irrealis (aspect stative))
 	(constituent copula finite)
 	(constituent adjp predicative))
 

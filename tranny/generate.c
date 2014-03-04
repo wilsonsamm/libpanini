@@ -330,7 +330,7 @@ int tranny_generate(monad * m, void * nothing) {
 		return 1;
 	}
 	if(!strcmp(command, "attest")) {
-		monad_parse_brake(m);
+		//monad_parse_nop(m);
 		list_free(m->command);
 		m->command = 0;
 		return 1;

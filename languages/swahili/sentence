@@ -1,10 +1,8 @@
 (df sentence
-	(rection object)
 	(constituent subject)
-	(constituent verb)
+	(constituent verb transitive)
 	(constituent object))
 
 (df sentence
-	(rection -object)
 	(constituent subject)
-	(constituent verb))
+	(constituent verb intransitive))

@@ -41,6 +41,7 @@ int kill_identical_outtexts(monad * m, void * nothing); // Kills monads that hav
 int kill_least_confident(monad * m, void * nothing); // Kills monads except the most confident ones.
 int kill_braked_monads(monad * m, void * thr); // Kills monads where the BRAKE is higher than *(int*)thr.
 int kill_not_done(monad * m, void * nothing); // Kills monads that have not finished their program.
+int unlink_the_dead(monad * m, void * nothing); // Removes dead monads from the linked list.
 
 /* These function interpret a Tranny program */
 int tranny_parse(monad * m, void * nothing);      // This one parses the incoming text and produces the meaning.

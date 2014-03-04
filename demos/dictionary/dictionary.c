@@ -7,14 +7,17 @@
 // To use this program, type:
 //  $ dict srclang dstlang
 
-#define NOM	1	// Must be first
-#define ADJ 2
-#define VRB 3	// Must be last
+#define NOM	10	// Must be first
+#define B1  11
+#define B2	12
+#define ADJ 20
+#define VRB 30	// Must be last
 
 #define LEMMA  1 // The tranny code to generate a lemma (lemma is another word for headword)
-#define LEARN  2 // The tranny code to learn a word
-#define LABEL  3 // The short label that comes after a headword in a dictionary (eg. (n.) for noun)
-#define VLABEL 4 // The English word for the part of speech (eg. verb, adjective)
+#define TRANS  2 // The tranny code to translate something
+#define LEARN  3 // The tranny code to learn a word
+#define LABEL  4 // The short label that comes after a headword in a dictionary (eg. (n.) for noun)
+#define VLABEL 5 // The English word for the part of speech (eg. verb, adjective)
 
 
 int hwcount;
@@ -22,16 +25,6 @@ int trcount;
 
 char * from;
 char * to;
-
-void d_info(char * name) {
-	fprintf(stderr, "The %s dictionary has been compiled, ", name);
-	fprintf(stderr, "with %d headwords and ", hwcount);
-	fprintf(stderr, "%d translations.\n", trcount);
-}
-
-void l_info(char * name) {
-	fprintf(stderr, "%d %s words have been learned by interrogating the user.\n", trcount, to);
-}
 
 FILE * open_output(char * fname) {
 	FILE * output = fopen(fname, "w+");
@@ -78,7 +71,7 @@ int generate_lemmas(char * lemma) {
 	
 	/* Generate headwords */
 	monad_map(m, set_stack, lemma, 0);
-	monad_map(m, tranny_gowild, (void *)0, 0);
+	monad_map(m, tranny_generate, (void *)0, 0);
 	monad_map(m, kill_identical_outtexts, (void *)0, 0);
 	
 	/* Print all the headwords out to that file. */
@@ -138,7 +131,7 @@ void generate_translations(char * tranny_from, char * tranny_to, char * label) {
 	}
 }
 
-void ask_for_translations(char * tranny_from, char * tranny_to, char * learn, char * label_from, char * label_to) {
+void ask_for_translations(char * tranny_from, char * tranny_to, char * try, char * learn, char * label_from, char * label_to) {
 	     
 	FILE * headwords = fopen("headwords", "r");
 	
@@ -151,6 +144,8 @@ void ask_for_translations(char * tranny_from, char * tranny_to, char * learn, ch
 		monad_rules(m, from);
 		
 		/* Get the meaning of the headwords, ... */
+//		printf("Looking for a way to say \"%s\".\n", hw);
+
 		monad_map(m, set_intext, hw, 0);
 		monad_map(m, set_stack, tranny_from, 0);
 			
@@ -160,8 +155,11 @@ void ask_for_translations(char * tranny_from, char * tranny_to, char * learn, ch
 			
 		/* Do we already know how to translate this word? then skip it. */
 		monad_rules(m, to);
-		monad_map(m, set_stack, tranny_to, -1);
-		if(monad_map(m, tranny_generate, (void *)0, -1)) continue;
+		monad_map(m, set_stack, try, -1);
+		if(monad_map(m, tranny_generate, (void *)0, -1)) {
+//			printf("I already know a way to say \"%s\" in \"%s\".\n", hw, try);
+			continue;
+		}
 		
 		/* That test actually destroys the state of the monad, so I suppose we'll have to parse it again. */
 		monad_free(m);
@@ -232,6 +230,12 @@ char * nahuatl(int class, int ret) {
 				case VLABEL: return "nounstem";
 			}
 			return 0;
+		case B1:
+		case B2:
+			switch(ret) {
+				case TRANS:  return "(constituent noun)";
+			}
+			return 0;
 		case VRB:
 			switch(ret) {
 				case LEMMA:  return "(constituent verbstem active)";
@@ -254,12 +258,20 @@ char * english(int class, int ret) {
 	switch(class) {
 		case NOM:
 			switch(ret) {
-				case LEMMA:	return "(rection (number singular)) (constituent noun)";
+				case LEMMA:	return "(rection (number singular)) (constituent noun lemma)";
 				case LEARN:	return "(constituent noun learn)";
 				case LABEL:		return "(n.)";
 				case VLABEL:	return "noun";
 			}
 			return 0;
+		case B1:
+		case B2:
+			switch(ret) {
+				case TRANS:	return "(rection (number singular)) (constituent noun lemma)";
+				case VLABEL: return "noun";
+			}
+			return 0;
+		
 		case VRB:
 			switch(ret) {
 				case LEMMA:	return "(constituent verbstem)";
@@ -295,11 +307,57 @@ char * czech(int class, int ret) {
 	}
 	return 0;
 }
+
+char * swahili(int class, int ret) {
+	switch(class) {
+		case NOM:
+			switch(ret) {
+				case TRANS:	return "(constituent noun)";
+				//case LABEL: return "NOMINAL_DEFAULT";
+			}
+			return 0;
+		case B1:
+			switch(ret) {
+				case LEMMA:	return "(constituent noun m/wa singular)";
+				case TRANS: return "(constituent noun singular)";
+				case LABEL:	return "(m/wa)";
+				case LEARN: return "(constituent noun-learn m/wa)";
+				case VLABEL:return "M/WA class noun";
+			}
+			return 0;
+		case B2:
+			switch(ret) {
+				case LEMMA:	return "(constituent noun n singular)";
+				case TRANS: return "(constituent noun singular)";
+				case LABEL:	return "(:)";
+				case LEARN: return "(constituent noun-learn n)";
+				case VLABEL:return "N class noun";
+			}
+			return 0;
+		case VRB:
+			switch(ret) {
+				case LEMMA:	return "(constituent verbstem)";
+				case LABEL:	return "(v.)";
+				case VLABEL:return "verb";
+			}
+			return 0;
+		case ADJ:
+			return 0;
+	}
+	return 0;
+}
+
+char * quenya(int class, int ret) {
+	return 0;
+}
+
 char * call_language(char * which, int class, int what) {
 	if(!strcmp(which, "nahuatl")) return nahuatl(class, what);
 	if(!strcmp(which, "english")) return english(class, what);
 	if(!strcmp(which, "ainu"))    return ainu(class, what);
 	if(!strcmp(which, "czech"))   return czech(class, what);
+	if(!strcmp(which, "swahili")) return swahili(class, what);
+	if(!strcmp(which, "quenya"))  return quenya(class, what);
 	return 0;
 }	
 
@@ -310,7 +368,12 @@ void bilingual() {
 		/* Generate lemmas */
 		char * tranny_from = call_language(from, i, LEMMA);
 		char * label = call_language(from, i, LABEL);
-		char * tranny_to = call_language(to, i, LEMMA);
+		char * tranny_to = call_language(to, i, TRANS);
+		
+		if(!tranny_from) continue;
+		if(!tranny_to) tranny_to = call_language(to, i, LEMMA);
+		if(!tranny_to) continue;
+		if(!label) continue;
 		
 		generate_lemmas(tranny_from);
 		generate_translations(tranny_from, tranny_to, label);
@@ -324,19 +387,43 @@ void learn() {
 		
 		/* Generate lemmas */
 		char * tranny_from = call_language(from, i, LEMMA);
+		if(!tranny_from) tranny_from = call_language(from, i, TRANS);
+		if(!tranny_from) {
+//			printf("No tranny_from for %s %d\n", from,  i);
+			continue;
+		}
+		
 		char * tranny_to = call_language(to, i, LEMMA);
+		if(!tranny_to) tranny_to = call_language(to, i, TRANS);
+		if(!tranny_to) {
+//			printf("No tranny_to for %s %d\n", to, i);
+			continue;
+		}
+		
+		char * try = call_language(to, i, TRANS);
+		if(!try) try = tranny_to;
+		if(!try) continue;
+		
 		char * learn = call_language(to, i, LEARN);
+		if(!learn) {
+//			printf("No learn for %s %d\n", to, i);
+			continue;
+		}
+		
 		char * label_from = call_language(from, i, VLABEL);
+		if(!label_from) {
+//			printf("No label_from for %s %d\n", from, i);
+			continue;
+		}
+		
 		char * label_to = call_language(to, i, VLABEL);
-		
-		if(!tranny_from) continue;
-		if(!tranny_to) continue;
-		if(!learn) continue;
-		if(!label_from) continue;
-		if(!label_to) continue;
-		
+		if(!label_to) {
+//			printf("No label_to for %s %d\n", to, i);
+			continue;
+		}
+
 		generate_lemmas(tranny_from);
-		ask_for_translations(tranny_from, tranny_to, learn, label_from, label_to);
+		ask_for_translations(tranny_from, tranny_to, try, learn, label_from, label_to);
 	}
 }
 

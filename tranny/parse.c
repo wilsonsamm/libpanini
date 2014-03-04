@@ -260,31 +260,6 @@ void monad_parse_block(monad * m) {
 	return;
 }
 
-void monad_parse_attest(monad * m, char * langname) {
-	if(!langname) return;
-	
-	/* Open the attest file */
-	char * fn = malloc(strlen(langname) + strlen("/usr/tranny/attest/") + 1);
-	strcpy(fn, "/usr/tranny/attest/");
-	strcpy(fn + strlen(fn), langname);
-	FILE * at_file = fopen(fn, "a+");
-	if(!at_file) {
-		fprintf(stderr, "Could not open %s for writing.\n", fn);;
-		free(fn);
-		return;
-	}
-	
-	free(fn);
-	
-	/* Construct the rule that will be written to the attest file */
-	list * attest = list_new();
-	list_append_token(attest, "df");
-	list_drop(m->command, 1);
-	list_append_copy(attest, m->command);
-	list_fprettyprinter(at_file, attest);
-	return;
-}
-
 void monad_parse_open(monad * m) {
 	/* how long is the instring? */
 	char word[1024];
@@ -502,7 +477,7 @@ int tranny_parse(monad * m, void * nothing) {
 		return 1;
 	}
 	if(!strcmp(command, "attest")) {
-		monad_parse_brake(m);
+		//monad_parse_brake(m);
 		list_free(m->command);
 		m->command = 0;
 		return 1;

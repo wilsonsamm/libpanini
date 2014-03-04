@@ -11,15 +11,15 @@ void monad_learn_open(monad * m, FILE * output) {
 	list_append_token(rule, list_get_token(m->command, 2));
 	
 	int i;
-	for(i = 3; i <= m->command->length; i++) {
-		list * instruction = list_get_list(m->command, i);
-		list_append_copy(list_append_list(rule), instruction);
-	}
+//	for(i = 3; i <= m->command->length; i++) {
+//		list * instruction = list_get_list(m->command, i);
+//		list_append_copy(list_append_list(rule), instruction);
+//	}
 	
 	/* (lit ... ) */
 	list * lit = list_append_list(rule);
 	list_append_token(lit, "lit");
-	list_append_token(lit, m->intext);
+	list_append_token(lit, m->intext + m->index);
 	
 	/* (seme ... ) */
 	list * seme = list_append_list(rule);
@@ -29,9 +29,37 @@ void monad_learn_open(monad * m, FILE * output) {
 		m->alive = 0;
 		return;
 	}
-	
 	list_append_copy(seme, oseme);
-
+	
+	/* (remove ... ) */
+	list * remove = list_find_list(m->command, "remove");
+	if(remove) {
+		int j;
+		for(i = 2; i <= remove->length; i++) {
+			char * var = list_get_token(remove, i);
+			for(j = 2; j <= seme->length; j++) {
+			
+				if(list_get_token(seme, j))
+					if(!strcmp(var,list_get_token(seme, j)))
+						list_drop(seme, j);
+			
+				if(list_get_list(seme, j))
+					if(!strcmp(var,list_get_token(list_get_list(seme, j), 1)))
+						list_drop(seme, j);	
+			}
+		}
+	}
+	
+	/* (flags ... ) */
+	list * flags = list_find_list(m->command, "flags");
+	if((flags = list_find_list(m->command, "flags"))) {
+		list_append_copy(list_append_list(rule), flags);
+	}
+	/* (flags ... ) */
+	list * rection = list_find_list(m->command, "rection");
+	if((rection = list_find_list(m->command, "rection"))) {
+		list_append_copy(list_append_list(rule), flags);
+	}
 	/* (attest ... )
 	 * What this does is "attests" the new rule iff the parse program ever executes it. Unattested rules are taken with a pinch of 
 	 * salt while generating. */
@@ -69,7 +97,7 @@ int tranny_learn(monad * m, FILE * output) {
 	char * command = list_get_token(m->command, 1);
 	
 	if(!strcmp(command, "strict")) {
-		monad_generate_strict(m);
+		monad_parse_strict(m);
 		list_free(m->command);
 		m->command = 0;
 		return 1;
@@ -115,13 +143,13 @@ int tranny_learn(monad * m, FILE * output) {
 		return 1;
 	}
 	if(!strcmp(command, "lit")) {
-		monad_generate_lit(m);
+		monad_parse_lit(m);
 		list_free(m->command);
 		m->command = 0;
 		return 1;
 	}
 	if(!strcmp(command, "space")) {
-		monad_generate_space(m);
+		monad_parse_space(m);
 		list_free(m->command);
 		m->command = 0;
 		return 1;
@@ -146,7 +174,7 @@ int tranny_learn(monad * m, FILE * output) {
 		return 1;
 	}
 	if(!strcmp(command, "fullstop")) {
-		monad_generate_fullstop(m);
+		monad_parse_fullstop(m);
 		list_free(m->command);
 		m->command = 0;
 		return 1;
@@ -176,7 +204,7 @@ int tranny_learn(monad * m, FILE * output) {
 		return 1;
 	}
 	if(!strcmp(command, "forgive")) {
-		monad_generate_forgive(m);
+		monad_parse_forgive(m);
 		list_free(m->command);
 		m->command = 0;
 		return 1;
@@ -206,7 +234,7 @@ int tranny_learn(monad * m, FILE * output) {
 		return 1;
 	}
 	if(!strcmp(command, "attest")) {
-		monad_parse_brake(m);
+		monad_parse_nop(m);
 		list_free(m->command);
 		m->command = 0;
 		return 1;

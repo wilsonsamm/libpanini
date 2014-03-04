@@ -41,6 +41,11 @@
 	(seme (head road)))
 
 (df nounstem
+	(lit room)
+	(rection countable enclosed-space)
+	(seme (head room)))
+	
+(df nounstem
 	(lit house)
 	(rection countable enclosed-space)
 	(seme (head house)))
@@ -64,7 +69,12 @@
 	(rection countable)
 	(lit man)
 	(seme (head man)))
-	
+
+(df nounstem
+	(rection countable)
+	(lit friend)
+	(seme (head friend)))
+		
 (df nounstem
 	(rection countable)
 	(lit person)
@@ -119,13 +129,16 @@
 	(lit world)
 	(rection countable)
 	(seme (head world)))
+(df nounstem
+	(lit banana)
+	(rection countable)
+	(seme (head banana)))
 
 ;    life
 ;    hand
 ;    part
 ;    child
 ;    eye
-;    woman
 ;    place
 ;    work
 ;    week
@@ -144,8 +157,19 @@
 (df noun
 	(lit child) (space)
 	(rection countable -enclosed-space (person he-she-it))
+	(flags lemma)
 	(seme (head child) (number singular)))
 (df noun
 	(lit children) (space)
 	(rection countable -enclosed-space (person they))
 	(seme (head child) (number plural)))
+
+(df noun
+	(lit woman) (space)
+	(rection countable -enclosed-space (person he-she-it))
+	(flags lemma)
+	(seme (head woman) (number singular)))
+(df noun
+	(lit women) (space)
+	(rection countable -enclosed-space (person they))
+	(seme (head women) (number plural)))

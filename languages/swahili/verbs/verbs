@@ -1,14 +1,16 @@
 (df verb
+	(flags intransitive)
 	(rection -object)
-	(constituent subject-prefix)
+	(into (theta subject) constituent prefix subject)
 	(constituent tense-marker)
-	(constituent verbstem)
+	(constituent verbstem intransitive)
 	(space))
 
 (df verb
+	(flags transitive)
 	(rection object)
-	(constituent subject-prefix)
+	(into (theta subject) constituent prefix subject)
 	(constituent tense-marker)
-	(constituent object-prefix)
-	(constituent verbstem)
+	(into (theta object)  constituent prefix object)
+	(constituent verbstem transitive)
 	(space))

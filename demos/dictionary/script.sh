@@ -15,7 +15,7 @@ for i in $LANGS; do
 			FN+="-"
 			FN+="$j"
 			FN+=".txt"
-			./dictionary bilingual $i $j | sort > dictionary-$i-$j.txt
+			./dictionary bilingual $i $j | sort | uniq > dictionary-$i-$j.txt
 		fi
 	done
 done

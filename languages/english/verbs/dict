@@ -30,7 +30,7 @@
 (df verbroot
 	(lit kill)
 	(flags transitive intransitive arg1:agent arg2:patient)
-	(seme (head die) agent patient)
+	(seme (head dead) agent patient)
 	(rection -spatiodeixis))
 
 (df verbroot
@@ -38,7 +38,13 @@
 	(flags intransitive arg1:patient)
 	(seme (head dead) (aspect inchoative) -agent patient)
 	(rection -spatiodeixis))
-	
+
+(df verbroot
+	(lit love)
+	(flags transitive arg1:agent arg2:patient)
+	(seme (head love))
+	(rection -spatiodeixis))
+
 (df verbroot
 	(lit take)
 	(flags transitive arg1:agent arg2:patient)

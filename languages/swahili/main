@@ -1,23 +1,27 @@
 (include args/args)
 (include args/pronouns)
+(include args/prefices)
 
 (include nouns/nouns)
-(include nouns/dict-class1)
+(include nouns/dict-m-wa)
+(include nouns/dict-n)
+(include nouns/dict-ki-vi)
+(include nouns/learn)
+
+(include punctuation)
 
 (include sentence)
 
 (include verbs/dict)
 (include verbs/verbs)
 (include verbs/verbstem)
-(include verbs/subject-prefix)
-(include verbs/object-prefix)
 (include verbs/tense-markers)
 
 (df main
 	(constituent sentence)
-	(fullstop))
+	(constituent punctuation sentence-final))
 
-(sandhi-initial (m n p q y s) (-vowel))
+(sandhi-initial (b ch d f g h j k l m n p r s t v w x z) (-vowel))
 (sandhi-initial (a e i o u) (vowel))
 
 (df Word (constituent verb))

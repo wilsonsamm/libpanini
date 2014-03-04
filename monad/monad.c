@@ -276,7 +276,7 @@ int print_out(monad * m, FILE * fp) {
 	return 0;
 }
 int print_ns(monad * m, void * nothing) {
-	printf("\nMonad %d:", m->id);
+	printf("\nMonad %d:\nBRAKE: %d\nCONFIDENCE: %d\n", m->id, m->brake, m->confidence);
 	list_prettyprinter(m->namespace);
 	printf("\n");
 	return 0;
@@ -308,12 +308,14 @@ int kill_identical_outtexts(monad * m, void * nothing) {
 	monad_map(m->child, kio, m->outtext, -1);
 	return 0;
 }
+
 int kill_braked_monads(monad * m, int * thr) {
 	
 	if(!m->brake > *thr) m->alive = 0;
 	
 	return 0;
 }
+
 int kill_not_done(monad * m, int * thr) {
 	if(!m->stack) return 0;
 	
@@ -321,6 +323,7 @@ int kill_not_done(monad * m, int * thr) {
 	
 	return 0;
 }
+
 int unlink_the_dead(monad * m, void * nothing) {
 	if(m->alive) return 0;
 	

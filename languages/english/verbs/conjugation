@@ -25,7 +25,21 @@
 	(into (theta subject) rection (person they))
 	(seme (tense present)))
 
+(df verb-conjugation
+	(sandhi -sibilant)
+	(lit d)
+	(seme (tense past)))
 
+(df verb-conjugation
+	(sandhi -sibilant -e-final)
+	(lit ed)
+	(seme (tense past)))
+
+(df verb-conjugation
+	(sandhi -sibilant e-final)
+	(lit d)
+	(seme (tense past)))
+	
 ;; This part makes sure that there's an object if one is needed.
 (df verb
 	(constituent verbroot arg1:agent arg2:patient)

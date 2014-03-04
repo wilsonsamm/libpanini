@@ -4,11 +4,14 @@
 	(into (theta subject) constituent pronoun))
 
 (df object
-	(rection object)
 	(into (theta object) constituent argument))
 (df object
-	(rection object)
 	(into (theta object) constituent pronoun))
+
+(for theta (patient agent)
+	(df object
+		(theta (object .theta))
+		(seme -.theta)))
 
 (df argument
 	(constituent noun))
