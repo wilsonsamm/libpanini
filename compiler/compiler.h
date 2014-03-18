@@ -14,3 +14,4 @@ int check_removetags(list * output);
 int check_main_exists(list * output);
 int check_deprecated(list * output);
 int check_space(list * output);
+int check_early_binding(list * output);

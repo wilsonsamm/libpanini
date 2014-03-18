@@ -1,7 +1,7 @@
 ;;;; Combining verbstems and endings into verbs
 
 (for aspect (imperfective perfective)
-(for conjugation (97 113)
+(for conjugation (97 113)						; These codes, found in the Fronek dictionary, say how a given verb is conjugated
 (for form (finite infinitive)
 	(df verb
 		(flags main .aspect .form)

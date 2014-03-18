@@ -30,6 +30,18 @@ void list_free(list * l) {
 	return;
 }
 
+void list_rename(list * l, char * c) {
+	/* The first element in the list, if it's a token, serves to name the list in some cases. This function, given a name and a 
+	 * C-string, gives the list a new name. */
+	
+	if(l->types[0] != TOKEN) return;
+	
+	free(l->data[0]);
+	l->data[0] = strdup(c);
+	
+	return;
+}
+
 int list_extend(list * l) {
 
 	/* This first case deals with when there has been nothing allocated yet */

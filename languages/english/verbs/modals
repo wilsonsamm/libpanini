@@ -4,7 +4,8 @@
 	(seme desiderative)
 	(forgive strict seme negative)
 	(strict seme negative)
-	(seme -irrealis))
+	(seme -irrealis)
+	(seme (tense present) (aspect imperfective)))
 
 (df verb
 	(flags modal)
@@ -31,6 +32,7 @@
 	(lit can) (space)
 	(seme -irrealis)
 	(confidence 20)
+	(seme (tense present) (aspect imperfective))
 	(fork 
 		((seme (head see)))
 		((seme (head hear)))))

@@ -2,6 +2,8 @@
 #define __MONAD_H
 #include "../list/list.h"
 
+#define THRESHOLD 20 /* How many times a monad will brake before it will buy the farm */
+
 /* The path where we'll find our files */
 #define FN_PATH	"/usr/tranny/languages/"
 
@@ -26,7 +28,6 @@ typedef struct _monad {
 	
 	char * outtext;		/* This is where the translation will be put */
 	char * intext;		/* This is where the original text should be */
-	char * readahead;	/* What needs to be appended to the outtext next? */
 	int index;			/* How far through the intext have we already 
 						   scanned ? */
 	int brake;			/* Brake -- If this number increases beyond some
@@ -39,6 +40,7 @@ typedef struct _monad {
 	int debug;
 	int trace;
 	int confidence;
+	struct _monad * adjunct;
 	int capital;
 	int parent_id;
 	int id;
@@ -48,12 +50,9 @@ int partialstrcmp(char * scanme, char * word);
 
 monad * monad_new();
 void monad_free(monad * m);
-int monad_grules(monad * m, char * lang);
-int monad_prules(monad * m, char * lang);
-void monad_set_program(monad * m, int prog);
-int monad_run(monad * m);
-void monad_set_intext(monad * m, char * c);
-void monad_set_trace(monad * m, int i);
+int monad_rules(monad * m, char * lang);
+void monad_join(monad * to, monad * addition);
+int monad_map(monad * m, int(*fn)(monad * m, void * argp), void * arg, int threshold);
 int monad_popcom(monad * m);
 
 int bind(list * namespace, list * vars);
@@ -66,10 +65,10 @@ int tranny_generate(monad * m, void * nothing);
 int tranny_gowild(monad * m, void * nothing);
 int tranny_learn(monad * m, FILE * output);
 
-void monad_parse_constituent(monad * m);
+void monad_parse_constituent(monad * m, int adjunct);
 void monad_parse_nop();
 void monad_parse_req(monad * m);
-void monad_parse_into(monad * m);
+void monad_parse_into(monad * m, int head);
 void monad_parse_return(monad * m);
 void monad_parse_debug(monad * m);
 void monad_parse_confidence(monad * m);
@@ -99,14 +98,19 @@ void speculate(monad * m, char * namespace, char * varname);
 void bind_vars(monad * m);
 
 int monad_init(monad * m, char * command);
-int monad_test(monad * m);
 int monad_test_all_dead(monad * m);
 monad * monad_get_child(monad * m);
-int monad_get_program(monad * m);
-int monad_get_confidence(monad * m);
+
 monad * monad_outtoin(monad * m);
-void monad_keep_unique(monad * m);
+
+
+int kill_identical_outtexts(monad * m, void * nothing);
+
 char * monad_get_outtext(monad * m);
+int set_stack(monad * m, char * stack);
+int print_ns(monad * m, void * nothing);
+int unlink_the_dead(monad * m, void * nothing);
+int set_trace(monad * m, int * i);
 
 list * get_namespace(monad * m, char * nsname);
 

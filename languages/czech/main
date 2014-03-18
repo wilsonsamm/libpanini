@@ -1,6 +1,8 @@
 (include arguments/arguments)
 (include arguments/pronouns)
 
+(include headwords)
+
 (include punctuation)
 
 (include sentence/sentence)

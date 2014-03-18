@@ -1,11 +1,12 @@
 (for number (singular plural)
 (df noun
-	(flags ki/vi/ .number)
+	(flags ki/vi .number)
 	(rection (class ki/vi) (number .number))
 	(constituent prefix ki/vi .number)
 	(constituent nounstem ki/vi)
 	(space)
-	(seme (number .number))))
+	(seme (number .number))
+	(clues (class nominal))))
 
 ; To add a KI/VI-class noun to the dictionary, include these flags:
 ;    ki/vi    - this is N class nounstem
@@ -14,8 +15,10 @@
 
 (df nounstem
 	(lit umba)
+	(flags ki/vi)
 	(seme (head room)))
 
 (df nounstem
 	(lit tabu)
+	(flags ki/vi)
 	(seme (head book)))

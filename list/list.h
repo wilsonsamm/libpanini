@@ -30,5 +30,6 @@ list * __list_tokeniser(list * l, const char * toks);
 unsigned int __list_treebuilder(list * toks, list * target, unsigned int offset);
 int list_contains(list * l, char * c);
 void list_remove(list * l, char * c);
+void list_rename(list * l, char * c);
 
 #endif

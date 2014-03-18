@@ -2,6 +2,12 @@
 (include args/pronouns)
 (include args/prefices)
 
+(include headwords)
+
+(include nounphrase/nounphrase)
+(include nounphrase/qualifier)
+(include nounphrase/possessive)
+
 (include nouns/nouns)
 (include nouns/dict-m-wa)
 (include nouns/dict-n)
@@ -23,6 +29,3 @@
 
 (sandhi-initial (b ch d f g h j k l m n p r s t v w x z) (-vowel))
 (sandhi-initial (a e i o u) (vowel))
-
-(df Word (constituent verb))
-(df Word (constituent noun))

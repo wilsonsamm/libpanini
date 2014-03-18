@@ -11,6 +11,11 @@
 	(seme -irrealis -negative)
 	(constituent verb finite)
 	(constituent verbal-argument))
+(df vp
+	(flags present participle)
+	(seme -irrealis -negative)
+	(constituent verb present participle)
+	(constituent verbal-argument))
 
 ; Make sure that only "you" can occur as subject in imperative sentences
 (df vp
@@ -44,6 +49,15 @@
 	(constituent copula finite)
 	(constituent adjp predicative))
 
+; to be verbing [something].
+(df vp
+	(flags finite)
+	(theta (subject patient))
+	(into patient fuzzy 35 rection (definition definite))
+	(seme -irrealis (aspect stative))
+	(constituent copula finite)
+	(constituent vp present participle))
+
 ;; There is, there are
 (df vp
 	(confidence 100)
@@ -57,5 +71,6 @@
 ;;;; THE ARGUMENTS
 (df verbal-argument
 	(adjunct object)
-	(adjunct spatiodeictic-particle)
-	(adjunct to-target))
+	;(adjunct spatiodeictic-particle)
+	;(adjunct to-target)
+	)

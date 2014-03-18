@@ -1,0 +1,54 @@
+;; If you want to add a new adjective to this dictionary, use one of these flags:
+; uninflected - Like hodari, it doesn't have any prefix.
+;  inflected  - Like -dogo, it takes a prefix.
+;  irregular  - Might take a prefix, but it's irregular in at least one case, so you need to put all the forms in. See below.
+
+
+;; This kind of adjective doesn't need to change according to the noun class. I 
+; think they're mostly loan words from Arabic or something,
+
+(df adjective (lit hodari)  (space) (flags uninflected) (seme (head brave)))
+(df adjective (lit maskini) (space) (flags uninflected) (seme (head poor)))
+(df adjective (lit tajiri)  (space) (flags uninflected) (seme (head rich)))
+
+;; This kind of adjective needs to change according to the noun class. They're mostly of Bantu wordstock
+(df adjective (lit dogo)  (space) (flags inflected) (seme (head small)))
+(df adjective (lit refu)  (space) (flags inflected) (seme (head tall)))
+(df adjective (lit kubwa) (space) (flags inflected) (seme (head big)))
+(df adjective (lit zuri)  (space) (flags inflected) (seme (head good)))
+
+;; These adjectives are irregular, so I have put all their forms in.
+; -ema means good.
+(df adjective
+	(flags irregular n)
+	(lit njema)
+	(seme (head good)))
+	
+(df adjective
+	(flags irregular m/wa)
+	(lit wema)
+	(seme (head good)))
+
+
+;; adjp is something that calls adjective and makes sure the class is rectioned properly.
+(df adjp
+	(flags uninflected)
+	(constituent adjective uninflected))
+
+(for class (m/wa ki/vi n)
+	(df adjp
+		(rection (class .class))
+		(flags uninflected)
+		(constituent adjective irregular .class)))
+	
+(df adjp
+	(flags inflected)
+	(constituent adjective inflected))
+
+
+(df qualifier
+	(constituent prefix adjectival)
+	(into (head) constituent adjp inflected))
+	
+(df qualifier
+	(into (head) constituent adjp uninflected))

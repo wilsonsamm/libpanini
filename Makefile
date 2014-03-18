@@ -1,14 +1,10 @@
 all: vlad languages libtranny.a
 
-learner: learner.c libtranny.a
-	gcc -ggdb -c -Wall learn.c
-	gcc -o learn learn.o list.o list-tokenise.o monad.o monad-parse.o monad-generate.o monad-gowild.o bind.o monad-learn.o monad-spawn.o variables.o
-
 vlad: validate.o list.o list-tokenise.o monad.o parse.o generate.o learn.o bind.o spawn.o variables.o
 	gcc -o vlad validate.o list.o list-tokenise.o monad.o parse.o generate.o bind.o learn.o spawn.o variables.o
 
-libtranny.a: list.o list-tokenise.o generate.o gowild.o parse.o spawn.o learn.o attest.o monad.o bind.o variables.o 
-	ar rcs libtranny.a list.o list-tokenise.o generate.o gowild.o parse.o spawn.o learn.o attest.o monad.o bind.o variables.o
+libtranny.a: list.o list-tokenise.o generate.o parse.o spawn.o learn.o attest.o monad.o bind.o variables.o 
+	ar rcs libtranny.a list.o list-tokenise.o generate.o parse.o spawn.o learn.o attest.o monad.o bind.o variables.o
 
 validate.o: validate.c
 	gcc -ggdb -c -Wall validate.c
@@ -110,6 +106,7 @@ clean: lang-clean
 	rm -f monad/*.o monad/*.gch tranny/*.o tranny/*.gch list/*.o list/*.gch vars/*.o vars/*.gch
 	make -C demos/dictionary clean
 	make -C demos/tranny clean
+	make -C utils clean
 	
 # Git commands might be useful to have in a Makefile.
 pull:

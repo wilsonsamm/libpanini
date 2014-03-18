@@ -34,13 +34,6 @@ void monad_generate_fullstop(monad * m) {
 void monad_generate_lit(monad * m) {
 	if(m->namespace) list_remove(m->namespace, "sandhi");
 	char * morpheme = list_get_token(m->command, 2);
-	
-	if(m->readahead) {
-		if(partialstrcmp(morpheme, m->readahead)) {
-			m->alive = 0;
-			return;
-		}
-	}
 	append_string(m, morpheme);
 }
 
@@ -135,26 +128,6 @@ void monad_generate_open(monad * m) {
 	return;
 }
 
-void monad_generate_readahead(monad * m) {
-	char * val = strdup(list_get_token(m->command, 2));
-	
-	if(m->readahead) {
-		if(strcmp(m->readahead, val)) {
-			m->alive = 0;
-			if(m->debug) {
-				fprintf(stderr, "This monad kicked the bucket since READAHEAD is already set to something else");
-			}
-		}
-	}
-	
-	m->readahead = strdup(val);
-	
-	if(m->debug) {
-		fprintf(stderr, "Everything went well.\n");
-	}
-	return;
-}
-
 int tranny_generate(monad * m, void * nothing) {
 	if(!m->alive) return 0;
 	
@@ -183,7 +156,7 @@ int tranny_generate(monad * m, void * nothing) {
 		return 1;
 	}
 	if(!strcmp(command, "constituent")) {
-		monad_parse_constituent(m);
+		monad_parse_constituent(m, 0);
 		list_free(m->command);
 		m->command = 0;
 		m->alive = 0;
@@ -244,7 +217,10 @@ int tranny_generate(monad * m, void * nothing) {
 		return 1;
 	}
 	if(!strcmp(command, "seme")) {
-		m->howtobind &= ~(CREATE | WRITE);
+		//m->howtobind &= ~(CREATE | WRITE);
+		m->howtobind |= WRITE;
+		//m->howtobind &= ~(CREATE);
+		//m->howtobind = 0;
 		bind_vars(m);
 		list_free(m->command);
 		m->command = 0;
@@ -257,7 +233,7 @@ int tranny_generate(monad * m, void * nothing) {
 		return 1;
 	}
 	if(!strcmp(command, "into")) {
-		monad_parse_into(m);
+		monad_parse_into(m, 1);
 		list_free(m->command);
 		m->command = 0;
 		return 1;
@@ -305,10 +281,10 @@ int tranny_generate(monad * m, void * nothing) {
 		return 1;
 	}
 	if(!strcmp(command, "adjunct")) {
-		monad_parse_constituent(m);
+		monad_parse_constituent(m, 1);
 		list_free(m->command);
 		m->command = 0;
-		m->brake++;
+		//m->brake++;
 		return 1;
 	}
 	if(!strcmp(command, "fuzzy")) {
@@ -349,7 +325,15 @@ int tranny_generate(monad * m, void * nothing) {
 		return 1;
 	}
 	if(!strcmp(command, "read-ahead")) {
-		monad_generate_readahead(m);
+		//monad_parse_nop(m);
+		m->alive = 0;
+		list_free(m->command);
+		m->command = 0;
+		return 1;
+	}
+	if(!strcmp(command, "clues")) {
+		m->howtobind |= CREATE | WRITE;
+		bind_vars(m);
 		list_free(m->command);
 		m->command = 0;
 		return 1;

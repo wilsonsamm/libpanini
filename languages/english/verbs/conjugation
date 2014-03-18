@@ -39,6 +39,10 @@
 	(sandhi -sibilant e-final)
 	(lit d)
 	(seme (tense past)))
+
+(df verb-ending
+	(lit ing)
+	(flags ing))
 	
 ;; This part makes sure that there's an object if one is needed.
 (df verb
@@ -57,6 +61,13 @@
 	(space))
 (df verb
 	(constituent verbroot intransitive arg1:patient)
+	(constituent verb-ending ing)
+	(flags present participle)
+	(theta (subject patient) -object)
+	(space))
+	
+(df verb
+	(constituent verbroot intransitive arg1:patient)
 	(flags infinitive)
 	(theta (subject patient) -object)
 	(space))
@@ -66,7 +77,8 @@
 	(constituent verbroot motive intransitive)
 	(constituent verb-conjugation)
 	(flags finite)
-	(theta (subject agent)) (seme -patient) (space))
+	(theta (subject agent))
+	(seme -patient) (space))
 
 ;; Infinitive
 (df verb

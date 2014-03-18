@@ -1,12 +1,13 @@
 #include "monad.h"
 #include <string.h>
 #include <stdlib.h>
-monad * __preparenewmonad(monad * m) {
-	monad * last = m;
-	while(last->child) last = last->child;
+monad * __preparenewmonad(monad * m, monad * idfind) {
 	monad * child = monad_new();
+	
+	
+	while(idfind->child) idfind = idfind->child;
 
-	child->id = last->id+1;
+	child->id = idfind->id+1;
 
 	child->stack = list_new();
 
@@ -25,19 +26,12 @@ monad * __preparenewmonad(monad * m) {
 	}
 	
 	child->capital = m->capital;
-	last->child = child;
 
 	if(child->outtext) {
 		free(child->outtext);
 		child->outtext = 0;
 	}
 	if(m->outtext) child->outtext = strdup(m->outtext);
-	
-	if(child->readahead) {
-		free(child->readahead);
-		child->readahead = 0;
-	}
-	if(m->readahead) child->readahead = strdup(m->readahead);
 
 	child->intext = m->intext;
 	child->index = m->index;
@@ -46,7 +40,9 @@ monad * __preparenewmonad(monad * m) {
 	child->confidence = m->confidence;
 	
 	child->brake = m->brake;
+	//child->adjunct = m->adjunct;
 	child->howtobind = m->howtobind;
+	
 	
 	child->parent_id = m->id;
 	return child;
@@ -67,7 +63,7 @@ int spawn_flagstester(list * f1, list * f2) {
  * then the necessary rules will get spawned. */
 monad * monad_spawn(monad * m, list * rules, list * flags) {
 	int i;
-	monad * retval = 0;
+	monad * first = 0;
 	monad * child = 0;
 	
 	list * p;
@@ -91,8 +87,15 @@ monad * monad_spawn(monad * m, list * rules, list * flags) {
 			if(spawn_flagstester(flags, tf)) continue;
 		}
 
-		child = __preparenewmonad(m);
-		if(!retval) retval = child;
+		/* Construct a new linked list of monads */
+		if(!first) {
+			first = __preparenewmonad(m, m);
+			child = first;
+		} else {
+			child =__preparenewmonad(m, first);
+			monad_join(first, child);
+		}
+		
 		child->alive = m->alive;
 
 		list_append_copy(child->stack, p);
@@ -105,5 +108,6 @@ monad * monad_spawn(monad * m, list * rules, list * flags) {
 		}
 	}
 	
-	return retval;
+	/* Return the linked list of monads we have created */
+	return first;
 }

@@ -15,7 +15,6 @@ monad * monad_new() {
 	m->stack = 0;
 	m->child = 0;
 	m->command = 0;
-	m->readahead = 0;
 	m->id = 1;
 	m->capital = 1;
 	m->outtext = strdup("");
@@ -23,6 +22,7 @@ monad * monad_new() {
 	m->trace = 0;
 	m->debug = 0;
 	m->confidence = 0;
+	m->adjunct = 0;
 	m->debug = 0;
 	m->brake = 0;
 	m->howtobind = 0;
@@ -53,7 +53,6 @@ monad * monad_duplicate(monad * m) {
 	if(m->command) list_append_copy(n->command, m->command);
 	
 	n->id = m->id;
-	if(m->readahead) n->readahead = strdup(m->readahead);
 	
 	n->capital = m->id;
 	if(m->outtext) n->outtext = strdup(m->outtext);
@@ -61,8 +60,9 @@ monad * monad_duplicate(monad * m) {
 	n->trace = m->trace;
 	n->debug = m->debug;
 	n->confidence = m->confidence;
+	n->adjunct = 0;
 	n->brake = m->brake;
-	n->child = 0;
+	n->child = monad_duplicate(m->child);
 	n->howtobind = m->howtobind;
 	return n;
 }
@@ -79,26 +79,22 @@ void monad_set_intext(monad * m, char * c) {
 	m->index = 0;
 }
 
-
-void __monad_free(monad * m) {
-	if(m->outtext)	free(m->outtext);
-	if(m->namespace)	list_free(m->namespace);
-	if(m->scopestack)	list_free(m->scopestack);
-	if(m->stack)	list_free(m->stack);
-	if(m->readahead)	free(m->readahead);
-	if(m->child)	__monad_free(m->child);
-
-	free(m);
-	return;
-}
-
 void monad_free(monad * m) {
 	if(!m) return;
 
 	if(m->rules) list_free(m->rules);
-	__monad_free(m);
+	
+	while(m) {
+		
+		if(m->outtext)	free(m->outtext);
+		if(m->namespace)	list_free(m->namespace);
+		if(m->scopestack)	list_free(m->scopestack);
+		if(m->stack)	list_free(m->stack);
 
-	return;
+		monad * tmp = m->child;
+		free(m);
+		m = tmp;
+	}
 }
 
 list * __monad_rule_loader(char * lang) {
@@ -106,8 +102,6 @@ list * __monad_rule_loader(char * lang) {
 	char * fn = malloc(1024);
 	strcpy(fn, FN_PATH);
 	strcat(fn, lang);
-
-//	printf("Loading rules from %s\n", fn);
 
 	/* Open the file and tokenise it, and then close it */
 	FILE * fp = fopen(fn, "r");
@@ -188,11 +182,18 @@ void print_debugging_info(monad * m) {
 	printf("\n");
 	printf("Intext: (%d) %s\n", m->index, m->intext);
 	printf("Outtext: %s\n", m->outtext);
-	printf("Readahead: %s\n", m->readahead);
 	printf("Scopestack:");
 	if(m->scopestack) list_prettyprinter(m->scopestack);
+	if(m->adjunct) printf("Adjuncts starting from monad %d\n", m->adjunct->id);
 	printf("\nParent: %d\n", m->parent_id);
 }
+
+/* This functin joins two linked lists of monads together. */
+void monad_join(monad * to, monad * addition) {
+	while(to->child) to = to->child;
+	to->child = addition;
+}
+	
 
 /* This function calls the chosen function on the monads that:
  *  - are still alive. 
@@ -230,9 +231,26 @@ int monad_map(monad * m, int(*fn)(monad * m, void * argp), void * arg, int thr) 
 			continue;
 		}
 		
+		/* If the adjunct register has been set, then we should proces those monads first. If they live, this monad will die
+		 * and vice versa. */
+		if(m->adjunct) {
+			if(m->debug) printf("Going to do the Adjunct monads now.\n");
+			if(monad_map(m->adjunct, fn, arg, thr)) {
+				if(m->debug) printf("The Adjunct monads survived, so this monad will now die.\n");
+				m->alive = 0;
+				//printf("Killed off %d because at least some adjunct children survived\n", m->id);
+			} else {
+				if(m->debug) printf("The Adjunct monads all died, so this monad will now keep going.\n");
+				//printf("Kept monad %d because adjunct children are all dead\n", m->id);
+			}
+			monad_join(m, m->adjunct); /* Still need to keep it, for memory management reasons */
+			m->adjunct = 0;
+		}
+		
 		/* Call the function then! */
 		if(!fn(m, arg))	{
 			if(m->alive) retval = 1;
+			
 			m = m->child;
 			continue;
 		}
@@ -272,7 +290,8 @@ int set_seme(monad * m, char * seme) {
 	return 0;
 }
 int print_out(monad * m, FILE * fp) {
-	if(m->outtext) fprintf(fp,"%s\n", m->outtext);
+	if(m->outtext) printf("Monad %d:\tBRAKE: %d\tCONFIDENCE: %d\t%s\n", m->id, m->brake, m->confidence, m->outtext);
+	//if(m->outtext) fprintf(fp,"%s\n", m->outtext);
 	return 0;
 }
 int print_ns(monad * m, void * nothing) {
@@ -341,8 +360,6 @@ int unlink_the_dead(monad * m, void * nothing) {
 				
 	if(m->outtext) free(m->outtext);
 	m->outtext = m->child->outtext;
-	if(m->readahead) free(m->readahead);
-	m->readahead = m->child->readahead;
 	
 	m->intext = m->child->intext;
 	m->brake = m->child->brake;

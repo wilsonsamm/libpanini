@@ -4,7 +4,20 @@
 	dead alive
 	good bad
 	beautiful ugly
+	rich poor
+	brave
+	big small
 	)
 
 	(df adjective
-		(lit .adjective) (space) (flags colour predicative) (seme (head .adjective) -agent)))
+		(lit .adjective) (space) (flags predicative) (seme (head .adjective))))
+
+(df adjective
+	(lit large) (space)
+	(flags predicative)
+	(seme (head big)))
+
+(df adjective
+	(lit enormous) (space)
+	(flags predicative)
+	(seme (head big) (degree high)))

@@ -36,7 +36,7 @@
 (df verbroot
 	(lit die)
 	(flags intransitive arg1:patient)
-	(seme (head dead) (aspect inchoative) -agent patient)
+	(seme (head dead) -agent patient)
 	(rection -spatiodeixis))
 
 (df verbroot

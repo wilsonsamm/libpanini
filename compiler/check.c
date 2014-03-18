@@ -106,6 +106,7 @@ int check_wronginstruction(list * output) {
 			if(!strcmp(iname, "language")) continue;
 			if(!strcmp(iname, "check")) continue;
 			if(!strcmp(iname, "read-ahead")) continue;
+			if(!strcmp(iname, "clues")) continue;
 			
 			fprintf(stderr, "\tWhat is this?\n");
 			fprintf(stderr, "\tA definition of %s has an ", name);
@@ -277,4 +278,77 @@ int check_main_exists(list * output) {
 	}
 	return 0;
 }
-	
+
+
+/* It is theoretically faster to bind variables as early as possible (monads are likely to die when binding variables; if they die
+ * earlier, less time is spent on them), so this routine moves variables bound in later instructions upward, like so. If you define 
+ * something like this:
+ * (df noun
+ * 		(lit Haus)
+ * 		(flags count neuter)
+ * 		(seme (head house)))
+ * when this rule is defined, an extra (seme) is inserted at the beginning like so:
+ * (df noun
+ * 		(seme)
+ * 		(lit Haus)
+ * 		(flags count neuter)
+ * 		(seme (head house)))
+ * On its own, it doesn't do anything. But this function moves anything from the second seme to the first:
+ * (df noun
+ * 		(seme (head house))
+ * 		(lit Haus)
+ * 		(flags count neuter)
+ * 		(seme))
+ * Later, the second seme will get removed. This whole process has effectively moved the (seme) instruction up to the top. A
+ * similar thing happens with (rection). Before I did this, it consistently took between 27 and 28 seconds to translate "I see a
+ * whale" into Swahili. Now it takes around 21 seconds. I was hoping for a little more dramatic improvement, but that's life.
+ */
+int check_early_binding(list * output) {
+	int move_binding(list * def, char * name) {
+		int i;
+		list * seme = 0;
+		list * rection = 0;
+		
+		for(i = 1; i <= def->length; i++) {
+			
+			list * instr; // the instruction
+			instr = list_get_list(def, i);
+			if(!instr) continue;
+			
+			char * iname; // name of the instruction
+			iname = list_get_token(instr, 1);
+			if(!iname) continue;
+			
+			if(!strcmp(iname, "seme")) {
+				if(!seme) {
+					seme = instr;
+				} else {
+					list * tmp = list_new();
+					list_append_copy(tmp, instr);
+					list_drop(tmp, 1);
+					list_append_copy(seme, tmp);
+					list_free(tmp);
+					
+					while(instr->length > 1) list_drop(instr, 2);
+				}
+			}
+			
+			if(!strcmp(iname, "rection")) {
+				if(!rection) {
+					rection = instr;
+				} else {
+					list * tmp = list_new();
+					list_append_copy(tmp, instr);
+					list_drop(tmp, 1);
+					list_append_copy(rection, tmp);
+					list_free(tmp);
+					
+					while(instr->length > 1) list_drop(instr, 2);
+				}
+			}
+		}
+		return 0;
+	}
+	crawl(output, move_binding);
+	return 0;
+}

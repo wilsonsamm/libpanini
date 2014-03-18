@@ -1,0 +1,4 @@
+(df nounphrase
+	(constituent noun)
+	(adjunct qualifier possessive)
+	(adjunct qualifier))

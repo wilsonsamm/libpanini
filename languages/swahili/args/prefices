@@ -1,3 +1,13 @@
+; This file describes the various prefices in the Swahili language. These prefices go on verbs, nouns, adjectives and such, and
+; agree with a noun's class.
+
+; To add a new prefix, use these flags:
+;  subject   - This prefix can go on the front of a verb to agree with the subject.
+;   object   - This prefix can go on the front of a verb to agree with the object.
+; possessive - This prefix can go on the front of a possessive: chumba changu, wageni wangu, etc.
+; adjectival - This prefix can go on the front of variable adjectives: watoto wazuri.
+
+;; Personal
 ; First person singular
 (df prefix
 	(lit ni)
@@ -48,8 +58,14 @@
 	(rection (class m/wa) (number singular)))
 (df prefix
 	(lit wa)
-	(flags subject object)
+	(flags subject object adjectival)
+	(sandhi -vowel)
 	(rection (class m/wa) (number plural)))
+(df prefix
+	(lit w)
+	(sandhi vowel)
+	(flags possessive adjectival)
+	(rection (class m/wa)))
 
 ;; N class
 (df prefix
@@ -60,24 +76,41 @@
 	(lit zi)
 	(flags subject object)
 	(rection (class n) (number plural)))
+(df prefix
+	(lit y)
+	(flags possessive)
+	(rection (class n) (number singular)))
+(df prefix
+	(lit z)
+	(flags possessive)
+	(rection (class n) (number plural)))
+(df prefix
+	(lit n)
+	(flags adjectival)
+	(rection (class n) (number singular)))
+
 
 ;; KI/VI class
 (df prefix 
 	(flags ki/vi singular subject object)
 	(lit ki)
-	(sandhi -vowel))
+	(sandhi -vowel)
+	(rection (class ki/vi) (number singular)))
 	
 (df prefix
-	(flags ki/vi singular subject object)
+	(flags ki/vi singular subject object possessive)
 	(lit ch)
-	(sandhi -vowel))
+	(sandhi vowel)
+	(rection (class ki/vi) (number singular)))
 	
 (df prefix 
 	(flags ki/vi plural subject object)
 	(lit vi)
-	(sandhi -vowel))
+	(sandhi -vowel)
+	(rection (class ki/vi) (number plural)))
 	
 (df prefix
-	(flags ki/vi plural subject object)
+	(flags ki/vi plural subject object possessive)
 	(lit vy)
-	(sandhi -vowel))
+	(sandhi vowel)
+	(rection (class ki/vi) (number plural)))

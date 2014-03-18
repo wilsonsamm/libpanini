@@ -1,0 +1,24 @@
+; Noun
+(df Headword
+	(clues (class nominal) (label n.))
+	(constituent noun))
+(df Translation
+	(clues (class nominal))
+	(constituent noun))
+	
+; Verb
+(df Headword
+	(clues (class verbal) (label v.))
+	(constituent verb infinitive))
+(df Translation
+	(clues (class verbal))
+	(constituent verb infinitive))
+
+; Adjective
+(df Headword
+	(clues (class adjectival) (label adj.))
+	(constituent adjective))
+	
+(df Translation
+	(clues (class adjectival))
+	(constituent adjective))

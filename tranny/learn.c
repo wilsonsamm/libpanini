@@ -103,7 +103,7 @@ int tranny_learn(monad * m, FILE * output) {
 		return 1;
 	}
 	if(!strcmp(command, "constituent")) {
-		monad_parse_constituent(m);
+		monad_parse_constituent(m, 0);
 		list_free(m->command);
 		m->command = 0;
 		return 1;
@@ -168,7 +168,7 @@ int tranny_learn(monad * m, FILE * output) {
 		return 1;
 	}
 	if(!strcmp(command, "into")) {
-		monad_parse_into(m);
+		monad_parse_into(m, 0);
 		list_free(m->command);
 		m->command = 0;
 		return 1;
@@ -216,7 +216,7 @@ int tranny_learn(monad * m, FILE * output) {
 		return 1;
 	}
 	if(!strcmp(command, "adjunct")) {
-		monad_parse_constituent(m);
+		monad_parse_constituent(m, 1);
 		list_free(m->command);
 		m->command = 0;
 		return 1;
@@ -253,6 +253,13 @@ int tranny_learn(monad * m, FILE * output) {
 		return 1;
 	}
 	if(!strcmp(command, "read-ahead")) {
+		list_free(m->command);
+		m->command = 0;
+		return 1;
+	}
+	if(!strcmp(command, "clues")) {
+		m->howtobind |= CREATE | WRITE;
+		bind_vars(m);
 		list_free(m->command);
 		m->command = 0;
 		return 1;

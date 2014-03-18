@@ -1,17 +1,15 @@
+(df argument
+	(constituent nounphrase))
+(df argument
+	(constituent pronoun))
+
 (df subject
 	(into (theta subject) constituent argument))
-(df subject
-	(into (theta subject) constituent pronoun))
 
 (df object
 	(into (theta object) constituent argument))
-(df object
-	(into (theta object) constituent pronoun))
-
 (for theta (patient agent)
 	(df object
 		(theta (object .theta))
 		(seme -.theta)))
 
-(df argument
-	(constituent noun))

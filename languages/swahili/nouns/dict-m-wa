@@ -5,7 +5,8 @@
 	(sandhi -vowel)
 	(constituent nounstem m/wa)
 	(space)
-	(seme (number singular)))
+	(seme (number singular))
+	(clues (class nominal)))
 	
 (df noun
 	(flags m/wa singular)
@@ -14,7 +15,8 @@
 	(sandhi vowel)
 	(constituent nounstem m/wa)
 	(space)
-	(seme (number singular)))
+	(seme (number singular))
+	(clues (class nominal)))
 
 (df noun
 	(flags m/wa plural)
@@ -22,11 +24,11 @@
 	(rection (class m/wa) (number plural))
 	(constituent nounstem m/wa)
 	(space)
-	(seme (number plural)))
+	(seme (number plural))
+	(clues (class nominal)))
 
 ; To add a M/WA-class noun to the dictionary, include these flags:
 ;    m/wa    - this is M/WA class nounstem
-
 
 (df nounstem
 	(flags m/wa)

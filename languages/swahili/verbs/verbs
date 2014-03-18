@@ -4,7 +4,8 @@
 	(into (theta subject) constituent prefix subject)
 	(constituent tense-marker)
 	(constituent verbstem intransitive)
-	(space))
+	(space)
+	(clues (class verb)))
 
 (df verb
 	(flags transitive)
@@ -13,4 +14,5 @@
 	(constituent tense-marker)
 	(into (theta object)  constituent prefix object)
 	(constituent verbstem transitive)
-	(space))
+	(space)
+	(clues (class verb)))

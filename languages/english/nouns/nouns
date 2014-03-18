@@ -1,175 +1,111 @@
+; Animals
+(for headword (whale worm bird)
+	(df nounstem
+		(lit .headword)
+		(seme (head .headword))
+		(rection -enclosed-space -time countable)
+		(clues -human animate -abstract -time -space)))
+
+; Humans
+(for headword (friend uncle soldier visitor person)
+	(df nounstem
+		(lit .headword)
+		(seme (head .headword))
+		(rection -enclosed-space -time countable)
+		(clues human animate -abstract -time -space)))
+
+
+; Places
+(for headword (road beach house room cave village world)
+	(df nounstem
+		(lit .headword)
+		(seme (head .headword))
+		(rection enclosed-space -time countable)
+		(clues -human -animate -abstract -time space)))
+
+; Quarters of the Compass
+(for headword (north east south west)
+	(df nounstem
+		(lit .headword)
+		(rection -countable -time -plural)
+		(seme (head .headword))
+		(clues -human -animate -abstract -time space)))
+
+; Things
+(for headword (axe thing banana book)
+	(df nounstem
+		(lit .headword)
+		(seme (head .headword))
+		(rection -enclosed-space -time countable)
+		(clues -human -animate -abstract -time -space)))
+
+; Times
+(for headword (day week year summer winter time)
+	(df nounstem
+		(lit .headword)
+		(seme (head .headword))
+		(rection -enclosed-space time countable)
+		(clues -human -animate -abstract time -space)))
+
+;;; Regular nouns are defined down here as something which consists of a nounstem plus an optional plural suffix.
 (df noun
 	(seme (number singular))
 	(constituent nounstem) (space)
 	(flags lemma)
-	(rection (person he-she-it)))
+	(rection (person he-she-it))
+	(clues (class nominal)))
+
 (df noun
 	(seme (number plural))
 	(constituent nounstem)
 	(lit s) (space)
-	(rection countable plural (person they)))
+	(rection countable plural (person they))
+	(clues (class nominal)))
 
-(df nounstem
-	(rection -plural)
-	(lit east) (seme (head east)))
-	
-(df nounstem
-	(rection -plural)
-	(lit west) (seme (head west)))
-	
-(df nounstem
-	(rection -plural)
-	(lit north) (seme (head north)))
-	
-(df nounstem
-	(rection -plural)
-	(lit south) (seme (head south)))
-
-(df nounstem
-	(lit uncle)
-	(rection countable)
-	(seme (head uncle)))
-
-(df nounstem
-	(lit whale)
-	(rection countable)
-	(seme (head whale)))
-
-(df nounstem
-	(lit road)
-	(rection countable enclosed-space)
-	(seme (head road)))
-
-(df nounstem
-	(lit room)
-	(rection countable enclosed-space)
-	(seme (head room)))
-	
-(df nounstem
-	(lit house)
-	(rection countable enclosed-space)
-	(seme (head house)))
-	
-(df nounstem
-	(lit cave)
-	(rection countable enclosed-space)
-	(seme (head cave)))
-
-(df nounstem
-	(lit beach)
-	(seme (head beach)))
-
-(df nounstem
-	(sandhi vowel)
-	(fork ((lit axe)) ((lit ax)))
-	(rection countable)
-	(seme (head axe)))
-
-(df nounstem
-	(rection countable)
-	(lit man)
-	(seme (head man)))
-
-(df nounstem
-	(rection countable)
-	(lit friend)
-	(seme (head friend)))
-		
-(df nounstem
-	(rection countable)
-	(lit person)
-	(seme (head person)))
-	
-(df nounstem
-	(rection countable enclosed-space)
-	(lit book)
-	(seme (head book)))
-	
-(df nounstem
-	(lit village)
-	(rection enclosed-space countable)
-	(seme (head village)))
-	
-(df nounstem
-	(lit worm)
-	(rection countable)
-	(seme (head worm)))
-
-(df nounstem
-	(lit time)
-	(rection countable)
-	(seme (head occasion)))
-
-(df nounstem
-	(lit time)
-	(rection -countable)
-	(seme (head time)))
-
-(df nounstem
-	(lit year)
-	(rection -countable)
-	(seme (head year)))
-
-(df nounstem
-	(lit way)
-	(rection countable)
-	(seme (head road)))
-
-(df nounstem
-	(lit day)
-	(rection countable)
-	(seme (head day)))
-
-(df nounstem
-	(lit thing)
-	(rection countable)
-	(seme (head thing)))
-
-(df nounstem
-	(lit world)
-	(rection countable)
-	(seme (head world)))
-(df nounstem
-	(lit banana)
-	(rection countable)
-	(seme (head banana)))
-
-;    life
-;    hand
-;    part
-;    child
-;    eye
-;    place
-;    work
-;    week
-;    case
-;    point
-;    government
-;    company
-;    number
-;    group
-;    problem
-;    fact
-
-;;; Irregular nouns go down here. And they are defined as "noun", not
-;;; "nounstem". That way, we won't end up with wrong things like
+;;; Irregular nouns go down here. And they are defined as "noun", not "nounstem". That way, we won't end up with wrong things like
 ;;; "childs" or "oxes".
+
+; Child.
 (df noun
 	(lit child) (space)
-	(rection countable -enclosed-space (person he-she-it))
+	(rection countable (number singular))
 	(flags lemma)
-	(seme (head child) (number singular)))
+	(seme (head child) (number singular))
+	(clues human animate -abstract -time -space (class nominal)))
+
+; Children.
 (df noun
 	(lit children) (space)
-	(rection countable -enclosed-space (person they))
-	(seme (head child) (number plural)))
+	(rection countable (number plural))
+	(seme (head child) (number plural))
+	(clues human animate -abstract -time -space (class nominal)))
 
+; Woman.
 (df noun
 	(lit woman) (space)
-	(rection countable -enclosed-space (person he-she-it))
+	(rection countable (number singular))
 	(flags lemma)
-	(seme (head woman) (number singular)))
+	(seme (head woman) (number singular))
+	(clues human animate -abstract -time -space (class nominal)))
+
+; Women.
 (df noun
 	(lit women) (space)
-	(rection countable -enclosed-space (person they))
-	(seme (head women) (number plural)))
+	(rection countable (number plural))
+	(seme (head women) (number plural))
+	(clues human animate -abstract -time -space (class nominal)))
+
+; Man.
+(df noun
+	(lit man) (space)
+	(rection countable (number singular))
+	(flags lemma)
+	(seme (head man) (number singular))
+	(clues human animate -abstract -time -space (class nominal)))
+
+; Men.
+(df noun
+	(lit men) (space)
+	(rection countable (number plural))
+	(seme (head men) (number plural))
+	(clues human animate -abstract -time -space (class nominal)))

@@ -1,0 +1,19 @@
+; Nouns
+(for class (m/wa n ki/vi)
+	(df Headword
+		(clues (class nominal) (label .class))
+		(constituent noun .class singular))
+		
+	(df Translation
+		(clues (class nominal))
+		(constituent noun .class singular)))
+
+
+; Adjectives
+(df Headword
+	(clues (class adjectival) (label adj.))
+	(constituent adjective uninflected))
+
+(df Translation
+	(clues (class adjectival))
+	(constituent adjective uninflected))

@@ -1,0 +1,29 @@
+(df possessive-stem
+	(lit angu)
+	(seme (head referential) (person first) (number singular)))
+
+(df possessive-stem
+	(lit ako)
+	(seme (head referential) (person second) (number singular)))
+
+(df possessive-stem
+	(lit ake)
+	(seme (head referential) (person third) (number singular)))	
+
+(df possessive-stem
+	(lit etu)
+	(seme (head referential) (person first) (number plural)))
+
+(df possessive-stem
+	(lit enu)
+	(seme (head referential) (person second) (number plural)))
+
+(df possessive-stem
+	(lit ao)
+	(seme (head referential) (person third) (number plural) animate))
+
+(df qualifier
+	(constituent prefix possessive)
+	(into possessor constituent possessive-stem)
+	(space)
+	(check possessive))

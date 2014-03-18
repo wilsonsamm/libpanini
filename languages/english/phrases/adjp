@@ -4,9 +4,4 @@
 
 (df adjp
 	(flags attributive)
-	(fork
-		((seme -animacy))
-		((into animacy	constituent adjective animacy)))
-	(fork
-		((seme -colour))
-		((into colour	constituent adjective colour))))
+	(into (head) constituent adjective))

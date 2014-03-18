@@ -1,21 +1,22 @@
 (for number (singular plural)
 (df noun
-	(flags n-class)
+	(flags n .number)
 	(seme (number .number))
 	(rection (number .number) (class n) -animate)
 	(constituent nounstem n countable inanimate) (space))
 	
 (df noun
-	(flags n-class)
+	(flags n .number)
 	(seme (number .number))
 	(rection (number .number) (class n) animate)
 	(constituent nounstem n countable animate) (space)))
 
 (df noun
-	(flags n-class)
+	(flags n)
 	(seme -number)
 	(rection (number singular) (class n))
-	(constituent nounstem n uncountable) (space))
+	(constituent nounstem n uncountable) (space)
+	(clues (class nominal)))
 
 ; To add a N-class noun to the dictionary, include these flags:
 ;      n     - this is N class nounstem

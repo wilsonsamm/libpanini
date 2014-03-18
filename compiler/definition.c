@@ -20,6 +20,15 @@ int define(char * name, list * definition, list * output) {
 	list * sandhi = list_append_list(new_pattern);
 	list_append_token(sandhi, "sandhi");
 	
+	/* It is theoretically faster to bind variables as early as possible, so we
+	 * will add (seme) and (rection) here. In a later pass, we will move any 
+	 * variables bound later on. This will (hopefully!) speed the program up a
+	 * little. */
+	list * rection = list_append_list(new_pattern);
+	list_append_token(rection, "rection");
+	list * seme = list_append_list(new_pattern);
+	list_append_token(seme, "seme");
+	
 	/* We'll add a (brake) command in here to the beginning of the rule.
 	 * In a later pass it gets removed from patterns that must not have 
 	 * it. */

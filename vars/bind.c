@@ -177,7 +177,7 @@ void speculate(monad * m, char * namespace, char * varname) {
 	}
 	
 	/* Now let's spawn all the monads to bind them. */
-	monad_spawn(m, rections, 0);
+	monad_join(m, monad_spawn(m, rections, 0));
 	list_free(rections);
 	list_free(values);
 }
