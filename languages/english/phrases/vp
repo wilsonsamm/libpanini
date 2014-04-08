@@ -45,9 +45,9 @@
 	(flags finite)
 	(theta (subject patient))
 	(into patient fuzzy 35 rection (definition definite))
-	(seme -irrealis (aspect stative))
+	(seme -irrealis (aspect stative) (head stative))
 	(constituent copula finite)
-	(constituent adjp predicative))
+	(constituent adjp-chain predicative))
 
 ; to be verbing [something].
 (df vp

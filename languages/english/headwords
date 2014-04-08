@@ -1,11 +1,20 @@
-; Noun
+;;; Nouns
+
+; These rules provide the headwords and translations, respectively, of a dictionary.
 (df Headword
 	(clues (class nominal) (label n.))
-	(constituent noun))
+	(constituent noun lemma))
+	
 (df Translation
 	(clues (class nominal))
-	(constituent noun))
-	
+	(constituent noun lemma))
+
+; This rule says how to learn a noun.
+(df Learn
+	(clues (class nominal))
+	(open nounstem
+		(remove number))) ; (remove number) means that a nounstem should not define "number" in (seme).
+
 ; Verb
 (df Headword
 	(clues (class verbal) (label v.))

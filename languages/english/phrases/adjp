@@ -1,7 +1,15 @@
-(df adjp
-	(flags predicative)
-	(constituent adjective))
+; predicative - May be used predicatively (adjacent to a noun)
+; attributive - May be used attributively (subjacent to a copular verb)
 
-(df adjp
-	(flags attributive)
-	(into (head) constituent adjective))
+; Plain old lone adjective
+(for k (predicative attributive)
+	(df adjp
+		(flags .k)
+		(constituent adjective .k)))
+
+(for k (predicative attributive)
+	(df adjp-chain
+		(flags .k)
+		(into (head) constituent adjp .k)
+		(adjunct adjp-chain .k)))
+

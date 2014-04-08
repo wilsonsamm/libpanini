@@ -22,3 +22,4 @@
 	(lit on)
 	(flags arg1:agent arg2:patient intransitive transitive bantu)
 	(seme (head see)))
+

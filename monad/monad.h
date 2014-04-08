@@ -55,6 +55,8 @@ void monad_join(monad * to, monad * addition);
 int monad_map(monad * m, int(*fn)(monad * m, void * argp), void * arg, int threshold);
 int monad_popcom(monad * m);
 
+monad * monad_duplicate(monad * m);
+
 int bind(list * namespace, list * vars);
 char * eval(list * namespace, char * varname);
 
@@ -63,7 +65,7 @@ monad * monad_spawn(monad * m, list * rules, list * flags);
 int tranny_parse(monad * m, void * nothing);
 int tranny_generate(monad * m, void * nothing);
 int tranny_gowild(monad * m, void * nothing);
-int tranny_learn(monad * m, FILE * output);
+int tranny_learn(monad * m, void * nothing);
 
 void monad_parse_constituent(monad * m, int adjunct);
 void monad_parse_nop();
@@ -93,6 +95,7 @@ void monad_generate_strict(monad * m);
 void monad_generate_forgive(monad * m);
 void monad_generate_readahead(monad * m);
 
+
 char * evaluate(monad * m, list * var);
 void speculate(monad * m, char * namespace, char * varname);
 void bind_vars(monad * m);
@@ -108,7 +111,9 @@ int kill_identical_outtexts(monad * m, void * nothing);
 
 char * monad_get_outtext(monad * m);
 int set_stack(monad * m, char * stack);
+int set_intext(monad * m, char * n);
 int print_ns(monad * m, void * nothing);
+int print_out(monad * m, FILE * fp);
 int unlink_the_dead(monad * m, void * nothing);
 int set_trace(monad * m, int * i);
 

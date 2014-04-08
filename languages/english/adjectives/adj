@@ -1,3 +1,8 @@
+; To define an adjective, add one or both of these flags:
+; predicative - The adjective can be used infront of a noun, like this: "A drunken man"
+; attributive - The adjective can be used with some copular verb, like: "This man is drunk"
+
+; These adjectives can all be used either predicatively or attributively
 (for adjective
 	(
 	red pink blue green 
@@ -7,17 +12,28 @@
 	rich poor
 	brave
 	big small
+	drunk
 	)
 
 	(df adjective
-		(lit .adjective) (space) (flags predicative) (seme (head .adjective))))
+		(lit .adjective) (space) (flags predicative attributive) (seme (head .adjective))))
 
+; This adjective "drunken" can only really be used attributively. 
+; (You can't say "the sailor is drunken". At least, it sounds wrong to me)
+(df adjective
+	(lit drunken)
+	(flags attributive)
+	(seme (head drunk)) -degree)
+
+; Synonyms to the words up there
 (df adjective
 	(lit large) (space)
-	(flags predicative)
+	(flags predicative attributive)
 	(seme (head big)))
 
 (df adjective
 	(lit enormous) (space)
-	(flags predicative)
+	(flags predicative attributive)
 	(seme (head big) (degree high)))
+
+

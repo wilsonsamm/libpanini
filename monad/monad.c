@@ -33,6 +33,7 @@ monad * monad_new() {
 	return m;
 }
 
+/* This function copies a monad. (it doesn't copy the monad's children though). */
 monad * monad_duplicate(monad * m) {
 	if(!m) return 0;
 	while(!m->alive) {
@@ -62,7 +63,7 @@ monad * monad_duplicate(monad * m) {
 	n->confidence = m->confidence;
 	n->adjunct = 0;
 	n->brake = m->brake;
-	n->child = monad_duplicate(m->child);
+	n->child = 0; // monad_duplicate(m->child);
 	n->howtobind = m->howtobind;
 	return n;
 }
@@ -72,11 +73,6 @@ void monad_set_trace(monad * m, int trace) {
 		m->trace = trace;
 		m = m->child;
 	}
-}
-
-void monad_set_intext(monad * m, char * c) {
-	m->intext = c;
-	m->index = 0;
 }
 
 void monad_free(monad * m) {
@@ -290,8 +286,7 @@ int set_seme(monad * m, char * seme) {
 	return 0;
 }
 int print_out(monad * m, FILE * fp) {
-	if(m->outtext) printf("Monad %d:\tBRAKE: %d\tCONFIDENCE: %d\t%s\n", m->id, m->brake, m->confidence, m->outtext);
-	//if(m->outtext) fprintf(fp,"%s\n", m->outtext);
+	if(m->outtext) fprintf(fp,"%s\n", m->outtext);
 	return 0;
 }
 int print_ns(monad * m, void * nothing) {

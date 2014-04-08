@@ -1,8 +1,40 @@
 #include "../monad/monad.h"
 #include <string.h>
+#include <stdlib.h>
 
-void monad_learn_open(monad * m, FILE * output) {
+char * concat(char * a, char * b) {
+	char * c = malloc(strlen(a) + strlen(b) + 1);
+	strcpy(c, a);
+	strcpy(c + strlen(a), b);
+	free(a);
+	free(b);
+	return c;
+}
+
+char * strlist(list * l, char * takeme) {
+	int i = 0;
+	takeme = concat(takeme, strdup("("));
+	while(i < l->length) {
+		if(!l->types) break;
+		if(l->types[i] == TOKEN) {
+			char * tmp = concat(takeme, strdup((char *)l->data[i]));
+			takeme = concat(tmp, strdup(" "));
+		}
+		if(l->types[i] == LIST) {
+			takeme = strlist(l->data[i], strdup(takeme));
+		}
+		i++;
+	}
+	char * temp = concat(takeme, strdup(")"));
+	return temp;
+}
+
+void monad_learn_open(monad * m) {
 	if(!m->namespace) {
+		m->alive = 0;
+		return;
+	}
+	if(m->outtext) {
 		m->alive = 0;
 		return;
 	}
@@ -11,15 +43,14 @@ void monad_learn_open(monad * m, FILE * output) {
 	list_append_token(rule, list_get_token(m->command, 2));
 	
 	int i;
-//	for(i = 3; i <= m->command->length; i++) {
-//		list * instruction = list_get_list(m->command, i);
-//		list_append_copy(list_append_list(rule), instruction);
-//	}
 	
 	/* (lit ... ) */
 	list * lit = list_append_list(rule);
 	list_append_token(lit, "lit");
 	list_append_token(lit, m->intext + m->index);
+	if(m->debug) {
+		printf("\t(lit %s)",m->intext + m->index);
+	}
 	
 	/* (seme ... ) */
 	list * seme = list_append_list(rule);
@@ -49,17 +80,28 @@ void monad_learn_open(monad * m, FILE * output) {
 			}
 		}
 	}
+	if(m->debug) {
+		list_prettyprinter(seme);
+	}
 	
 	/* (flags ... ) */
 	list * flags = list_find_list(m->command, "flags");
 	if((flags = list_find_list(m->command, "flags"))) {
 		list_append_copy(list_append_list(rule), flags);
 	}
-	/* (flags ... ) */
+	if(m->debug && flags) {
+		list_prettyprinter(flags);
+	}
+	
+	/* (rection ... ) */
 	list * rection = list_find_list(m->command, "rection");
 	if((rection = list_find_list(m->command, "rection"))) {
 		list_append_copy(list_append_list(rule), flags);
 	}
+	if(m->debug && rection) {
+		list_prettyprinter(rection);
+	}
+	
 	/* (attest ... )
 	 * What this does is "attests" the new rule iff the parse program ever executes it. Unattested rules are taken with a pinch of 
 	 * salt while generating. */
@@ -73,13 +115,16 @@ void monad_learn_open(monad * m, FILE * output) {
 	list_append_copy(list_append_list(rule), attest);
 	
 	/* Print the definition out! */
-	list_fprettyprinter(output, rule);
-	fprintf(output, "\n");
+	m->outtext = strlist(rule, strdup(""));
+	if(m->debug) {
+		printf("\n\n\n\n");
+		list_prettyprinter(rule);
+	}
 	list_free(rule);
 	
-}	
+}
 
-int tranny_learn(monad * m, FILE * output) {
+int tranny_learn(monad * m, void * nothing) {
 	if(!m->alive) return 0;
 	
 	/* Pop the next command */
@@ -228,7 +273,7 @@ int tranny_learn(monad * m, FILE * output) {
 		return 1;
 	}
 	if(!strcmp(command, "open")) {
-		monad_learn_open(m, output);
+		monad_learn_open(m);
 		list_free(m->command);
 		m->command = 0;
 		return 1;

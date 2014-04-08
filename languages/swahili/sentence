@@ -6,3 +6,8 @@
 (df sentence
 	(constituent subject)
 	(constituent verb intransitive))
+
+(df sentence
+	(constituent subject)
+	(constituent verb copula)
+	(constituent qualifier))
