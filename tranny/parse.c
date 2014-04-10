@@ -136,9 +136,13 @@ void monad_parse_fullstop(monad * m) {
 }
 
 void into_spawner_head(monad * m) {
-	list * spawn = list_new();
 	
 	list * ns = get_namespace(m, "seme");
+	if(!ns) {
+		m->alive = 0;
+		return;
+	}
+	list * spawn = list_new();
 	
 	list_drop(m->command, 1);
 	list_drop(m->command, 1);

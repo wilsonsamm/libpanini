@@ -1,9 +1,6 @@
 ; This is the Ainu clause.
 
 (df clause
+	(flags finite)
 	(adjunct constraint)
-	(fork
-		((constituent argument subject))
-		((constituent argument absolutive)))
-	(constituent verbphrase)
-	(constituent complementiser))
+	(constituent verbphrase))

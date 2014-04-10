@@ -21,7 +21,7 @@
 (include learn)
 
 (df main
-	(constituent clause)
+	(constituent complementiser-phrase)
 	(fullstop))
 
 (df Word (constituent verb))

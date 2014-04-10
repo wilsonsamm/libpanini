@@ -15,3 +15,7 @@
 	(lit wa)
 	(seme exclamation -interrogative -imperative)
 	(rection (complementiser wa)))
+
+(df complementiser-phrase
+	(constituent clause finite)
+	(constituent complementiser))

@@ -1,6 +1,8 @@
 (df verbphrase
-	(constituent verb monovalent))
+	(constituent argument absolutive)
+	(constituent verb))
 	
 (df verbphrase
+	(constituent argument subject)
 	(constituent argument object)
-	(constituent verb bivalent))
+	(constituent verb))
