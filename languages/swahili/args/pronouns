@@ -1,3 +1,4 @@
+; Personal pronouns
 (df pronoun
 	(lit mimi) (space)
 	(seme (head referential) (person first) (number singular) explicit)
@@ -27,3 +28,12 @@
 (df pronoun
 	(seme (head referential) (person third) (number singular) -explicit)
 	(rection (class class-1)))
+
+
+; These pronouns match the null string to referential sememes
+(for class (m/wa ki/vi n)
+ (for number (singular plural)
+  (for animacy (animate -animate)
+	(df pronoun
+		(rection .animacy (class .class) (number .number))
+		(seme -explicit .animacy (head referential) (person third) (number .number))))))

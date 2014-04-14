@@ -1,25 +1,12 @@
-(df verb-and-affices
-	(constituent personal-prefix monovalent)
-	(constituent verbstem active))
 
-(df verb-and-affices
-	(constituent verbstem active)
-	(constituent personal-suffix monovalent))
-
-(df verb-and-affices
-	(constituent personal-prefix monovalent)
-	(into (head) constituent verbstem stative))
-
-(df verb-and-affices
-	(into (head) constituent verbstem stative)
-	(constituent personal-suffix monovalent))
-
-(df verb-and-affices
-	(constituent personal-prefix bivalent)
-	(constituent verbstem bivalent))
+;(for valency (avalent monovalent bivalent copula trivalent))
+(for valency (monovalent bivalent)
+	(df verb
+		(flags .valency)
+		(debug)
+		(constituent personal-prefix .valency)
+		(constituent personal-stem .valency)))
 	
-
-
 (df verb
-	(constituent verb-and-affices)
-	(space))
+	(constituent personal-stem monovalent)
+	(constituent personal-suffix))

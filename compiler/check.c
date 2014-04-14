@@ -107,6 +107,7 @@ int check_wronginstruction(list * output) {
 			if(!strcmp(iname, "check")) continue;
 			if(!strcmp(iname, "read-ahead")) continue;
 			if(!strcmp(iname, "clues")) continue;
+			if(!strcmp(iname, "nop")) continue;
 			
 			fprintf(stderr, "\tWhat is this?\n");
 			fprintf(stderr, "\tA definition of %s has an ", name);

@@ -102,6 +102,9 @@ int main(int argc, char * argv[]) {
 	monad_map(m, kill_not_done, (void*)0, -1);
 	i++;
 	
+	/* Only keep the best interpretation if that's what the user requested */
+	if(cl_best)	monad_map(m, kill_least_confident, (void*)0, -1);
+	
 	/* Do we want to only use the most likely interpretation? */
 	if(cl_one) monad_map(m, kill_least_confident, (void *)0, -1);
 	
@@ -131,6 +134,9 @@ int main(int argc, char * argv[]) {
 			printf("I understood the input but I don't know of a way to say it in %s.\n", argv[2]);
 			printf("Try another language maybe?\n");
 		}
+			
+		/* Only keep the best interpretation if that's what the user requested */
+		if(cl_best)	monad_map(m, kill_least_confident, (void*)0, -1);
 		
 		monad_map(m, kill_identical_outtexts, (void *)0, -1);
 		

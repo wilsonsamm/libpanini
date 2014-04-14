@@ -38,13 +38,19 @@
 	(flags object)
 	(lit him) (space)
 	(rection (person he-she-it) (gender he))
-	(seme (head referential) (person third) (number singular) (gender male)))
+	(seme (head referential) (person third) (number singular) (gender male) animate))
 
 (df pronoun
 	(flags object)
 	(lit her) (space)
 	(rection (person he-she-it) (gender she))
-	(seme (head referential) (person third) (number singular) (gender female)))
+	(seme (head referential) (person third) (number singular) (gender female) animate))
+
+(df pronoun
+	(flags subject object)
+	(lit it) (space)
+	(rection (person he-she-it) (gender it))
+	(seme (head referential) (person third) (number singular) -animate))
 
 (df pronoun
 	(flags object)

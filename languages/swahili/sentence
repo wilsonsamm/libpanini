@@ -1,11 +1,16 @@
 (df sentence
 	(constituent subject)
-	(constituent verb transitive)
-	(constituent object))
+	(constituent verb)
+	(adjunct object))
 
-(df sentence
-	(constituent subject)
-	(constituent verb intransitive))
+;(df sentence
+;	(constituent subject)
+;	(constituent verb transitive)
+;	(constituent object))
+
+;(df sentence
+;	(constituent subject)
+;	(constituent verb intransitive))
 
 (df sentence
 	(constituent subject)

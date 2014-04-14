@@ -27,7 +27,7 @@ void monad_parse_constituent(monad * m, int adjunct) {
 	}
 	
 	/* If there is such a list, spawn the children. */
-	monad * children;
+	monad * children = 0;
 	if(patterns) {
 		if(!(children = monad_spawn(m, patterns, flags))) {
 			if(m->debug) {

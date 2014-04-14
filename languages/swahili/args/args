@@ -8,8 +8,9 @@
 
 (df object
 	(into (theta object) constituent argument))
-(for theta (patient agent)
-	(df object
-		(theta (object .theta))
-		(seme -.theta)))
+
+;(for theta (patient agent)
+;	(df object
+;		(theta (object .theta))
+;		(seme -.theta)))
 

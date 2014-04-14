@@ -1,0 +1,11 @@
+; These prefixes reduce the valency of the verb by one.
+
+(df operation
+	(flags valency-reduction)
+	(lit yay)
+	(seme (projection reflexive)))
+	
+(df operation
+	(flags valency-reduction)
+	(lit u)
+	(seme (projection reciprocal)))

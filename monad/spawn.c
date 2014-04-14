@@ -1,13 +1,13 @@
 #include "monad.h"
 #include <string.h>
 #include <stdlib.h>
-monad * __preparenewmonad(monad * m, monad * idfind) {
+monad * __preparenewmonad(monad * m) {
+	
+	static int identification = 1;
+	
 	monad * child = monad_new();
-	
-	
-	while(idfind->child) idfind = idfind->child;
-
-	child->id = idfind->id+1;
+		
+	child->id = identification++;
 
 	child->stack = list_new();
 
@@ -64,7 +64,6 @@ int spawn_flagstester(list * f1, list * f2) {
 monad * monad_spawn(monad * m, list * rules, list * flags) {
 	int i;
 	monad * first = 0;
-	monad * child = 0;
 	
 	list * p;
 	
@@ -76,6 +75,8 @@ monad * monad_spawn(monad * m, list * rules, list * flags) {
 	}
 	
 	for(i = 1; i <= rules->length; i++) {
+		monad * child = 0;
+		
 		/* Test if we were given a list back */
 		p = list_get_list(rules, i);
 		if(!p) continue;
@@ -89,14 +90,14 @@ monad * monad_spawn(monad * m, list * rules, list * flags) {
 
 		/* Construct a new linked list of monads */
 		if(!first) {
-			first = __preparenewmonad(m, m);
-			child = first;
+			child = __preparenewmonad(m);
+			first = child;
 		} else {
-			child =__preparenewmonad(m, first);
+			child = __preparenewmonad(m);
 			monad_join(first, child);
 		}
-		
-		child->alive = m->alive;
+				
+		//child->alive = m->alive;
 
 		list_append_copy(child->stack, p);
 		list_append_copy(child->stack, m->stack);

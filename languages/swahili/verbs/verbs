@@ -16,14 +16,13 @@
 	(constituent verbstem transitive)
 	(space)
 	(clues (class verb)))
-
-
+	
 (df verb
 	(flags copula)
 	(lit ni) (space)
 	(seme -negative))
 
-(df verb
-	(flags copula)
-	(lit si) (space)
-	(seme negative))
+;(df verb
+;	(flags copula)
+;	(lit si) (space)
+;	(seme negative))

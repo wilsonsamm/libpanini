@@ -8,8 +8,6 @@
 (include nounphrase/rel-clauses)
 
 (include verbphrase/dictionary)
-(include verbphrase/theta-underived)
-(include verbphrase/theta-causative)
 (include verbphrase/surface)
 (include verbphrase/verbphrase)
 
@@ -24,6 +22,3 @@
 	(constituent complementiser-phrase)
 	(fullstop))
 
-(df Word (constituent verb))
-(df Word (constituent noun))
-(df Word (constituent constraint))

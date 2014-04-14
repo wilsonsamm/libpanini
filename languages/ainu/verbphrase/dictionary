@@ -51,6 +51,7 @@
 (df verbstem
 	(lit nukar)
 	(flags transitive perception active)
+	(theta (subject agent) (object patient))
 	(fork
 		((seme (head see)))
 		((seme (head watch)))))
