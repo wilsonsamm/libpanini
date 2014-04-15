@@ -1,25 +1,34 @@
-;;; The personal stem is something you can find on pp. 6 - 7 in Causative Constructions in Ainu.
+;;; The personal stem is something you can find on pp. 6 - 7 in Causative Constructions in Ainu. It is the verbstem plus any valency
+; altering affixes; a sequence of morphemes which is treated as a unit to which the personal-affix attaches.
+; To put a new personal stem in, make sure to put one of these flags in:
+;    avalent  - the personal stem does not take any arguments.
+;  monovalent - the personal stem is monovalent, i.e. takes a single argument (absolutive)
+;   bivalent  - the personal stem is bivalent,   i.e. takes two arguments (subject & object)
+;  trivalent  - the personal stem is trivalent,  i.e. takes three arguments (subject, object & indirect object)
+
 
 ;; Monovalent personal stems:
-
 ; Plain-old monovalent verb
 (df personal-stem
 	(flags monovalent)
+	(function theta monovalent)
 	(constituent verbstem monovalent)
 	(space))
 
 ; bivalent verb with valency reducing operation
 (df personal-stem
 	(flags monovalent)
-	(constituent prefix valency-reduction)
-	(constituent verbstem bivalent)
+	(function theta monovalent)
+	(constituent operation valency-reduction)
+	(constituent verbstem transitive)
 	(space))
 
 ;; Bivalent personal stems
 
 ; bivalent verb
-;(df personal-stem
-;	(flags bivalent)
-;	(constituent verbstem bivalent))
+(df personal-stem
+	(flags bivalent)
+	(function theta bivalent)
+	(constituent verbstem transitive))
 
 

@@ -14,3 +14,10 @@
 	(constituent verbroot bantu arg1:agent arg2:patient transitive)
 	(lit a)
 	(theta (subject agent) (object patient)))
+
+(df verbstem
+	(flags intransitive)
+	(constituent verbroot bantu arg1:agent arg2:patient transitive)
+	(lit a)
+	(theta (subject agent))
+	(seme -patient))

@@ -152,6 +152,7 @@ int main(int argv, char * argc[]) {
 	check_recursion(output);
 	check_deprecated(output);
 	check_space(output);
+	check_rename_constituent(output);
 	
 	/* Optimisations */
 	check_early_binding(output);

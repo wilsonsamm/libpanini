@@ -5,7 +5,7 @@
 /* This function is like strcmp except it only looks as far as (char*)y goes */
 int partialstrcmp(char * x, char * y) {
 	int i;
-
+	
 	for(i = 0; y[i]; i++) {
 		if(!x[i]) return y[i];
 		if(x[i] != y[i]) return x[i] - y[i];
@@ -69,7 +69,18 @@ void monad_parse_nop() {
 }
 
 void monad_parse_lit(monad * m) {
+	if(strlen(m->intext) < m->index) {
+		m->alive = 0;
+		if(m->debug) {
+			printf("Kicked the bucket because the index is beyond the end of the intext.\n");
+			printf("Index: %d, Intext length: %d\n", m->index, strlen(m->intext)); 
+		}
+		return ;
+		
+	}
+	
 	if(m->namespace) list_remove(m->namespace, "sandhi");
+	
 	char * morpheme = list_get_token(m->command, 2);
 	if(partialstrcmp(m->intext + m->index, morpheme)){
 		if(m->debug) {
@@ -102,6 +113,7 @@ void monad_parse_readahead(monad * m) {
 void monad_parse_space(monad * m) {
 
 	if(m->index == 0) return;
+	if(m->intext < strlen(m->intext)) return;
 	if(m->intext[m->index-1] == ' ') return;
 	
 	if(m->debug) 
@@ -400,10 +412,12 @@ void monad_parse_open(monad * m) {
 	int i;
 	
 	m->brake++;
+	
 	/* Skip whitespace */
 	while(m->intext[m->index] == ' ') m->index++;
 	
 	for(i = 0; i<1024; i++) {
+		if(m->index + i > strlen(m->intext)) break;
 		ch = m->intext[m->index];
 		if(ch == ' ') break;
 		word[i] = ch;
@@ -445,7 +459,14 @@ int tranny_parse(monad * m, void * nothing) {
 	}
 
 	char * command = list_get_token(m->command, 1);
-	
+		
+	if(!strcmp(command, "call")) {
+		monad_parse_constituent(m, 0);
+		list_free(m->command);
+		m->command = 0;
+		m->alive = 0;
+		return 0;
+	}
 	if(!strcmp(command, "strict")) {
 		monad_parse_strict(m);
 		list_free(m->command);

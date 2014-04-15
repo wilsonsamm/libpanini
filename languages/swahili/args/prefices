@@ -89,7 +89,6 @@
 	(flags adjectival)
 	(rection (class n) (number singular)))
 
-
 ;; KI/VI class
 (df prefix 
 	(flags ki/vi singular subject object)

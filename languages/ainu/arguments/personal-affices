@@ -25,28 +25,33 @@
 (df personal-prefix
 	(flags bivalent)
 	(lit ku)
+	(seme (trajectory projective))
 	(into (theta subject) rection (person kuani))
 	(into (theta object)  rection (person ani)))
 
 (df personal-prefix
 	(flags bivalent)
 	(lit en)
+	(seme (trajectory projective))
 	(into (theta subject) rection (person ani))
 	(into (theta object)  rection (person kuani)))
 
 (df personal-prefix
 	(flags bivalent)
 	(lit eci)
+	(seme (trajectory projective))
 	(into (theta subject) rection (person kuani))
 	(into (theta object)  rection (person eani)))
 
 (df personal-prefix
 	(flags bivalent)
 	(lit eci)
+	(seme (trajectory projective))
 	(into (theta subject) rection (person eani))
 	(into (theta object)  rection (person kuani)))
 
 (df personal-prefix
 	(flags bivalent)
+	(seme (trajectory projective))
 	(into (theta subject) rection (person ani))
 	(into (theta object) rection (person ani)))

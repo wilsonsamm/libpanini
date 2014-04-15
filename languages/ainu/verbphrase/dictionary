@@ -2,13 +2,15 @@
 (df verbstem
 	(lit an)
 	(flags existential)
+	(theta (roles stative))
 	(seme (head exist)))
 
 ; "Hure" means "red" or "pink" (to the Ainu, and many other peoples, 
 ; these are just two shades of the one colour, "hure").
 (df verbstem
 	(lit hure)
-	(flags stative colour)
+	(flags stative)
+	(theta (roles stative))
 	(fork
 		((seme (head red)))
 		((seme (head pink)))))
@@ -17,6 +19,7 @@
 (df verbstem
 	(lit inkar)
 	(flags intransitive perception active)
+	(theta (roles perception))
 	(fork
 		((seme (head see)))
 		((seme (head watch)))))
@@ -24,19 +27,22 @@
 ; "Isam" can mean "dead"
 (df verbstem
 	(lit isam)
+	(theta (roles stative))
 	(flags stative animacy)
 	(seme (head dead)))
 
 ; Kasiw means "help"
 (df verbstem
 	(lit kasiw)
-	(flags binary assistance active)
+	(flags transitive assistance active)
+	(theta (roles assist))
 	(seme (head help)))
 	
 ; Pirka means "beautiful" or "good"
 (df verbstem
 	(lit pirka)
 	(flags stative)
+	(theta (roles stative))
 	(fork
 		((seme (head good)))
 		((seme (head beautiful)))))
@@ -45,13 +51,14 @@
 (df verbstem
 	(lit mean)
 	(flags nullary)
+	(theta -roles) ; There are no theta roles for a nullary verb.
 	(seme (head cold)))
 
 ; "Nukar" means "see"
 (df verbstem
 	(lit nukar)
 	(flags transitive perception active)
-	(theta (subject agent) (object patient))
+	(theta (roles perception))
 	(fork
 		((seme (head see)))
 		((seme (head watch)))))
@@ -60,4 +67,5 @@
 (df verbstem
 	(lit ruy)
 	(flags stative)
+	(theta (roles stative))
 	(seme (head strong)))
