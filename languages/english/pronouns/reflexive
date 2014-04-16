@@ -1,0 +1,47 @@
+; These pronouns occur as syntactic objects but are semantically co-indexed with the subject of the sentence.
+
+(df pronoun
+	(flags reflexive)
+	(lit eachother) (space)
+	(seme (trajectory reciprocative)))
+
+(df pronoun
+	(flags reflexive)
+	(into (theta subject) rection (person I))
+	(lit myself)
+	(seme (trajectory reflexive)))
+
+(df pronoun
+	(flags reflexive)
+	(into (theta subject) rection (person I))
+	(into (theta subject) seme (number singular))
+	(lit yourself)
+	(seme (trajectory reflexive)))
+
+(df pronoun
+	(flags reflexive)
+	(into (theta subject) seme (gender female))
+	(into (theta subject) rection (person he-she-it) (gender female))
+	(lit herself)
+	(seme (trajectory reflexive)))
+
+(df pronoun
+	(flags reflexive)
+	(into (theta subject) seme (gender male))
+	(into (theta subject) rection (person he-she-it) (gender male))
+	(lit himself)
+	(seme (trajectory reflexive)))
+
+(df pronoun
+	(flags reflexive)
+	(into (theta subject) rection (person we))
+	(lit ourselves)
+	(seme (trajectory reflexive)))
+
+(df pronoun
+	(flags reflexive)
+	(into (theta subject) rection (person you))
+	(into (theta subject) seme (number plural))
+	(lit yourselves)
+	(seme (trajectory reflexive)))
+
