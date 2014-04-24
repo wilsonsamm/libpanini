@@ -1,0 +1,21 @@
+; These rules provide the headwords and translations, respectively, of a dictionary.
+(df Headword
+	(clues (class nominal) (label n.))
+	(constituent noun))
+	
+(df Translation
+	(clues (class nominal))
+	(constituent noun))
+
+
+(df Headword
+	(clues (class verbal) (label v.))
+	(constituent verbstem))
+	
+(df Translation	
+	(clues (class verb))
+	(constituent verbstem))
+
+(df Translation
+	(clues (class adjectival))
+	(constituent verbstem stative))

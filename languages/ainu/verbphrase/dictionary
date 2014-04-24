@@ -63,6 +63,13 @@
 		((seme (head see)))
 		((seme (head watch)))))
 
+; "Omap" means "love"
+(df verbstem
+	(lit omap)
+	(flags transitive perception active)
+	(theta (roles perception))
+	(seme (head love)))
+
 ; "Ruy" means "strong"
 (df verbstem
 	(lit ruy)
