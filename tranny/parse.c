@@ -113,7 +113,7 @@ void monad_parse_readahead(monad * m) {
 void monad_parse_space(monad * m) {
 
 	if(m->index == 0) return;
-	if(m->index < strlen(m->intext)) return;
+	if(m->index > strlen(m->intext)) return;
 	if(m->intext[m->index-1] == ' ') return;
 	
 	if(m->debug) 

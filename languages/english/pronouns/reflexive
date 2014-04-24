@@ -13,7 +13,7 @@
 
 (df pronoun
 	(flags reflexive)
-	(into (theta subject) rection (person I))
+	(into (theta subject) rection (person you))
 	(into (theta subject) seme (number singular))
 	(lit yourself)
 	(seme (trajectory reflexive)))

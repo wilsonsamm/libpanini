@@ -1,18 +1,9 @@
 (df verb
-	(flags intransitive)
-	(rection -object)
-	(into (theta subject) constituent prefix subject)
-	(constituent tense-marker)
-	(constituent verbstem intransitive)
-	(space)
-	(clues (class verb)))
-
-(df verb
 	(flags transitive)
 	(rection object)
-	(into (theta subject) constituent prefix subject)
+	(constituent vprefix subject)
 	(constituent tense-marker)
-	(into (theta object)  constituent prefix object)
+	(constituent vprefix object)
 	(constituent verbstem transitive)
 	(space)
 	(clues (class verb)))
