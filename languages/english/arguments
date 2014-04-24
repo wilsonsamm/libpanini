@@ -9,11 +9,17 @@
 
 (df object
 	(rection object)
-	(into (theta object) constituent dp))
+	(into (theta object) constituent dp)
+	(seme (trajectory projective)))
 
 (df object
 	(rection object)
-	(into (theta object) constituent pronoun object))
+	(into (theta object) constituent pronoun object)
+	(seme (trajectory projective)))
+
+(df object
+	(rection object)
+	(constituent pronoun reflexive))
 
 ; This "subject" is the subject of imperative clauses (which may seem to
 ; have no subject but actually do).

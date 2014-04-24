@@ -64,13 +64,6 @@ int tranny_attest(monad * m, char * langname) {
 
 	char * command = list_get_token(m->command, 1);
 	
-	if(!strcmp(command, "call")) {
-		monad_parse_constituent(m, 0);
-		list_free(m->command);
-		m->command = 0;
-		m->alive = 0;
-		return 0;
-	}
 	if(!strcmp(command, "strict")) {
 		monad_parse_strict(m);
 		list_free(m->command);

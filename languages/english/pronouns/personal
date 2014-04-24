@@ -1,15 +1,37 @@
+; First person singular
 (df pronoun
 	(flags subject)
 	(lit I) (space)
 	(rection (person I))
 	(seme (head referential) (person first) (number singular)))
+	
+(df pronoun
+	(flags object)
+	(lit me) (space)
+	(rection (person I))
+	(seme (head referential) (person first) (number singular)))
 
+; Second person singular (This "thou" form that occurs in archaic and dialectal texts)
+(df pronoun
+	(flags subject)
+	(lit thou) (space)
+	(rection (person thou))
+	(seme (head referential) (person second) (number singular)))
+(df pronoun
+	(flags object)
+	(lit thee) (space)
+	(rection (person thou))
+	(seme (head referential) (person second) (number singular)))
+
+; Second person (this "you" form that is grammatically plural but does not necessarily have plural meaning)
 (df pronoun
 	(flags subject object)
 	(lit you) (space)
 	(rection (person you))
 	(seme (head referential) (person second)))
 
+
+; Third person singular
 (df pronoun
 	(flags subject)
 	(lit he) (space)
@@ -21,18 +43,6 @@
 	(lit she) (space)
 	(rection (person he-she-it) (gender she))
 	(seme (head referential) (person third) (number singular) (gender female)))
-
-(df pronoun
-	(flags subject)
-	(lit we) (space)
-	(rection (person we))
-	(seme (head referential) (person first) (number plural)))
-	
-(df pronoun
-	(flags object)
-	(lit me) (space)
-	(rection (person I))
-	(seme (head referential) (person first) (number singular)))
 
 (df pronoun
 	(flags object)
@@ -52,14 +62,26 @@
 	(rection (person he-she-it) (gender it))
 	(seme (head referential) (person third) (number singular) -animate))
 
+; First person plural
+(df pronoun
+	(flags subject)
+	(lit we) (space)
+	(rection (person we))
+	(seme (head referential) (person first) (number plural)))
 (df pronoun
 	(flags object)
 	(lit us) (space)
 	(rection (person we))
 	(seme (head referential) (person first) (number plural)))
 
+; Third person plural
+(df pronoun
+	(flags subject)
+	(lit they) (space)
+	(rection (person they))
+	(seme (head referential) (person third) (number plural)))
 (df pronoun
 	(flags object)
-	(lit here) (space)
-	(rection (person he-she-it))
-	(seme (head here)))
+	(lit them) (space)
+	(rection (person they))
+	(seme (head referential) (person third) (number plural)))

@@ -6,7 +6,6 @@
 (include phrases/adjp)
 
 (include immutable-particles/complementisers)
-(include immutable-particles/pronouns)
 (include immutable-particles/determiners)
 (include immutable-particles/spatiodeictic)
 (include immutable-particles/locative-particles)
@@ -25,6 +24,9 @@
 
 (include prepositions/phrases)
 
+(include pronouns/personal)
+(include pronouns/reflexive)
+
 (include punctuation)
 
 (include learn)
@@ -41,8 +43,7 @@
 (sandhi-initial (b c d f g j k l m n p q r s t v w x z) (-vowel))
 (sandhi-initial (a e i o u) (vowel))
 
-(sandhi-final (x ch s z o) (sibilant))	; The 'o' here is responsible 
-										; for forms like "goes".
+(sandhi-final (x ch s z o) (sibilant))	; The 'o' here is responsible for forms like "goes".
 (sandhi-final (a b c d e f g i j k l m n p q r t u v w y) (-sibilant))
 
 (sandhi-final (e) (e-final))

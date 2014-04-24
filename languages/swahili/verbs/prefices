@@ -1,0 +1,17 @@
+; These prefices are functions that call the prefices defined in args/prefices. The reason for this level of abstraction is that 
+; it may be necessary to call either a personal prefix (to be instantiated in some scope) or something else (like the reflexive
+; infix for example)
+
+(df vprefix
+	(flags subject)
+	(into (theta subject) constituent prefix subject))
+
+(df vprefix
+	(flags object)
+	(into (theta object) constituent prefix object)
+	(seme (trajectory projective)))
+	
+(df vprefix
+	(flags object)
+	(lit ji)
+	(seme (trajectory reflexive)))

@@ -1,0 +1,9 @@
+; This file binds the theta roles for the given verbtype.
+
+(df theta
+	(flags monovalent)
+	(theta (roles perception) (absolutive patient) -subject -object))
+
+(df theta
+	(flags bivalent)
+	(theta (roles perception) (subject agent) (object patient) -absolutive))

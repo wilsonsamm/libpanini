@@ -108,7 +108,6 @@ int check_wronginstruction(list * output) {
 			if(!strcmp(iname, "read-ahead")) continue;
 			if(!strcmp(iname, "clues")) continue;
 			if(!strcmp(iname, "nop")) continue;
-			if(!strcmp(iname, "function")) continue;
 			
 			fprintf(stderr, "\tWhat is this?\n");
 			fprintf(stderr, "\tA definition of %s has an ", name);
@@ -270,32 +269,6 @@ int check_recursion(list * output) {
 	}
 	crawl(output, brake);
 	crawl(output, unbrake);
-	return 0;
-}
-
-int check_rename_constituent(list * output) {
-	int rename(list * def, char * name) {
-		int i;
-		for(i = 1; i <= def->length; i++) {
-			list * instr; // the instruction
-			instr = list_get_list(def, i);
-			if(!instr) continue;
-			char * iname; // name of the instruction
-			iname = list_get_token(instr, 1);
-			
-			if(!strcmp(iname, "constituent")) {
-				list_rename(instr, "call");
-				continue;
-			}
-			if(!strcmp(iname, "function")) {
-				list_rename(instr, "call");
-				continue;
-			}
-		}
-		return 0;
-	}
-	
-	crawl(output, rename);
 	return 0;
 }
 

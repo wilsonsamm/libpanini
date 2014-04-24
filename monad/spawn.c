@@ -40,7 +40,7 @@ monad * __preparenewmonad(monad * m) {
 	child->confidence = m->confidence;
 	
 	child->brake = m->brake;
-	child->adjunct = 0;
+	//child->adjunct = m->adjunct;
 	child->howtobind = m->howtobind;
 	
 	
