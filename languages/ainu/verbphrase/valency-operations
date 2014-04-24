@@ -3,15 +3,9 @@
 (df operation
 	(flags valency-reduction)
 	(lit yay)
-	(seme (trajectory reflexive)))
-
+	(seme (projection reflexive)))
+	
 (df operation
 	(flags valency-reduction)
 	(lit u)
-	(seme (trajectory reciprocative)))
-	
-(for theta (patient agent)
-(df operation
-	(flags valency-reduction)
-	(lit i)
-	(theta (patient .theta)) (seme -.theta)))
+	(seme (projection reciprocal)))

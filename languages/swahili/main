@@ -22,7 +22,6 @@
 (include verbs/verbs)
 (include verbs/verbstem)
 (include verbs/tense-markers)
-(include verbs/prefices)
 
 (df main
 	(constituent sentence)

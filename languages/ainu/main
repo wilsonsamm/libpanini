@@ -10,9 +10,6 @@
 (include verbphrase/dictionary)
 (include verbphrase/surface)
 (include verbphrase/verbphrase)
-(include verbphrase/personal-stem)
-(include verbphrase/valency-operations)
-(include verbphrase/theta)
 
 (include clause)
 (include complementiser)
@@ -20,8 +17,6 @@
 (include modal-particles)
 
 (include learn)
-(include headwords)
-(include punctuation)
 
 (df main
 	(constituent complementiser-phrase)
