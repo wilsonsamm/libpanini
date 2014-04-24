@@ -114,14 +114,12 @@ char * eval(list * namespace, char * varname) {
 }
 	
 void speculate(monad * m, char * namespace, char * varname) {
-	/* This function speculates what a variable might be by looking at the program.
-	 * (But first the instruction which is currently executing must be 
+	/* This function speculates what a variable might be by looking at 
+	 * the rules. */
+	
+	/* (But first the instruction which is currently executing must be 
 	 * saved on the stack) */
-	list * newstack = list_new();
-	list_append_copy(list_append_list(newstack), m->command);
-	list_append_copy(newstack, m->stack);
-	list_free(m->stack);
-	m->stack = newstack;
+	list_append_copy(list_append_list(m->instrlist), m->command);
 	
 	/* This bit will collect the rections from the rules and put them in
 	 * a format suitable for passing to monad_parse_spawn, i. e.:

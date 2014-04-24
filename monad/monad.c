@@ -12,7 +12,7 @@ monad * monad_new() {
 	m->alive = 1;
 	m->namespace = 0;
 	m->scopestack = 0;
-	m->stack = 0;
+	m->instrlist = 0;
 	m->child = 0;
 	m->command = 0;
 	m->id = 1;
@@ -48,8 +48,8 @@ monad * monad_duplicate(monad * m) {
 	if(m->namespace) list_append_copy(n->namespace, m->namespace);
 	n->scopestack = list_new();
 	if(m->scopestack) list_append_copy(n->scopestack, m->scopestack);
-	n->stack = list_new();
-	if(m->stack) list_append_copy(n->stack, m->stack);
+	n->instrlist = list_new();
+	if(m->instrlist) list_append_copy(n->instrlist, m->instrlist);
 	n->command = list_new();
 	if(m->command) list_append_copy(n->command, m->command);
 	
@@ -85,7 +85,7 @@ void monad_free(monad * m) {
 		if(m->outtext)	free(m->outtext);
 		if(m->namespace)	list_free(m->namespace);
 		if(m->scopestack)	list_free(m->scopestack);
-		if(m->stack)	list_free(m->stack);
+		if(m->instrlist)	list_free(m->instrlist);
 
 		monad * tmp = m->child;
 		free(m);
@@ -130,11 +130,11 @@ int monad_rules(monad * m, char * lang) {
 
 
 int monad_popcom(monad * m) {
-	if(!m->stack) {
-		fprintf(stderr, "Monad %d has no stack!\n", m->id);
+	if(!m->instrlist) {
+		fprintf(stderr, "Monad %d has no instruction list!\n", m->id);
 	}
 	
-	if(m->stack->length == 0) {
+	if(m->instrlist->length == 0) {
 		if(m->debug) {
 			printf("Monad %d had nothing left to do so I've put ", m->id);
 			printf("a NULL pointer into the INSTRUCTION register ");
@@ -144,17 +144,17 @@ int monad_popcom(monad * m) {
 
 	m->command = list_new();
 
-	list * com = list_get_list(m->stack, 1);
+	list * com = list_get_list(m->instrlist, m->instrlist->length);
 	if(!com) {
 		fprintf(stderr, "What is this? Something is wrong with the stack in ");
 		fprintf(stderr, "Monad %d. \nHere it is: ", m->id);
-		list_prettyprinter(m->stack);
+		list_prettyprinter(m->instrlist);
 		m->alive = 0;
 	}
 
 	list_append_copy(m->command, com);
 
-	list_drop(m->stack, 1);
+	list_drop(m->instrlist, m->instrlist->length);
 
 	return 0;
 }
@@ -162,9 +162,9 @@ int monad_popcom(monad * m) {
 void print_debugging_info(monad * m) {
 	printf("\n\nStepping Monad %d. ", m->id);
 	printf("This monad is %s.\n", m->alive ? "alive":"dead");
-	if(m->stack) {
-		printf("Stack:");
-		list_prettyprinter(m->stack);
+	if(m->instrlist) {
+		printf("Instruction list:");
+		list_prettyprinter(m->instrlist);
 	} else {
 		printf("This monad has no stack.");
 	}
@@ -218,7 +218,7 @@ int monad_map(monad * m, int(*fn)(monad * m, void * argp), void * arg, int thr) 
 		
 		/* And its BRAKE register must be below the threshold (if there is a threshold at all */
 		if(thr != -1 && m->brake > thr) {
-			if(m->debug && m->stack) {
+			if(m->debug && m->instrlist) {
 				fprintf(stderr, "BRAKE = %d.  THRESHOLD = %d.\n", m->brake, thr);
 				fprintf(stderr, "This monad has been skipped since it's BRAKE register is too high.\n");
 			}
@@ -266,12 +266,12 @@ int set_intext(monad * m, char * n) {
 }
 
 int set_stack(monad * m, char * stack) {
-	if(m->stack) list_free(m->stack);
+	if(m->instrlist) list_free(m->instrlist);
 	
 	if(m->command) list_free(m->command);
 
-	m->stack = list_new();
-	list_tokenise_chars(m->stack, stack);
+	m->instrlist = list_new();
+	list_tokenise_chars(m->instrlist, stack);
 
 	return 0;
 }
@@ -331,9 +331,9 @@ int kill_braked_monads(monad * m, int * thr) {
 }
 
 int kill_not_done(monad * m, int * thr) {
-	if(!m->stack) return 0;
+	if(!m->instrlist) return 0;
 	
-	if(m->stack->length) m->alive = 0;
+	if(m->instrlist->length) m->alive = 0;
 	
 	return 0;
 }
@@ -344,8 +344,8 @@ int unlink_the_dead(monad * m, void * nothing) {
 	if(m->command) list_free(m->command);
 	m->command = m->child->command;
 	
-	if(m->stack) list_free(m->stack);
-	m->stack = m->child->stack;
+	if(m->instrlist) list_free(m->instrlist);
+	m->instrlist = m->child->instrlist;
 	
 	if(m->namespace) list_free(m->namespace);
 	m->namespace = m->child->namespace;

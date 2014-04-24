@@ -9,7 +9,7 @@ monad * __preparenewmonad(monad * m) {
 		
 	child->id = identification++;
 
-	child->stack = list_new();
+	child->instrlist = list_new();
 
 	child->rules = m->rules;
 
@@ -96,11 +96,9 @@ monad * monad_spawn(monad * m, list * rules, list * flags) {
 			child = __preparenewmonad(m);
 			monad_join(first, child);
 		}
-				
-		//child->alive = m->alive;
 
-		list_append_copy(child->stack, p);
-		list_append_copy(child->stack, m->stack);
+		list_append_copy(child->instrlist, m->instrlist);
+		list_append_copy(child->instrlist, p);
 
 		if(m->debug) {
 			printf("Monad %d spawned monad %d to execute: ", m->id, child->id);

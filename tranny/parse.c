@@ -113,7 +113,7 @@ void monad_parse_readahead(monad * m) {
 void monad_parse_space(monad * m) {
 
 	if(m->index == 0) return;
-	if(m->intext < strlen(m->intext)) return;
+	if(m->index < strlen(m->intext)) return;
 	if(m->intext[m->index-1] == ' ') return;
 	
 	if(m->debug) 
@@ -253,33 +253,23 @@ void monad_parse_into(monad * m, int head) {
 	}
 	if(!m->scopestack) m->scopestack = list_new();
 	list_append_token(m->scopestack, intowhat);
+
+	/* The (return) command */
+	list * retcom = list_append_list(m->instrlist);
+	list_append_token(retcom, "return");
 	
 	/* The command to execute in that scope */
-	list * toexecute = list_new();
+	list * toexecute = list_append_list(m->instrlist);
 	list_append_copy(toexecute, m->command);
 	list_drop(toexecute, 1);
 	list_drop(toexecute, 1);
-
-	/* The (return) command */
-	list * retcom = list_new();
-	list_append_token(retcom, "return");
-
-	/* Update the stack */
-	list * newstack = list_new();
-	list_append_copy(list_append_list(newstack), toexecute);
-	list_append_copy(list_append_list(newstack), retcom);
-	list_append_copy(newstack, m->stack);
-	list_free(m->stack);
-	m->stack = newstack;
+	
 	if(m->debug) {
-		printf("This will be the new stack:\n");
-		list_prettyprinter(m->stack);
+		printf("This will be the new instruction list:\n");
+		list_prettyprinter(m->instrlist);
 		printf("\n");
 	}
 
-	/* Tidy up */
-	list_free(retcom);
-	list_free(toexecute);
 }
 
 
@@ -387,24 +377,6 @@ void monad_parse_strict(monad * m) {
 	m->alive = 0;
 }
 
-void monad_parse_block(monad * m) {
-	/* Set the BLOCK flag */
-	m->howtobind |= BLOCK;
-	
-	/* The command that's to be done strictly */
-	list_drop(m->command, 1);
-	list * todo = list_new();
-	list_append_copy(todo, m->command);
-
-	/* Update the stack */
-	list * newstack = list_new();
-	list_append_copy(list_append_list(newstack), todo);
-	list_append_copy(newstack, m->stack);
-	list_free(m->stack);
-	m->stack = newstack;
-	return;
-}
-
 void monad_parse_open(monad * m) {
 	/* how long is the instring? */
 	char word[1024];
@@ -472,13 +444,7 @@ int tranny_parse(monad * m, void * nothing) {
 		list_free(m->command);
 		m->command = 0;
 		return 1;
-	}	
-	if(!strcmp(command, "block")) {
-		monad_parse_block(m);
-		list_free(m->command);
-		m->command = 0;
-		return 1;
-	}	
+	}
 	if(!strcmp(command, "constituent")) {
 		monad_parse_constituent(m, 0);
 		list_free(m->command);
