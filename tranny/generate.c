@@ -44,6 +44,39 @@ void monad_generate_space(monad * m) {
 	append_string(m, " ");
 }
 
+void monad_generate_forgive(monad * m) {
+	list * todo = list_new();
+	list_drop(m->command, 1);
+	list_append_copy(todo, m->command);
+
+	/* Update the stack */
+	list * newstack = list_new();
+	list_append_copy(list_append_list(newstack), todo);
+	list_append_copy(newstack, m->stack);
+	list_free(m->stack);
+	m->stack = newstack;
+	
+	return;
+}
+
+void monad_generate_strict(monad * m) {
+	/* Set the STRICT flag */
+	m->howtobind |= STRICT;
+	
+	/* The command that's to be done strictly */
+	list_drop(m->command, 1);
+	list * todo = list_new();
+	list_append_copy(todo, m->command);
+
+	/* Update the stack */
+	list * newstack = list_new();
+	list_append_copy(list_append_list(newstack), todo);
+	list_append_copy(newstack, m->stack);
+	list_free(m->stack);
+	m->stack = newstack;
+	return;
+}
+
 void monad_generate_open(monad * m) {
 	/* Does it say (rel open) (open ...) ? */
 	list * ns = get_namespace(m, "seme");
@@ -116,6 +149,18 @@ int tranny_generate(monad * m, void * nothing) {
 		m->command = 0;
 		m->alive = 0;
 		return 0;
+	}
+	if(!strcmp(command, "strict")) {
+		monad_generate_strict(m);
+		list_free(m->command);
+		m->command = 0;
+		return 1;
+	}	
+	if(!strcmp(command, "block")) {
+		monad_parse_block(m);
+		list_free(m->command);
+		m->command = 0;
+		return 1;
 	}
 	if(!strcmp(command, "constituent")) {
 		monad_parse_constituent(m, 0);
@@ -226,6 +271,12 @@ int tranny_generate(monad * m, void * nothing) {
 	}
 	if(!strcmp(command, "unbrake")) {
 		monad_parse_unbrake(m);
+		list_free(m->command);
+		m->command = 0;
+		return 1;
+	}
+	if(!strcmp(command, "forgive")) {
+		monad_generate_forgive(m);
 		list_free(m->command);
 		m->command = 0;
 		return 1;

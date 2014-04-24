@@ -18,7 +18,7 @@
  * this takes. */
 typedef struct _monad {
 	list * command;		/* Contains the command currently executing */
-	list * instrlist;	/* Contains the list of commands to execute 
+	list * stack;		/* Contains the list of commands to execute 
 						   next */
 	list * rules;		/* Rules for parsing */
 	
