@@ -1,7 +1,14 @@
 ; Animals
-(for headword (whale worm bird)
+(for headword (whale worm bird duck)
 	(df nounstem
+		(adjunct species-preword .headword)
 		(lit .headword)
+		(seme (head .headword))
+		(rection -enclosed-space -time countable)
+		(clues -human animate -abstract -time -space))
+	
+	(df nounstem
+		(constituent species-preword .headword headless)
 		(seme (head .headword))
 		(rection -enclosed-space -time countable)
 		(clues -human animate -abstract -time -space)))

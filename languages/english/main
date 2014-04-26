@@ -19,6 +19,7 @@
 (include verbs/modals)
 
 (include nouns/nouns)
+(include nouns/species)
 
 (include predicates)
 
