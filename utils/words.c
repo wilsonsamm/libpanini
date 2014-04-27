@@ -9,7 +9,7 @@
 int main(int argc, char * argv[]) {
 	
 	monad * m = words(argv[1]);
-	monad_map(m, print_out, stdout, -1);
+	monad_map(m, (int(*)(monad *, void *))print_out, stdout, -1);
 	
 	return 0;
 }

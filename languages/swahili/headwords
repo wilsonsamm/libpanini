@@ -6,6 +6,10 @@
 		
 	(df Translation
 		(clues (class nominal))
+		(constituent noun .class singular))
+		
+	(df Word
+		(clues (class nominal))
 		(constituent noun .class singular)))
 
 
@@ -17,3 +21,12 @@
 (df Translation
 	(clues (class adjectival))
 	(constituent adjective uninflected))
+
+(df Word
+	(clues (class adjectival))
+	(constituent adjective uninflected))
+
+; Verbs
+(df Word
+	(clues (class verbal))
+	(constituent verb))

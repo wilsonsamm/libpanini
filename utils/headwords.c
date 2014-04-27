@@ -1,5 +1,6 @@
 #include "../monad/monad.h"
 #include "utils.h"
+#include <string.h>
 
 int movetxt(monad * m, void * nothing) {
 	m->intext = m->outtext;
@@ -44,6 +45,23 @@ monad * headwords(char * language) {
 	
 	/* Get rid all all unnecessary monads */
 	monad_map(m, unlink_the_dead, (void *)0, -1);
+	
+	return m;
+}
+
+monad * words(char * language) {
+	
+	/* Get a new monad */
+	monad * m = monad_new();
+	
+	/* In the given language, */
+	monad_rules(m, language);
+	
+	/* Generate all the lemmas. */
+	monad_map(m, (int(*)(monad *, void *))set_stack, "(constituent Word)", -1);
+	
+	monad_map(m, tranny_generate, language, -1);
+	monad_map(m, kill_identical_outtexts, (void *)0, -1);
 	
 	return m;
 }
