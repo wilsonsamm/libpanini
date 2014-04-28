@@ -12,6 +12,7 @@
 	(flags 1)
 	(constituent object)
 	(constituent rhema 2 finite)
+	(seme (trajectory projective))
 	(confidence 10)
 	(check object))
 
@@ -32,6 +33,7 @@
 (df rhema
 	(flags 2)
 	(constituent object)
+	(seme (trajectory projective))
 	(confidence 7)
 	(check object))
 

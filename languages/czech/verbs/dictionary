@@ -1,5 +1,14 @@
 ;;;; Dictionary entries
 
+; To add a verb to this list, make sure you put some of these flags in:
+;   inherent    -   This verb does not need a prefectivising prefix; it
+;                 is inherently perfective or imperfective.
+;  perfective   -   This verb is (or may be) perfective.
+; imperfective  -   This verb is (or may be) im perfective.
+
+; Also in the flags, add one of the following numbers. They can be found
+; in the Fronek dictionary. So far, the implemented ones are :
+; 97, 113
 
 ; umřet, meaning to die
 (df verbstem
@@ -14,10 +23,5 @@
 (df verbstem
 	(theta (nominative agent) (accusative patient))
 	(lit vid)
-	(flags imperfective 113)
-	(seme (head see)))
-(df verbstem
-	(theta (nominative agent) (accusative patient))
-	(lit uvid)
-	(flags perfective 113)
+	(flags inherent imperfective 113 u)
 	(seme (head see)))

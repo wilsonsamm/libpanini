@@ -2,25 +2,25 @@
 (df pronoun
 	(flags subject)
 	(lit I) (space)
-	(rection (person I))
+	(rection (person I) -plural)
 	(seme (head referential) (person first) (number singular)))
 	
 (df pronoun
 	(flags object)
 	(lit me) (space)
-	(rection (person I))
+	(rection (person I) -plural)
 	(seme (head referential) (person first) (number singular)))
 
 ; Second person singular (This "thou" form that occurs in archaic and dialectal texts)
 (df pronoun
 	(flags subject)
 	(lit thou) (space)
-	(rection (person thou))
+	(rection (person thou) -plural)
 	(seme (head referential) (person second) (number singular)))
 (df pronoun
 	(flags object)
 	(lit thee) (space)
-	(rection (person thou))
+	(rection (person thou) -plural)
 	(seme (head referential) (person second) (number singular)))
 
 ; Second person (this "you" form that is grammatically plural but does not necessarily have plural meaning)
@@ -35,53 +35,53 @@
 (df pronoun
 	(flags subject)
 	(lit he) (space)
-	(rection (person he-she-it) (gender he))
+	(rection (person he-she-it) (gender he) -plural)
 	(seme (head referential) (person third) (number singular) (gender male)))
 
 (df pronoun
 	(flags subject)
 	(lit she) (space)
-	(rection (person he-she-it) (gender she))
+	(rection (person he-she-it) (gender she) -plural)
 	(seme (head referential) (person third) (number singular) (gender female)))
 
 (df pronoun
 	(flags object)
 	(lit him) (space)
-	(rection (person he-she-it) (gender he))
+	(rection (person he-she-it) (gender he) -plural)
 	(seme (head referential) (person third) (number singular) (gender male) animate))
 
 (df pronoun
 	(flags object)
 	(lit her) (space)
-	(rection (person he-she-it) (gender she))
+	(rection (person he-she-it) (gender she) -plural)
 	(seme (head referential) (person third) (number singular) (gender female) animate))
 
 (df pronoun
 	(flags subject object)
 	(lit it) (space)
-	(rection (person he-she-it) (gender it))
+	(rection (person he-she-it) (gender it) -plural)
 	(seme (head referential) (person third) (number singular) -animate))
 
 ; First person plural
 (df pronoun
 	(flags subject)
 	(lit we) (space)
-	(rection (person we))
+	(rection (person we) plural)
 	(seme (head referential) (person first) (number plural)))
 (df pronoun
 	(flags object)
 	(lit us) (space)
-	(rection (person we))
+	(rection (person we) plural)
 	(seme (head referential) (person first) (number plural)))
 
 ; Third person plural
 (df pronoun
 	(flags subject)
 	(lit they) (space)
-	(rection (person they))
+	(rection (person they) plural)
 	(seme (head referential) (person third) (number plural)))
 (df pronoun
 	(flags object)
 	(lit them) (space)
-	(rection (person they))
+	(rection (person they) plural)
 	(seme (head referential) (person third) (number plural)))

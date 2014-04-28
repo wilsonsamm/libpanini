@@ -1,7 +1,17 @@
 ; Druhá pozice v české větě
-; The second position in the Czech sentence has a special function: it holds reflexive pronouns, and modal verbs tend to go here too
+; The second position in the Czech sentence has a special function: it 
+; holds reflexive pronouns, and modal verbs tend to go here too
 
 (df slot
 	(flags pozice2)
 	(rection -reflexive -past)
+	(constituent slot rhema))
+
+(df slot
+	(flags pozice2)
+	(lit se) (space)
+	(fork 
+		((seme (trajectory reciprocative)))
+		((seme (trajectory reflexive))))
+	(rection reflexive -past)
 	(constituent slot rhema))

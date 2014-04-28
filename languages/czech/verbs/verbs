@@ -1,10 +1,47 @@
+; These are the aspectual prefices.
+(df aspect-prefix
+	(lit u) (flags u))
+
 ;;;; Combining verbstems and endings into verbs
 
-(for aspect (imperfective perfective)
 (for conjugation (97 113)						; These codes, found in the Fronek dictionary, say how a given verb is conjugated
 (for form (finite infinitive)
+(for aspect (imperfective perfective)
+
+; Inherently perfective or imperfective verbs
 	(df verb
 		(flags main .aspect .form)
-		(constituent verbstem .aspect .conjugation)
+		(debug)
+		(constituent verbstem inherent .aspect .conjugation)
 		(constituent verb-ending finite .conjugation .form)
-		(space)))))
+		(space)
+		(seme (aspect .aspect))))
+
+; Imperfective verbs with perfectivising prefices
+(for prefix (u na)
+	(df verb
+		(flags main perfective .form)
+		(constituent aspect-prefix .prefix)
+		(constituent verbstem imperfective .conjugation .prefix)
+		(constituent verb-ending .conjugation .form)
+		(space)
+		(seme (aspect perfective)))
+
+; The so-called secondary imperfective
+; (constructed from:
+;  - perfectivising prefix
+;  - a verbstem, including:
+;    - semantic morpheme
+;    - "deperfectivising" suffix or suppletion.
+;  - a verb-ending (a non-finite marker or a conjugation)
+
+	(df verb
+		(flags main imperfective .form)
+		(constituent aspect-prefix .prefix)
+		(constituent verbstem secondary-imperfective .conjugation .prefix)
+		(constituent verb-ending .conjugation .form)
+		(space)
+		(seme (aspect perfective)))))))
+
+
+

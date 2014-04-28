@@ -3,6 +3,7 @@
 (df pronoun
 	(flags reflexive)
 	(lit eachother) (space)
+	(into (theta subject) rection plural)
 	(seme (trajectory reciprocative)))
 
 (df pronoun
