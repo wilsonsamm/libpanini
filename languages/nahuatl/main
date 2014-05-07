@@ -1,4 +1,3 @@
-(include dicts/verb)
 
 (include pers/case-marker)
 (include pers/number)
@@ -9,6 +8,8 @@
 
 (include vnc/intransitive-vnc)
 (include vnc/transitive-vnc)
+
+(include orthographies/intro)
 
 (df main
 	(constituent nuclear-clause)

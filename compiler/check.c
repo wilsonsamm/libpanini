@@ -47,6 +47,7 @@ int check_syntax1(list * input) {
 		if(!strcmp(c, "include"))			continue;
 		if(!strcmp(c, "for"))				continue;
 		if(!strcmp(c, "df"))				continue;
+		if(!strcmp(c, "segment"))			continue;
 		if(!strcmp(c, "sandhi-initial"))	continue;
 		if(!strcmp(c, "sandhi-final"))		continue;
 		
@@ -108,6 +109,7 @@ int check_wronginstruction(list * output) {
 			if(!strcmp(iname, "read-ahead")) continue;
 			if(!strcmp(iname, "clues")) continue;
 			if(!strcmp(iname, "nop")) continue;
+			if(!strcmp(iname, "segments")) continue;
 			
 			fprintf(stderr, "\tWhat is this?\n");
 			fprintf(stderr, "\tA definition of %s has an ", name);

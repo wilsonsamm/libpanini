@@ -449,7 +449,41 @@ void monad_parse_pushscope(monad * m) {
 	if(!m->scopestack) m->scopestack = list_new();
 	list_append_token(m->scopestack, list_get_token(m->command, 2));
 }
+
+void monad_parse_segments(monad * m) {
 	
+	/* A list of segments is really a list of function calls. Generate that list: */
+	list * calls = list_new();
+	
+	int i;
+	for(i = 2; i <= m->command->length; i++) {
+		char * segment = list_get_token(m->command, i);
+		if(!segment) continue;
+		
+		list * call = list_append_list(calls);
+		
+		list_append_token(call, "call");
+		list_append_token(call, "Segment");
+		list_append_token(call, segment);
+	}
+	
+	/* Update the stack */
+	list * newstack = list_new();
+	list_append_copy(newstack, calls);
+	list_append_copy(newstack, m->stack);
+	list_free(m->stack);
+	m->stack = newstack;
+	if(m->debug) {
+		printf("This will be the new stack:\n");
+		list_prettyprinter(m->stack);
+		printf("\n");
+	}
+
+	/* Tidy up */
+	list_free(calls);
+}
+
+
 int tranny_parse(monad * m, void * nothing) {
 	if(!m->alive) return 0;
 	
@@ -662,6 +696,12 @@ int tranny_parse(monad * m, void * nothing) {
 	}
 	if(!strcmp(command, "read-ahead")) {
 		monad_parse_readahead(m);
+		list_free(m->command);
+		m->command = 0;
+		return 1;
+	}
+	if(!strcmp(command, "segments")) {
+		monad_parse_segments(m);
 		list_free(m->command);
 		m->command = 0;
 		return 1;

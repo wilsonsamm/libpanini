@@ -1,9 +1,9 @@
 int df(list * command, list * input, list * output);
 int define(char * name, list * definition, list * output);
+int segment(list * command, list * input, list * output);
 int sandhi_initial(list * command, list * input, list * output);
 int sandhi_final(list * command, list * input, list * output);
 int for_(list * command, list * input, list * output);
-
 
 int check_syntax1(list * input);
 int check_debug(list * output);

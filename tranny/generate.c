@@ -162,6 +162,13 @@ int tranny_generate(monad * m, void * nothing) {
 		m->alive = 0;
 		return 0;
 	}
+	if(!strcmp(command, "call")) {
+		monad_parse_constituent(m, 0);
+		list_free(m->command);
+		m->command = 0;
+		m->alive = 0;
+		return 0;
+	}
 	if(!strcmp(command, "capital")) {
 		m->capital = 1;
 		list_free(m->command);
@@ -334,6 +341,12 @@ int tranny_generate(monad * m, void * nothing) {
 	if(!strcmp(command, "clues")) {
 		m->howtobind |= CREATE | WRITE;
 		bind_vars(m);
+		list_free(m->command);
+		m->command = 0;
+		return 1;
+	}
+	if(!strcmp(command, "segments")) {
+		monad_parse_segments(m);
 		list_free(m->command);
 		m->command = 0;
 		return 1;

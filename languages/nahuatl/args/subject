@@ -1,2 +1,0 @@
-(df subject
-	(into (theta subject) constituent argument))

@@ -1,38 +1,25 @@
 ;; First person singular
 (df personal-affix
-	(sandhi full-personal-affix)
-	(fork
-		((lit ni)	(sandhi full-personal-affix))
-		((lit n)	(sandhi -full-personal-affix)))
+	(segments n ?i)
 	(flags realis optative object)
 	(rection pronominal (person first) (number singular))
 	(seme (head referential) (person first) (number singular)))
 
 ;; Second person singular
 (df personal-affix
-	(sandhi full-personal-affix)
-	(fork
-		((lit ti)	(sandhi full-personal-affix))
-		((lit t)	(sandhi -full-personal-affix)))
+	(segments t ?i)
 	(flags realis)
 	(rection pronominal (person second) (number singular))
 	(seme (head referential) (person second) (number singular)))
 
 (df personal-affix
-	(sandhi full-personal-affix)
-	(fork
-		((lit mi)	(sandhi full-personal-affix))
-		((lit m)	(sandhi -full-personal-affix)))
+	(segments m ?i)
 	(flags object)
 	(rection pronominal (person second) (number singular))
 	(seme (head referential) (person second) (number singular)))
 	
 (df personal-affix
-	(sandhi full-personal-affix)
-	(fork
-		((lit xi)	(sandhi full-personal-affix))
-		((lit x)	(sandhi -full-personal-affix)))
-	(sandhi full-personal-affix)
+	(segments x ?i)
 	(flags optative)
 	(rection pronominal (person second) (number singular))
 	(seme (head referential) (person second)))
@@ -40,16 +27,11 @@
 ;; Third person
 (df personal-affix
 	(rection referential)
-	(sandhi full-personal-affix)
 	(flags realis optative)
 	(seme (head referential) (person third) (number singular)))
 
 (df personal-affix
-	(sandhi full-personal-affix)
-	(fork
-		((lit c) (sandhi -full-personal-affix onset -front))
-		((lit qu) (sandhi -full-personal-affix onset front))
-		((sandhi onset)(lit qui) (sandhi full-personal-affix onset front)))
+	(segments k ?i)
 	(flags object)
 	(rection pronominal (person third))
 	(fork
@@ -58,10 +40,7 @@
 
 ;; First person singular
 (df personal-affix
-	(sandhi full-personal-affix)
-	(fork
-		((lit ti)	(sandhi full-personal-affix))
-		((lit t)	(sandhi -full-personal-affix)))
+	(segments t ?i)
 	(flags realis optative)
 	(rection pronominal (person first) (number plural))
 	(seme (head referential) (person first) (number plural)))

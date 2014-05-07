@@ -136,9 +136,12 @@ int main(int argv, char * argc[]) {
 		return 1;
 	}
 
+	/* The (for ...) macro works a bit like in Bash */
 	pass(input, output, "for", for_);
-	/* Next pass is to create all the definitions.
-	 * (def's are mostly dictionary definitions and such) */
+	
+	/* Next pass is to create all the definitions, (def's are mostly dictionary definitions and such) 
+	 * and then to check they're OK. */
+	pass(input, output, "segment", segment);
 	pass(input, output, "df", df);
 	check_debug(output);
 	check_wronginstruction(output);

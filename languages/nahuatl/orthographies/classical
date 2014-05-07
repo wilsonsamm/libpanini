@@ -1,0 +1,31 @@
+; Short and long vowels are written <a, e, i, o> in the Classical orthography.
+(segment (sandhi -front) (underlying a)  (surface a) (language (orthography classical)))
+(segment (sandhi -front) (underlying aa) (surface a) (language (orthography classical)))
+(segment (sandhi  front) (underlying e)  (surface e) (language (orthography classical)))
+(segment (sandhi  front) (underlying ee) (surface e) (language (orthography classical)))
+(segment (sandhi  front) (underlying i)  (surface i) (language (orthography classical)))
+(segment (sandhi  front) (underlying ii) (surface i) (language (orthography classical)))
+(segment (sandhi -front) (underlying o)  (surface o) (language (orthography classical)))
+(segment (sandhi -front) (underlying oo) (surface o) (language (orthography classical)))
+
+; /k/ is written as <c> before non-front vowels <a, o>, and written as <qu> before the front vowels <e, i>.
+(segment (underlying k) (surface qu) (sandhi  front -consonant) (language (orthography classical)))
+(segment (underlying k) (surface c)  (sandhi -front           ) (language (orthography classical)))
+
+; Consonants that are always written the same are <ch, l, ll m, n, p, t, tl, tz, x, y>.
+(for cons (ch l ll m n p t tl tz x y)
+(segment (sandhi consonant) (underlying .cons) (surface .cons) (sandhi -saltillo -vowel) (language (orthography classical))))
+
+; /k/ is written as <c> before non-front vowels <a, o>, and written as <qu> before the front vowels <e, i>.
+(segment (underlying k) (surface qu) (sandhi  front -consonant -saltillo) (language (orthography classical)))
+(segment (underlying k) (surface c)  (sandhi -front            -saltillo) (language (orthography classical)))
+
+; The saltillo is technically a consonant, but the way it's written is with a mark over the preceding vowel. (This is realised by
+; a sandhi binding)
+(segment (underlying saltillo) (sandhi saltillo) (language (orthography classical)))
+
+; The digraphs <cu> for /kw/ and <hu> for /w/ are reversed at the end of a syllable, resulting in <uc> and <uh>.
+(segment (underlying kw)                (surface cu) (sandhi  vowel) (language (orthography classical)))
+(segment (underlying kw) (sandhi vowel) (surface uc)                 (language (orthography classical)))
+(segment (underlying w)                 (surface hu) (sandhi  vowel) (language (orthography classical)))
+(segment (underlying w)  (sandhi vowel) (surface uh)                 (language (orthography classical)))

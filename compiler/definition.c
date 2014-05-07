@@ -63,3 +63,27 @@ int df(list * command, list * input, list * output) {
 
 	return retval;
 }
+
+int segment(list * command, list * input, list * output) {
+	
+	char * name = list_get_token(command, 2);
+	
+	list * rule = list_append_list(input);
+	list_append_token(rule, "df");
+	list_append_token(rule, "Segment");
+	
+	int i;
+	for(i = 1; i <= command->length; i++) {
+		list * instr = list_get_list(command, i);
+		
+		if(!instr) continue;
+		
+		if(!strcmp(list_get_token(instr, 1), "underlying")) list_rename(instr, "flags");
+		if(!strcmp(list_get_token(instr, 1), "surface"))    list_rename(instr, "lit");
+		
+		list_append_copy(list_append_list(rule), instr);
+		
+	}
+
+	return 0;
+}

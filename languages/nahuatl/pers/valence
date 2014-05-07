@@ -7,11 +7,11 @@
 (df valence
 	(into (theta object) seme (head referential) (person indefinite) human animate)
 	(sandhi full-personal-affix)
-	(lit te))
+	(segments t e))
 
 (df valence
 	(into (theta object) seme (head referential) (person indefinite) -human)
 	(sandhi full-personal-affix)
-	(lit tla))
+	(segments tl a))
 
 ; Reflexive pronouns are not implemented (yet). See Introduction to Classical Nahuatl (Andrews) near to the end of chapter 6. 
