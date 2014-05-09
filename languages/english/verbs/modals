@@ -1,27 +1,12 @@
 (df verb
 	(flags modal)
 	(lit can) (space)
-	(seme desiderative)
-	(forgive strict seme negative)
-	(strict seme negative)
-	(seme -irrealis)
-	(seme (tense present) (aspect imperfective)))
-
-(df verb
-	(flags modal)
-	(lit don't) (space)
-	(strict seme negative))
-
-(df verb
-	(flags modal)
-	(lit can't) (space)
-	(strict seme desiderative negative))
-
+	(seme (irrealis desiderative) (tense present) (aspect imperfective)))
+	
 (df verb
 	(flags modal)
 	(lit will) (space)
-	(seme -irrealis)
-	(seme (tense future)))
+	(seme -irrealis (tense future)))
 	
 ; It's extremely common in English to use the word "can" together with
 ; "see", "hear" etc, even though you don't really need it. I. e.
@@ -30,9 +15,8 @@
 (df verb
 	(flags modal)
 	(lit can) (space)
-	(seme -irrealis)
 	(confidence 20)
-	(seme (tense present) (aspect imperfective))
+	(seme -irrealis (tense present) (aspect imperfective))
 	(fork 
 		((seme (head see)))
 		((seme (head hear)))))
@@ -41,4 +25,4 @@
 	(flags modal)
 	(lit want) (space) (lit to) (space)
 	(seme -irrealis)
-	(strict seme desiderative))
+	(seme (irrealis desiderative)))

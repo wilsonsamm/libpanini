@@ -13,7 +13,6 @@
 
 (df noun
 	(flags n)
-	(seme -number)
 	(rection (number singular) (class n))
 	(constituent nounstem n uncountable) (space)
 	(clues (class nominal)))

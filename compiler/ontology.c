@@ -107,6 +107,7 @@ int checkrule(list * input, list * ontology) {
 		command = list_get_list(input, i);
 		if(!command) continue;
 		char * cname = list_get_token(command, 1);
+		if(!cname) continue;
 		if(strcmp(cname, "seme")) continue;
 		
 		for(j = 2; j <= command->length; j++) {
@@ -123,8 +124,7 @@ int checkrule(list * input, list * ontology) {
 					fprintf(stderr,"\tThe \"%s\" category does not have the feature \"%s\".\n", list_get_token(varl, 1), list_get_token(varl, 2));
 				
 				if(retval == 3) {
-					fprintf(stderr,"\tHow can I bind:");
-					list_prettyprinter(varl);
+					fprintf(stderr,"\tHow can I bind (seme (%s %s))", list_get_token(varl, 1), list_get_token(varl, 2));
 					fprintf(stderr,"\n");
 				}
 			}

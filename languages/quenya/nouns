@@ -1,12 +1,12 @@
 (df noun-ending
 	(flags pl-i)
 	(lit i)
-	(seme (number plural) -plurality))
+	(seme (number plural)))
 
 (df noun-ending
 	(flags pl-r)
 	(lit r)
-	(seme (number plural) -plurality))
+	(seme (number plural)))
 
 (df noun
 	(lit elen)

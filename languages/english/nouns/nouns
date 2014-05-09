@@ -99,7 +99,7 @@
 (df noun
 	(lit women) (space)
 	(rection countable (number plural))
-	(seme (head women) (number plural))
+	(seme (head woman) (number plural))
 	(clues human animate -abstract -time -space (class nominal)))
 
 ; Man.
@@ -114,5 +114,5 @@
 (df noun
 	(lit men) (space)
 	(rection countable (number plural))
-	(seme (head men) (number plural))
+	(seme (head man) (number plural))
 	(clues human animate -abstract -time -space (class nominal)))

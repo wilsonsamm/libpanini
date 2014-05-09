@@ -66,8 +66,6 @@ int df(list * command, list * input, list * output) {
 
 int segment(list * command, list * input, list * output) {
 	
-	char * name = list_get_token(command, 2);
-	
 	list * rule = list_append_list(input);
 	list_append_token(rule, "df");
 	list_append_token(rule, "Segment");

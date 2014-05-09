@@ -106,7 +106,7 @@ uninstall:
 
 clean: lang-clean
 	rm -f *.o *.gch *.a vlad core tc learn a.out 
-	rm -f monad/*.o monad/*.gch tranny/*.o tranny/*.gch list/*.o list/*.gch vars/*.o vars/*.gch
+	rm -f monad/*.o monad/*.gch tranny/*.o tranny/*.gch list/*.o list/*.gch vars/*.o vars/*.gch compiler/*.o
 	make -C demos/dictionary clean
 	make -C demos/tranny clean
 	make -C utils clean

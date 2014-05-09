@@ -1,42 +1,42 @@
 (df determiner
-	(seme -possessor)
+	(seme -owner)
 	(lit the) (space)
-	(seme (definition definite))
+	(seme definite)
 	(rection (definition definite)))
 
 (df determiner
-	(seme -possessor)
+	(seme -owner)
 	(fork
 		((lit a) (space) (sandhi -vowel))
 		((lit an) (space) (sandhi vowel)))
-	(seme (definition indefinite) (number singular))
+	(seme -definite (number singular))
 	(rection (definition indefinite))
 	(rection countable))
 
 (df determiner
-	(seme -possessor)
+	(seme -owner)
 	(rection countable)
-	(seme (definition indefinite) (number plural))
+	(seme -definite (number plural))
 	(rection (definition indefinite)))
 	
 (df determiner
-	(seme -possessor)
+	(seme -owner)
 	(rection -countable)
-	(seme (definition indefinite) (number singular))
+	(seme -definite (number singular))
 	(rection (definition indefinite)))
 
 (df determiner
 	(lit my) (space)
-	(into possessor seme (head referential) (person first) (number singular)))
+	(into owner seme (head referential) (person first) (number singular)))
 
 (df determiner
 	(lit your) (space)
-	(into possessor seme (head referential) (person second) (number singular)))
+	(into owner seme (head referential) (person second) (number singular)))
 
 (df determiner
 	(lit his) (space)
-	(into possessor seme (head referential) (person third) (number singular) (gender male)))
+	(into owner seme (head referential) (person third) (number singular) (gender male)))
 
 (df determiner
 	(lit her) (space)
-	(into possessor seme (head referential) (person third) (number singular) (gender female)))
+	(into owner seme (head referential) (person third) (number singular) (gender female)))

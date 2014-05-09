@@ -88,13 +88,14 @@ void monad_parse_forgive(monad * m);
 void monad_parse_open(monad * m);
 void monad_parse_check(monad * m);
 void monad_parse_readahead(monad * m);
+
 void monad_generate_lit(monad * m);
 void monad_generate_space(monad * m);
 void monad_generate_fullstop(monad * m);
 void monad_generate_strict(monad * m);
 void monad_generate_forgive(monad * m);
 void monad_generate_readahead(monad * m);
-
+void monad_parse_segments(monad * m);
 
 char * evaluate(monad * m, list * var);
 void speculate(monad * m, char * namespace, char * varname);

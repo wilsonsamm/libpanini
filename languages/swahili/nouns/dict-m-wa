@@ -50,4 +50,4 @@
 (df nounstem
 	(flags m/wa)
 	(lit jomba)
-	(seme (head uncle) (side mother)))
+	(seme (head uncle) (familial-side mother)))

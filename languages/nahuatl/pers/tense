@@ -27,4 +27,4 @@
 (df tense
 	(segments k a)
 	(rection (mood indicative) (tense distant-past))
-	(seme (tense past) -irrealis (past distant)))
+	(seme (tense past) -irrealis (temporal-distance far)))
