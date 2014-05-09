@@ -3,7 +3,6 @@
 (for valency (monovalent bivalent)
 	(df verb
 		(flags .valency)
-		(debug)
 		(constituent personal-prefix .valency)
 		(constituent personal-stem .valency)))
 	

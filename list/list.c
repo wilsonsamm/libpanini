@@ -187,7 +187,7 @@ int list_tokenise_chars(list * l, char * string) {
 int list_tokenise_file(list * l, FILE *fp) {
 	int alloc = 1024;
 	int readin = 0;
-	char * f = malloc(1024);
+	char * f = malloc(alloc);
 	f[0] = '\0';
 	list * toks = list_new();
 	
@@ -234,6 +234,62 @@ int list_tokenise_file(list * l, FILE *fp) {
 	list_free(toks);
 
 	return 0;
+}
+
+/* CSV file tokeniser
+ * (csv files can be read by mainstream spreadsheets: both OpenOffice and Microsoft Excel handle CSV files well enough). */
+list * list_tokenise_csv(FILE *fp) {
+	int alloc = 16;
+	int readin = 0;
+	char * f = malloc(alloc);
+	f[0] = '\0';
+	
+	int ch = 0;
+
+	rewind(fp);
+	
+	list * file = list_new();
+	list * line = list_append_list(file);
+	list * cell = list_append_list(line);
+
+	for( ; ; ) {
+		
+		/* Are we getting near the end of allocated memory? then we need to allocate some more. */
+		if(readin > alloc - 3) {
+			alloc += alloc;
+			f = realloc(f, alloc);
+		}
+		
+		/* Read a character in from the file. */
+		ch = fgetc(fp);
+		if(ch != EOF) f[readin++] = (char) ch;
+		
+		/* Have we reached the end of a string? If so, append the string to the cell */
+		if(ch == EOF || ch == '\n' || ch == '\t' || ch == ' '  || ch == ',') {
+			f[readin - 1] = '\0';
+			list_append_token(cell, f);
+			readin = 0;
+			f[readin] = '\0';
+		}
+		
+		/* Have we reached the end of the cell? (these are comma-seperated) */
+		if(ch == ',' ) {
+			cell = list_append_list(line);
+		}
+		
+		/* Have we reached the end of the line? (these are newline-seperated) */
+		if(ch == '\n' ) {
+			line = list_append_list(file);
+			cell = list_append_list(line);
+		}
+		
+		/* Have we reached the end of the file? (if so, stop reading the file) */
+		if(ch == EOF) break;
+		
+	}
+	
+	free(f);
+	return file;
 }
 
 list * list_find_list(list * l, char * lname) {

@@ -23,6 +23,7 @@ list * list_get_list(list * l, int n);
 list * list_find_list(list * l, char * lname);
 int list_tokenise_chars(list * l, char * toks);
 int list_tokenise_file(list * l, FILE * fp);
+list * list_tokenise_csv(FILE * fp);
 int list_prettyprinter(list * l);
 int list_fprettyprinter(FILE * fp, list * l);
 int list_append_copy(list * dst, list * src);

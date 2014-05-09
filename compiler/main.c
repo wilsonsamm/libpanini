@@ -158,10 +158,13 @@ int main(int argv, char * argc[]) {
 	
 	/* Optimisations */
 	check_early_binding(output);
-	
-	/* Here are some optimisations we can do. */
 	check_removenops(output);
 	printout(output);
+	
+	/* Check for ontological sanity */
+	check_ontology(output);
+	
+	/* Free stuff */
 	list_free(output);
 	list_free(input);
 	return 0;

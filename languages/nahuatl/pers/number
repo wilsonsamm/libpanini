@@ -1,5 +1,5 @@
 (df num1
-	(segment k)
+	(segments k)
 	(rection (num1 k)))
 
 (df num1

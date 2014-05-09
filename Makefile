@@ -39,8 +39,8 @@ spawn.o: monad/monad.h monad/monad.c monad/spawn.c
 learn.o: monad/monad.h monad/monad.c tranny/learn.c
 	gcc -ggdb -c -Wall tranny/learn.c
 	
-compiler: compiler-main.o compiler-definition.o compiler-check.o compiler-sandhi-init.o compiler/compiler.h list.o list-tokenise.o compiler-sandhi-fin.o compiler-for.o
-	gcc -o tc compiler-main.o list.o list-tokenise.o compiler-check.o compiler-sandhi-init.o compiler-definition.o compiler-sandhi-fin.o compiler-for.o
+compiler: compiler-main.o compiler-definition.o compiler-check.o compiler-sandhi-init.o compiler/compiler.h list.o list-tokenise.o compiler-sandhi-fin.o compiler-for.o compiler-ontology.o
+	gcc -o tc compiler-main.o list.o list-tokenise.o compiler-check.o compiler-sandhi-init.o compiler-definition.o compiler-sandhi-fin.o compiler-for.o compiler-ontology.o
 
 compiler-main.o: compiler/main.c compiler/compiler.h
 	gcc -ggdb -c -Wall -o compiler-main.o compiler/main.c
@@ -59,6 +59,9 @@ compiler-sandhi-fin.o: compiler/sandhi-fin.c compiler/compiler.h
 
 compiler-for.o: compiler/for.c compiler/compiler.h
 	gcc -ggdb -c -Wall -o compiler-for.o compiler/for.c
+	
+compiler-ontology.o: compiler/ontology.c compiler/compiler.h
+	gcc -ggdb -c -Wall -o compiler-ontology.o compiler/ontology.c
 	
 languages: lang-clean nahuatl swahili ainu english czech quenya
 
