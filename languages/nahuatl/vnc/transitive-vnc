@@ -2,11 +2,11 @@
 
 (df vnc
 	(flags transitive)
-	(sandhi #)
+	(segments #)
 	(constituent pers subject)
 	(constituent valence)
 	(constituent verbstem transitive)
 	(constituent tense)
 	(constituent number)
-	(sandhi #)
+	(segments #)
 	(space))

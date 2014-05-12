@@ -31,7 +31,9 @@
 	(seme (head referential) (person third) (number singular)))
 
 (df personal-affix
-	(segments k ?i)
+	(fork
+		((rection -syll) (segments k   ))
+		((rection  syll) (segments k ?i)))
 	(flags object)
 	(rection pronominal (person third))
 	(fork

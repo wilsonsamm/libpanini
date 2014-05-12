@@ -11,6 +11,8 @@
 
 (include orthographies/intro)
 
+(include stems/verb)
+
 (df main
 	(constituent nuclear-clause)
 	(fullstop))

@@ -184,12 +184,24 @@ void print_debugging_info(monad * m) {
 	printf("\nParent: %d\n", m->parent_id);
 }
 
-/* This functin joins two linked lists of monads together. */
+/* This function joins two linked lists of monads together. 
+ * It used to crawl to the end of the linked list "to", but that is generally he longest one. Now a simple improvement is to find
+ * the end of the shortest one, "addition", and slot the rest of the long one onto the end of the short one.
+ * (My profiler showed that a basic run of the program spent more than 95% of its time in this function!!! That has now been reduced
+ * to less than 0.2%.
+ * The monads will be run in a different order, but that's OK.
+ */
 void monad_join(monad * to, monad * addition) {
-	while(to->child) to = to->child;
-	to->child = addition;
-}
+	if(!addition) return;
 	
+	monad * last = addition;
+	monad * temp = 0;
+	while(last->child) last = last->child;
+	temp = to->child;
+	to->child = addition;
+	last->child = temp;
+}
+
 
 /* This function calls the chosen function on the monads that:
  *  - are still alive. 

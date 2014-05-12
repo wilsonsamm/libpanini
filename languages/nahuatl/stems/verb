@@ -1,0 +1,7 @@
+; This file describes various verbstems.
+
+(df verbstem
+	(flags transitive)
+	(theta (subject agent) (object patient))
+	(segments p a l e w ii a)
+	(seme (head help)))

@@ -2,6 +2,8 @@
 
 (df vnc
 	(flags intransitive)
+	(segments #)
 	(constituent pers subject)
 	(constituent verbstem intransitive)
-	(constituent number subject))
+	(constituent number subject)
+	(segments #))

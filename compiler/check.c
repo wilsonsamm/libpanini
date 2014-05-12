@@ -163,6 +163,7 @@ int check_removenops(list * output) {
 			   !strcmp(iname, "sandhi")  || \
 			   !strcmp(iname, "seme")    || \
 			   !strcmp(iname, "concord") || \
+			   !strcmp(iname, "language") || \
 			   !strcmp(iname, "flags"))) {
 					list_drop(def, i);
 					i--;
@@ -311,6 +312,7 @@ int check_early_binding(list * output) {
 		int i;
 		list * seme = 0;
 		list * rection = 0;
+		list * language = 0;
 		
 		for(i = 1; i <= def->length; i++) {
 			
@@ -344,6 +346,20 @@ int check_early_binding(list * output) {
 					list_append_copy(tmp, instr);
 					list_drop(tmp, 1);
 					list_append_copy(rection, tmp);
+					list_free(tmp);
+					
+					while(instr->length > 1) list_drop(instr, 2);
+				}
+			}
+			
+			if(!strcmp(iname, "language")) {
+				if(!language) {
+					language = instr;
+				} else {
+					list * tmp = list_new();
+					list_append_copy(tmp, instr);
+					list_drop(tmp, 1);
+					list_append_copy(language, tmp);
 					list_free(tmp);
 					
 					while(instr->length > 1) list_drop(instr, 2);
