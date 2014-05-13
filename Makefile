@@ -105,7 +105,7 @@ uninstall:
 	rm -rf /usr/lib/libtranny.a
 
 clean: lang-clean
-	rm -f *.o *.gch *.a vlad core tc learn a.out 
+	rm -f *.o *.gch *.a vlad core tc learn a.out gmon.out
 	rm -f monad/*.o monad/*.gch tranny/*.o tranny/*.gch list/*.o list/*.gch vars/*.o vars/*.gch compiler/*.o
 	make -C demos/dictionary clean
 	make -C demos/tranny clean

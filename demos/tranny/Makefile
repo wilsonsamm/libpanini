@@ -6,7 +6,7 @@ tranny.o: tranny.c
 	gcc -g -c -Wall tranny.c -pg
 	
 clean:
-	rm -rf tranny tranny.o
+	rm -rf tranny tranny.o gmon.out
 	
 install:
 	cp tranny /usr/bin/

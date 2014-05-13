@@ -3,5 +3,5 @@
 (df verbstem
 	(flags transitive)
 	(theta (subject agent) (object patient))
-	(segments p a l e w ii a)
+	(segments p a l ee w i aa)
 	(seme (head help)))

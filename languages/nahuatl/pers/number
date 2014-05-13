@@ -1,49 +1,30 @@
-(df num1
-	(segments k)
-	(rection (num1 k)))
 
 (df num1
-	(rection (num1 nil)))
+	(flags 0))
+
+(df num1
+	(flags k)
+	(segments k ?i))
 
 (df num2
-	(into (theta subject) rection (number singular)))
+	(flags 0)
+	(call indicative)
+	(call present)
+	(into (theta subject) rection number singular))
 
 (df num2
-	(rection (num1 k))
-	(segments e saltillo)
-	(seme (tense present) -irrealis)
-	(into (theta subject) rection (number plural)))
+	(flags k)
+	(call nonpast) (call optative)
+	(into (theta subject) rection plural))
 
 (df num2
+	(flags 0)
+	(call indicative)
+	(call present)
 	(segments saltillo)
-	(rection (tense present))
-	(into (theta subject) rection (number plural)))
-	
-(df num2
-	(segments saltillo)
-	(rection (tense customary-present))
-	(into (theta subject) rection (number plural)))
-	
-(df num2
-	(segments saltillo)
-	(rection (tense imperfect))
-	(into (theta subject) rection (number plural)))
-	
-(df num2
-	(segments saltillo)
-	(rection (tense distant-past))
-	(into (theta subject) rection (number plural)))
-	
-(df num2
-	(segments saltillo)
-	(rection (tense past) (mood indicative))
-	(into (theta subject) rection (number plural)))
-	
-(df num2
-	(segments saltillo)
-	(rection (tense past) (mood admonitive))
-	(into (theta subject) rection (number plural)))
-	
-(df number
-	(constituent num1)
-	(constituent num2))
+	(into (theta subject) rection plural))
+
+(for num1 (0 k)
+ (df number
+	(constituent num1 .num1)
+	(constituent num2 .num1)))

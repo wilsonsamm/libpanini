@@ -12,9 +12,8 @@
 	(rection (mood optative))
 	(into (theta subject) constituent personal-affix optative))
 
-;; This rule says two things:
-;   - "If the VNC has 0-0 as the filler for the pers1-pers2 dyad, then make sure the va1 locus needs a supportive vowel"
-;   - "the object pronoun goes here".
+;; This rule says: "If the VNC has 0-0 as the filler for the pers1-pers2 dyad, then make sure the va1 locus of the transitive VNC, 
+; which contains an object pronoun, needs a supportive vowel.
 (df pers
 	(flags object)
 	(seme (trajectory projective))

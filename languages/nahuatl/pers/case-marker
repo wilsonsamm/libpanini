@@ -6,7 +6,7 @@
 
 (df case-marker
 	(sandhi -full-personal-affix)
-	(segments e ch)
+	(segments ee ch)
 	(rection (person first) (number singular) pronominal)
 	(flags object))
 

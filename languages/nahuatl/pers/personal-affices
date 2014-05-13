@@ -32,15 +32,21 @@
 
 (df personal-affix
 	(fork
-		((rection -syll) (segments k   ))
-		((rection  syll) (segments k ?i)))
+		((rection  syll) (segments k))
+		((rection -syll) (segments k ?i)))
 	(flags object)
 	(rection pronominal (person third))
-	(fork
-		((seme (head referential) (person third) (number singular)) (rection (number singular)))
-		((seme (head referential) (person third) (number plural)) (rection (number plural)))))
+	(seme (head referential) (person third) (number singular)) 
+	(rection (number singular)))
+	
+(df personal-affix
+	(segments k i)
+	(flags object)
+	(rection pronominal (person third))
+	(seme (head referential) (person third) (number plural))
+	(rection (number plural)))
 
-;; First person singular
+;; First person plural
 (df personal-affix
 	(segments t ?i)
 	(flags realis optative)

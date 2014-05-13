@@ -483,6 +483,11 @@ void monad_parse_segments(monad * m) {
 	list_free(calls);
 }
 
+void monad_parse_sandhiblock(monad * m) {
+	list_remove(m->namespace, "sandhi");
+	return;
+}
+
 
 int tranny_parse(monad * m, void * nothing) {
 	if(!m->alive) return 0;
@@ -498,6 +503,13 @@ int tranny_parse(monad * m, void * nothing) {
 	}
 
 	char * command = list_get_token(m->command, 1);
+		
+	if(!strcmp(command, "sandhiblock")) {
+		monad_parse_sandhiblock(m);
+		list_free(m->command);
+		m->command = 0;
+		return 0;
+	}
 		
 	if(!strcmp(command, "call")) {
 		monad_parse_constituent(m, 0);

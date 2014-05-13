@@ -6,7 +6,7 @@
 	(constituent pers subject)
 	(constituent valence)
 	(constituent verbstem transitive)
-	(constituent tense)
+	(constituent tense-marker)
 	(constituent number)
 	(segments #)
 	(space))

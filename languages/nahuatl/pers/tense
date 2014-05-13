@@ -1,30 +1,28 @@
-; Indicative
-(df tense
-	(rection (mood indicative) (tense present))
-	(seme (tense present) -irrealis))
+; Moods
+(df indicative
+	(seme -irrealis)
+	(rection (mood indicative)))
 
-(df tense
-	(segments n i)
-	(rection (mood indicative) (tense customary-present))
-	(seme (tense present) (aspect habitual) -irrealis)
-	(confidence 10))
+(df optative
+	(seme (irrealis optative))
+	(rection (mood optative)))
 
-(df tense
-	(segments y a)
-	(rection (mood indicative) (tense imperfect))
-	(seme (tense past) -irrealis (aspect imperfective))
-	(confidence 10))
+; tenses
+(df present
+	(seme (tense present))
+	(rection (tense present)))
+	
+; Tense markers (These are the morphemes at ends of verbs marking the tense and mood.)
+;                      mood              tense                         morph
 
-(df tense
-	(segments z)
-	(rection (mood indicative) (tense future))
-	(seme (tense future) -irrealis))
+(df tense-marker (call indicative) (call present))
+(df tense-marker (call indicative) (call preterite))
+(df tense-marker (call indicative) (call present-customary)  (segments n i))
+(df tense-marker (call indicative) (call imperfect)          (segments y aa))
+(df tense-marker (call indicative) (call future)             (segments z))
 
-(df tense
-	(rection (mood indicative) (tense preterit))
-	(seme (tense past) -irrealis (aspect perfective)))
+(df tense-marker (call optative)   (call non-past))
+(df tense-marker (call optative)   (call past)               (segments n i))
 
-(df tense
-	(segments k a)
-	(rection (mood indicative) (tense distant-past))
-	(seme (tense past) -irrealis (temporal-distance far)))
+(df tense-marker (call admonitive) (call non-past)           (segments saltillo))
+(df tense-marker (call admonitive) (call non-past))

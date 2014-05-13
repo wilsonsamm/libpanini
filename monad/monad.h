@@ -88,6 +88,7 @@ void monad_parse_forgive(monad * m);
 void monad_parse_open(monad * m);
 void monad_parse_check(monad * m);
 void monad_parse_readahead(monad * m);
+void monad_parse_sandhiblock(monad * m);
 
 void monad_generate_lit(monad * m);
 void monad_generate_space(monad * m);
