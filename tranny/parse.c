@@ -1,4 +1,5 @@
 #include "../monad/monad.h"
+#include "tranny.h"
 #include <string.h>
 #include <stdlib.h>
 
@@ -61,10 +62,6 @@ void monad_parse_constituent(monad * m, int adjunct) {
 	}
 	
 	list_free(flags);
-	return;
-}
-
-void monad_parse_nop() {
 	return;
 }
 
@@ -211,8 +208,7 @@ void into_spawner_head(monad * m) {
 	list_free(spawn);
 	
 	return;
-}
-		
+}	
 
 void monad_parse_into(monad * m, int head) {
 	/* The name of the scope we need to enter */
@@ -282,7 +278,6 @@ void monad_parse_into(monad * m, int head) {
 	list_free(toexecute);
 }
 
-
 void monad_parse_return(monad * m) {
 	/* This function returns after an (into ... ) instruction by popping a scopename off the scopestack. 
 	 * The problem is if we said (into (head) do something). (head) means "whatever scope names itself in the (head) variable. 
@@ -314,24 +309,6 @@ void monad_parse_return(monad * m) {
 	
 	list_drop(m->scopestack, m->scopestack->length);
 	
-}
-
-void monad_parse_debug(monad * m) {
-	m->debug = 1;
-	return;
-}
-
-void monad_parse_confidence(monad * m) {
-	m->confidence += atoi(list_get_token(m->command, 2));
-	return;
-}
-
-void monad_parse_brake(monad * m) {
-	m->brake++;
-}
-
-void monad_parse_unbrake(monad * m) {
-	m->brake--;
 }
 
 void monad_parse_forgive(monad * m) {
@@ -483,11 +460,6 @@ void monad_parse_segments(monad * m) {
 	list_free(calls);
 }
 
-void monad_parse_sandhiblock(monad * m) {
-	list_remove(m->namespace, "sandhi");
-	return;
-}
-
 
 int tranny_parse(monad * m, void * nothing) {
 	if(!m->alive) return 0;
@@ -503,13 +475,9 @@ int tranny_parse(monad * m, void * nothing) {
 	}
 
 	char * command = list_get_token(m->command, 1);
-		
-	if(!strcmp(command, "sandhiblock")) {
-		monad_parse_sandhiblock(m);
-		list_free(m->command);
-		m->command = 0;
-		return 0;
-	}
+	
+	/* Is the current command a set of miscellaneous ones that work the same in all interpreters? */
+	if(tranny_misc(m, command)) return 1;
 		
 	if(!strcmp(command, "call")) {
 		monad_parse_constituent(m, 0);
@@ -537,33 +505,9 @@ int tranny_parse(monad * m, void * nothing) {
 		m->alive = 0;
 		return 0;
 	}
-	if(!strcmp(command, "capital")) {
-		m->capital = 1;
-		list_free(m->command);
-		m->command = 0;
-		return 1;
-	}
-	if(!strcmp(command, "nop")) {
-		monad_parse_nop();
-		list_free(m->command);
-		m->command = 0;
-		return 1;
-	}
-	if(!strcmp(command, "flags")) {
-		monad_parse_nop();
-		list_free(m->command);
-		m->command = 0;
-		return 1;
-	}
 	if(!strcmp(command, "concord")) {
 		m->howtobind |= CREATE | WRITE;
 		bind_vars(m);
-		list_free(m->command);
-		m->command = 0;
-		return 1;
-	}
-	if(!strcmp(command, "confidence")) {
-		monad_parse_confidence(m);
 		list_free(m->command);
 		m->command = 0;
 		return 1;
@@ -636,24 +580,6 @@ int tranny_parse(monad * m, void * nothing) {
 	}
 	if(!strcmp(command, "return")) {
 		monad_parse_return(m);
-		list_free(m->command);
-		m->command = 0;
-		return 1;
-	}
-	if(!strcmp(command, "brake")) {
-		monad_parse_brake(m);
-		list_free(m->command);
-		m->command = 0;
-		return 1;
-	}
-	if(!strcmp(command, "unbrake")) {
-		monad_parse_unbrake(m);
-		list_free(m->command);
-		m->command = 0;
-		return 1;
-	}
-	if(!strcmp(command, "debug")) {
-		monad_parse_debug(m);
 		list_free(m->command);
 		m->command = 0;
 		return 1;

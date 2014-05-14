@@ -16,7 +16,6 @@ monad * monad_new() {
 	m->child = 0;
 	m->command = 0;
 	m->id = 1;
-	m->capital = 1;
 	m->outtext = strdup("");
 	m->index = 0;
 	m->trace = 0;
@@ -55,7 +54,6 @@ monad * monad_duplicate(monad * m) {
 	
 	n->id = m->id;
 	
-	n->capital = m->id;
 	if(m->outtext) n->outtext = strdup(m->outtext);
 	n->index = m->index;
 	n->trace = m->trace;
@@ -375,7 +373,6 @@ int unlink_the_dead(monad * m, void * nothing) {
 	m->debug = m->child->debug;
 	m->trace = m->child->trace;
 	m->confidence = m->child->confidence;
-	m->capital = m->child->capital;
 	m->parent_id = m->child->parent_id;
 	m->id = m->child->id;
 	m->index = m->child->index;

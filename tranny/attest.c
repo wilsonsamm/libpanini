@@ -1,4 +1,5 @@
 #include "../monad/monad.h"
+#include "tranny.h"
 #include <string.h>
 #include <stdlib.h>
 
@@ -64,6 +65,8 @@ int tranny_attest(monad * m, char * langname) {
 
 	char * command = list_get_token(m->command, 1);
 	
+	if(tranny_misc(m, command)) return 1;
+	
 	if(!strcmp(command, "strict")) {
 		monad_parse_strict(m);
 		list_free(m->command);
@@ -82,12 +85,6 @@ int tranny_attest(monad * m, char * langname) {
 		m->command = 0;
 		m->alive = 0;
 		return 0;
-	}
-	if(!strcmp(command, "capital")) {
-		m->capital = 1;
-		list_free(m->command);
-		m->command = 0;
-		return 1;
 	}
 	if(!strcmp(command, "nop")) {
 		monad_parse_nop();
@@ -180,12 +177,6 @@ int tranny_attest(monad * m, char * langname) {
 	}
 	if(!strcmp(command, "unbrake")) {
 		monad_parse_unbrake(m);
-		list_free(m->command);
-		m->command = 0;
-		return 1;
-	}
-	if(!strcmp(command, "debug")) {
-		monad_parse_debug(m);
 		list_free(m->command);
 		m->command = 0;
 		return 1;

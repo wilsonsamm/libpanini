@@ -41,7 +41,6 @@ typedef struct _monad {
 	int trace;
 	int confidence;
 	struct _monad * adjunct;
-	int capital;
 	int parent_id;
 	int id;
 } monad;

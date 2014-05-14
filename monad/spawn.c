@@ -25,8 +25,6 @@ monad * __preparenewmonad(monad * m) {
 		list_append_copy(child->scopestack, m->scopestack);
 	}
 	
-	child->capital = m->capital;
-
 	if(child->outtext) {
 		free(child->outtext);
 		child->outtext = 0;
