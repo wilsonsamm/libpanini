@@ -107,6 +107,7 @@ monad * monad_get_child(monad * m);
 
 monad * monad_outtoin(monad * m);
 
+monad * monad_copy_one(monad * m);
 
 int kill_identical_outtexts(monad * m, void * nothing);
 

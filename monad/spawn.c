@@ -1,7 +1,8 @@
 #include "monad.h"
 #include <string.h>
 #include <stdlib.h>
-monad * __preparenewmonad(monad * m) {
+
+monad * monad_copy_one(monad * m) {
 	
 	static int identification = 1;
 	
@@ -88,10 +89,10 @@ monad * monad_spawn(monad * m, list * rules, list * flags) {
 
 		/* Construct a new linked list of monads */
 		if(!first) {
-			child = __preparenewmonad(m);
+			child = monad_copy_one(m);
 			first = child;
 		} else {
-			child = __preparenewmonad(m);
+			child = monad_copy_one(m);
 			monad_join(first, child);
 		}
 				

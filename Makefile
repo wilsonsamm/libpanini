@@ -1,10 +1,10 @@
 all: vlad languages libtranny.a
 
-vlad: validate.o list.o list-tokenise.o monad.o parse.o generate.o learn.o bind.o spawn.o variables.o misc.o
-	gcc -o vlad validate.o list.o list-tokenise.o monad.o parse.o generate.o bind.o learn.o spawn.o variables.o misc.o
+vlad: validate.o list.o list-tokenise.o monad.o parse.o generate.o learn.o bind.o spawn.o variables.o misc.o intext.o outtext.o exec.o
+	gcc -o vlad validate.o list.o list-tokenise.o monad.o parse.o generate.o bind.o learn.o spawn.o variables.o misc.o intext.o outtext.o exec.o
 
-libtranny.a: list.o list-tokenise.o generate.o parse.o spawn.o learn.o attest.o monad.o bind.o variables.o misc.o
-	ar rcs libtranny.a list.o list-tokenise.o generate.o parse.o spawn.o learn.o attest.o monad.o bind.o variables.o misc.o
+libtranny.a: list.o list-tokenise.o generate.o parse.o spawn.o learn.o attest.o monad.o bind.o variables.o misc.o intext.o outtext.o exec.o
+	ar rcs libtranny.a list.o list-tokenise.o generate.o parse.o spawn.o learn.o attest.o monad.o bind.o variables.o misc.o intext.o outtext.o exec.o
 
 validate.o: validate.c
 	gcc -ggdb -c -Wall validate.c
@@ -27,6 +27,9 @@ monad.o: monad/monad.h monad/monad.c
 parse.o: monad/monad.h monad/monad.c tranny/parse.c
 	gcc -ggdb -c -Wall tranny/parse.c -pg
 
+exec.o: monad/monad.h monad/monad.c tranny/exec.c
+	gcc -ggdb -c -Wall tranny/exec.c -pg
+
 generate.o: monad/monad.h monad/monad.c tranny/generate.c
 	gcc -ggdb -c -Wall tranny/generate.c -pg
 
@@ -35,7 +38,13 @@ attest.o: monad/monad.h monad/monad.c tranny/attest.c
 
 misc.o: monad/monad.h monad/monad.c tranny/misc.c
 	gcc -ggdb -c -Wall tranny/misc.c -pg
-	
+
+intext.o: monad/monad.h tranny/intext.c
+	gcc -ggdb -c -Wall tranny/intext.c -pg
+
+outtext.o: monad/monad.h tranny/outtext.c
+	gcc -ggdb -c -Wall tranny/outtext.c -pg
+
 spawn.o: monad/monad.h monad/monad.c monad/spawn.c
 	gcc -ggdb -c -Wall monad/spawn.c -pg
 

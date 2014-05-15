@@ -142,16 +142,17 @@ int tranny_learn(monad * m, void * nothing) {
 
 	char * command = list_get_token(m->command, 1);
 	
+	/* Is the current command a set of miscellaneous ones that work the same in all interpreters? */
 	if(tranny_misc(m, command)) return 1;
+	
+	/* Is the currect command a set of commands that handle the INTEXT register? */
+	if(tranny_intext(m, command)) return 1;
+	
+	/* Is the command one of those that spawns other monads? */
+	if(tranny_exec(m, command)) return 1;
 	
 	if(!strcmp(command, "strict")) {
 		monad_parse_strict(m);
-		list_free(m->command);
-		m->command = 0;
-		return 1;
-	}
-	if(!strcmp(command, "constituent")) {
-		monad_parse_constituent(m, 0);
 		list_free(m->command);
 		m->command = 0;
 		return 1;
@@ -177,18 +178,6 @@ int tranny_learn(monad * m, void * nothing) {
 		m->command = 0;
 		return 1;
 	}
-	if(!strcmp(command, "lit")) {
-		monad_parse_lit(m);
-		list_free(m->command);
-		m->command = 0;
-		return 1;
-	}
-	if(!strcmp(command, "space")) {
-		monad_parse_space(m);
-		list_free(m->command);
-		m->command = 0;
-		return 1;
-	}
 	if(!strcmp(command, "seme")) {
 		m->howtobind &= ~(CREATE | WRITE);
 		bind_vars(m);
@@ -202,12 +191,6 @@ int tranny_learn(monad * m, void * nothing) {
 		m->command = 0;
 		return 1;
 	}
-	if(!strcmp(command, "fullstop")) {
-		monad_parse_fullstop(m);
-		list_free(m->command);
-		m->command = 0;
-		return 1;
-	}	
 	if(!strcmp(command, "return")) {
 		monad_parse_return(m);
 		list_free(m->command);
@@ -216,24 +199,6 @@ int tranny_learn(monad * m, void * nothing) {
 	}
 	if(!strcmp(command, "forgive")) {
 		monad_parse_forgive(m);
-		list_free(m->command);
-		m->command = 0;
-		return 1;
-	}
-	if(!strcmp(command, "fork")) {
-		monad_parse_fork(m);
-		list_free(m->command);
-		m->command = 0;
-		return 1;
-	}
-	if(!strcmp(command, "adjunct")) {
-		monad_parse_constituent(m, 1);
-		list_free(m->command);
-		m->command = 0;
-		return 1;
-	}
-	if(!strcmp(command, "fuzzy")) {
-		monad_parse_fuzzy(m);
 		list_free(m->command);
 		m->command = 0;
 		return 1;

@@ -6,4 +6,11 @@
 int tranny_misc(monad * m, char * command);
 
 /* This function tests for and executes those instructions that are responsible for binding variables. */
-int tranny_binders(monad * m, char * command);
+//int tranny_binders(monad * m, char * command);
+
+/* These functions tests for and executes those instructions that are responsible for scanning the input/output. */
+int tranny_intext(monad * m, char * command);
+int tranny_outtext(monad * m, char * command);
+
+/* These functions tests for and executes those instructions that spawn other monads. */
+int tranny_exec(monad * m, char * command);
