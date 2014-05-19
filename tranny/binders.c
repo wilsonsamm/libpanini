@@ -230,7 +230,6 @@ int tranny_binders_ops(monad * m, int gen) {
 
 	char * command = list_get_token(m->command, 1);
 	
-	m->howtobind = 0;
 	if(gen & !strcmp(command, "seme")) m->howtobind |= WRITE;
 	else m->howtobind |= CREATE | WRITE;
 	
@@ -260,6 +259,8 @@ int tranny_binders_ops(monad * m, int gen) {
  * If it was not possible to execute the instruction, returns 0.
  */
 int tranny_binders(monad * m, int gen) {
+	
+	m->howtobind = 0;
 	
 	while(tranny_howtobind_ops(m));
 	
