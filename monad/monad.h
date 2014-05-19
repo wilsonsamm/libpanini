@@ -119,6 +119,4 @@ int print_out(monad * m, FILE * fp);
 int unlink_the_dead(monad * m, void * nothing);
 int set_trace(monad * m, int * i);
 
-list * get_namespace(monad * m, char * nsname);
-
 #endif

@@ -151,40 +151,9 @@ int tranny_learn(monad * m, void * nothing) {
 	/* Is the command one of those that spawns other monads? */
 	if(tranny_exec(m, command)) return 1;
 	
-	if(!strcmp(command, "strict")) {
-		monad_parse_strict(m);
-		list_free(m->command);
-		m->command = 0;
-		return 1;
-	}
-	if(!strcmp(command, "rection")) {
-		m->howtobind |= WRITE | CREATE;
-		bind_vars(m);
-		list_free(m->command);
-		m->command = 0;
-		return 1;
-	}
-	if(!strcmp(command, "sandhi")) {
-		m->howtobind |= WRITE | CREATE;
-		bind_vars(m);
-		list_free(m->command);
-		m->command = 0;
-		return 1;
-	}
-	if(!strcmp(command, "concord")) {
-		m->howtobind |= WRITE | CREATE;
-		bind_vars(m);
-		list_free(m->command);
-		m->command = 0;
-		return 1;
-	}
-	if(!strcmp(command, "seme")) {
-		m->howtobind &= ~(CREATE | WRITE);
-		bind_vars(m);
-		list_free(m->command);
-		m->command = 0;
-		return 1;
-	}
+	/* Is the command one of the ones that binds variables? */
+	if(tranny_binders(m, 0)) return 1;
+	
 	if(!strcmp(command, "into")) {
 		monad_parse_into(m, 0);
 		list_free(m->command);
@@ -197,12 +166,6 @@ int tranny_learn(monad * m, void * nothing) {
 		m->command = 0;
 		return 1;
 	}
-	if(!strcmp(command, "forgive")) {
-		monad_parse_forgive(m);
-		list_free(m->command);
-		m->command = 0;
-		return 1;
-	}
 	if(!strcmp(command, "open")) {
 		monad_learn_open(m);
 		list_free(m->command);
@@ -210,11 +173,6 @@ int tranny_learn(monad * m, void * nothing) {
 		return 1;
 	}
 	if(!strcmp(command, "attest")) {
-		list_free(m->command);
-		m->command = 0;
-		return 1;
-	}
-	if(!strcmp(command, "language")) {
 		m->howtobind |= CREATE | WRITE;
 		bind_vars(m);
 		list_free(m->command);
@@ -222,17 +180,6 @@ int tranny_learn(monad * m, void * nothing) {
 		return 1;
 	}
 	if(!strcmp(command, "check")) {
-		monad_parse_check(m);
-		list_free(m->command);
-		m->command = 0;
-		return 1;
-	}
-	if(!strcmp(command, "read-ahead")) {
-		list_free(m->command);
-		m->command = 0;
-		return 1;
-	}
-	if(!strcmp(command, "clues")) {
 		m->howtobind |= CREATE | WRITE;
 		bind_vars(m);
 		list_free(m->command);

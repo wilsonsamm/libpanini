@@ -30,7 +30,7 @@ void append_to_outtext(monad * m, char * segment) {
 
 void gen_open(monad * m) {
 	/* Does it say (rel open) (open ...) ? */
-	list * ns = get_namespace(m, "seme");
+	list * ns = get_namespace(m, "seme", 0);
 	
 	if(!ns) {
 		m->alive = 0;

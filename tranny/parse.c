@@ -5,7 +5,7 @@
 
 void into_spawner_head(monad * m) {
 	
-	list * ns = get_namespace(m, "seme");
+	list * ns = get_namespace(m, "seme", m->howtobind & CREATE);
 	if(!ns) {
 		m->alive = 0;
 		return;
@@ -99,7 +99,7 @@ void monad_parse_into(monad * m, int head) {
 			printf("Could not evaluate which scope to enter.\n");
 		m->alive = 0;
 		return;
-	}
+	} 
 	
 	
 	if(m->debug) {
@@ -141,9 +141,9 @@ void monad_parse_return(monad * m) {
 	/* This function returns after an (into ... ) instruction by popping a scopename off the scopestack. 
 	 * The problem is if we said (into (head) do something). (head) means "whatever scope names itself in the (head) variable. 
 	 * In that case, while parsing, (into) goes into a scope called .temporary_token and that is renamed when we return. */
-	list * seme = get_namespace(m, "seme");
-	list * rection = get_namespace(m, "rection");
-	list * theta = get_namespace(m, "theta");
+	list * seme = get_namespace(m, "seme", 0);
+	list * rection = get_namespace(m, "rection", 0);
+	list * theta = get_namespace(m, "theta", 0);
 	
 	char * head = 0;
 	list * headv = 0;
@@ -168,22 +168,6 @@ void monad_parse_return(monad * m) {
 	
 	list_drop(m->scopestack, m->scopestack->length);
 	
-}
-
-void monad_parse_forgive(monad * m) {
-	list * rules = list_new();
-	list * parent = list_append_list(rules);
-	
-	list * child = list_append_list(rules);
-	list * brake = list_append_list(parent);
-	list * todo = list_append_list(child);
-	
-	list_append_token(brake, "brake");
-	
-	list_drop(m->command, 1);
-	list_append_copy(todo, m->command);
-	
-	monad_join(m, monad_spawn(m, rules, 0));
 }
 
 void monad_parse_strict(monad * m) {
@@ -241,7 +225,7 @@ void monad_parse_open(monad * m) {
 
 void monad_parse_check(monad * m) {
 	m->howtobind |= CREATE;
-	list * checks = get_namespace(m, "checks");
+	list * checks = get_namespace(m, "checks", 1);
 	char * check = list_get_token(m->command, 2);
 	
 	if(list_contains(checks, check)) {
@@ -285,68 +269,10 @@ int tranny_parse(monad * m, void * nothing) {
 	
 	/* Is the command one of those that spawns other monads? */
 	if(tranny_exec(m, command)) return 1;
+
+	/* Is the command one of the ones that binds variables? */
+	if(tranny_binders(m, 0)) return 1;
 	
-	if(!strcmp(command, "strict")) {
-		monad_parse_strict(m);
-		list_free(m->command);
-		m->command = 0;
-		return 1;
-	}	
-	if(!strcmp(command, "block")) {
-		monad_parse_block(m);
-		list_free(m->command);
-		m->command = 0;
-		return 1;
-	}
-	if(!strcmp(command, "concord")) {
-		m->howtobind |= CREATE | WRITE;
-		bind_vars(m);
-		list_free(m->command);
-		m->command = 0;
-		return 1;
-	}
-	if(!strcmp(command, "seme")) {
-		m->howtobind |= CREATE | WRITE;
-		bind_vars(m);
-		list_free(m->command);
-		m->command = 0;
-		return 1;
-	}
-	if(!strcmp(command, "clues")) {
-		m->howtobind |= CREATE | WRITE;
-		bind_vars(m);
-		list_free(m->command);
-		m->command = 0;
-		return 1;
-	}
-	if(!strcmp(command, "language")) {
-		m->howtobind |= CREATE | WRITE;
-		bind_vars(m);
-		list_free(m->command);
-		m->command = 0;
-		return 1;
-	}
-	if(!strcmp(command, "sandhi")) {
-		m->howtobind |= CREATE | WRITE;
-		bind_vars(m);
-		list_free(m->command);
-		m->command = 0;
-		return 1;
-	}
-	if(!strcmp(command, "theta")) {
-		m->howtobind |= CREATE | WRITE;
-		bind_vars(m);
-		list_free(m->command);
-		m->command = 0;
-		return 1;
-	}
-	if(!strcmp(command, "rection")) {
-		m->howtobind |= CREATE | WRITE;
-		bind_vars(m);
-		list_free(m->command);
-		m->command = 0;
-		return 1;
-	}
 	if(!strcmp(command, "into")) {
 		monad_parse_into(m, 0);
 		list_free(m->command);
@@ -355,12 +281,6 @@ int tranny_parse(monad * m, void * nothing) {
 	}
 	if(!strcmp(command, "return")) {
 		monad_parse_return(m);
-		list_free(m->command);
-		m->command = 0;
-		return 1;
-	}
-	if(!strcmp(command, "forgive")) {
-		monad_parse_forgive(m);
 		list_free(m->command);
 		m->command = 0;
 		return 1;
