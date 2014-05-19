@@ -5,3 +5,9 @@
 	(theta (subject agent) (object patient))
 	(segments p a l ee w i aa)
 	(seme (head help)))
+
+(df verbstem
+	(flags transitive)
+	(theta (subject agent) (object patient))
+	(segments tl a z o saltillo tl a)
+	(seme (head love)))

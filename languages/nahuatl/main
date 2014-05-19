@@ -13,7 +13,9 @@
 
 (include stems/verb)
 
+(include punctuation)
+
 (df main
 	(constituent nuclear-clause)
-	(fullstop))
+	(call punctuation sentence-final))
 

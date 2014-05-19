@@ -41,23 +41,25 @@
 (segment (sandhi -front -saltillo inv -?) (underlying o)  (surface ô) (sandhi  saltillo  # vowel) (language (orthography carochi)))
 (segment (sandhi -front -saltillo inv -?) (underlying oo) (surface ô) (sandhi  saltillo  # vowel) (language (orthography carochi)))
 
-; Consonants that are always written the same are <ch, l, ll m, n, p, t, tl, tz, x, y>.
-(for cons (ch l ll m n p t tl tz x y)
-(segment (sandhi -saltillo -inv -front ?) (underlying .cons) (surface .cons) (sandhi -saltillo -vowel) (language (orthography carochi))))
+; Consonants that are always written the same are <ch, l, ll m, n, p, t, tl, tz, x, y, z>.
+(for cons (ch l ll m n p t tl tz x y z)
+(segment (sandhi -saltillo -inv -front ? -#) (underlying .cons) (surface .cons) (sandhi -saltillo -vowel) (language (orthography carochi))))
 
 ; /k/ is written as <c> before non-front vowels <a, o>, and written as <qu> before the front vowels <e, i>.
-(segment (sandhi -saltillo -inv -front ?) (underlying k) (surface qu) (sandhi  front -consonant) (language (orthography carochi)))
-(segment (sandhi -saltillo -inv -front ?) (underlying k) (surface c)  (sandhi -front           ) (language (orthography carochi)))
+(segment (sandhi -saltillo -inv -front ? -#) (underlying k) (surface qu) (sandhi  front -consonant) (language (orthography carochi)))
+(segment (sandhi -saltillo -inv -front ? -#) (underlying k) (surface c)  (sandhi -front           ) (language (orthography carochi)))
 
 ; The saltillo is technically a consonant, but the way it's written is with a mark over the preceding vowel. (This is realised by
 ; a sandhi binding)
 (segment (underlying saltillo) (sandhi saltillo) (block sandhi saltillo) (language (orthography carochi)))
 
 ; The digraphs <cu> for /kw/ and <hu> for /w/ are reversed at the end of a syllable, resulting in <uc> and <uh>.
-(segment (underlying kw) (sandhi -saltillo -front ?) (surface cu) (sandhi  inv) (language (orthography carochi)))
-(segment (underlying kw) (sandhi -saltillo -front ?) (surface uc) (sandhi -inv) (language (orthography carochi)))
-(segment (underlying w)  (sandhi -saltillo -front ?) (surface hu) (sandhi  inv) (language (orthography carochi)))
-(segment (underlying w)  (sandhi -saltillo -front ?) (surface uh) (sandhi -inv) (language (orthography carochi)))
+(segment (underlying kw) (sandhi -saltillo -front ? -#) (surface cu) (sandhi  inv) (language (orthography carochi)))
+(segment (underlying kw) (sandhi -saltillo -front ? -#) (surface uc) (sandhi -inv) (language (orthography carochi)))
+(segment (underlying w)  (sandhi -saltillo -front ? -#) (surface hu) (sandhi  inv) (language (orthography carochi)))
+(segment (underlying w)  (sandhi -saltillo -front ? -#) (surface uh) (sandhi -inv) (language (orthography carochi)))
 
 ; "#" is the conventional linguistic notation for a word boundary.
-(segment (sandhi -saltillo -front ? #) (underlying #))
+(segment (sandhi -saltillo -front ? #) (underlying #) (sandhi suppress-whitespace))
+(segment (sandhi -saltillo -front ? #) (underlying #) (space) (sandhi -suppress-whitespace))
+
