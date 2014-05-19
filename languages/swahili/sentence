@@ -1,12 +1,9 @@
 (df sentence
 	(constituent subject)
-	(constituent verb)
-	(adjunct object))
-
-;(df sentence
-;	(constituent subject)
-;	(constituent verb transitive)
-;	(constituent object))
+	(constituent verb not-copular)
+	(fork
+		((constituent object))
+		((seme (trajectory none)))))
 
 ;(df sentence
 ;	(constituent subject)

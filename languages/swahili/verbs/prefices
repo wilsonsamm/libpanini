@@ -7,11 +7,16 @@
 	(into (theta subject) constituent prefix subject))
 
 (df vprefix
-	(flags object)
+	(flags object intransitive)
+	(seme (trajectory none)))
+	
+(df vprefix
+	(flags object transitive)
 	(into (theta object) constituent prefix object)
 	(seme (trajectory projective)))
 	
 (df vprefix
-	(flags object)
+	(flags object transitive)
 	(lit ji)
 	(seme (trajectory reflexive)))
+

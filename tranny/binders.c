@@ -237,6 +237,7 @@ int tranny_binders_ops(monad * m, int gen) {
 	if(!strcmp(command, "language") || \
 	   !strcmp(command, "rection")  || \
 	   !strcmp(command, "theta")    || \
+	   !strcmp(command, "clues")    || \
 	   !strcmp(command, "sandhi")) {
 		   m->howtobind |= CREATE | WRITE;
 		   bind_vars(m);

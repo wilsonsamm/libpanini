@@ -1,19 +1,20 @@
+(for transitivity (transitive intransitive)
 (df verb
-	(flags transitive)
+	(flags .transitivity not-copular)
 	(rection object)
 	(constituent vprefix subject)
 	(constituent tense-marker)
-	(constituent vprefix object)
+	(constituent vprefix object .transitivity)
 	(constituent verbstem transitive)
 	(space)
-	(clues (class verb)))
-	
+	(clues (class verb))))
+
 (df verb
 	(flags copula)
 	(lit ni) (space)
 	(seme -negative))
 
-;(df verb
-;	(flags copula)
-;	(lit si) (space)
-;	(seme negative))
+(df verb
+	(flags copula)
+	(lit si) (space)
+	(seme negative))
