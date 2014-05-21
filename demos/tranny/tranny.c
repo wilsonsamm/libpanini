@@ -14,6 +14,9 @@ int cl_none = 0;
 int cl_trim = 0;
 int cl_all = 0;
 
+char * cl_orthography = 0;
+
+
 int main(int argc, char * argv[]) {
 
 	int threshold = 20;
@@ -53,6 +56,9 @@ int main(int argc, char * argv[]) {
 		if(!strcmp(argv[i], "d")) {		// Debug a monad (takes numerical argument)
 			int t = atoi(argv[++i]);
 			monad_map(m, set_trace, &t, -1);
+		} else
+		if(!strcmp(argv[i], "orthography")) {
+			cl_orthography = argv[++i];
 		} else
 		if(!strcmp(argv[i], "t")) {		// Set threshold to something other than the default 20 (takes numerical argument)
 //			printf("%s = %d\n", argv[ i+1], atoi(argv[i+1]));
@@ -122,9 +128,25 @@ int main(int argc, char * argv[]) {
 	
 	/* Generate! */
 	if(!cl_none) {
+		
+		/* Construct the code to execute */
+		char * exec;
+		if(cl_orthography) {
+			exec = malloc(strlen("(constituent main) (language (orthography ))") + strlen(cl_orthography) + 1);
+			strcpy(exec, "(language (orthography ");
+			strcat(exec, cl_orthography);
+			strcat(exec, "))");
+		} else {
+			exec = malloc(strlen("(constituent main)") + 1);
+			exec[0]='\0';
+		}
+		strcat(exec, "(constituent main)");
+		
+		if(cl_verbose) printf("Going to execute %s\n", exec);
+		/* Prepare the monads for generation */
 		monad_map(m, remove_ns, "rection", -1);
 		monad_map(m, remove_ns, "theta", -1);
-		monad_map(m, set_stack, "(constituent main)", -1);
+		monad_map(m, set_stack, exec, -1);
 		
 		for(; i <= threshold * 2; i++) {
 			retval = monad_map(m, tranny_generate, (void *)0, i);

@@ -2,7 +2,6 @@
 (segment (sandhi suppress-whitespace) (underlying exclamation) (surface !))
 
 (df punctuation
-	(debug)
 	(flags sentence-final)
 	(segments period)
-	(seme -interrogative -exclamatory))
+	(seme -interrogative -exclamation))

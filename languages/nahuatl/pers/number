@@ -10,19 +10,19 @@
 	(flags 0)
 	(call indicative)
 	(call present)
-	(into (theta subject) rection number singular))
+	(into (theta subject) rection (number singular)))
 
 (df num2
 	(flags k)
 	(call nonpast) (call optative)
-	(into (theta subject) rection plural))
+	(into (theta subject) rection (number plural)))
 
 (df num2
 	(flags 0)
 	(call indicative)
 	(call present)
 	(segments saltillo)
-	(into (theta subject) rection plural))
+	(into (theta subject) rection (number plural)))
 
 (for num1 (0 k)
  (df number

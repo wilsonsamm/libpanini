@@ -1,3 +1,4 @@
+CCOPTS = -ggdb -c -Wall
 
 all: vlad languages libtranny.a
 
@@ -8,76 +9,76 @@ libtranny.a: list.o list-tokenise.o generate.o parse.o spawn.o learn.o attest.o 
 	ar rcs libtranny.a list.o list-tokenise.o generate.o parse.o spawn.o learn.o attest.o monad.o bind.o variables.o misc.o intext.o outtext.o exec.o binders.o
 
 validate.o: validate.c
-	gcc -ggdb -c -Wall validate.c
+	gcc $(CCOPTS) validate.c
 
 list.o: list/list.c list/list.h
-	gcc -ggdb -c -Wall list/list.c -pg
+	gcc $(CCOPTS) list/list.c 
 
 bind.o: vars/bind.c
-	gcc -ggdb -c -Wall vars/bind.c -pg
+	gcc $(CCOPTS) vars/bind.c 
 
 list-tokenise.o: list/list-tokenise.c list/list.h
-	gcc -ggdb -c -Wall list/list-tokenise.c -pg
+	gcc $(CCOPTS) list/list-tokenise.c 
 	
 variables.o: monad/monad.h vars/variables.c
-	gcc -ggdb -c -Wall vars/variables.c -pg
+	gcc $(CCOPTS) vars/variables.c 
 
 monad.o: monad/monad.h monad/monad.c
-	gcc -ggdb -c -Wall monad/monad.c -pg
+	gcc $(CCOPTS) monad/monad.c 
 
 parse.o: monad/monad.h monad/monad.c tranny/parse.c
-	gcc -ggdb -c -Wall tranny/parse.c -pg
+	gcc $(CCOPTS) tranny/parse.c 
 
 exec.o: monad/monad.h monad/monad.c tranny/exec.c
-	gcc -ggdb -c -Wall tranny/exec.c -pg
+	gcc $(CCOPTS) tranny/exec.c 
 
 generate.o: monad/monad.h monad/monad.c tranny/generate.c
-	gcc -ggdb -c -Wall tranny/generate.c -pg
+	gcc $(CCOPTS) tranny/generate.c 
 
 attest.o: monad/monad.h monad/monad.c tranny/attest.c
-	gcc -ggdb -c -Wall tranny/attest.c -pg
+	gcc $(CCOPTS) tranny/attest.c 
 
 misc.o: monad/monad.h monad/monad.c tranny/misc.c
-	gcc -ggdb -c -Wall tranny/misc.c -pg
+	gcc $(CCOPTS) tranny/misc.c 
 
 binders.o: monad/monad.h monad/monad.c tranny/binders.c
-	gcc -ggdb -c -Wall tranny/binders.c -pg
+	gcc $(CCOPTS) tranny/binders.c 
 
 intext.o: monad/monad.h tranny/intext.c
-	gcc -ggdb -c -Wall tranny/intext.c -pg
+	gcc $(CCOPTS) tranny/intext.c 
 
 outtext.o: monad/monad.h tranny/outtext.c
-	gcc -ggdb -c -Wall tranny/outtext.c -pg
+	gcc $(CCOPTS) tranny/outtext.c 
 
 spawn.o: monad/monad.h monad/monad.c monad/spawn.c
-	gcc -ggdb -c -Wall monad/spawn.c -pg
+	gcc $(CCOPTS) monad/spawn.c 
 
 learn.o: monad/monad.h monad/monad.c tranny/learn.c
-	gcc -ggdb -c -Wall tranny/learn.c -pg
+	gcc $(CCOPTS) tranny/learn.c 
 	
 compiler: compiler-main.o compiler-definition.o compiler-check.o compiler-sandhi-init.o compiler/compiler.h list.o list-tokenise.o compiler-sandhi-fin.o compiler-for.o compiler-ontology.o
 	gcc -o tc compiler-main.o list.o list-tokenise.o compiler-check.o compiler-sandhi-init.o compiler-definition.o compiler-sandhi-fin.o compiler-for.o compiler-ontology.o
 
 compiler-main.o: compiler/main.c compiler/compiler.h
-	gcc -ggdb -c -Wall -o compiler-main.o compiler/main.c
+	gcc $(CCOPTS) -o compiler-main.o compiler/main.c
 
 compiler-check.o: compiler/check.c compiler/compiler.h
-	gcc -ggdb -c -Wall -o compiler-check.o compiler/check.c
+	gcc $(CCOPTS) -o compiler-check.o compiler/check.c
 
 compiler-definition.o: compiler/definition.c compiler/compiler.h
-	gcc -ggdb -c -Wall -o compiler-definition.o compiler/definition.c
+	gcc $(CCOPTS) -o compiler-definition.o compiler/definition.c
 
 compiler-sandhi-init.o: compiler/sandhi-init.c compiler/compiler.h
-	gcc -ggdb -c -Wall -o compiler-sandhi-init.o compiler/sandhi-init.c
+	gcc $(CCOPTS) -o compiler-sandhi-init.o compiler/sandhi-init.c
 
 compiler-sandhi-fin.o: compiler/sandhi-fin.c compiler/compiler.h
-	gcc -ggdb -c -Wall -o compiler-sandhi-fin.o compiler/sandhi-fin.c
+	gcc $(CCOPTS) -o compiler-sandhi-fin.o compiler/sandhi-fin.c
 
 compiler-for.o: compiler/for.c compiler/compiler.h
-	gcc -ggdb -c -Wall -o compiler-for.o compiler/for.c
+	gcc $(CCOPTS) -o compiler-for.o compiler/for.c
 	
 compiler-ontology.o: compiler/ontology.c compiler/compiler.h
-	gcc -ggdb -c -Wall -o compiler-ontology.o compiler/ontology.c
+	gcc $(CCOPTS) -o compiler-ontology.o compiler/ontology.c
 	
 languages: lang-clean nahuatl swahili ainu english czech quenya
 

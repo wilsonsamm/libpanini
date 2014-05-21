@@ -8,23 +8,23 @@
 ; I want to stress that these are the names of the underlying segments. They are just called to generate the appropriate 
 ; orthographic representation
 
-(segment (sandhi -front -saltillo inv -?) (underlying a)  (surface a) (sandhi -saltillo    vowel) (language (orthography carochi)))
-(segment (sandhi -front -saltillo inv -?) (underlying aa) (surface ā) (sandhi -saltillo    vowel) (language (orthography carochi)))
+(segment (sandhi -front -saltillo inv -?) (underlying a)  (surface a) (sandhi -saltillo -# vowel) (language (orthography carochi)))
+(segment (sandhi -front -saltillo inv -?) (underlying aa) (surface ā) (sandhi -saltillo -# vowel) (language (orthography carochi)))
 (segment (sandhi -front -saltillo inv -?) (underlying a)  (surface à) (sandhi  saltillo -# vowel) (language (orthography carochi)))
 (segment (sandhi -front -saltillo inv -?) (underlying aa) (surface à) (sandhi  saltillo -# vowel) (language (orthography carochi)))
 (segment (sandhi -front -saltillo inv -?) (underlying a)  (surface â) (sandhi  saltillo  # vowel) (language (orthography carochi)))
 (segment (sandhi -front -saltillo inv -?) (underlying aa) (surface â) (sandhi  saltillo  # vowel) (language (orthography carochi)))
 
-(segment (sandhi  front -saltillo inv -?) (underlying e)  (surface e) (sandhi -saltillo    vowel) (language (orthography carochi)))
-(segment (sandhi  front -saltillo inv -?) (underlying ee) (surface ē) (sandhi -saltillo    vowel) (language (orthography carochi)))
+(segment (sandhi  front -saltillo inv -?) (underlying e)  (surface e) (sandhi -saltillo -# vowel) (language (orthography carochi)))
+(segment (sandhi  front -saltillo inv -?) (underlying ee) (surface ē) (sandhi -saltillo -# vowel) (language (orthography carochi)))
 (segment (sandhi  front -saltillo inv -?) (underlying e)  (surface è) (sandhi  saltillo -# vowel) (language (orthography carochi)))
 (segment (sandhi  front -saltillo inv -?) (underlying ee) (surface è) (sandhi  saltillo -# vowel) (language (orthography carochi)))
 (segment (sandhi  front -saltillo inv -?) (underlying e)  (surface ê) (sandhi  saltillo  # vowel) (language (orthography carochi)))
 (segment (sandhi  front -saltillo inv -?) (underlying ee) (surface ê) (sandhi  saltillo  # vowel) (language (orthography carochi)))
 
-(segment (sandhi  front -saltillo inv -?) (underlying i)  (surface i) (sandhi -saltillo    vowel) (language (orthography carochi)))
+(segment (sandhi  front -saltillo inv -?) (underlying i)  (surface i) (sandhi -saltillo -# vowel) (language (orthography carochi)))
 (segment (sandhi  front -saltillo inv -?) (underlying ?i) (surface i) (sandhi -saltillo  ? vowel) (language (orthography carochi)))
-(segment (sandhi  front -saltillo inv -?) (underlying ii) (surface ī) (sandhi -saltillo    vowel) (language (orthography carochi)))
+(segment (sandhi  front -saltillo inv -?) (underlying ii) (surface ī) (sandhi -saltillo -# vowel) (language (orthography carochi)))
 (segment (sandhi  front -saltillo inv -?) (underlying i)  (surface ì) (sandhi  saltillo -# vowel) (language (orthography carochi)))
 (segment (sandhi  front -saltillo inv -?) (underlying ?i) (surface ì) (sandhi  saltillo  ? vowel) (language (orthography carochi)))
 (segment (sandhi  front -saltillo inv -?) (underlying ii) (surface ì) (sandhi  saltillo -# vowel) (language (orthography carochi)))
@@ -34,8 +34,8 @@
 (segment                                  (underlying ?i) (block sandhi vowel) (sandhi  -? vowel) (language (orthography carochi)))
 
 
-(segment (sandhi -front -saltillo inv -?) (underlying o)  (surface o) (sandhi -saltillo    vowel) (language (orthography carochi)))
-(segment (sandhi -front -saltillo inv -?) (underlying oo) (surface ō) (sandhi -saltillo    vowel) (language (orthography carochi)))
+(segment (sandhi -front -saltillo inv -?) (underlying o)  (surface o) (sandhi -saltillo -# vowel) (language (orthography carochi)))
+(segment (sandhi -front -saltillo inv -?) (underlying oo) (surface ō) (sandhi -saltillo -# vowel) (language (orthography carochi)))
 (segment (sandhi -front -saltillo inv -?) (underlying o)  (surface ò) (sandhi  saltillo -# vowel) (language (orthography carochi)))
 (segment (sandhi -front -saltillo inv -?) (underlying oo) (surface ò) (sandhi  saltillo -# vowel) (language (orthography carochi)))
 (segment (sandhi -front -saltillo inv -?) (underlying o)  (surface ô) (sandhi  saltillo  # vowel) (language (orthography carochi)))

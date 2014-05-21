@@ -7,6 +7,13 @@
 #define LIST 2
 #define UNDEF 3
 
+/* Undefine this token if you want to leave out bounds checking in the functions list_get_token and list_get_list. 
+ * This speeds the program up. But you might like to keep bounds checking if you are debugging. */
+//#define BOUNDSCHECK
+
+/* Define how much space to allocate to the list each time it needs to be extended */
+#define EXTENDBY 4
+
 typedef struct __list {
 	int allocated;	/* Should be how many entries are allocated for */
 	int length;		/* Should be how many entries in the array */

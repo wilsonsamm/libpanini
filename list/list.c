@@ -46,17 +46,17 @@ int list_extend(list * l) {
 
 	/* This first case deals with when there has been nothing allocated yet */
 	if(!l->allocated) {
-		l->types = malloc(sizeof(int) * 2);
+		l->types = malloc(sizeof(int) * EXTENDBY);
 		if(!l->types) return 1;
-		l->data = malloc(sizeof(void *) * 2);
+		l->data = malloc(sizeof(void *) * EXTENDBY);
 		if(!l->data) {
 			free(l->types);
 			return 1;
 		}
-		l->allocated = 2;
+		l->allocated = EXTENDBY;
 	/* This second case deals with if we need to realloc. */
 	} else {
-		int newa	 = l->allocated + 2;
+		int newa	 = l->allocated + EXTENDBY;
 		l->types	 = realloc(l->types, sizeof(int)    * newa);
 		l->data		 = realloc(l->data,  sizeof(void *) * newa);
 		l->allocated = newa;
@@ -145,11 +145,13 @@ int list_uglyprinter(list*l) {
 char * list_get_token(list * l, int n) {
 	n--;
 
+#ifdef BOUNDSCHECK
 	if(n < 0) return 0;
 	if(l->length < n) return 0;
 	
 	if(!l->types) return 0;
 	if(!l->data) return 0;
+#endif
 	
 	if(l->types[n] != TOKEN) return 0;
 	return l->data[n];
@@ -161,6 +163,7 @@ list * list_get_list(list * l, int n) {
 
 	n--;
 
+#ifdef BOUNDSCHECK
 	/* Bounds checking */
 	if(n < 0) return 0;
 	if(l->length < n) return 0;
@@ -168,6 +171,7 @@ list * list_get_list(list * l, int n) {
 	/* Is the list not empty? */
 	if(!l->types) return 0;
 	if(!l->data) return 0;
+#endif
 
 	if(l->types[n] != LIST) return 0;
 	return l->data[n];

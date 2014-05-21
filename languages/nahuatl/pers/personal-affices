@@ -1,13 +1,21 @@
+; A prefix that can serve as a verb's subject should:
+;   - Have one or both of these flags:
+;        realis  - this prefix can be used in the indicative mood.
+;       optative - this prefix can be used in the optative mood.
+;   - Bind the value "full" in sandhi:
+;       positive - if the object is third person, the morphic filler is "c" or "qu"
+;       negative - if the object is third person, the morphic filler is "qui"
+
 ;; First person singular
 (df personal-affix
-	(segments n ?i)
+	(segments n ?i) (sandhi -full)
 	(flags realis optative object)
 	(rection pronominal (person first) (number singular))
 	(seme (head referential) (person first) (number singular)))
 
 ;; Second person singular
 (df personal-affix
-	(segments t ?i)
+	(segments t ?i) (sandhi -full)
 	(flags realis)
 	(rection pronominal (person second) (number singular))
 	(seme (head referential) (person second) (number singular)))
@@ -19,28 +27,43 @@
 	(seme (head referential) (person second) (number singular)))
 	
 (df personal-affix
-	(segments x ?i)
+	(segments x ?i) (sandhi -full)
 	(flags optative)
 	(rection pronominal (person second) (number singular))
-	(seme (head referential) (person second)))
+	(seme (head referential) (person second) (number singular)))
 
-;; Third person
+; Second person plural
+
+(df personal-affix
+	(segments a n) (sandhi full)
+	(flags realis)
+	(rection pronominal (person second) (number plural))
+	(seme (head referential) (person second) (number plural)))
+
+(df personal-affix
+	(segments x ?i) (sandhi -full)
+	(flags optative)
+	(rection pronominal (person second) (number plural))
+	(seme (head referential) (person second) (number plural)))
+	
+;; Third person singular
 (df personal-affix
 	(rection referential)
 	(flags realis optative)
-	(seme (head referential) (person third) (number singular)))
+	(seme (head referential) (person third) (number singular))
+	(sandhi full))
 
 (df personal-affix
 	(fork
-		((rection  syll) (segments k))
-		((rection -syll) (segments k ?i)))
+		((sandhi -full) (segments k))
+		((sandhi  full) (sandhi -vowel) (segments k ?i)))
 	(flags object)
 	(rection pronominal (person third))
 	(seme (head referential) (person third) (number singular)) 
 	(rection (number singular)))
 	
 (df personal-affix
-	(segments k i)
+	(segments k i) (sandhi -full)
 	(flags object)
 	(rection pronominal (person third))
 	(seme (head referential) (person third) (number plural))
@@ -48,7 +71,7 @@
 
 ;; First person plural
 (df personal-affix
-	(segments t ?i)
+	(segments t ?i) (sandhi -full)
 	(flags realis optative)
 	(rection pronominal (person first) (number plural))
 	(seme (head referential) (person first) (number plural)))

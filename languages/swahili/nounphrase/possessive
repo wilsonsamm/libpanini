@@ -24,6 +24,6 @@
 
 (df qualifier
 	(constituent prefix possessive)
-	(into possessor constituent possessive-stem)
+	(into owner constituent possessive-stem)
 	(space)
 	(check possessive))
