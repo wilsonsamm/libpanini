@@ -33,5 +33,5 @@
 (segment (underlying w)  (sandhi -saltillo -front ?) (surface uh) (sandhi -inv) (language (orthography classical)))
 
 ; "#" is the conventional linguistic notation for a word boundary.
-(segment (sandhi -front -inv ? #) (underlying #))
-(segment (sandhi -front -inv ? #) (underlying #))
+;(segment (sandhi -front -inv ? #) (underlying #))
+;(segment (sandhi -front -inv ? #) (underlying #))

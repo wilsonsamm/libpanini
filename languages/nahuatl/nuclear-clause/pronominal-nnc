@@ -1,0 +1,43 @@
+; The Pronominal NNC is described in Lesson 16 of Introduction to Classical Nahuatl
+
+(df pronominal-stem
+	(flags first second)
+	(segments e saltillo))
+
+(df absolutive
+	(flags singular)
+	(segments tl))
+	
+(df absolutive
+	(flags plural)
+	(segments t i n))
+
+(for person (first second third)
+(df nc
+	(sandhi -suppress-whitespace)
+	(flags nominal pronominal)
+	(constituent personal-affix realis .person)
+	(constituent pronominal-stem singular)
+	(segments #))
+
+(df nc
+	(sandhi -suppress-whitespace)
+	(flags nominal pronominal)
+	(constituent personal-affix realis .person)
+	(constituent pronominal-stem)
+	(segments w aa)
+	(constituent absolutive singular)
+	(rection (number singular))
+	(segments #))
+
+(df nc
+	
+	(sandhi -suppress-whitespace)
+	(flags nominal pronominal)
+	(constituent personal-affix realis .person)
+	(constituent pronominal-stem)
+	(segments w aa n)
+	(constituent absolutive plural)
+	(rection (number plural))
+	(segments #)))
+	

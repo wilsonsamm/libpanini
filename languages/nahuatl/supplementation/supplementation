@@ -1,0 +1,18 @@
+
+(df supplementation
+	(constituent nc verbal intransitive)
+	(into (theta subject) constituent adjunct))
+
+; VSO order is extremely common.
+(df supplementation
+	(constituent nc verbal transitive)
+	(into (theta subject) constituent adjunct)
+	(into (theta  object) constituent adjunct))
+
+; VOS order is also OK.
+(df supplementation
+	(constituent nc verbal transitive)
+	(into (theta subject) constituent adjunct)
+	(into (theta  object) constituent adjunct))
+
+

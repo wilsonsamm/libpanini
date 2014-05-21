@@ -1,7 +1,8 @@
-(df nuclear-clause (constituent vnc transitive))
+; The transitive VNC is described in Lesson 6 of Introduction to Classical Nahuatl.
 
-(df vnc
-	(flags transitive)
+
+(df nc
+	(flags transitive verbal)
 	(sandhi -suppress-whitespace)
 	(constituent pers subject)
 	(constituent valence)

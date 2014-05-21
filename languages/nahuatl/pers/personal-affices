@@ -9,26 +9,26 @@
 ;; First person singular
 (df personal-affix
 	(segments n ?i) (sandhi -full)
-	(flags realis optative object)
+	(flags realis optative object first)
 	(rection pronominal (person first) (number singular))
 	(seme (head referential) (person first) (number singular)))
 
 ;; Second person singular
 (df personal-affix
 	(segments t ?i) (sandhi -full)
-	(flags realis)
+	(flags realis second)
 	(rection pronominal (person second) (number singular))
 	(seme (head referential) (person second) (number singular)))
 
 (df personal-affix
 	(segments m ?i)
-	(flags object)
+	(flags object second)
 	(rection pronominal (person second) (number singular))
 	(seme (head referential) (person second) (number singular)))
 	
 (df personal-affix
 	(segments x ?i) (sandhi -full)
-	(flags optative)
+	(flags optative second)
 	(rection pronominal (person second) (number singular))
 	(seme (head referential) (person second) (number singular)))
 
@@ -36,20 +36,20 @@
 
 (df personal-affix
 	(segments a n) (sandhi full)
-	(flags realis)
+	(flags realis second)
 	(rection pronominal (person second) (number plural))
 	(seme (head referential) (person second) (number plural)))
 
 (df personal-affix
 	(segments x ?i) (sandhi -full)
-	(flags optative)
+	(flags optative second)
 	(rection pronominal (person second) (number plural))
 	(seme (head referential) (person second) (number plural)))
 	
 ;; Third person singular
 (df personal-affix
 	(rection referential)
-	(flags realis optative)
+	(flags realis optative third)
 	(seme (head referential) (person third) (number singular))
 	(sandhi full))
 
@@ -57,14 +57,14 @@
 	(fork
 		((sandhi -full) (segments k))
 		((sandhi  full) (sandhi -vowel) (segments k ?i)))
-	(flags object)
+	(flags object third)
 	(rection pronominal (person third))
 	(seme (head referential) (person third) (number singular)) 
 	(rection (number singular)))
 	
 (df personal-affix
 	(segments k i) (sandhi -full)
-	(flags object)
+	(flags object third)
 	(rection pronominal (person third))
 	(seme (head referential) (person third) (number plural))
 	(rection (number plural)))
@@ -72,6 +72,6 @@
 ;; First person plural
 (df personal-affix
 	(segments t ?i) (sandhi -full)
-	(flags realis optative)
+	(flags realis optative third)
 	(rection pronominal (person first) (number plural))
 	(seme (head referential) (person first) (number plural)))

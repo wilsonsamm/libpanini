@@ -1,7 +1,8 @@
-(df nuclear-clause (constituent vnc intransitive))
+; The intransitive VNC is described in Lesson 5 of Introduction to Classical Nahuatl.
 
-(df vnc
-	(flags intransitive)
+
+(df nc
+	(flags intransitive verbal)
 	(segments #)
 	(constituent pers subject)
 	(constituent verbstem intransitive)

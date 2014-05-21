@@ -6,16 +6,22 @@
 (include pers/tense)
 (include pers/valence)
 
-(include vnc/intransitive-vnc)
-(include vnc/transitive-vnc)
+(include nuclear-clause/pronominal-nnc)
+
+(include nuclear-clause/intransitive-vnc)
+(include nuclear-clause/transitive-vnc)
 
 (include orthographies/intro)
 
 (include stems/verb)
 
+(include supplementation/adjunct)
+(include supplementation/adjunctor)
+(include supplementation/supplementation)
+
 (include punctuation)
 
 (df main
-	(constituent nuclear-clause)
+	(constituent supplementation)
 	(call punctuation sentence-final))
 

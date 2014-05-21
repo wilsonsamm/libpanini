@@ -1,0 +1,8 @@
+(df adjunct
+	(constituent adjunctor)
+	(constituent nc nominal))
+
+; This is how to do pro-drop in Tranny. You basically say match some meaning to no segments; voilà.
+; In this case, the meaning is just "(head referential) -explicit", which is "pronominal stuff, but not explicitly named"
+(df adjunct
+	(seme (head referential) -explicit))

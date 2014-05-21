@@ -175,7 +175,7 @@ void print_debugging_info(monad * m) {
 	if(m->howtobind & BLOCK) printf("BLOCK ");
 	printf("\n");
 	printf("Intext: (%d) %s\n", m->index, m->intext);
-	printf("Outtext: %s\n", m->outtext);
+	printf("Outtext: \"%s\"\n", m->outtext);
 	printf("Scopestack:");
 	if(m->scopestack) list_prettyprinter(m->scopestack);
 	if(m->adjunct) printf("Adjuncts starting from monad %d\n", m->adjunct->id);
