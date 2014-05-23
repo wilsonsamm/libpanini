@@ -3,6 +3,10 @@
 	(constituent nc verbal intransitive)
 	(into (theta subject) constituent adjunct))
 
+(df supplementation
+	(into (theta pers) constituent adjunct)
+	(constituent nc nominal))
+
 ; VSO order is extremely common.
 (df supplementation
 	(constituent nc verbal transitive)

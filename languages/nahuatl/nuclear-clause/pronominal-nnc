@@ -6,24 +6,30 @@
 
 (df absolutive
 	(flags singular)
+	(seme (number singular))
 	(segments tl))
 	
 (df absolutive
 	(flags plural)
+	(seme (number plural))
 	(segments t i n))
 
-(for person (first second third)
+(df absolutive
+	(flags animate)
+	(seme (number singular))
+	(segments i n))
+
 (df nc
 	(sandhi -suppress-whitespace)
 	(flags nominal pronominal)
-	(constituent personal-affix realis .person)
+	(constituent personal-affix realis)
 	(constituent pronominal-stem singular)
 	(segments #))
 
 (df nc
 	(sandhi -suppress-whitespace)
 	(flags nominal pronominal)
-	(constituent personal-affix realis .person)
+	(constituent personal-affix realis)
 	(constituent pronominal-stem)
 	(segments w aa)
 	(constituent absolutive singular)
@@ -31,13 +37,12 @@
 	(segments #))
 
 (df nc
-	
 	(sandhi -suppress-whitespace)
 	(flags nominal pronominal)
-	(constituent personal-affix realis .person)
+	(constituent personal-affix realis)
 	(constituent pronominal-stem)
 	(segments w aa n)
 	(constituent absolutive plural)
 	(rection (number plural))
-	(segments #)))
+	(segments #))
 	

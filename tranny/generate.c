@@ -4,25 +4,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-
-void monad_generate_strict(monad * m) {
-	/* Set the STRICT flag */
-	m->howtobind |= STRICT;
-	
-	/* The command that's to be done strictly */
-	list_drop(m->command, 1);
-	list * todo = list_new();
-	list_append_copy(todo, m->command);
-
-	/* Update the stack */
-	list * newstack = list_new();
-	list_append_copy(list_append_list(newstack), todo);
-	list_append_copy(newstack, m->stack);
-	list_free(m->stack);
-	m->stack = newstack;
-	return;
-}
-
 int tranny_generate(monad * m, void * nothing) {
 	if(!m->alive) return 0;
 	
@@ -71,13 +52,6 @@ int tranny_generate(monad * m, void * nothing) {
 	}
 	if(!strcmp(command, "check")) {
 		monad_parse_check(m);
-		list_free(m->command);
-		m->command = 0;
-		return 1;
-	}
-	if(!strcmp(command, "clues")) {
-		m->howtobind |= CREATE | WRITE;
-		bind_vars(m);
 		list_free(m->command);
 		m->command = 0;
 		return 1;

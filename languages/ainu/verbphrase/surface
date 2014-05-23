@@ -9,3 +9,7 @@
 (df verb
 	(constituent personal-stem monovalent)
 	(constituent personal-suffix))
+	
+(df copula
+	(into copula constituent personal-prefix monovalent)
+	(lit ne) (space))

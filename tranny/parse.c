@@ -5,7 +5,7 @@
 
 void into_spawner_head(monad * m) {
 	
-	list * ns = get_namespace(m, "seme", m->howtobind & CREATE);
+	list * ns = get_namespace(m, "seme", CREATE);
 	if(!ns) {
 		m->alive = 0;
 		return;
@@ -183,24 +183,6 @@ void monad_parse_strict(monad * m) {
 	m->alive = 0;
 }
 
-void monad_parse_block(monad * m) {
-	/* Set the BLOCK flag */
-	m->howtobind |= BLOCK;
-	
-	/* The command that's to be done strictly */
-	list_drop(m->command, 1);
-	list * todo = list_new();
-	list_append_copy(todo, m->command);
-
-	/* Update the stack */
-	list * newstack = list_new();
-	list_append_copy(list_append_list(newstack), todo);
-	list_append_copy(newstack, m->stack);
-	list_free(m->stack);
-	m->stack = newstack;
-	return;
-}
-
 void monad_parse_open(monad * m) {
 	/* how long is the instring? */
 	char word[1024];
@@ -224,8 +206,7 @@ void monad_parse_open(monad * m) {
 }
 
 void monad_parse_check(monad * m) {
-	m->howtobind |= CREATE;
-	list * checks = get_namespace(m, "checks", 1);
+	list * checks = get_namespace(m, "checks", CREATE);
 	char * check = list_get_token(m->command, 2);
 	
 	if(list_contains(checks, check)) {

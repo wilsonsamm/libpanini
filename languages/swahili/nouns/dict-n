@@ -24,6 +24,11 @@
 ;  inanimate - if the noun is not animate, as above, then it should have this flag.
 
 (df nounstem
+	(seme (head whale))
+	(lit nyangumi)
+	(flags n countable animate))
+
+(df nounstem
 	(seme (head banana))
 	(lit ndizi)
 	(flags n countable inanimate))

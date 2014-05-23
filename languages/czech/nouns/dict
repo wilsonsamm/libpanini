@@ -1,0 +1,9 @@
+(df nounstem
+	(segments v e l r y b)
+	(flags feminine)
+	(seme (head whale)))
+
+(df nounstem
+	(segments b y t ?e k)
+	(flags masculine)
+	(seme (head house)))

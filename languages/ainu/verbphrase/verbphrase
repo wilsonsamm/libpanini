@@ -6,3 +6,9 @@
 	(constituent argument subject)
 	(constituent argument object)
 	(constituent verb))
+
+(df verbphrase
+	(constituent argument absolutive)
+	(constituent nounphrase)
+	(constituent copula)
+	(theta (absolutive copula)))

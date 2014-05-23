@@ -1,4 +1,16 @@
 
+(df substantive
+	(flags subject object)
+	(constituent dp))
+
+(df substantive
+	(flags subject)
+	(constituent pronoun subject))
+
+(df substantive
+	(flags object)
+	(constituent pronoun object))
+
 (df subject
 	(rection (subject argument))
 	(into (theta subject) constituent dp))

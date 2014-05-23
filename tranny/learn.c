@@ -173,14 +173,6 @@ int tranny_learn(monad * m, void * nothing) {
 		return 1;
 	}
 	if(!strcmp(command, "attest")) {
-		m->howtobind |= CREATE | WRITE;
-		bind_vars(m);
-		list_free(m->command);
-		m->command = 0;
-		return 1;
-	}
-	if(!strcmp(command, "check")) {
-		m->howtobind |= CREATE | WRITE;
 		bind_vars(m);
 		list_free(m->command);
 		m->command = 0;

@@ -18,21 +18,16 @@
  * this takes. */
 typedef struct _monad {
 	list * command;		/* Contains the command currently executing */
-	list * stack;		/* Contains the list of commands to execute 
-						   next */
+	list * stack;		/* Contains the list of commands to execute next */
 	list * rules;		/* Rules for parsing */
 	
 	list * namespace;	/* Variables can be bound in here. */
-	list * scopestack;	/* This keeps track of which scope we're 
-						   currently in */
+	list * scopestack;	/* This keeps track of which scope we're currently in */
 	
 	char * outtext;		/* This is where the translation will be put */
 	char * intext;		/* This is where the original text should be */
-	int index;			/* How far through the intext have we already 
-						   scanned ? */
-	int brake;			/* Brake -- If this number increases beyond some
-						 * boundary, then the monad is paused. */
-	int howtobind;		/* Part of the command */
+	int index;			/* How far through the intext have we already scanned ? */
+	int brake;			/* Brake -- If this number increases beyond some boundary, then the monad is paused. */
 
 	struct _monad * child;		/* The linked list of spawned monads */
 

@@ -3,6 +3,8 @@
 #include <string.h>
 #include <stdlib.h>
 
+int howtobind;
+
 /* Enter a scope
  * This function takes a list of names of scopes, and enters each subscope */
 list * enter_scope(list * namespace, list * scopelist, int create, int debug) {
@@ -67,16 +69,16 @@ list * get_namespace(monad * m, char * nsname, int create) {
  * Iff write is nonzero, then the variable will be bound (and not just
  * checked for compatibility). */
 void bind_vars(monad * m) {
-	list * namespace = get_namespace(m, list_get_token(m->command, 1), m->howtobind&CREATE?1:0);
+	list * namespace = get_namespace(m, list_get_token(m->command, 1), howtobind&CREATE?1:0);
 	
 	if(!namespace) {
 		m->alive = 0;
-		m->howtobind = 0;
+		howtobind = 0;
 		return;
 	}
 	
 	/* If the WRITE flag is off, then do not create any new variables */
-	if(!(m->howtobind & WRITE)) {
+	if(!(howtobind & WRITE)) {
 		int i;
 		for(i = 2; i <= m->command->length; i++) {
 			list * var = list_get_list(m->command, i);
@@ -100,7 +102,7 @@ void bind_vars(monad * m) {
 	
 	/* If the BLOCK flag is on, then delete all the specified variables. 
 	 * */
-	if((m->howtobind & BLOCK)) {
+	if((howtobind & BLOCK)) {
 		int i;
 		for(i = 2; i <= m->command->length; i++) {
 			char * varname;
@@ -129,13 +131,13 @@ void bind_vars(monad * m) {
 			printf("After removing the variables, the relevant namespace is:\n");
 			list_prettyprinter(namespace);
 		}
-		m->howtobind = 0;
+		howtobind = 0;
 		return;
 	}
 	
 	/* If the STRICT flag is on, then make sure all the variables are 
 	 * already bound. */
-	if((m->howtobind & STRICT)) {
+	if((howtobind & STRICT)) {
 		int i;
 		for(i = 2; i <= m->command->length; i++) {
 			char * varname;
@@ -167,7 +169,7 @@ void bind_vars(monad * m) {
 					printf("the relevant namespace, so this monad ");
 					printf("will kick the bucket.\n");
 				}
-				m->howtobind = 0;
+				howtobind = 0;
 				return;
 			}
 		}
@@ -198,7 +200,7 @@ void bind_vars(monad * m) {
 		printf("\n");
 	}
 	
-	m->howtobind = 0;
+	howtobind = 0;
 }
 
 int tranny_howtobind_ops(monad * m) {
@@ -209,13 +211,13 @@ int tranny_howtobind_ops(monad * m) {
 		printf("I am trying to interpret this as a HOWTOBIND operation.\n");
 	
 	if(!strcmp(command, "strict")) {
-		m->howtobind |= STRICT;
+		howtobind |= STRICT;
 		list_drop(m->command, 1);
 		return 1;
 	}
 	
 	if(!strcmp(command, "block")) {
-		m->howtobind |= BLOCK;
+		howtobind |= BLOCK;
 		list_drop(m->command, 1);
 		return 1;
 	}
@@ -230,22 +232,30 @@ int tranny_binders_ops(monad * m, int gen) {
 
 	char * command = list_get_token(m->command, 1);
 	
-	if(gen & !strcmp(command, "seme")) m->howtobind |= WRITE;
-	else m->howtobind |= CREATE | WRITE;
+	if(gen & !strcmp(command, "seme")) howtobind |= WRITE;
+	else howtobind |= CREATE | WRITE;
+	
+	if(m->debug) {
+		printf("\nHowtobind flags: ");
+		if(howtobind & STRICT) printf("STRICT ");
+		if(howtobind & WRITE) printf("WRITE ");
+		if(howtobind & CREATE) printf("CREATE ");
+		if(howtobind & BLOCK) printf("BLOCK ");
+	}
 	
 	if(!strcmp(command, "language") || \
 	   !strcmp(command, "rection")  || \
 	   !strcmp(command, "theta")    || \
 	   !strcmp(command, "clues")    || \
 	   !strcmp(command, "sandhi")) {
-		   m->howtobind |= CREATE | WRITE;
+		   howtobind |= CREATE | WRITE;
 		   bind_vars(m);
 		   return 1;
 	}
 	
 	if(!strcmp(command, "seme")) {
-		m->howtobind |= WRITE;
-		if(!gen) m->howtobind |= CREATE;	
+		howtobind |= WRITE;
+		if(!gen) howtobind |= CREATE;	
 		bind_vars(m);
 		return 1;
 	}
@@ -260,7 +270,7 @@ int tranny_binders_ops(monad * m, int gen) {
  */
 int tranny_binders(monad * m, int gen) {
 	
-	m->howtobind = 0;
+	howtobind = 0;
 	
 	while(tranny_howtobind_ops(m));
 	

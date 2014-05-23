@@ -24,7 +24,6 @@ monad * monad_new() {
 	m->adjunct = 0;
 	m->debug = 0;
 	m->brake = 0;
-	m->howtobind = 0;
 	m->intext = 0;
 	m->outtext = 0;
 	m->parent_id = 0;
@@ -61,8 +60,7 @@ monad * monad_duplicate(monad * m) {
 	n->confidence = m->confidence;
 	n->adjunct = 0;
 	n->brake = m->brake;
-	n->child = 0; // monad_duplicate(m->child);
-	n->howtobind = m->howtobind;
+	n->child = 0; 
 	return n;
 }
 
@@ -168,11 +166,6 @@ void print_debugging_info(monad * m) {
 	}
 	printf("\nNamespace: ");
 	if(m->namespace) list_prettyprinter(m->namespace);
-	printf("\nHowtobind flags: ");
-	if(m->howtobind & STRICT) printf("STRICT ");
-	if(m->howtobind & WRITE) printf("WRITE ");
-	if(m->howtobind & CREATE) printf("CREATE ");
-	if(m->howtobind & BLOCK) printf("BLOCK ");
 	printf("\n");
 	printf("Intext: (%d) %s\n", m->index, m->intext);
 	printf("Outtext: \"%s\"\n", m->outtext);
@@ -368,7 +361,6 @@ int unlink_the_dead(monad * m, void * nothing) {
 	
 	m->intext = m->child->intext;
 	m->brake = m->child->brake;
-	m->howtobind = m->child->howtobind;
 	m->alive = m->child->alive;
 	m->debug = m->child->debug;
 	m->trace = m->child->trace;

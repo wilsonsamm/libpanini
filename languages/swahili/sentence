@@ -12,4 +12,12 @@
 (df sentence
 	(constituent subject)
 	(constituent verb copula)
+	(constituent nounphrase)
+	(into (theta subject) seme explicit)
+	(theta (subject copula)))
+
+(df sentence
+	(constituent subject)
+	(constituent verb copula)
+	(seme -irrealis (aspect stative) (head stative))
 	(constituent qualifier))

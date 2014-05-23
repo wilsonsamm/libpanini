@@ -1,0 +1,4 @@
+(df nounstem
+	(flags nominal animate)
+	(segments w ee y m i ch )
+	(seme (head whale)))

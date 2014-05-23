@@ -1,0 +1,9 @@
+(for class (animate inanimate)
+
+(df nc
+	(sandhi -suppress-whitespace)
+	(flags nominal absolutive)
+	(into (theta pers) constituent personal-affix realis)
+	(constituent nounstem nominal .class)
+	(constituent absolutive .class)
+	(theta (pers copula))))

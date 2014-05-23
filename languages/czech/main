@@ -5,6 +5,9 @@
 
 (include punctuation)
 
+(include nouns/dict)
+(include nouns/nouns)
+
 (include sentence/sentence)
 (include sentence/slots)
 (include sentence/thema)

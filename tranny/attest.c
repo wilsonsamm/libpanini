@@ -98,13 +98,6 @@ int tranny_attest(monad * m, char * langname) {
 		m->command = 0;
 		return 1;
 	}
-	if(!strcmp(command, "concord")) {
-		m->howtobind |= CREATE | WRITE;
-		bind_vars(m);
-		list_free(m->command);
-		m->command = 0;
-		return 1;
-	}
 	if(!strcmp(command, "confidence")) {
 		monad_parse_confidence(m);
 		list_free(m->command);
@@ -123,34 +116,6 @@ int tranny_attest(monad * m, char * langname) {
 		m->command = 0;
 		return 1;
 	}
-	if(!strcmp(command, "seme")) {
-		m->howtobind |= CREATE | WRITE;
-		bind_vars(m);
-		list_free(m->command);
-		m->command = 0;
-		return 1;
-	}
-	if(!strcmp(command, "sandhi")) {
-		m->howtobind |= CREATE | WRITE;
-		bind_vars(m);
-		list_free(m->command);
-		m->command = 0;
-		return 1;
-	}
-	if(!strcmp(command, "theta")) {
-		m->howtobind |= CREATE | WRITE;
-		bind_vars(m);
-		list_free(m->command);
-		m->command = 0;
-		return 1;
-	}
-	if(!strcmp(command, "rection")) {
-		m->howtobind |= CREATE | WRITE;
-		bind_vars(m);
-		list_free(m->command);
-		m->command = 0;
-		return 1;
-	}
 	if(!strcmp(command, "into")) {
 		monad_parse_into(m, 0);
 		list_free(m->command);
@@ -165,18 +130,6 @@ int tranny_attest(monad * m, char * langname) {
 	}
 	if(!strcmp(command, "return")) {
 		monad_parse_return(m);
-		list_free(m->command);
-		m->command = 0;
-		return 1;
-	}
-	if(!strcmp(command, "brake")) {
-		monad_parse_brake(m);
-		list_free(m->command);
-		m->command = 0;
-		return 1;
-	}
-	if(!strcmp(command, "unbrake")) {
-		monad_parse_unbrake(m);
 		list_free(m->command);
 		m->command = 0;
 		return 1;
@@ -218,13 +171,6 @@ int tranny_attest(monad * m, char * langname) {
 		m->command = 0;
 		return 1;
 	}
-	if(!strcmp(command, "language")) {
-		m->howtobind |= CREATE | WRITE;
-		bind_vars(m);
-		list_free(m->command);
-		m->command = 0;
-		return 1;
-	}
 	if(!strcmp(command, "check")) {
 		monad_parse_check(m);
 		list_free(m->command);
@@ -233,13 +179,6 @@ int tranny_attest(monad * m, char * langname) {
 	}
 	if(!strcmp(command, "read-ahead")) {
 		monad_parse_readahead(m);
-		list_free(m->command);
-		m->command = 0;
-		return 1;
-	}
-	if(!strcmp(command, "clues")) {
-		m->howtobind |= CREATE | WRITE;
-		bind_vars(m);
 		list_free(m->command);
 		m->command = 0;
 		return 1;

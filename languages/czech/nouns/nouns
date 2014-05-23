@@ -1,0 +1,10 @@
+(for case in (nominative accusative genitive dative 
+              vocative prepositional instrumental)
+(for gender in (feminine masculine neuter)
+(for animacy in (-animate animate)
+
+(df noun
+	(flags .gender .case)
+	(constituent nounstem .gender)
+	(constituent case-ending .gender .case)
+	(rection (animacy .animacy) (gender .gender))))))

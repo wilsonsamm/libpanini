@@ -58,6 +58,13 @@
 	(constituent copula finite)
 	(constituent vp present participle))
 
+; to be a thing
+(df vp
+	(flags finite)
+	(theta (subject copula))
+	(constituent copula)
+	(constituent substantive))
+
 ;; There is, there are
 (df vp
 	(confidence 100)

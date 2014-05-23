@@ -1,3 +1,5 @@
 (df adjunctor
 	(sandhi -suppress-whitespace)
 	(segments i n #))
+
+(df adjunctor)

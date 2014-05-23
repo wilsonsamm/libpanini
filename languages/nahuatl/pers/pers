@@ -12,7 +12,6 @@
 	(rection (mood optative))
 	(into (theta subject) constituent personal-affix optative))
 
-
 (df pers
 	(flags object)
 	(seme (trajectory projective))
