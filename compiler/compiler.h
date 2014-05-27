@@ -3,6 +3,7 @@ int define(char * name, list * definition, list * output);
 int segment(list * command, list * input, list * output);
 int sandhi_initial(list * command, list * input, list * output);
 int sandhi_final(list * command, list * input, list * output);
+int table(list * command, list * input, list * output);
 int for_(list * command, list * input, list * output);
 void check_ontology(list * output);
 

@@ -9,12 +9,6 @@
 	(clues (class nominal))
 	(constituent noun lemma))
 
-; This rule says how to learn a noun.
-(df Learn
-	(clues (class nominal))
-	(open nounstem
-		(remove number))) ; (remove number) means that a nounstem should not define "number" in (seme).
-
 ; Verb
 (df Headword
 	(clues (class verbal) (label v.))

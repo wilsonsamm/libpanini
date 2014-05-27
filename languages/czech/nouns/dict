@@ -7,3 +7,9 @@
 	(segments b y t ?e k)
 	(flags masculine)
 	(seme (head house)))
+
+(df nounstem
+	(debug)
+	(segments l e d ?e n)
+	(flags masculine)
+	(seme (head january)))

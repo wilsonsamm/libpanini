@@ -1,10 +1,15 @@
-(for case in (nominative accusative genitive dative 
-              vocative prepositional instrumental)
-(for gender in (feminine masculine neuter)
-(for animacy in (-animate animate)
+(for case (nominative accusative genitive dative 
+           vocative prepositional instrumental)
+(for gender (feminine masculine neuter)
+(for animacy (-animate animate)
 
 (df noun
 	(flags .gender .case)
 	(constituent nounstem .gender)
 	(constituent case-ending .gender .case)
-	(rection (animacy .animacy) (gender .gender))))))
+	(segments #)
+	(rection (animacy .animacy) (gender .gender) (case .case))))))
+
+(df nounphrase
+	(rection (person third))
+	(constituent noun))

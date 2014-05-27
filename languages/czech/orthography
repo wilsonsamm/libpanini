@@ -2,26 +2,29 @@
 
 ; The hard vowels
 (for hard (a á e é o ó u ú ů y ý)
-	(segment (sandhi -softvowel) (underlying .hard) (surface .hard)))
+	(segment (sandhi -# -softvowel) (underlying .hard) (surface .hard)))
 
 ; The soft vowels
 (for soft (i í ě)
-	(segment (sandhi softvowel) (underlying .soft) (surface .soft)))
+	(segment (sandhi -# softvowel) (underlying .soft) (surface .soft)))
 
 ; The fleeting vowel (that sometimes isn't there)
-(segment (underlying ?e) (surface e) (sandhi  fleet))
-(segment (underlying ?e)             (sandhi -fleet))
+(segment (underlying ?e) (surface e)    (sandhi  fleet))
+(segment (underlying ?e)                (sandhi -fleet))
 
 ; These consonants are always soft. (They are never followed by a soft vowel)
 (for consonant (ď ň ť)
-	(segment (underlying .consonant) (surface .consonant) (sandhi -softvowel)))
+	(segment (sandhi -#) (underlying .consonant) (surface .consonant) (sandhi -softvowel)))
 
 ; Same consonants, but different spelling if they are followed by hard vowels.
-(segment (underlying ď) (surface d) (sandhi softvowel))
-(segment (underlying ň) (surface n) (sandhi softvowel))
-(segment (underlying ť) (surface t) (sandhi softvowel))
+(segment (sandhi -#) (underlying ď) (surface d) (sandhi softvowel))
+(segment (sandhi -#) (underlying ň) (surface n) (sandhi softvowel))
+(segment (sandhi -#) (underlying ť) (surface t) (sandhi softvowel))
 
 ; These consonants can be followed by hard vowels, soft vowels or consonants.
 (for consonant (b c č d f g h j k l m n p r ř s š t v z ž)
- (segment (sandhi -softvowel  fleet) (underlying .consonant) (surface .consonant) (sandhi  #))
- (segment (sandhi -softvowel -fleet) (underlying .consonant) (surface .consonant) (sandhi -#)))
+ (segment (sandhi -softvowel  fleet -#) (underlying .consonant) (surface .consonant) (sandhi  #))
+ (segment (sandhi -softvowel -fleet -#) (underlying .consonant) (surface .consonant) (sandhi -#)))
+
+(segment (sandhi #) (underlying #) (space) (sandhi -suppress-whitespace))
+(segment (sandhi #) (underlying #) (sandhi suppress-whitespace))

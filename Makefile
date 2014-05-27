@@ -56,8 +56,8 @@ spawn.o: monad/monad.h monad/monad.c monad/spawn.c
 learn.o: monad/monad.h monad/monad.c tranny/learn.c
 	gcc $(CCOPTS) tranny/learn.c 
 	
-compiler: compiler-main.o compiler-definition.o compiler-check.o compiler-sandhi-init.o compiler/compiler.h list.o list-tokenise.o compiler-sandhi-fin.o compiler-for.o compiler-ontology.o
-	gcc -o tc compiler-main.o list.o list-tokenise.o compiler-check.o compiler-sandhi-init.o compiler-definition.o compiler-sandhi-fin.o compiler-for.o compiler-ontology.o
+compiler: compiler-main.o compiler-definition.o compiler-check.o compiler-sandhi-init.o compiler/compiler.h list.o list-tokenise.o compiler-sandhi-fin.o compiler-for.o compiler-ontology.o 
+	gcc -o tc compiler-main.o list.o list-tokenise.o compiler-check.o compiler-sandhi-init.o compiler-definition.o compiler-sandhi-fin.o compiler-for.o compiler-ontology.o 
 
 compiler-main.o: compiler/main.c compiler/compiler.h
 	gcc $(CCOPTS) -o compiler-main.o compiler/main.c

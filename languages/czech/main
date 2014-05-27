@@ -6,6 +6,7 @@
 (include punctuation)
 
 (include nouns/dict)
+(include nouns/case-endings)
 (include nouns/nouns)
 
 (include sentence/sentence)
@@ -18,6 +19,8 @@
 (include verbs/conjugation)
 (include verbs/dictionary)
 (include verbs/verbs)
+
+(include orthography)
 
 (df main
 	(constituent sentence))

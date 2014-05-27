@@ -4,13 +4,13 @@
 		(adjunct species-preword .headword)
 		(lit .headword)
 		(seme (head .headword))
-		(rection -enclosed-space -time countable)
+		(rection -enclosed -time countable)
 		(clues -human animate -abstract -time -space))
 	
 	(df nounstem
 		(constituent species-preword .headword headless)
 		(seme (head .headword))
-		(rection -enclosed-space -time countable)
+		(rection -enclosed -time countable)
 		(clues -human animate -abstract -time -space)))
 
 ; Humans
@@ -18,7 +18,7 @@
 	(df nounstem
 		(lit .headword)
 		(seme (head .headword))
-		(rection -enclosed-space -time countable)
+		(rection -enclosed -time countable)
 		(clues human animate -abstract -time -space)))
 
 
@@ -27,7 +27,15 @@
 	(df nounstem
 		(lit .headword)
 		(seme (head .headword))
-		(rection enclosed-space -time countable)
+		(rection enclosed -time countable)
+		(clues -human -animate -abstract -time space)))
+
+; Months
+(for headword (january february march april june july august september november december)
+	(df nounstem
+		(lit .headword)
+		(rection -countable -time -plural)
+		(seme (head .headword))
 		(clues -human -animate -abstract -time space)))
 
 ; Quarters of the Compass
@@ -43,7 +51,7 @@
 	(df nounstem
 		(lit .headword)
 		(seme (head .headword))
-		(rection -enclosed-space -time countable)
+		(rection -enclosed -time countable)
 		(clues -human -animate -abstract -time -space)))
 
 ; Times
@@ -51,7 +59,7 @@
 	(df nounstem
 		(lit .headword)
 		(seme (head .headword))
-		(rection -enclosed-space time countable)
+		(rection -enclosed time countable)
 		(clues -human -animate -abstract time -space)))
 
 ;;; Regular nouns are defined down here as something which consists of a nounstem plus an optional plural suffix.

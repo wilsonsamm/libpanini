@@ -97,7 +97,7 @@ void monad_learn_open(monad * m) {
 	/* (rection ... ) */
 	list * rection = list_find_list(m->command, "rection");
 	if((rection = list_find_list(m->command, "rection"))) {
-		list_append_copy(list_append_list(rule), flags);
+		list_append_copy(list_append_list(rule), rection);
 	}
 	if(m->debug && rection) {
 		list_prettyprinter(rection);
