@@ -11,18 +11,15 @@ list * enter_scope(list * namespace, list * scopelist, int create, int debug) {
 	int i;
 	for(i = 1; i <= scopelist->length; i++) {
 		char * scopename = list_get_token(scopelist, i);
-		char * neg = malloc(strlen(scopename) + 2);
-		neg[0] = '-';
-		strcpy(neg+1, scopename);
-		if(list_contains(namespace, neg)) {
-			free(neg);
+		
+		if(list_contains_neg(namespace, scopename)) {
 			if(debug) {
 				printf("Could not create a new scope \"%s\" since the ", scopename);
 				printf("scopename has already been negatively bound.\n");
 			}
 			return 0;
 		}
-		free(neg);
+		
 		if(list_find_list(namespace, scopename)) {
 			namespace = list_find_list(namespace, list_get_token(scopelist, i));
 		} else {
@@ -84,9 +81,8 @@ void bind_vars(monad * m) {
 			list * var = list_get_list(m->command, i);
 			if(!var) continue;
 			char * varname = list_get_token(var, 1);
-			char * neg = negative(varname);
 			if(list_find_list(namespace, varname)) continue;
-			if(list_contains(namespace, neg)) continue;
+			if(list_contains_neg(namespace, varname)) continue;
 			
 			if(m->debug) {
 				printf("The WRITE flag is off.\n");
@@ -95,8 +91,6 @@ void bind_vars(monad * m) {
 				printf("create it either.\n");
 			}
 			list_drop(m->command, i);
-			
-			free(neg);
 		}
 	}
 	

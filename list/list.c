@@ -336,6 +336,19 @@ int list_contains(list * l, char * t) {
 	return 0;
 }
 
+/* Returns 1 if the list contains the token prepended with '-', zero otherwise */
+int list_contains_neg(list * l, char * t) {
+	int i;
+	for(i = 1; i < l->length; i++) {
+		if(l->types[i] != TOKEN) continue;
+		
+		if(((char *)l->data[i])[1] != '-') continue;
+		
+		if(!strcmp(l->data[i]+1, t)) return 1;
+	}
+	return 0;
+}
+
 void list_remove(list * l, char * c) {
 	int i;
 	char * t = 0;
