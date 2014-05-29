@@ -250,6 +250,9 @@ int tranny_parse(monad * m, void * nothing) {
 	
 	/* Is the command one of those that spawns other monads? */
 	if(tranny_exec(m, command)) return 1;
+	
+	/* Is the command one of the ones deals with memory? */
+	if(tranny_memory(m, command)) return 1;
 
 	/* Is the command one of the ones that binds variables? */
 	if(tranny_binders(m, 0)) return 1;

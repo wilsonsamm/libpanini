@@ -15,3 +15,6 @@ int tranny_outtext(monad * m, char * command);
 
 /* These functions tests for and executes those instructions that spawn other monads. */
 int tranny_exec(monad * m, char * command);
+
+/* These functions have to do with memory. */
+int tranny_memory(monad * m, char * command);

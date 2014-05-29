@@ -14,12 +14,13 @@
 		(clues -human animate -abstract -time -space)))
 
 ; Humans
-(for headword (friend uncle soldier visitor person)
+(for headword (friend uncle soldier visitor person mother father)
 	(df nounstem
 		(lit .headword)
 		(seme (head .headword))
 		(rection -enclosed -time countable)
-		(clues human animate -abstract -time -space)))
+		(clues human animate -abstract -time -space)
+		(theta (possessive relation))))
 
 
 ; Places

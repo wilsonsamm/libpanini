@@ -1,5 +1,19 @@
 (df dp
+	(flags unconjunctivised)
 	(constituent determiner)
 	(adjunct adjp attributive)
 	(constituent noun)
 	(adjunct prepositional-phrases))
+
+(df dp
+	(flashbulb determiner)
+	(seme (head union))
+	(into 1 constituent dp unconjunctivised)
+	(constituent conjunction)
+	(into 2 constituent dp unconjunctivised)
+	(rection (person they) (number plural))
+	(kill-flashbulb determiner))
+
+(df conjunction
+	(lit and) (space)
+	(seme (booles and)))
