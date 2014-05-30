@@ -1,30 +1,9 @@
 ; The Pronominal NNC is described in Lesson 16 of Introduction to Classical Nahuatl
+; This is an incomplete implementation of some of those.
 
 (df pronominal-stem
 	(flags first second)
 	(segments e saltillo))
-
-(df absolutive
-	(flags singular)
-	(seme (number singular))
-	(segments tl))
-	
-(df absolutive
-	(flags plural)
-	(seme (number plural))
-	(segments t i n))
-
-(df absolutive
-	(flags animate)
-	(seme (number singular))
-	(segments i n))
-
-(df nc
-	(sandhi -suppress-whitespace)
-	(flags nominal pronominal)
-	(constituent personal-affix realis)
-	(constituent pronominal-stem singular)
-	(segments #))
 
 (df nc
 	(sandhi -suppress-whitespace)
@@ -32,7 +11,7 @@
 	(constituent personal-affix realis)
 	(constituent pronominal-stem)
 	(segments w aa)
-	(constituent absolutive singular)
+	(constituent absolutive tl)
 	(rection (number singular))
 	(segments #))
 
@@ -42,7 +21,7 @@
 	(constituent personal-affix realis)
 	(constituent pronominal-stem)
 	(segments w aa n)
-	(constituent absolutive plural)
+	(constituent absolutive tin)
 	(rection (number plural))
 	(segments #))
 	

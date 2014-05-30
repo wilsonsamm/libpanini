@@ -1,17 +1,19 @@
 ; Animals
-(for headword (whale worm bird duck)
+(for headword (whale worm bird duck rabbit)
 	(df nounstem
 		(adjunct species-preword .headword)
 		(lit .headword)
 		(seme (head .headword))
 		(rection -enclosed -time countable)
-		(clues -human animate -abstract -time -space))
+		(clues -human animate -abstract -time -space)
+		(theta (possessive owner)))
 	
 	(df nounstem
 		(constituent species-preword .headword headless)
 		(seme (head .headword))
 		(rection -enclosed -time countable)
-		(clues -human animate -abstract -time -space)))
+		(clues -human animate -abstract -time -space)
+		(theta (possessive owner))))
 
 ; Humans
 (for headword (friend uncle soldier visitor person mother father)

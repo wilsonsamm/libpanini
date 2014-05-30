@@ -35,11 +35,15 @@
 
 
 (segment (sandhi -front -saltillo inv -?) (underlying o)  (surface o) (sandhi -saltillo    vowel) (language (orthography carochi)))
+(segment (sandhi  front -saltillo inv -?) (underlying ?o) (surface o) (sandhi -saltillo  ? vowel) (language (orthography carochi)))
 (segment (sandhi -front -saltillo inv -?) (underlying oo) (surface ō) (sandhi -saltillo    vowel) (language (orthography carochi)))
 (segment (sandhi -front -saltillo inv -?) (underlying o)  (surface ò) (sandhi  saltillo -# vowel) (language (orthography carochi)))
+(segment (sandhi  front -saltillo inv -?) (underlying ?o) (surface ò) (sandhi  saltillo  ? vowel) (language (orthography carochi)))
 (segment (sandhi -front -saltillo inv -?) (underlying oo) (surface ò) (sandhi  saltillo -# vowel) (language (orthography carochi)))
 (segment (sandhi -front -saltillo inv -?) (underlying o)  (surface ô) (sandhi  saltillo  # vowel) (language (orthography carochi)))
+(segment (sandhi  front -saltillo inv -?) (underlying ?o) (surface ô) (sandhi  saltillo  ? vowel) (language (orthography carochi)))
 (segment (sandhi -front -saltillo inv -?) (underlying oo) (surface ô) (sandhi  saltillo  # vowel) (language (orthography carochi)))
+(segment                                  (underlying ?o) (block sandhi vowel) (sandhi  -? vowel) (language (orthography carochi)))
 
 ; Consonants that are always written the same are <ch, l, ll m, n, p, t, tl, tz, x, y, z>.
 (for cons (ch l ll m n p t tl tz x y z)

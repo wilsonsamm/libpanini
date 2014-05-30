@@ -1,0 +1,29 @@
+
+(df st	(segments n ?o)   (rection (person first)  (number singular)))
+(df st	(segments t ?o)   (rection (person first)  (number plural)))
+
+(df st	(segments m ?o)   (rection (person second) (number singular)))
+(df st	(segments a m ?o) (rection (person second) (number plural)))
+
+(df st	(segments ii)	  (rection (person third)  (number singular)))
+(df st	(segments ii m)	  (rection (person third)  (number plural)))
+
+(df conn-num	(sandhi vowel) (segments w) (sandhi #))
+(df conn-num	(segments w i) (sandhi -#))
+
+(df poss-num
+	(call conn-num)
+	(into (theta pers) rection (number singular)))
+
+(df poss-num
+	(call conn-num)
+	(segments aa n)
+	(into (theta pers) rection (number plural)))
+
+(df nc
+	(sandhi -suppress-whitespace)
+	(flags nominal possessive)
+	(into (theta pers) constituent personal-affix realis)
+	(into (theta poss) constituent st)
+	(constituent nounstem)
+	(constituent poss-num))

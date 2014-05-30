@@ -112,6 +112,10 @@ int check_wronginstruction(list * output) {
 			if(!strcmp(iname, "segments")) continue;
 			if(!strcmp(iname, "call")) continue;
 			if(!strcmp(iname, "sandhiblock")) continue;
+			if(!strcmp(iname, "kill-flashbulb")) continue;
+			if(!strcmp(iname, "flashbulb")) continue;
+			if(!strcmp(iname, "remember")) continue;
+			if(!strcmp(iname, "recall")) continue;
 			
 			fprintf(stderr, "\tWhat is this?\n");
 			fprintf(stderr, "\tA definition of %s has an ", name);

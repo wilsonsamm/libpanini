@@ -13,24 +13,26 @@
 
 (segment (sandhi  front inv -?) (underlying o)  (surface o) (sandhi   # vowel) (language (orthography classical)))
 (segment (sandhi  front inv -?) (underlying oo) (surface o) (sandhi   # vowel) (language (orthography classical)))
+(segment (sandhi  front inv -?) (underlying ?o)             (sandhi -? vowel)  (language (orthography classical)))
+(segment (sandhi  front inv -?) (underlying ?o) (surface o) (sandhi  ? vowel)  (language (orthography classical)))
 
 ; Consonants that are always written the same are <ch, l, ll m, n, p, t, tl, tz, x, y, z>.
 (for cons (ch l ll m n p t tl tz x y z)
-(segment (sandhi -saltillo -inv -front ?) (underlying .cons) (surface .cons) (language (orthography classical))))
+(segment (sandhi -saltillo -inv -front ?) (underlying .cons) (surface .cons) (sandhi -vowel) (language (orthography classical))))
 
 ; /k/ is written as <c> before non-front vowels <a, o>, and written as <qu> before the front vowels <e, i>.
-(segment (sandhi -inv -front ?) (underlying k) (surface qu) (sandhi  front -consonant) (language (orthography classical)))
-(segment (sandhi -inv -front ?) (underlying k) (surface c)  (sandhi -front           ) (language (orthography classical)))
+(segment (sandhi -inv -front ?) (underlying k) (surface qu) (sandhi  front -consonant -vowel) (language (orthography classical)))
+(segment (sandhi -inv -front ?) (underlying k) (surface c)  (sandhi -front            -vowel) (language (orthography classical)))
 
 ; The saltillo is technically a consonant, but the way it's written is with a mark over the preceding vowel. (This is realised by
 ; a sandhi binding)
 (segment (underlying saltillo) (surface h) (language (orthography classical)))
 
 ; The digraphs <cu> for /kw/ and <hu> for /w/ are reversed at the end of a syllable, resulting in <uc> and <uh>.
-(segment (underlying kw) (sandhi -saltillo -front ?) (surface cu) (sandhi  inv) (language (orthography classical)))
-(segment (underlying kw) (sandhi -saltillo -front ?) (surface uc) (sandhi -inv) (language (orthography classical)))
-(segment (underlying w)  (sandhi -saltillo -front ?) (surface hu) (sandhi  inv) (language (orthography classical)))
-(segment (underlying w)  (sandhi -saltillo -front ?) (surface uh) (sandhi -inv) (language (orthography classical)))
+(segment (underlying kw) (sandhi -saltillo -front ?) (surface cu) (sandhi  inv -vowel) (language (orthography classical)))
+(segment (underlying kw) (sandhi -saltillo -front ?) (surface uc) (sandhi -inv -vowel) (language (orthography classical)))
+(segment (underlying w)  (sandhi -saltillo -front ?) (surface hu) (sandhi  inv -vowel) (language (orthography classical)))
+(segment (underlying w)  (sandhi -saltillo -front ?) (surface uh) (sandhi -inv -vowel) (language (orthography classical)))
 
 ; "#" is the conventional linguistic notation for a word boundary.
 ;(segment (sandhi -front -inv ? #) (underlying #))

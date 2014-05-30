@@ -1,0 +1,18 @@
+(df absolutive
+	(flags in)
+	(segments i n))
+
+(df absolutive
+	(flags tl)
+	(segments tl))
+
+(df absolutive
+	(flags tli)
+	(segments tl i))
+
+(df absolutive
+	(flags tin)
+	(segments t i n))
+
+(df absolutive
+	(flags 0))

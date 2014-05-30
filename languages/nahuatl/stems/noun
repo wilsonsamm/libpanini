@@ -1,4 +1,11 @@
 (df nounstem
-	(flags nominal animate)
+	(flags nominal animate in)
 	(segments w ee y m i ch )
-	(seme (head whale)))
+	(seme (head whale))
+	(theta (poss owner)))
+
+(df nounstem
+	(flags in tli nominal)
+	(segments t oo ch)
+	(seme (head rabbit))
+	(theta (poss owner)))

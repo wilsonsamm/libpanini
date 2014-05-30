@@ -3,9 +3,17 @@
 	(constituent nc verbal intransitive)
 	(into (theta subject) constituent adjunct))
 
+(for poss (partitive owner)
+(df supplementation
+	(theta (poss .poss))
+	(seme -.poss)
+	(into (theta pers) constituent adjunct)
+	(constituent nc nominal absolutive)))
+
 (df supplementation
 	(into (theta pers) constituent adjunct)
-	(constituent nc nominal))
+	(into (theta poss) constituent adjunct)
+	(constituent nc nominal possessive))
 
 ; VSO order is extremely common.
 (df supplementation
