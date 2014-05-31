@@ -113,5 +113,6 @@ int print_ns(monad * m, void * nothing);
 int print_out(monad * m, FILE * fp);
 int unlink_the_dead(monad * m, void * nothing);
 int set_trace(monad * m, int * i);
+int kill_least_confident(monad * m, void * nothing); // Kills monads except the most confident ones.
 
 #endif

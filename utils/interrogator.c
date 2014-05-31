@@ -2,6 +2,7 @@
 #include "../list/list.h"
 #include "utils.h"
 
+#include <stdlib.h>
 #include <string.h>
 
 #define BUFLEN 1024
@@ -33,8 +34,8 @@ void prompt(monad * m, char * target) {
 	
 	monad_map(n, (int(*)(monad *, void *))set_intext, input, -1);
 	monad_map(n, (int(*)(monad *, void *))set_stack, "(constituent Learn)", -1);
-	monad_map(n, (int(*)(monad *, void *))tranny_learn, (void *)0, 20);
-	monad_map(n, (int(*)(monad *, void *))print_out, stderr, 20);
+	monad_map(n, (int(*)(monad *, void *))tranny_learn, (void *)0, 5);
+	monad_map(n, (int(*)(monad *, void *))print_out, stderr, 5);
 	
 }
 
@@ -47,13 +48,11 @@ int test(monad * m, char * target) {
 	monad_rules(n, target);
 	
 	monad_map(n, (int (*)(monad *, void *))set_intext, m->intext, -1);
-	//printf("test %d:%s\n", n->id, n->intext);
 	
 	monad_map(n, (int (*)(monad *, void *))set_stack, "(constituent Headword)", -1);
 
 	retval = monad_map(n, (int (*)(monad *, void *))tranny_generate, (void *)0, 20);
-	
-	//print_ns(m, stdout);
+
 	
 	if(retval) printf("There is already a word in %s for \"%s\".\n", target, n->intext);
 	else {
@@ -69,7 +68,7 @@ int test(monad * m, char * target) {
 void test_each(monad * m, char * target) {
 	/* Strip the whitespace off the INTEXT and the OUTTEXT */
 	monad_map(m, strp, (void *)0, -1);
-	
+
 	/* Test each monad. */
 	while(m) {
 		if(m->alive == 0) {

@@ -1,5 +1,5 @@
 (df nounstem
-	(flags nominal animate in)
+	(flags nominal in)
 	(segments w ee y m i ch )
 	(seme (head whale))
 	(theta (poss owner)))

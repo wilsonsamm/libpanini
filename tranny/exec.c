@@ -3,22 +3,94 @@
 #include <string.h>
 #include <stdlib.h>
 
+/* This function should return zero if ALL the tokens in f1 are also in f2,
+ * and 1 otherwise. */
+int flagstester(list * f1, list * f2) {
+	int i;
+	for(i = 1; i <= f1->length; i++) {
+		char * f = list_get_token(f1, i);
+		if(!list_contains(f2, f)) return 1;
+	}
+	return 0;
+}
+
+/* Call this function by passing the monad and a list of rules, and
+ * then the necessary rules will get spawned. */
+monad * exec_spawn(monad * m, list * rules, list * flags, int(reduce)(monad * m, list * rules)) {
+	int i;
+	monad * first = 0;
+	
+	list * p;
+	
+	if(m->debug && flags) {
+		printf("Here is the list of flags that the rules to be ");
+		printf("spawned must have: ");
+		list_prettyprinter(flags);
+		printf("\n");
+	}
+	
+	for(i = 1; i <= rules->length; i++) {
+		monad * child = 0;
+		
+		/* Test if we were given a list back */
+		p = list_get_list(rules, i);
+		if(!p) continue;
+
+		/* Test if the list contains the right flags */
+		list * tf = list_find_list(p, "flags");
+		if(flags && flags->length) {
+			if(!tf) continue;
+			if(flagstester(flags, tf)) continue;
+		}
+
+		/* Test if the reduce function won't cut this rule off */
+		if(reduce) {
+			if(reduce(m, p)) continue;
+		}
+
+		/* Construct a new linked list of monads */
+		if(!first) {
+			child = monad_copy_one(m);
+			first = child;
+		} else {
+			child = monad_copy_one(m);
+			monad_join(first, child);
+		}
+
+		list_append_copy(child->stack, p);
+		list_append_copy(child->stack, m->stack);
+
+		if(m->debug) {
+			printf("Monad %d spawned monad %d to execute: ", m->id, child->id);
+			list_prettyprinter(p);
+			printf("\n");
+		}
+	}
+	
+	/* Return the linked list of monads we have created */
+	return first;
+}
+
 void tranny_segments(monad * m) {
+	
+	/* Base case: no more segments to do. */
+	if(m->command->length == 1) return;
 	
 	/* A list of segments is really a list of function calls. Generate that list: */
 	list * calls = list_new();
 	
-	int i;
-	for(i = 2; i <= m->command->length; i++) {
-		char * segment = list_get_token(m->command, i);
-		if(!segment) continue;
-		
-		list * call = list_append_list(calls);
-		
-		list_append_token(call, "call");
-		list_append_token(call, "Segment");
-		list_append_token(call, segment);
-	}
+	char * segment = list_get_token(m->command, 2);
+	if(!segment) return;
+	
+	list * call = list_append_list(calls);
+	
+	list_append_token(call, "call");
+	list_append_token(call, "Segment");
+	list_append_token(call, segment);
+	
+	list * segments = list_append_list(calls);
+	list_append_copy(segments, m->command);
+	list_drop(segments, 2);
 	
 	/* Update the stack */
 	list * newstack = list_new();
@@ -52,7 +124,7 @@ void tranny_forgive(monad * m) {
 	monad_join(m, monad_spawn(m, rules, 0));
 }
 
-void tranny_constituent(monad * m, int adjunct) {
+void tranny_call(monad * m, int adjunct, int(reduce)(monad * m, list * l)) {
 	/* We'll get the list of rules that need to be parsed */
 	list * patterns = 0;
 	char * rulename = list_get_token(m->command, 2);
@@ -68,7 +140,7 @@ void tranny_constituent(monad * m, int adjunct) {
 	/* If there is such a list, spawn the children. */
 	monad * children = 0;
 	if(patterns) {
-		if(!(children = monad_spawn(m, patterns, flags))) {
+		if(!(children = exec_spawn(m, patterns, flags, reduce))) {
 			if(m->debug) {
 				printf("Couldn't find any definitions for ");
 				printf("%s with the ", list_get_token(m->command, 2));
@@ -103,9 +175,9 @@ void tranny_constituent(monad * m, int adjunct) {
 	return;
 }
 
-void tranny_fork(monad * m) {
+void tranny_fork(monad * m, int(reduce)(monad * m, list * l)) {
 	list_drop(m->command, 1);
-	monad_join(m, monad_spawn(m, m->command, 0));
+	monad_join(m, exec_spawn(m, m->command, 0, reduce));
 	m->alive = 0;
 }
 
@@ -127,17 +199,17 @@ void tranny_fuzzy(monad * m) {
 	m->alive = 0;
 }
 
-int tranny_exec_ops(monad * m, char * command) {
+int tranny_exec_ops(monad * m, char * command, int(reduce)(monad * m, list * l)) {
 	if(!strcmp(command, "constituent") || !strcmp(command, "call")) {
-		tranny_constituent(m, 0);
+		tranny_call(m, 0, reduce);
 		return 1;
 	}
 	if(!strcmp(command, "adjunct")) {
-		tranny_constituent(m, 1);
+		tranny_call(m, 1, reduce);
 		return 1;
 	}
 	if(!strcmp(command, "fork")) {
-		tranny_fork(m);
+		tranny_fork(m, reduce);
 		return 1;
 	}
 	if(!strcmp(command, "fuzzy")) {
@@ -158,9 +230,9 @@ int tranny_exec_ops(monad * m, char * command) {
  *   - returns 1 to say "Success"
  * If it was not possible to execute the instruction, returns 0.
  */
-int tranny_exec(monad * m, char * command) {
+int tranny_exec(monad * m, char * command, int(reduce)(monad * m, list * l)) {
 	
-	if(tranny_exec_ops(m, command)) {
+	if(tranny_exec_ops(m, command, reduce)) {
 		list_free(m->command);
 		m->command = 0;
 		return 1;
