@@ -1,5 +1,7 @@
-(df case-ending		(flags feminine  accusative hard)	(segments u))
-(df case-ending		(flags feminine  nominative hard)	(segments a))
+(df case-ending		(flags feminine  accusative hard singular)	(segments u))
+(df case-ending		(flags feminine  nominative hard singular)	(segments a))
 
-(df case-ending		(flags masculine nominative hard)	            )
-(df case-ending		(flags masculine accusative hard)	(segments a))
+(df case-ending		(flags masculine nominative hard singular)	            )
+(df case-ending		(flags masculine accusative hard singular)	(segments a))
+
+(df case-ending		(flags neuter nominative accusative) (segments o))

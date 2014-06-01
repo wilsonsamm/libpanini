@@ -12,7 +12,7 @@ void tidyup(char * string) {
 	
 	for(i = 0; i < strlen(string); i++) {
 		if(string[i] == '\n' || string[i] == ' ' ) {
-			string[i] = 0;
+			string[i] = '\0';
 			return;
 		}
 	}
@@ -26,17 +26,18 @@ void prompt(monad * m, char * target) {
 	fgets(input, BUFLEN, stdin);
 	
 	tidyup(input);
+	strcat(input, ".");
 	
 	if(!strlen(input)) return;
 	
 	monad * n = monad_duplicate(m);
 	monad_rules(n, target);
 	
+	monad_map(n, (int(*)(monad *, void *))remove_ns, "rection", -1);
 	monad_map(n, (int(*)(monad *, void *))set_intext, input, -1);
 	monad_map(n, (int(*)(monad *, void *))set_stack, "(constituent Learn)", -1);
 	monad_map(n, (int(*)(monad *, void *))tranny_learn, (void *)0, 5);
-	monad_map(n, (int(*)(monad *, void *))print_out, stderr, 5);
-	
+	monad_map(n, (int(*)(monad *, void *))print_out, stderr, 5);	
 }
 
 /* This function tests if a word if translatable */
@@ -68,7 +69,7 @@ int test(monad * m, char * target) {
 void test_each(monad * m, char * target) {
 	/* Strip the whitespace off the INTEXT and the OUTTEXT */
 	monad_map(m, strp, (void *)0, -1);
-
+	
 	/* Test each monad. */
 	while(m) {
 		if(m->alive == 0) {

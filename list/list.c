@@ -203,6 +203,12 @@ int list_tokenise_file(list * l, FILE *fp) {
 	
 	for( ; ; ) {
 		ch = fgetc(fp);
+		
+		// This is a new line in some very stable code, designed to skip any comments. (they don't need to be tokenised, so
+		// they don't need to be read into the memory.) 
+		// If any tokenising troubles start happening, look at this first.
+		if(ch == ';') while(ch != '\n') ch = fgetc(fp);
+		
 		if(ch == EOF) {
 			f[readin] = '\0';
 			break;

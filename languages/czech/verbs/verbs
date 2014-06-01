@@ -32,7 +32,7 @@
 ;  - a verbstem, including:
 ;    - semantic morpheme
 ;    - "deperfectivising" suffix or suppletion.
-;  - a verb-ending (a non-finite marker or a conjugation)
+;  - a verb-ending (a non-finite marker or a conjugation))
 
 	(df verb
 		(flags main imperfective .form)
@@ -40,7 +40,4 @@
 		(constituent verbstem secondary-imperfective .conjugation .prefix)
 		(constituent verb-ending .conjugation .form)
 		(space)
-		(seme (aspect perfective)))))))
-
-
-
+		(seme (aspect perfective))))))

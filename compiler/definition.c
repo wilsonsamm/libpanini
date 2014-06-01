@@ -45,6 +45,7 @@ int df(list * command, list * input, list * output) {
 	int retval;
 	
 	char * name = list_get_token(command, 2);
+	//fprintf(stderr, "\tNow defining %s.\n", name);
 	
 	list * rule = list_new();
 	int i;

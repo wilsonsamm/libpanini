@@ -1,7 +1,3 @@
-
-
-
-	
 ; This file uses the new learning routines in tranny/learner.c to "learn" some nouns.
 (for class (tl tli in 0)
 (df Learn
@@ -15,16 +11,15 @@
 	
 	; Tack the absolutive ending on.
 	(constituent absolutive .class)
-	(segments #) (sandhi -suppress-whitespace)
-	
+	(segments #) 
 	; Deduce the meaning and go ahead and
 	(makedef nounstem
 		(flags nominal .class))))
 
 ; These rules describe how to deduce a syllable. There is:
-;   - onset (which may be a consonant), 
-;   - nucleus (which must be a vowel), and
-;   - coda (which may be a consonant).
+;   - onset, which may be a consonant, 
+;   - nucleus, which must be a vowel, and
+;   - coda, which may be a consonant.
 (df guess-syllable
 	(call guess-onset)
 	(call guess-vowel)
@@ -32,14 +27,13 @@
 (for g (guess-onset guess-coda)
 	(df .g)
 	(df .g (call guess-consonant)))
-
+	
 ; These rules say "A consonant may be b c d l tl kw w p x m etc. etc.". When this rule fires, it consumes that consonant, and adds 
-; it to the list (this is what the (addseg .cons) does. The addseg list then gets used by "makedef" up there to create the 
-; definition that can be added to the source code.
+; it to the list (this is what the (addseg .cons) does. The addseg list then gets used by (makedef) up there to create the 
+; definition that can be added to the source code.)
 (for cons (b c d l tl kw w p x m)
 (df guess-consonant
 	(segments .cons) (addseg .cons)))
-
 ; ditto but for vowels.
 (for vowel (a e i o aa ee ii oo)
 (df guess-vowel

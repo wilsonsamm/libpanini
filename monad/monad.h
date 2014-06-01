@@ -109,6 +109,7 @@ int kill_identical_outtexts(monad * m, void * nothing);
 char * monad_get_outtext(monad * m);
 int set_stack(monad * m, char * stack);
 int set_intext(monad * m, char * n);
+int remove_ns(monad * m, char * n);
 int print_ns(monad * m, void * nothing);
 int print_out(monad * m, FILE * fp);
 int unlink_the_dead(monad * m, void * nothing);

@@ -14,16 +14,29 @@ char * global_fn;
 int paren_tester(FILE * fp) {
 	int paren = 0;
 	int ch = ' ';
+	int line = 1;
 	for( ; ; ) {
 		if((char)ch == '(') paren++;
 		if((char)ch == ')') paren--;
-
-		if(paren < 0) return 1;
+		if((char)ch == '\n') line++;
+		if((char)ch == ';') {
+			while((ch = fgetc(fp)) != '\n');
+			line++;
+		}
+		
+		if(paren < 0) {
+			fprintf(stderr,"\tThere is a ')' without a matching '(' ");
+			return line;
+		}
 		ch = fgetc(fp);
 		if(ch == EOF) break;
 	}
 	rewind(fp);
-	return paren;
+	if(paren) {
+		fprintf(stderr, "\tThere is a '(' without a matching ')' ");
+		return -1;
+	}
+	return 0;
 }
 
 int include(list * command, list * input, list * output) {
@@ -42,9 +55,9 @@ int include(list * command, list * input, list * output) {
 		return 1;
 	}
 	
-	int retval = paren_tester(fp);
-	if(retval) {
-		fprintf(stderr, "\tParenthesis mismatch %d in %s.\n", retval, filename);
+	int retval;
+	if((retval = paren_tester(fp))) {
+		fprintf(stderr, " in line %d of %s.\n", retval, filename);
 		return 1;
 	}
 	

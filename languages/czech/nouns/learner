@@ -1,0 +1,56 @@
+; This file describes how to learn a noun.
+
+(for case (nominative accusative genitive dative vocative prepositional instrumental)
+(for gender (feminine masculine neuter)
+(for animacy (-animate animate)
+(for number (singular plural)
+
+(df Learn
+	; Deduce either one, two or three syllables.
+	(fork
+		((call guess-syllable))
+		((call guess-syllable) (call guess-syllable)))
+	(constituent case-ending .gender .case .number)
+	(segments #)
+	(sandhi -suppress-whitespace)
+	(rection (animacy .animacy) (gender .gender) (case .case))
+	(makedef nounstem (flags .gender) (remove number)))))))
+
+; The consonants of the Czech language.
+(for cons (b c č d ď f g h j k l m n ň p r ř s š t v z ž)
+(df guess-cons
+	(segments .cons) (addseg .cons)))
+
+(for sonorant (l r)
+(df guess-sonorant
+	(segments .sonorant) (addseg sonorant)))
+	
+; ditto but for vowels.
+(for vowel (a á e é ě i í o ó u ú ů y ý)
+(df guess-vowel
+	(segments .vowel) (addseg .vowel)))
+
+(df guess-nucleus (call guess-vowel))
+(df guess-nucleus (call guess-sonorant))
+
+(df guess-fleeting (segments ?e) (addseg ?e))
+
+(df guess-onset (call guess-cons))
+(df guess-onset (call guess-cons) (call guess-cons))
+(df guess-onset (call guess-cons) (call guess-cons) (call guess-cons))
+
+(df guess-coda (call guess-cons) (flags simple))
+(df guess-coda (call guess-cons) (call guess-cons))
+
+; The syllable fo the Czech language
+(df guess-syllable
+	(call guess-onset)
+	(call guess-nucleus)
+	(call guess-coda))
+(df guess-syllable
+	(call guess-nucleus)
+	(call guess-coda))
+(df guess-syllable
+	(call guess-onset)
+	(call guess-fleeting)
+	(call guess-coda simple))

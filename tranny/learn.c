@@ -216,7 +216,7 @@ void makedef(monad * m) {
 
 	
 	/* (segments ... ) 
-	 * This takes whatever segments were guessed by the (guess-segments) instruction, if this has been run. */
+	 * This takes whatever segments, were added my the (addseg) instruction if this has been run. */
 	list * seg = list_find_list(m->namespace, "segments");
 	if(seg) list_append_copy(list_append_list(rule), seg);
 	
@@ -285,10 +285,7 @@ void makedef(monad * m) {
 	
 	/* Print the definition out! */
 	m->outtext = strlist(rule, strdup(""));
-	if(m->debug) {
-		printf("\n\n\n\nThis is the rule I made:");
-		list_prettyprinter(rule);
-	}
+
 	list_free(rule);
 	
 }
