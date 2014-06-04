@@ -1,4 +1,4 @@
-all: bilingual interrogator words
+all: bilingual interrogator words attest
 
 bilingual: bilingual.o headwords.o strip.o
 	gcc -o bilingual bilingual.o headwords.o strip.o -ltranny
@@ -8,6 +8,12 @@ interrogator: interrogator.o headwords.o strip.o
 
 words: words.o
 	gcc -o words headwords.o words.o -ltranny
+
+attest: attest.o
+	gcc -o attest attest.o -ltranny
+	
+attest.o: attest.c
+	gcc -ggdb -Wall -c attest.c
 
 words.o: words.c
 	gcc -ggdb -Wall -c words.c

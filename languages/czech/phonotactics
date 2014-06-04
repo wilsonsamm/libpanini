@@ -1,21 +1,3 @@
-; This file describes how to learn a noun.
-
-(for case (nominative accusative genitive dative vocative prepositional instrumental)
-(for gender (feminine masculine neuter)
-(for animacy (-animate animate)
-(for number (singular plural)
-
-(df Learn
-	; Deduce either one, two or three syllables.
-	(fork
-		((call guess-syllable))
-		((call guess-syllable) (call guess-syllable)))
-	(constituent case-ending .gender .case .number)
-	(segments #)
-	(sandhi -suppress-whitespace)
-	(rection (animacy .animacy) (gender .gender) (case .case))
-	(makedef nounstem (flags .gender) (remove number)))))))
-
 ; The consonants of the Czech language.
 (for cons (b c č d ď f g h j k l m n ň p r ř s š t v z ž)
 (df guess-cons

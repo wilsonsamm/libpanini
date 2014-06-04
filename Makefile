@@ -116,6 +116,7 @@ install:
 	mkdir -p /usr/tranny/languages
 	mkdir -p /usr/tranny/learned
 	mkdir -p /usr/tranny/attested
+	chmod a=rxw /usr/tranny/learned /usr/tranny/attested
 	mv nahuatl swahili ainu czech english quenya /usr/tranny/languages
 	cp libtranny.a /usr/lib/
 	cp tranny.h /usr/include

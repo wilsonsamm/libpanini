@@ -3,6 +3,28 @@
 #include <string.h>
 #include <stdlib.h>
 
+int parse_reduce(monad * m, list * l) {
+	list * lit = list_find_list(l, "lit");
+	if(lit) {
+		char * l = list_get_token(lit, 2);
+		if(partialstrcmp(m->intext + m->index, l)) {
+			if(m->debug) {
+				printf("parse_reduce skipped a rule because it had (lit %s) which is bound to fail.\n", l);
+			}
+			return 1;
+		}
+	}
+	
+	list * attest = list_find_list(l, "attest");
+	if(attest) {
+		if(m->debug) {
+			printf("parse_reduce skipped a rule because it had attest instruction which is bound to fail.\n", l);
+		}
+		return 1;
+	}
+	return 0;
+}
+
 void into_spawner_head(monad * m) {
 	
 	list * ns = get_namespace(m, "seme", CREATE);
@@ -249,7 +271,7 @@ int tranny_parse(monad * m, void * nothing) {
 	if(tranny_intext(m, command)) return 1;
 	
 	/* Is the command one of those that spawns other monads? */
-	if(tranny_exec(m, command, 0)) return 1;
+	if(tranny_exec(m, command, parse_reduce)) return 1;
 	
 	/* Is the command one of the ones deals with memory? */
 	if(tranny_memory(m, command)) return 1;

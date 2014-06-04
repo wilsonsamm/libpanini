@@ -31,9 +31,7 @@ char * strlist(list * l, char * takeme) {
 }
 
 void monad_attest_attest(monad * m, char * langname) {
-	if(!m->debug) {
-		//m->debug = 1;
-	}
+
 	if(!langname) return;
 	if(m->outtext) free(m->outtext);
 	
@@ -67,51 +65,23 @@ int tranny_attest(monad * m, char * langname) {
 	
 	if(tranny_misc(m, command)) return 1;
 	
-	if(!strcmp(command, "strict")) {
-		monad_parse_strict(m);
-		list_free(m->command);
-		m->command = 0;
-		return 1;
-	}	
-	if(!strcmp(command, "block")) {
-		monad_parse_block(m);
-		list_free(m->command);
-		m->command = 0;
-		return 1;
-	}	
-	if(!strcmp(command, "constituent")) {
-		monad_parse_constituent(m, 0);
-		list_free(m->command);
-		m->command = 0;
-		m->alive = 0;
-		return 0;
-	}
-	if(!strcmp(command, "nop")) {
-		monad_parse_nop();
-		list_free(m->command);
-		m->command = 0;
-		return 1;
-	}
-	if(!strcmp(command, "flags")) {
-		monad_parse_nop();
-		list_free(m->command);
-		m->command = 0;
-		return 1;
-	}
-	if(!strcmp(command, "confidence")) {
-		monad_parse_confidence(m);
-		list_free(m->command);
-		m->command = 0;
-		return 1;
-	}
-	if(!strcmp(command, "lit")) {
-		monad_parse_lit(m);
-		list_free(m->command);
-		m->command = 0;
-		return 1;
-	}
-	if(!strcmp(command, "space")) {
-		monad_parse_space(m);
+	/* Is the current command a set of miscellaneous ones that work the same in all interpreters? */
+	if(tranny_misc(m, command)) return 1;
+	
+	/* Is the currect command a set of commands that handle the INTEXT register? */
+	if(tranny_intext(m, command)) return 1;
+	
+	/* Is the command one of those that spawns other monads? */
+	if(tranny_exec(m, command, 0)) return 1;
+	
+	/* Is the command one of the ones deals with memory? */
+	if(tranny_memory(m, command)) return 1;
+	
+	/* Is the command one of the ones that binds variables? */
+	if(tranny_binders(m, 0)) return 1;
+	
+	if(!strcmp(command, "attest")) {
+		monad_attest_attest(m, langname);
 		list_free(m->command);
 		m->command = 0;
 		return 1;
@@ -122,63 +92,14 @@ int tranny_attest(monad * m, char * langname) {
 		m->command = 0;
 		return 1;
 	}
-	if(!strcmp(command, "fullstop")) {
-		monad_parse_fullstop(m);
-		list_free(m->command);
-		m->command = 0;
-		return 1;
-	}
 	if(!strcmp(command, "return")) {
 		monad_parse_return(m);
 		list_free(m->command);
 		m->command = 0;
 		return 1;
 	}
-	if(!strcmp(command, "forgive")) {
-		monad_parse_forgive(m);
-		list_free(m->command);
-		m->command = 0;
-		return 1;
-	}
-	if(!strcmp(command, "fuzzy")) {
-		monad_parse_fuzzy(m);
-		list_free(m->command);
-		m->command = 0;
-		return 1;
-	}
-	if(!strcmp(command, "fork")) {
-		monad_parse_fork(m);
-		list_free(m->command);
-		m->command = 0;
-		return 1;
-	}
-	if(!strcmp(command, "adjunct")) {
-		monad_parse_constituent(m, 1);
-		list_free(m->command);
-		m->command = 0;
-		//m->brake++;
-		return 1;
-	}
-	if(!strcmp(command, "open")) {
-		m->alive = 0;
-		list_free(m->command);
-		m->command = 0;
-		return 1;
-	}
-	if(!strcmp(command, "attest")) {
-		monad_attest_attest(m, langname);
-		list_free(m->command);
-		m->command = 0;
-		return 1;
-	}
 	if(!strcmp(command, "check")) {
 		monad_parse_check(m);
-		list_free(m->command);
-		m->command = 0;
-		return 1;
-	}
-	if(!strcmp(command, "read-ahead")) {
-		monad_parse_readahead(m);
 		list_free(m->command);
 		m->command = 0;
 		return 1;

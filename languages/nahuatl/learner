@@ -1,6 +1,7 @@
 ; This file uses the new learning routines in tranny/learner.c to "learn" some nouns.
 (for class (tl tli in 0)
 (df Learn
+	(flags lemma)
 	(into (theta pers) constituent personal-affix realis)
 	(language (orthography classical))
 	

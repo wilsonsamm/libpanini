@@ -3,12 +3,13 @@
 
 (include headwords)
 
+(include phonotactics)
+
 (include punctuation)
 
 (include nouns/dict)
 (include nouns/case-endings)
 (include nouns/nouns)
-(include nouns/learner)
 
 (include sentence/sentence)
 (include sentence/slots)

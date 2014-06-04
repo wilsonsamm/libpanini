@@ -356,7 +356,6 @@ int tranny_learn(monad * m, void * nothing) {
 		m->command = 0;
 		return 1;
 	}
-		
 	
 	if(!strcmp(command, "into")) {
 		monad_parse_into(m, 0);

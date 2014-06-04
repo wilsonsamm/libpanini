@@ -2,6 +2,10 @@
 	(clues (class verbal) (label v.))
 	(constituent verb infinitive))
 
+(df Headword
+	(clues (class nominal) (label n.))
+	(constituent noun nominative))
+
 (df Translation
 	(clues (class verbal))
 	(constituent verb infinitive))
