@@ -83,10 +83,10 @@ compiler-for.o: compiler/for.c compiler/compiler.h
 compiler-ontology.o: compiler/ontology.c compiler/compiler.h
 	gcc $(CCOPTS) -o compiler-ontology.o compiler/ontology.c
 	
-languages: lang-clean nahuatl swahili ainu english czech quenya
+languages: lang-clean nahuatl swahili ainu english czech quenya japanese
 
 lang-clean:
-	rm -rf nahuatl swahili ainu english czech quenya
+	rm -rf nahuatl swahili ainu english czech quenya japanese
 
 quenya: compiler
 	@echo Compiling Quenya.
@@ -108,6 +108,10 @@ swahili: compiler
 	@echo Compiling Swahili.
 	@./tc swahili > swahili
 
+japanese: compiler
+	@echo Compiling Japanese.
+	@./tc japanese > japanese
+
 ainu: compiler
 	@echo Compiling Ainu.
 	@./tc ainu > ainu
@@ -117,7 +121,7 @@ install:
 	mkdir -p /usr/tranny/learned
 	mkdir -p /usr/tranny/attested
 	chmod a=rxw /usr/tranny/learned /usr/tranny/attested
-	mv nahuatl swahili ainu czech english quenya /usr/tranny/languages
+	mv nahuatl swahili ainu czech english quenya japanese /usr/tranny/languages
 	cp libtranny.a /usr/lib/
 	cp tranny.h /usr/include
 
@@ -128,7 +132,6 @@ uninstall:
 clean: lang-clean
 	rm -f *.o *.gch *.a vlad core tc learn a.out gmon.out
 	rm -f monad/*.o monad/*.gch tranny/*.o tranny/*.gch list/*.o list/*.gch vars/*.o vars/*.gch compiler/*.o
-	make -C demos/dictionary clean
 	make -C demos/tranny clean
 	make -C utils clean
 	
@@ -140,5 +143,6 @@ push: clean
 	git commit -a
 	git push
 
-# I keep making this typo.
+# I keep making these typoes.
 celan: clean
+isntall: install

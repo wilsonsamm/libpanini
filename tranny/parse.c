@@ -15,10 +15,18 @@ int parse_reduce(monad * m, list * l) {
 		}
 	}
 	
+	list * makedef = list_find_list(l, "makedef");
+	if(makedef) {
+		if(m->debug) {
+			printf("parse_reduce skipped a rule because it had a makedef instruction which is bound to fail.\n");
+		}
+		return 1;
+	}
+	
 	list * attest = list_find_list(l, "attest");
 	if(attest) {
 		if(m->debug) {
-			printf("parse_reduce skipped a rule because it had attest instruction which is bound to fail.\n", l);
+			printf("parse_reduce skipped a rule because it had an attest instruction which is bound to fail.\n");
 		}
 		return 1;
 	}

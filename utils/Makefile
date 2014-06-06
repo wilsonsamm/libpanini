@@ -31,5 +31,5 @@ interrogator.o: interrogator.c
 	gcc -ggdb -Wall -c interrogator.c
 		
 clean:
-	rm -rf *.o bilingual interrogator words
+	rm -rf *.o gmon.out bilingual interrogator words
 

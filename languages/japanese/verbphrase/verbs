@@ -1,0 +1,24 @@
+(df verbphrase
+	;(debug)
+	(adjunct argument ha)
+	(adjunct argument ga)
+	(adjunct argument wo)
+	(constituent verb-and-endings))
+
+(df verb-and-endings
+	(constituent verb ichidan)
+	(constituent ending ichidan))
+
+(df verb-and-endings
+	(constituent verb suru)
+	(constituent suru))
+
+(df ending
+	(flags ichidan)
+	(lit る)
+	(call orthography hiragana))
+
+(df ending
+	(flags ichidan)
+	(lit た)
+	(call orthography hiragana))

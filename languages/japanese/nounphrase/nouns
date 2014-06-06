@@ -1,0 +1,10 @@
+(df noun
+	(fork
+		((lit watashi) (space)		(call orthography romaji))
+		((lit watakushi) (space)	(call orthography romaji))
+		((lit わたし)		(call orthography hiragana))
+		((lit わたくし)		(call orthography hiragana))
+		((lit 私)			(call orthography kyouiku6)))
+	(seme (head referential) (person first) (number singular)))
+		
+	

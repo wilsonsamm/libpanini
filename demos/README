@@ -1,10 +1,5 @@
 This folder contains various demos that show off libtranny. This file lists them
 and gives an example of their usage.
 
-tranny-gowild nahuatl
-	The one command-line argument is the name of a language. This program
-	generates all possible sentences in that language.
-
 tranny english nahuatl -- The cat sat on the mat.
 	This would translate the given sentence from English to Nahuatl.
-

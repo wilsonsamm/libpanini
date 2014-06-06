@@ -1,0 +1,14 @@
+
+(include arguments/ga)
+
+(include nounphrase/nouns)
+(include nounphrase/nounphrase)
+
+(include orthography)
+
+(include verbphrase/suru)
+(include verbphrase/verbs)
+(include verbphrase/verbphrase)
+
+(df main
+	(constituent verbphrase))

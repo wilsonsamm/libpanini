@@ -1,0 +1,19 @@
+
+; Romaji
+(df orthography (flags romaji) (language -kyouiku -kanji))
+
+; Hiragana can be used at all kyouiku levels.
+(for l (1 2 3 4 5 6 7 8 9 10) (df orthography (flags hiragana) (language (kyouiku .l)) (confidence -.l)))
+
+
+; The for a kanji at any given level, it can only be used at that level and above.
+(for l (1 2 3 4 5 6 7 8 9 10) (df orthography (flags kyouiku1)  (language (kyouiku .l) kanji) (confidence -.l) (confidence 1)))
+(for l (  2 3 4 5 6 7 8 9 10) (df orthography (flags kyouiku2)  (language (kyouiku .l) kanji) (confidence -.l) (confidence 2)))
+(for l (    3 4 5 6 7 8 9 10) (df orthography (flags kyouiku3)  (language (kyouiku .l) kanji) (confidence -.l) (confidence 3)))
+(for l (      4 5 6 7 8 9 10) (df orthography (flags kyouiku4)  (language (kyouiku .l) kanji) (confidence -.l) (confidence 4)))
+(for l (        5 6 7 8 9 10) (df orthography (flags kyouiku5)  (language (kyouiku .l) kanji) (confidence -.l) (confidence 5)))
+(for l (          6 7 8 9 10) (df orthography (flags kyouiku6)  (language (kyouiku .l) kanji) (confidence -.l) (confidence 6)))
+(for l (            7 8 9 10) (df orthography (flags kyouiku7)  (language (kyouiku .l) kanji) (confidence -.l) (confidence 7)))
+(for l (              8 9 10) (df orthography (flags kyouiku8)  (language (kyouiku .l) kanji) (confidence -.l) (confidence 8)))
+(for l (                9 10) (df orthography (flags kyouiku9)  (language (kyouiku .l) kanji) (confidence -.l) (confidence 9)))
+(for l (                  10) (df orthography (flags kyouiku10) (language (kyouiku .l) kanji) (confidence -.l) (confidence 10)))

@@ -4,6 +4,24 @@
 #include <stdlib.h>
 #include <string.h>
 
+int generate_reduce(monad * m, list * l) {
+	list * makedef = list_find_list(l, "makedef");
+	if(makedef) {
+		if(m->debug) {
+			printf("generate_reduce skipped a rule because it had a makedef instruction which is bound to fail.\n");
+		}
+		return 1;
+	}
+	
+	list * attest = list_find_list(l, "attest");
+	if(attest) {
+		if(m->debug) {
+			printf("generate_reduce skipped a rule because it had an attest instruction which is bound to fail.\n");
+		}
+		return 1;
+	}
+	return 0;
+}
 int tranny_generate(monad * m, void * nothing) {
 	if(!m->alive) return 0;
 	
@@ -26,7 +44,7 @@ int tranny_generate(monad * m, void * nothing) {
 	if(tranny_outtext(m, command)) return 1;
 	
 	/* Is the command one of those that spawns other monads? */
-	if(tranny_exec(m, command, 0)) return 1;
+	if(tranny_exec(m, command, generate_reduce)) return 1;
 	
 	/* Is the command one of the ones deals with memory? */
 	if(tranny_memory(m, command)) return 1;

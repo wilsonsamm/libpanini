@@ -1,0 +1,18 @@
+(df verb
+	(fork
+		((lit 見) (call orthography kyouiku1))
+		((lit み) (call orthography hiragana))
+		((lit mi) (call orthography romaji)))
+	(flags ichidan)
+	(theta (ga agent) (wo patient))
+	(seme (head see)))
+
+(df verb
+	(fork
+		((lit 愛) (call orthography kyouiku4))
+		((lit あい) (call orthography hiragana))
+		((lit ai) (call orthography romaji)))
+	(flags suru)
+	(theta (ga agent) (wo patient))
+	(seme (head love)))
+	

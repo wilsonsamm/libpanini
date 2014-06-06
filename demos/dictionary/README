@@ -1,5 +1,0 @@
-These programs generate dictionaries and wordfiles from the installed tranny
-languages. All you need to do is invoke the program with one of these options:
-
-BILINGUAL DICTIONARIES:
-./dictionary bilingual [from] [to]
