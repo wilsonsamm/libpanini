@@ -1,0 +1,35 @@
+
+;; KYOUIKU LEVEL 1
+; MIRU - To see
+(df kanji (flags 見 mi) (call kyouiku 1) (lit 見))
+(df kanji (flags 見 mi) (call kyouiku -1) (call mora mi))
+
+; HON - A book
+(df kanji (flags 本 hon) (call kyouiku 1)  (lit 本))
+(df kanji (flags 本 hon) (call kyouiku -1) (call mora ho) (call mora n) (space))
+
+;; KYOUIKU LEVEL 2
+; BU - A part
+(df kanji (flags 部 bu he) (call kyouiku  2) (lit 部))
+(df kanji (flags 部 bu)    (call kyouiku -2) (call mora bu))
+(df kanji (flags 部 he)    (call kyouiku -2) (call mora he))
+
+;; KYOUIKU LEVEL 3
+; SHITSU - A room
+(df kanji (flags 室 ya shitsu) (call kyouiku  3) (lit 室))
+(df kanji (flags 室 ya)        (call kyouiku -3) (call mora ya))
+(df kanji (flags 室 shitsu)    (call kyouiku -3) (call mora si) (call mora tu))
+
+;; KYOUIKU LEVEL 4
+; AI - Love
+(df kanji (flags 愛 ai) (call kyouiku 4)  (lit 愛))
+(df kanji (flags 愛 ai) (call kyouiku -4) (call mora a) (call mora i))
+
+;; KYOUIKU LEVEL 6
+; WATASHI - I
+(df kanji (flags 私 watashi watakushi)   (call kyouiku 6)  (lit 私))
+(df kanji (flags 私 watashi)    (call kyouiku -6) (call mora wa) (call mora ta) (call mora si))
+(df kanji (flags 私 watakushi)   (call kyouiku -6) (call mora wa) (call mora ta) (call mora ku) (call mora si))
+
+
+

@@ -1,9 +1,6 @@
 ; Suru is such an irregular verb that it gets a file all to itself.
 
 (df suru
-	(lit suru)
-	(call orthography romaji))
-
+	(call mora su) (call mora ru) (seme (tense present)))
 (df suru
-	(lit する)
-	(call orthography hiragana))
+	(call mora si) (call mora ta) (seme (tense present)))

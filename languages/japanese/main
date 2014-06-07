@@ -1,14 +1,21 @@
 
 (include arguments/ga)
+(include arguments/wo)
+
+(include kanji)
+
+(include hiragana)
 
 (include nounphrase/nouns)
 (include nounphrase/nounphrase)
 
 (include orthography)
 
+(include romaji)
+
 (include verbphrase/suru)
 (include verbphrase/verbs)
-(include verbphrase/verbphrase)
+(include verbphrase/dict)
 
 (df main
 	(constituent verbphrase))

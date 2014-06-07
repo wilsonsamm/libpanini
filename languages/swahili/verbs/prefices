@@ -20,3 +20,6 @@
 	(lit ji)
 	(seme (trajectory reflexive)))
 
+(df vprefix
+	(flags object transitive)
+	(seme (trajectory projective)))

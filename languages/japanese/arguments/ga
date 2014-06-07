@@ -2,6 +2,6 @@
 	(flags ga)
 	(into (theta ga) constituent nounphrase)
 	(fork
-		((lit が) (call orthography hiragana))
-		((lit ga) (space) (call orthography romaji))))
+		((lit が) (call hiragana))
+		((lit ga) (space) (call romaji))))
 

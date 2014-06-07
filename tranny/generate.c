@@ -20,6 +20,7 @@ int generate_reduce(monad * m, list * l) {
 		}
 		return 1;
 	}
+	
 	return 0;
 }
 int tranny_generate(monad * m, void * nothing) {

@@ -1,0 +1,50 @@
+(df mora (flags a) (lit あ) (call hiragana))
+(df mora (flags i) (lit い) (call hiragana))
+(df mora (flags u) (lit う) (call hiragana))
+(df mora (flags e) (lit え) (call hiragana))
+(df mora (flags o) (lit お) (call hiragana))
+
+(df mora (flags ka) (lit か) (call hiragana))
+(df mora (flags ki) (lit き) (call hiragana))
+(df mora (flags ku) (lit く) (call hiragana))
+(df mora (flags ke) (lit け) (call hiragana))
+(df mora (flags ko) (lit こ) (call hiragana))
+
+(df mora (flags sa) (lit さ) (call hiragana))
+(df mora (flags si) (lit し) (call hiragana))
+(df mora (flags su) (lit す) (call hiragana))
+(df mora (flags se) (lit せ) (call hiragana))
+(df mora (flags so) (lit そ) (call hiragana))
+
+(df mora (flags ta) (lit た) (call hiragana))
+(df mora (flags ti) (lit ち) (call hiragana))
+(df mora (flags tu) (lit つ) (call hiragana))
+(df mora (flags te) (lit て) (call hiragana))
+(df mora (flags to) (lit と) (call hiragana))
+
+(df mora (flags ha) (lit は) (call hiragana))
+(df mora (flags hi) (lit ひ) (call hiragana))
+(df mora (flags hu) (lit ふ) (call hiragana))
+(df mora (flags he) (lit へ) (call hiragana))
+(df mora (flags ho) (lit ほ) (call hiragana))
+
+(df mora (flags ma) (lit ま) (call hiragana))
+(df mora (flags mi) (lit み) (call hiragana))
+(df mora (flags mu) (lit む) (call hiragana))
+(df mora (flags me) (lit め) (call hiragana))
+(df mora (flags mo) (lit も) (call hiragana))
+
+(df mora (flags ra) (lit ら) (call hiragana))
+(df mora (flags ri) (lit り) (call hiragana))
+(df mora (flags ru) (lit る) (call hiragana))
+(df mora (flags re) (lit れ) (call hiragana))
+(df mora (flags ro) (lit ろ) (call hiragana))
+
+(df mora (flags ya) (lit や) (call hiragana))
+(df mora (flags yo) (lit よ) (call hiragana))
+(df mora (flags yu) (lit ゆ) (call hiragana))
+
+(df mora (flags wa) (lit わ) (call hiragana))
+(df mora (flags wo) (lit を) (call hiragana))
+
+(df mora (flags n) (lit ん) (call hiragana))

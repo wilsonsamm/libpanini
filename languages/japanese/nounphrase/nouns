@@ -1,10 +1,18 @@
 (df noun
 	(fork
-		((lit watashi) (space)		(call orthography romaji))
-		((lit watakushi) (space)	(call orthography romaji))
-		((lit わたし)		(call orthography hiragana))
-		((lit わたくし)		(call orthography hiragana))
-		((lit 私)			(call orthography kyouiku6)))
+		((call kanji 私 watashi))
+		((call kanji 私 watakushi)))
+	(call #)
 	(seme (head referential) (person first) (number singular)))
+
+(df noun
+	(call kanji 本 hon)
+	(call #)
+	(seme (head book)))
 		
+(df noun
+	(call kanji 部 he)
+	(call kanji 室 ya)
+	(call #)
+	(seme (head room)))
 	

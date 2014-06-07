@@ -1,5 +1,4 @@
 (df verbphrase
-	;(debug)
 	(adjunct argument ha)
 	(adjunct argument ga)
 	(adjunct argument wo)
@@ -16,9 +15,23 @@
 (df ending
 	(flags ichidan)
 	(lit る)
-	(call orthography hiragana))
+	(call hiragana)
+	(seme (tense present)))
 
 (df ending
 	(flags ichidan)
 	(lit た)
-	(call orthography hiragana))
+	(call hiragana)
+	(seme (tense past)))
+
+(df ending
+	(flags ichidan)
+	(lit ru)
+	(call romaji)
+	(seme (tense present)))
+
+(df ending
+	(flags ichidan)
+	(lit ta)
+	(call romaji)
+	(seme (tense past)))

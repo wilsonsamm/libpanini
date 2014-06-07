@@ -9,6 +9,17 @@
 
 char * cl_kyouiku = "6";
 
+void kyouiku(monad * m) {
+	char exec[1024];
+	
+	strcpy(exec, "(language (kyouiku ");
+	strcat(exec, cl_kyouiku);
+	strcat(exec, "))");
+	monad_map(m, set_stack, exec, -1);
+	
+	monad_map(m, tranny_generate, (void*)0, -1);
+}
+
 int main(int argc, char * argv[]) {
 
 	int retval;
@@ -17,23 +28,25 @@ int main(int argc, char * argv[]) {
 	monad * m = monad_new();
 
 	/* Check for command line sanity. */
-	if(argc < 5) {
+	if(argc == 1) {
 		printf("To use this program, type:\n");
 		printf(" $ kanjify [OPTIONS ...] -- Sentence goes here.\n");
 		printf("one possible option is -kyouiku, which specifies the level of kanji you want. An example:\n");
-		printf(" $ kanjify -kyouiku 4 watashi ga aisuru\n");
-		printf("should return something like 私があいする, because 私 is a Kyouiku Level 4 Kanji (or less), but ");
-		printf("愛 isn't (it's level 6).\n");
+		printf(" $ kanjify -kyouiku 4 -- watashi ga aisuru\n");
+		printf("should return something like わたしがあいする, because 愛 is a Kyouiku Level 4 Kanji (or less), but ");
+		printf("私 isn't (it's level 6).\n");
 		return 1;
 	}
 
 	/* read all the command line options. */
-	int i = 3;
-	while(strcmp(argv[i],"--")) {	/* find the "--" on the command line */
-		if(!strcmp(argv[i], "-kyouiku")) {	// only give one translation
+	int i = 1;
+	while(argv[i][0] == '-') {	/* find everything beginning with a dash */
+		if(!strcmp(argv[i], "-kyouiku")) {	// select the kyouiku level
 			cl_kyouiku = argv[++i];
-		} 
-		if(!strcmp(argv[i], "d")) {		// Debug a monad (takes numerical argument)
+			//printf("cl_kyouiku now reads %s\n", cl_kyouiku);
+			//i++;
+		} else
+		if(!strcmp(argv[i], "-d")) {		// Debug a monad (takes numerical argument)
 			int t = atoi(argv[++i]);
 			monad_map(m, set_trace, &t, -1);
 		} else {
@@ -42,7 +55,6 @@ int main(int argc, char * argv[]) {
 		}
 		i++;
 	}
-	i++;
 	
 	/* Read the sentence and set the INTEXT register in the monad. */
 	char * sentence = strdup("");
@@ -61,7 +73,7 @@ int main(int argc, char * argv[]) {
 	monad_rules(m, "japanese");
 	
 	/* Parse! */
-	monad_map(m, set_stack, "(constituent main)", 20);
+	monad_map(m, set_stack, "(language -kanji) (constituent main)", 20);
 	retval = monad_map(m, tranny_parse, (void *)0, 20);
 
 	/* If the parse wasn't successful, then exit. */
@@ -72,22 +84,15 @@ int main(int argc, char * argv[]) {
 	monad_map(m, kill_not_done, (void*)0, -1);
 	i++;
 	
-	/* Generate! */
-
-	/* Construct the code to execute */
-	char * exec;
-	exec = malloc(strlen("(constituent main) (language (kyouiku )) ") + strlen(cl_kyouiku) + 1);
-	strcpy(exec, "(language (kyouiku ");
-	strcat(exec, cl_kyouiku);
-	strcat(exec, ")) ");
-	strcat(exec, "(constituent main)");
-
 	/* Prepare the monads for generation */
 	monad_map(m, remove_ns, "rection", -1);
 	monad_map(m, remove_ns, "theta", -1);
 	monad_map(m, remove_ns, "language", -1);
+
+	/* Select the kyouiku level */
+	if(cl_kyouiku) kyouiku(m);
 	
-	monad_map(m, set_stack, exec, -1);
+	monad_map(m, set_stack, "(call main)", -1);
 	
 	retval = monad_map(m, tranny_generate, (void *)0, 20);
 	

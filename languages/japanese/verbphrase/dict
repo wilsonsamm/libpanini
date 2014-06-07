@@ -1,0 +1,13 @@
+(df verb
+	(call kanji 見 mi)
+	(flags ichidan)
+	(theta (ga agent) (wo patient))
+	(seme (head see)))
+
+(df verb
+	(call kanji 愛 ai)
+	(call #)
+	(flags suru)
+	(theta (ga agent) (wo patient))
+	(seme (head love)))
+	
