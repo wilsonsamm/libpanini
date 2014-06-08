@@ -3,3 +3,6 @@ and gives an example of their usage.
 
 tranny english nahuatl -- The cat sat on the mat.
 	This would translate the given sentence from English to Nahuatl.
+
+kanjify watashi ga heya wo miru
+	This converts the sentence into the Japanese script(s).

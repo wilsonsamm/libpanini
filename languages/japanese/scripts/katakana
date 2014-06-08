@@ -1,0 +1,56 @@
+(df mora (flags a) (lit ア) (call katakana))
+(df mora (flags i) (lit イ) (call katakana))
+(df mora (flags u) (lit ウ) (call katakana))
+(df mora (flags e) (lit エ) (call katakana))
+(df mora (flags o) (lit オ) (call katakana))
+
+(df mora (flags ka) (lit カ) (call katakana))
+(df mora (flags ki) (lit キ) (call katakana))
+(df mora (flags ku) (lit ク) (call katakana))
+(df mora (flags ke) (lit ケ) (call katakana))
+(df mora (flags ko) (lit コ) (call katakana))
+
+(df mora (flags sa) (lit サ) (call katakana))
+(df mora (flags si) (lit シ) (call katakana))
+(df mora (flags su) (lit ス) (call katakana))
+(df mora (flags se) (lit セ) (call katakana))
+(df mora (flags so) (lit ソ) (call katakana))
+
+(df mora (flags ta) (lit タ) (call katakana))
+(df mora (flags ti) (lit チ) (call katakana))
+(df mora (flags tu) (lit ツ) (call katakana))
+(df mora (flags te) (lit テ) (call katakana))
+(df mora (flags to) (lit ト) (call katakana))
+
+(df mora (flags ha) (lit ハ) (call katakana))
+(df mora (flags hi) (lit ヒ) (call katakana))
+(df mora (flags hu) (lit フ) (call katakana))
+(df mora (flags he) (lit ヘ) (call katakana))
+(df mora (flags ho) (lit ホ) (call katakana))
+
+(df mora (flags ma) (lit マ) (call katakana))
+(df mora (flags mi) (lit ミ) (call katakana))
+(df mora (flags mu) (lit ム) (call katakana))
+(df mora (flags me) (lit メ) (call katakana))
+(df mora (flags mo) (lit モ) (call katakana))
+
+(df mora (flags na) (lit ナ) (call katakana))
+(df mora (flags ni) (lit ニ) (call katakana))
+(df mora (flags nu) (lit ヌ) (call katakana))
+(df mora (flags ne) (lit ネ) (call katakana))
+(df mora (flags no) (lit ノ) (call katakana))
+
+(df mora (flags ra) (lit ラ) (call katakana))
+(df mora (flags ri) (lit リ) (call katakana))
+(df mora (flags ru) (lit ル) (call katakana))
+(df mora (flags re) (lit レ) (call katakana))
+(df mora (flags ro) (lit ロ) (call katakana))
+
+(df mora (flags ya) (lit ヤ) (call katakana))
+(df mora (flags yo) (lit ヨ) (call katakana))
+(df mora (flags yu) (lit ユ) (call katakana))
+
+(df mora (flags wa) (lit ワ) (call katakana))
+(df mora (flags wo) (lit ヲ) (call katakana))
+
+(df mora (flags n) (lit ん) (call katakana))

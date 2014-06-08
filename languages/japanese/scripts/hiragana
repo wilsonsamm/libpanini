@@ -34,6 +34,12 @@
 (df mora (flags me) (lit め) (call hiragana))
 (df mora (flags mo) (lit も) (call hiragana))
 
+(df mora (flags na) (lit な) (call hiragana))
+(df mora (flags ni) (lit に) (call hiragana))
+(df mora (flags nu) (lit ぬ) (call hiragana))
+(df mora (flags ne) (lit ね) (call hiragana))
+(df mora (flags no) (lit の) (call hiragana))
+
 (df mora (flags ra) (lit ら) (call hiragana))
 (df mora (flags ri) (lit り) (call hiragana))
 (df mora (flags ru) (lit る) (call hiragana))

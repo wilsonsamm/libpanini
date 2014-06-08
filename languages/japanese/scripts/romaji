@@ -1,0 +1,18 @@
+
+; This romanisation scheme is much like Hepburn. 
+
+(for mora ( a  i  u  e  o) (df mora (flags .mora) (lit .mora) (call romaji)))
+(for mora (ka ki ku ke ko) (df mora (flags .mora) (lit .mora) (call romaji)))
+(for mora (sa    su se so) (df mora (flags .mora) (lit .mora) (call romaji)))
+                           (df mora (flags si)    (lit shi)   (call romaji))
+(for mora (ta       te to) (df mora (flags .mora) (lit .mora) (call romaji)))
+                           (df mora (flags ti)    (lit chi)   (call romaji))
+                           (df mora (flags tu)    (lit tsu)   (call romaji))
+(for mora (na ni nu ne no) (df mora (flags .mora) (lit .mora) (call romaji)))
+(for mora (ha hi    he ho) (df mora (flags .mora) (lit .mora) (call romaji)))
+                           (df mora (flags hu)    (lit fu)    (call romaji))
+(for mora (ma mi mu me mo) (df mora (flags .mora) (lit .mora) (call romaji)))
+(for mora (ya    yu    yo) (df mora (flags .mora) (lit .mora) (call romaji)))
+(for mora (ra ri ru re ro) (df mora (flags .mora) (lit .mora) (call romaji)))
+(for mora (wa          wo) (df mora (flags .mora) (lit .mora) (call romaji)))
+(for mora (             n) (df mora (flags .mora) (lit .mora) (call romaji)))

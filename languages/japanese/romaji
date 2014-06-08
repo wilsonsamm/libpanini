@@ -1,6 +1,0 @@
-(for mora (a i u e o ka ki ku ke ko sa si su se so ta ti tu te to 
-           ha hi hu he ho ra ri ru re ro
-           ga gi gu ge go 
-            ma mi mu me mo ya yu yo wa wo)
-(df mora (flags .mora) (lit .mora) (call romaji)))
-
