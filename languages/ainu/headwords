@@ -7,7 +7,16 @@
 	(clues (class nominal))
 	(constituent noun))
 
-
+(df Learn
+	(flags lemma)
+	(clues (class nominal))
+	(fork
+		((call guess-syllable))
+		((call guess-syllable) (call guess-syllable))
+		((call guess-syllable) (call guess-syllable) (call guess-syllable)))
+	(makedef nounstem (remove number))
+	(lit .))
+	
 (df Headword
 	(clues (class verbal) (label v.))
 	(constituent verbstem))

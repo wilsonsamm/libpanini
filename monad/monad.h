@@ -5,7 +5,7 @@
 #define THRESHOLD 20 /* How many times a monad will brake before it will buy the farm */
 
 /* The path where we'll find our files */
-#define FN_PATH	"/usr/tranny/languages/"
+#define FN_PATH	"/usr/panini/languages/"
 
 /* Here is a list of "how to bind" flags */
 #define STRICT	1 /* Variable must already be bound in GENERATE (but not in PARSE) */

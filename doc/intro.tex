@@ -1,0 +1,68 @@
+\documentclass{article}
+\usepackage{thumbpdf}
+
+\usepackage{color}
+\definecolor{rltred}{rgb}{0.75,0,0}
+\definecolor{rltgreen}{rgb}{0,0.5,0}
+\definecolor{rltblue}{rgb}{0,0,0.75}
+
+\title{The Panini Project}
+\author{Sam M W}
+\date{\today}
+
+\begin{document}\label{start}
+
+\maketitle
+
+\section{What is this?}
+
+The Panini Project provides:
+\begin{itemize}
+	\item A method of describing the grammar of a language
+	\item A way of matching these rules against an input text, and conversely, a way to generate new texts.
+	\item An ontology (a way of representing the world)
+\end{itemize}
+By providing these things, it becomes possible to write computer programs that treat language in some way. Of course, many 
+applications already exist that (try to) process natural language, for example:
+\begin{itemize}
+	\item Databases that are interrogable in (a subset of) plain English.
+	\item Role-playing games that are instructed in (a subset of) plain English.
+	\item Machine translation: take some input in Czech and have it translated to Swahili?
+	\item IME: take some Japanese input in latin letters and have it fill the Japanese scripts in
+\end{itemize}
+
+There have been many ad-hoc solutions to these problems until now. The Panini Project hopes to unify these solutions (there, is 
+after all, only the one problem --- it's the problem of parsing and generating natural language) and hopefully we'll come up with a
+way to process language that can be used in a wide variety of applications, while leaving the linguistics to the linguists and the
+software engineering to the software engineers.
+
+\section{What's in a name?}
+The Panini Project (two capital P's; the T has no capital, except where typology norms dictate otherwise) is named after 
+P\=a\d{n}ini, the Sanskrit grammarian from ancient India. I suggest that the name of the project will usually be spelled without the
+diacritics, simply because they are awkward to type on most computers.
+
+Originally, this project was called the Tranny Project. Among my friends at university, this was the common abbreviation of the 
+phrases "translation", "translation classes" and the like. Originally, this project was intended as a machine translation platform,
+and the name stuck, despite the generalisation of the project's scope. 
+
+Since those days, whenever I have mentioned this project in a public space, many people have been taken aback, or downright 
+offended, since this word is also a shortening of the word "transgendered". It has been such a barrier to sensible discussion that I
+eventually renamed the project. Beware, though, that the word "Tranny", which has nothing to do with transgenderism, pops up from 
+here and there in the source code. It is being phased out, but means exactly the same thing as "Panini".
+
+\section{Architecture}
+The Panini Project consists of several parts.
+
+There is a programming language called \emph{panini}. It is Turing complete, but is particularly geared toward describing language.
+Depending on how you like to think, it can be seen as a beefed-up kind of Backus-Naur notation, or as a procedural language that 
+forks with every single function call. There should be another PDF in this folder called programming.pdf which describes it in 
+further detail.
+
+There is a compiler that compiles any panini source code into a lower-level language. This second language is in turn interpreted at
+runtime. In this way, it works similarly to the Java programming language because it too is compiled into a bytecode, which is later
+interpreted.
+
+There is a run-time library (these link to a computer program when it is being built) that provides routines for using this language
+in your own project, and the mechanisms to parse or generate a sentence in a given language, to interrogate the meaning etc.
+
+\label{end}\end{document}

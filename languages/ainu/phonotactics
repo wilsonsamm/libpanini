@@ -1,0 +1,27 @@
+; The consonants of the Ainu language.
+(for cons (p t c k m n s r h)
+(df guess-consonant
+	(segments .cons) (addseg .cons))
+(segment (underlying .cons) (surface .cons)))
+
+; This is the null consonant (which is for example found at the front of VC syllables)
+(df guess-consonant) 
+
+; The vowels of the Ainu language.
+(for v (a e i o u)
+(df guess-vowel
+	(segments .v) (addseg .v))
+(segment (underlying .v) (surface .v)))
+
+(df guess-onset
+	(call guess-consonant))
+(df guess-coda
+	(call guess-consonant))
+(df guess-nucleus
+	(call guess-vowel))
+
+; The syllable of the Ainu language
+(df guess-syllable
+	(call guess-onset)
+	(call guess-nucleus)
+	(call guess-coda))

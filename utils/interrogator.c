@@ -51,7 +51,7 @@ int test(monad * m, char * target) {
 	
 	monad_map(n, (int (*)(monad *, void *))set_intext, m->intext, -1);
 	
-	monad_map(n, (int (*)(monad *, void *))set_stack, "(constituent Headword)", -1);
+	monad_map(n, (int (*)(monad *, void *))set_stack, "(constituent Translation)", -1);
 
 	retval = monad_map(n, (int (*)(monad *, void *))tranny_generate, (void *)0, 20);
 	

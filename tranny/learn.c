@@ -4,16 +4,16 @@
 #include <stdlib.h>
 
 int learning_reduce(monad * m, list * l) {
-	list * lit = list_find_list(l, "lit");
-	if(lit) {
-		char * l = list_get_token(lit, 2);
-		if(partialstrcmp(m->intext + m->index, l)) {
-			if(m->debug) {
-				printf("learning_reduce skipped a rule because it had (lit %s) which is bound to fail.\n", l);
-			}
-			return 1;
-		}
-	}
+	//list * lit = list_find_list(l, "lit");
+	//if(lit) {
+		//char * l = list_get_token(lit, 2);
+		//if(strstr(m->intext + m->index, l)) {
+			//if(m->debug) {
+				//printf("learning_reduce skipped a rule because it had (lit %s) which is bound to fail.\n", l);
+			//}
+			//return 1;
+		//}
+	//}
 	
 	return 0;
 }

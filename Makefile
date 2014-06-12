@@ -1,12 +1,12 @@
 CCOPTS = -ggdb -c -Wall
 
-all: vlad languages libtranny.a
+all: docs libpanini.a languages 
 
 vlad: validate.o list.o list-tokenise.o monad.o parse.o generate.o learn.o bind.o spawn.o variables.o misc.o intext.o outtext.o exec.o binders.o memory.o
 	gcc -o vlad validate.o list.o list-tokenise.o monad.o parse.o generate.o bind.o learn.o spawn.o variables.o misc.o intext.o outtext.o exec.o binders.o memory.o
 
-libtranny.a: list.o list-tokenise.o generate.o parse.o spawn.o learn.o attest.o monad.o bind.o variables.o misc.o intext.o outtext.o exec.o binders.o memory.o
-	ar rcs libtranny.a list.o list-tokenise.o generate.o parse.o spawn.o learn.o attest.o monad.o bind.o variables.o misc.o intext.o outtext.o exec.o binders.o memory.o
+libpanini.a: list.o list-tokenise.o generate.o parse.o spawn.o learn.o attest.o monad.o bind.o variables.o misc.o intext.o outtext.o exec.o binders.o memory.o
+	ar rcs libpanini.a list.o list-tokenise.o generate.o parse.o spawn.o learn.o attest.o monad.o bind.o variables.o misc.o intext.o outtext.o exec.o binders.o memory.o
 
 validate.o: validate.c
 	gcc $(CCOPTS) validate.c
@@ -58,6 +58,9 @@ learn.o: monad/monad.h monad/monad.c tranny/learn.c
 
 spawn.o: monad/monad.h monad/monad.c monad/spawn.c
 	gcc $(CCOPTS) monad/spawn.c 
+
+docs:
+	make -C doc
 	
 compiler: compiler-main.o compiler-definition.o compiler-check.o compiler-sandhi-init.o compiler/compiler.h list.o list-tokenise.o compiler-sandhi-fin.o compiler-for.o compiler-ontology.o 
 	gcc -o tc compiler-main.o list.o list-tokenise.o compiler-check.o compiler-sandhi-init.o compiler-definition.o compiler-sandhi-fin.o compiler-for.o compiler-ontology.o 
@@ -117,13 +120,13 @@ ainu: compiler
 	@./tc ainu > ainu
 	
 install: 
-	mkdir -p /usr/tranny/languages
-	mkdir -p /usr/tranny/learned
-	mkdir -p /usr/tranny/attested
-	chmod a=rxw /usr/tranny/learned /usr/tranny/attested
-	mv nahuatl swahili ainu czech english quenya japanese /usr/tranny/languages
-	cp libtranny.a /usr/lib/
-	cp tranny.h /usr/include
+	mkdir -p /usr/panini/languages
+	mkdir -p /usr/panini/learned
+	mkdir -p /usr/panini/attested
+	chmod a=rxw /usr/panini/learned /usr/panini/attested
+	mv nahuatl swahili ainu czech english quenya japanese /usr/panini/languages
+	cp libpanini.a /usr/lib/
+	cp panini.h /usr/include
 
 uninstall:
 	rm -rf /usr/tranny
@@ -135,6 +138,7 @@ clean: lang-clean
 	make -C demos/tranny clean
 	make -C demos/kanjify clean
 	make -C utils clean
+	make -C doc clean
 	
 # Git commands might be useful to have in a Makefile.
 pull:

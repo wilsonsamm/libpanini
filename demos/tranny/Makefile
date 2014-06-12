@@ -1,6 +1,6 @@
 all: clean tranny
 tranny: tranny.o
-	gcc -o tranny tranny.o -ltranny -pg
+	gcc -o tranny tranny.o -lpanini
 	
 tranny.o: tranny.c
 	gcc -g -c -Wall tranny.c -pg

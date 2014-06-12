@@ -7,6 +7,7 @@
 (include nounphrase/suffices)
 (include nounphrase/rel-clauses)
 
+
 (include verbphrase/dictionary)
 (include verbphrase/surface)
 (include verbphrase/verbphrase)
@@ -15,7 +16,8 @@
 (include complementiser)
 (include constraint)
 (include modal-particles)
-
+(include phonotactics)
+(include headwords)
 (include learn)
 
 (df main

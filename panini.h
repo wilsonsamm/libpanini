@@ -1,4 +1,4 @@
-/* THIS HEADER FILE SHOULD NEVER BE USED BY ANY FILE THAT COMPILES INTO* LIBTRANNY.A. At install time it is copied to /usr/includes,
+/* THIS HEADER FILE SHOULD NEVER BE USED BY ANY FILE THAT COMPILES INTO LIBPANINI.A. At install time it is copied to /usr/includes,
  * so that other programs can link against libtranny.a. The point of this is black-box abstraction: programs that link against 
  * libtranny shouldn't ever poke around in the monad struct, for example (this approach makes the thing more future proof too).
  */

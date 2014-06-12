@@ -1,0 +1,74 @@
+\documentclass{article}
+\usepackage{thumbpdf}
+
+\usepackage{listings}
+\title{Panini, the programming language}
+\author{Sam M W}
+\date{\today}
+
+\begin{document}\label{start}
+
+\maketitle
+
+\section{Introduction}
+
+This book introduces and explains how a grammar and dictionary is programmed into Panini.
+
+\section{Brief introduction to the Backus-Naur form}
+The Backus-Naur Form describes a reduction of a long phrase into shorter ones. In short, that is what is known as a context-free 
+grammar. Here is a possible grammar that matches some simple sentences, described in Backus-Naur:
+
+\begin{lstlisting}
+         sentence ::= <subject> <predication> <punct>
+      predication ::= <verb-intransitive>
+      predication ::= <verb-transitive> <object>
+  verb-transitive ::= "love" | "see" | "dig" | "speak"
+verb-intransitive ::= "love" | "weep" 
+          subject ::= "I" | "you"
+           object ::= "me" | "you" | "him" | "Norwegian"
+            punct ::= "." | "?" | "!"
+\end{lstlisting}
+Note a few things: anything on the left of the ::= symbol is a \emph{non-terminal}; that is, a thing that must somehow be reduced 
+down to a simpler things. Anything to the right of the ::= symbol is the thing or combination of things that the matching 
+non-terminal may be matched to. These may include both terminals and non-terminals. A \emph{terminal} is something that does not
+need further decomposition. Also note that a non-terminal non-terminal may decompose in several ways.
+
+Here is how this may describe a sentence. We will look up "sentence" above, and see that it consists of a subject and a predication.
+Looking up "subject", we see that it is one of "I" and "you". Let's choose "I". The next thing in the decomposition of a sentence is
+the predication. We see that that it may either be a transitive verb plus an object, or an intransitive verb. Again, we'll choose 
+one of the options. We will look at a transitive verb and an object. Look up verb-transitive, and choose one: "speak". The next 
+thing in the decomposition of a predication is the object. One object is "Norwegian". The last thing that the sentence decomposed to
+is some punctuation mark. We'll choose ".". We have composed, or decomposed, the sentence "I speak Norwegian.", a perfectly valid 
+English sentence.
+
+The grammar given above will also generate these sentences:
+\begin{itemize}
+	\item I weep.
+	\item I love.
+	\item I love him.
+	\item You love Norwegian?
+	\item You see Norwegian?
+	\item You speak him.
+\end{itemize}
+
+As you can see, the grammar above produced some good English sentence, some dubious ones and some terrible ones. The reason for this
+is that Backus-Naur describes a context-free grammar. Context is what says, for example, that Norwegian is spoken, but not seen. And
+that we can see or love "him", but not speak "him".
+
+\section{Brief introduction to the Panini}
+Like Backus-Naur, Panini also describes grammar. But the difference is that Panini describes the contextual implications of a 
+grammatical rule too. It also looks a bit different. Earlier, you saw a definition for "sentence" in Backus-Naur. Here is the same 
+definition in Panini:
+\begin{lstlisting}
+(df sentence
+	(constituent subject)
+	(constituent predication)
+	(constituent punct))
+\end{lstlisting}
+Note that everything is wrapped in parentheses. The first word in the parentheses is "df", which is short for "definition". The next
+word is the symbol that we want to define, "sentence". After that come any number of instructions enveloped by parentheses. In this
+example, there are instructions, each beginning with the word "constituent". These are instructions to try to parse a constituent 
+named by the second word inside the parentheses.
+
+
+\label{end}\end{document}
