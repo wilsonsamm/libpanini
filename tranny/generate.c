@@ -23,6 +23,18 @@ int generate_reduce(monad * m, list * l) {
 	
 	return 0;
 }
+
+void generate_record(monad * m) {
+	list * r = list_find_list(m->namespace, "record"); 
+	if(!r) return;
+	
+	if(strcmp(list_get_token(m->command, 2), list_get_token(r, 2))) {
+		m->alive = 0;
+	} else {
+		list_drop(r, 2);
+	}
+	return;
+}
 int tranny_generate(monad * m, void * nothing) {
 	if(!m->alive) return 0;
 	
@@ -52,6 +64,13 @@ int tranny_generate(monad * m, void * nothing) {
 	
 	/* Is the command one of the ones that binds variables? */
 	if(tranny_binders(m, 1)) return 1;
+	
+	if(!strcmp(command, "record")) {
+		generate_record(m);
+		list_free(m->command);
+		m->command = 0;
+		return 1;
+	}
 	
 	if(!strcmp(command, "into")) {
 		monad_parse_into(m, 1);

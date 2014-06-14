@@ -1,18 +1,20 @@
 (df noun
 	(fork
-		((call kanji 私 watashi))
-		((call kanji 私 watakushi)))
+		((call kanji 私 watashi) (record watashi))
+		((call kanji 私 watakushi) (record watakushi)))
 	(call #)
 	(seme (head referential) (person first) (number singular)))
 
 (df noun
 	(call kanji 本 hon)
+	(record hon)
 	(call #)
 	(seme (head book)))
 		
 (df noun
 	(call kanji 部 he)
 	(call kanji 室 ya)
+	(record heya)
 	(call #)
 	(seme (head room)))
 	

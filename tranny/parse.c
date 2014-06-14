@@ -4,16 +4,16 @@
 #include <stdlib.h>
 
 int parse_reduce(monad * m, list * l) {
-//	list * lit = list_find_list(l, "lit");
-//	if(lit) {
-//		char * l = list_get_token(lit, 2);
-//		if(partialstrcmp(m->intext + m->index, l)) {
-//			if(m->debug) {
-//				printf("parse_reduce skipped a rule because it had (lit %s) which is bound to fail.\n", l);
-//			}
-//			return 1;
-//		}
-//	}
+	//list * lit = list_find_list(l, "lit");
+	//if(lit) {
+		//char * l = list_get_token(lit, 2);
+		//if(strstr(m->intext + m->index, l)) {
+			//if(m->debug) {
+				//printf("parse_reduce skipped a rule because it had (lit %s) which is bound to fail.\n", l);
+			//}
+			//return 1;
+		//}
+	//}
 	
 	list * makedef = list_find_list(l, "makedef");
 	if(makedef) {
@@ -32,6 +32,18 @@ int parse_reduce(monad * m, list * l) {
 	}
 	return 0;
 }
+
+void parse_record(monad * m) {
+	list * r = list_find_list(m->namespace, "record"); 
+	if(!r) {
+		r = list_append_list(m->namespace);
+		list_append_token(r, "record");
+	}
+	
+	list_append_token(r, list_get_token(m->command, 2));
+	return;
+}
+	
 
 void into_spawner_head(monad * m) {
 	
@@ -287,6 +299,13 @@ int tranny_parse(monad * m, void * nothing) {
 	/* Is the command one of the ones that binds variables? */
 	if(tranny_binders(m, 0)) return 1;
 	
+	if(!strcmp(command, "record")) {
+		parse_record(m);
+		list_free(m->command);
+		m->command = 0;
+		return 1;
+	}
+		
 	if(!strcmp(command, "into")) {
 		monad_parse_into(m, 0);
 		list_free(m->command);
