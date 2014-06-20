@@ -7,7 +7,7 @@ kanjify.o: main.c
 	gcc -g -c -Wall -o kanjify.o main.c
 	
 clean:
-	rm -rf kanjify kanjify.o gmon.out
+	rm -rf kanjify *.o gmon.out
 	
 install:
 	cp kanjify /usr/bin/

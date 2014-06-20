@@ -16,3 +16,5 @@
 (for mora (ra ri ru re ro) (df mora (flags .mora) (lit .mora) (call romaji)))
 (for mora (wa          wo) (df mora (flags .mora) (lit .mora) (call romaji)))
 (for mora (             n) (df mora (flags .mora) (lit .mora) (call romaji)))
+
+(for mora (ga gi gu ge go) (df mora (flags .mora) (lit .mora) (call romaji)))

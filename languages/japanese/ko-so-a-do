@@ -1,0 +1,17 @@
+
+(df ko-so-a-do-prefix (call mora ko) (strict seme (spatiodeixis proximal)))
+(df ko-so-a-do-prefix (call mora so) (strict seme (spatiodeixis medial)))
+(df ko-so-a-do-prefix (call mora a)  (strict seme (spatiodeixis distal)))
+
+(df ko-so-a-do
+	(flags adnominal)
+	(constituent ko-so-a-do-prefix)
+	(call mora no)
+	(call #))
+	
+(df ko-so-a-do
+	(flags pronominal)
+	(constituent ko-so-a-do-prefix)
+	(call mora re)
+	(call #)
+	(seme (head referential) (person third)))

@@ -1,0 +1,7 @@
+
+(for particle (ga wo)
+(df argument
+	(flags .particle)
+	(into (theta .particle) constituent arg)
+	(call mora .particle)
+	(call #)))

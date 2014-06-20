@@ -1,6 +1,8 @@
 
-(include arguments/ga)
-(include arguments/wo)
+(include arguments/particles)
+(include arguments/arguments)
+
+(include ko-so-a-do)
 
 (include nounphrase/nouns)
 (include nounphrase/nounphrase)

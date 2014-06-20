@@ -1,0 +1,5 @@
+(df arg
+	(constituent nounphrase))
+
+(df arg
+	(constituent ko-so-a-do pronominal))

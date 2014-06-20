@@ -237,6 +237,10 @@ int tranny_binders_ops(monad * m, int gen) {
 		if(howtobind & BLOCK) printf("BLOCK ");
 	}
 	
+	/* The STRICT flag has no meaning while parsing a sentence */
+	if(!gen) howtobind = howtobind & ~(STRICT);
+		
+	
 	if(!strcmp(command, "language") || \
 	   !strcmp(command, "rection")  || \
 	   !strcmp(command, "theta")    || \

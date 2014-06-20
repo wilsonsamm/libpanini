@@ -11,6 +11,7 @@
 	(df hiragana (language hiragana (kyouiku .l)) (confidence -.l)))
 
 (df kyouiku (flags -1 -2 -3 -4 -5 -6) (call romaji))
+(df kyouiku (flags -1 -2 -3 -4 -5 -6) (language -kanji))
 
 (df kyouiku (flags -1) (language -kyouiku))
 

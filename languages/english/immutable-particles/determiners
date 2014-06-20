@@ -1,6 +1,13 @@
 (df determiner
-	;(debug)
 	(recall determiner))
+
+(df determiner
+	(seme -owner)
+	(lit that) (space)
+	(seme definite (spatiodeixis distal))
+	(rection (definition definite))
+	(remember determiner
+		(todo (seme definite (spatiodeixis distal)) (rection (definition definite)))))
 
 (df determiner
 	(seme -owner)

@@ -10,6 +10,12 @@
 (df mora (flags ke) (lit け) (call hiragana))
 (df mora (flags ko) (lit こ) (call hiragana))
 
+(df mora (flags ga) (lit が) (call hiragana))
+(df mora (flags gi) (lit ぎ) (call hiragana))
+(df mora (flags gu) (lit ぐ) (call hiragana))
+(df mora (flags ge) (lit げ) (call hiragana))
+(df mora (flags go) (lit ご) (call hiragana))
+
 (df mora (flags sa) (lit さ) (call hiragana))
 (df mora (flags si) (lit し) (call hiragana))
 (df mora (flags su) (lit す) (call hiragana))

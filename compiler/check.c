@@ -118,6 +118,7 @@ int check_wronginstruction(list * output) {
 			if(!strcmp(iname, "recall")) continue;
 			if(!strcmp(iname, "addseg")) continue;
 			if(!strcmp(iname, "makedef")) continue;
+			if(!strcmp(iname, "record")) continue;
 			
 			fprintf(stderr, "\tWhat is this?\n");
 			fprintf(stderr, "\tA definition of %s has an ", name);

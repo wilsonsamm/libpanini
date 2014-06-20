@@ -1,6 +1,0 @@
-(df argument
-	(flags wo)
-	(into (theta wo) constituent nounphrase)
-	(fork
-		((lit を) (call hiragana))
-		((lit wo) (space) (call romaji))))
