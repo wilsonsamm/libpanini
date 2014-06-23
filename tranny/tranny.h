@@ -7,7 +7,7 @@ int tranny_misc(monad * m, char * command);
 
 /* This function tests for and executes those instructions that are responsible for binding variables. */
 int tranny_binders(monad * m, int gen);
-list * get_namespace(monad * m, char * nsname, int create);
+int check_vars(list * namespace, list * vars);
 
 /* These functions tests for and executes those instructions that are responsible for scanning the input/output. */
 int tranny_intext(monad * m, char * command);
@@ -18,3 +18,8 @@ int tranny_exec(monad * m, char * command, int(reduce)(monad * m, list * l));
 
 /* These functions have to do with memory. */
 int tranny_memory(monad * m, char * command);
+
+
+/* */
+int parse_reduce(monad * m, list * l);
+int generate_reduce(monad * m, list * l);

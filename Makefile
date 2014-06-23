@@ -5,8 +5,8 @@ all: docs libpanini.a languages
 vlad: validate.o list.o list-tokenise.o monad.o parse.o generate.o learn.o bind.o spawn.o variables.o misc.o intext.o outtext.o exec.o binders.o memory.o
 	gcc -o vlad validate.o list.o list-tokenise.o monad.o parse.o generate.o bind.o learn.o spawn.o variables.o misc.o intext.o outtext.o exec.o binders.o memory.o
 
-libpanini.a: list.o list-tokenise.o generate.o parse.o spawn.o learn.o attest.o monad.o bind.o variables.o misc.o intext.o outtext.o exec.o binders.o memory.o
-	ar rcs libpanini.a list.o list-tokenise.o generate.o parse.o spawn.o learn.o attest.o monad.o bind.o variables.o misc.o intext.o outtext.o exec.o binders.o memory.o
+libpanini.a: list.o list-tokenise.o generate.o parse.o spawn.o learn.o attest.o monad.o bind.o variables.o misc.o intext.o outtext.o exec.o binders.o memory.o reduce.o
+	ar rcs libpanini.a list.o list-tokenise.o generate.o parse.o spawn.o learn.o attest.o monad.o bind.o variables.o misc.o intext.o outtext.o exec.o binders.o memory.o reduce.o
 
 validate.o: validate.c
 	gcc $(CCOPTS) validate.c
@@ -49,6 +49,9 @@ intext.o: monad/monad.h tranny/intext.c
 
 outtext.o: monad/monad.h tranny/outtext.c
 	gcc $(CCOPTS) tranny/outtext.c 
+
+reduce.o: monad/monad.h tranny/reduce.c
+	gcc $(CCOPTS) tranny/reduce.c
 
 memory.o: monad/monad.h tranny/memory.c
 	gcc $(CCOPTS) tranny/memory.c

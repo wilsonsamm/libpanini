@@ -94,7 +94,8 @@ int main(int argc, char * argv[]) {
 	if(!retval) {
 		monad_free(m);
 		exit(1);
-	}
+	} 
+	monad_map(m, kill_least_confident, (void *)0, -1);
 	monad_map(m, kill_not_done, (void*)0, -1);
 	i++;
 	

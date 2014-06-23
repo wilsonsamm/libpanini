@@ -197,6 +197,56 @@ void bind_vars(monad * m) {
 	howtobind = 0;
 }
 
+/* This function checks that it is possible to bind a list of variables in a namespace.
+ * returns 1 for possible,
+ * returns 0 for impossible.
+ */
+int check_vars(list * namespace, list * vars) {
+	
+	char varname[32];
+	char varneg[32];
+	char value[32];
+	value[0] = '\0';
+	
+	int i;
+	for(i = 2; i <= vars->length; i++) {
+
+		list * var = list_get_list(vars, i);
+		if(var) {
+			strcpy(varname, list_get_token(var, 1));
+			strcpy(value, list_get_token(var, 2));
+		}
+		
+		char * t = list_get_token(vars, i);
+		if(t) strcpy(varname, t);
+		
+		if(varname[0] != '-') {
+				strcpy(varneg, "-");
+				strcat(varneg, varname);
+		} else {
+			strcpy(varneg, varname+1);
+		}
+		
+		if((howtobind & STRICT)) {
+			if(!list_contains(namespace, varname) && !list_contains(namespace, varneg)) continue;
+		} else {
+			if(list_contains(namespace, varneg)) return 0;
+		}
+		
+		if(list_contains(namespace, varneg)) return 0;
+		
+		if(strlen(value)) {
+			list * cvar = list_find_list(namespace, varname);
+			if(!cvar) continue;
+			
+			char * cval = list_get_token(cvar, 2);
+			if(strcmp(cval, value)) return 0;
+		}
+			
+	}
+	return 1;
+}
+
 int tranny_howtobind_ops(monad * m) {
 
 	char * command = list_get_token(m->command, 1);
