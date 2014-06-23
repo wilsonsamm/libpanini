@@ -8,6 +8,10 @@
 (df kanji (flags 本 hon) (call kyouiku 1)  (lit 本))
 (df kanji (flags 本 hon) (call kyouiku -1) (call mora ho) (call mora n) (space))
 
+; OTOKO - a man
+(df kanji (flags 男 otoko) (call kyouiku 1) (lit 男))
+(df kanji (flags 男 otoko) (call kyouiku -1) (call mora o) (call mora to) (call mora ko))
+
 ;; KYOUIKU LEVEL 2
 ; BU - A part
 (df kanji (flags 部 bu he) (call kyouiku  2) (lit 部))

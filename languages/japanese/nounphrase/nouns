@@ -18,3 +18,8 @@
 	(call #)
 	(seme (head room)))
 	
+(df noun
+	(call kanji 男 otoko)
+	(record otoko)
+	(call #)
+	(seme (head man)))

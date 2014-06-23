@@ -55,20 +55,42 @@ As you can see, the grammar above produced some good English sentence, some dubi
 is that Backus-Naur describes a context-free grammar. Context is what says, for example, that Norwegian is spoken, but not seen. And
 that we can see or love "him", but not speak "him".
 
-\section{Brief introduction to the Panini}
+\section{Brief introduction to Panini, the programming language}
 Like Backus-Naur, Panini also describes grammar. But the difference is that Panini describes the contextual implications of a 
 grammatical rule too. It also looks a bit different. Earlier, you saw a definition for "sentence" in Backus-Naur. Here is the same 
 definition in Panini:
 \begin{lstlisting}
 (df sentence
-	(constituent subject)
-	(constituent predication)
-	(constituent punct))
+	(call subject)
+	(call predication)
+	(call punct))
 \end{lstlisting}
-Note that everything is wrapped in parentheses. The first word in the parentheses is "df", which is short for "definition". The next
-word is the symbol that we want to define, "sentence". After that come any number of instructions enveloped by parentheses. In this
-example, there are instructions, each beginning with the word "constituent". These are instructions to try to parse a constituent 
-named by the second word inside the parentheses.
+Note that everything is wrapped in parentheses. The first word in the parentheses is \emph{df}, which is short for "definition". The
+next word is the symbol that we want to define, \emph{sentence}. After that come any number of instructions enveloped by 
+parentheses. In this example, there are instructions, each beginning with the word \emph{call}. These are instructions to try to 
+parse a constituent named by the second word inside the parentheses. 
+
+Let's define a few more symbols:
+\begin{lstlisting}
+(df predication
+	(call verb intransitive))
+(df predication
+	(call verb transitive)
+	(call object))
+\end{lstlisting}
+Here, you can see that the \emph{call} instruction is followed by sometimes one word, and sometimes two. In the previous paragraph I
+said that \emph{call} tries to resolve a symbol named by the second word in the parentheses. The third (and there may be many more
+after this) are called flags, and serve to define more narrowly which rules may apply. The rules may contain the \emph{flags} 
+instruction, together with any token you want to flag the rule with. When it is called, it is checked to see that all the flags in 
+the \emph{call} instruction are also in the flag list in the rule. If you have another look at the Backus-Naur form above, you can 
+see that we needed to define the verb "love" twice, because it occurs with an object or without one. 
+Panini offers a more elegant solution, because you may define a verb as being both transitive and intransitive. Here's how:
+\begin{lstlisting}
+(df verb
+	(flags transitive intransitive)
+	(lit love)
+	(seme (head love)))
+\end{lstlisting}
 
 
 \label{end}\end{document}

@@ -1,0 +1,35 @@
+
+(for number (singular plural)
+(df noun
+	(flags ji/ma .number)
+	(rection (class ji/ma) (number .number) -locative)
+	(constituent prefix ji/ma .number)
+	(constituent nounstem ji/ma)
+	(space)
+	(seme (number .number))
+	(clues (class nominal)))
+(df noun
+	(flags ji/ma .number)
+	(rection (class ji/ma) (number .number) locative)
+	(constituent prefix ji/ma .number)
+	(constituent nounstem ji/ma)
+	(lit ni)
+	(space)
+	(seme (number .number))
+	(clues (class nominal))))
+	
+
+; To add a (JI)/MA-class noun to the dictionary, include these flags:
+;    ji/ma    - this is (JI)/MA class nounstem
+;
+; And (rection -ji) if the noun does not take the ji- prefix in the singular, and (rection ji) if it does.
+
+(df nounstem
+	(lit cho)
+	(rection ji)
+	(seme (head eye)))
+
+(df nounstem
+	(lit hoteli)
+	(rection -ji)
+	(seme (head hotel)))
