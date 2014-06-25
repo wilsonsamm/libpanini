@@ -22,16 +22,26 @@ grammar. Here is a possible grammar that matches some simple sentences, describe
          sentence ::= <subject> <predication> <punct>
       predication ::= <verb-intransitive>
       predication ::= <verb-transitive> <object>
-  verb-transitive ::= "love" | "see" | "dig" | "speak"
-verb-intransitive ::= "love" | "weep" 
-          subject ::= "I" | "you"
-           object ::= "me" | "you" | "him" | "Norwegian"
-            punct ::= "." | "?" | "!"
+  verb-transitive ::= "love"
+  verb-transitive ::= "see"
+  verb-transitive ::= "dig"
+  verb-transitive ::= "speak"
+verb-intransitive ::= "weep" 
+verb-intransitive ::= "weep" 
+          subject ::= "I"
+          subject ::= "you"
+           object ::= "me"
+           object ::= "you"
+           object ::= "him"
+           object ::= "Norwegian"
+            punct ::= "." 
+            punct ::= "?"
+            punct ::= "!"
 \end{lstlisting}
-Note a few things: anything on the left of the ::= symbol is a \emph{non-terminal}; that is, a thing that must somehow be reduced 
-down to a simpler things. Anything to the right of the ::= symbol is the thing or combination of things that the matching 
-non-terminal may be matched to. These may include both terminals and non-terminals. A \emph{terminal} is something that does not
-need further decomposition. Also note that a non-terminal non-terminal may decompose in several ways.
+Note a few things: anything on the left of ::= is a \emph{symbol}; that is, a thing that must somehow be reduced down to simpler 
+things. Anything to the right of ::= is the thing or combination of things that the symbol may be reduced to. These may include both
+terminals and non-terminals. A \emph{terminal} is something that does not need further decomposition. Also note that one
+non-terminal may decompose in several ways, and may be defined several times.
 
 Here is how this may describe a sentence. We will look up "sentence" above, and see that it consists of a subject and a predication.
 Looking up "subject", we see that it is one of "I" and "you". Let's choose "I". The next thing in the decomposition of a sentence is
@@ -84,13 +94,12 @@ after this) are called flags, and serve to define more narrowly which rules may 
 instruction, together with any token you want to flag the rule with. When it is called, it is checked to see that all the flags in 
 the \emph{call} instruction are also in the flag list in the rule. If you have another look at the Backus-Naur form above, you can 
 see that we needed to define the verb "love" twice, because it occurs with an object or without one. 
-Panini offers a more elegant solution, because you may define a verb as being both transitive and intransitive. Here's how:
+Panini offers a more elegant solution, because you may flag a verb with both transitive and intransitive. Here's how:
 \begin{lstlisting}
 (df verb
 	(flags transitive intransitive)
-	(lit love)
-	(seme (head love)))
+	(lit love))
 \end{lstlisting}
-
+(the \emph{lit} instruction matches the given word to the input, or appends it to the output).
 
 \label{end}\end{document}
