@@ -1,8 +1,9 @@
-#include <tranny.h>
+#include <panini.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
+#include "tranny.h"
 
 // To use this program, type:
 //  $ tranny srclang dstlang [OPTIONS ...] -- Sentence goes here.
@@ -13,9 +14,6 @@ int cl_one = 0;
 int cl_none = 0;
 int cl_trim = 0;
 int cl_all = 0;
-
-char * cl_orthography = 0;
-
 
 int main(int argc, char * argv[]) {
 
@@ -29,6 +27,10 @@ int main(int argc, char * argv[]) {
 	if(argc < 5) {
 		printf("To use this program, type:\n");
 		printf(" $ tranny srclang dstlang [OPTIONS ...] -- Sentence goes here.\n");
+		printf("srclang and dstlang are names/descriptions of the language to translate to and\nfrom, respectively.\n");
+		printf("Here are some examples:\n");
+		printf(" $ tranny english japanese -- I can see you.");
+		printf(" $ tranny english:american english:british -- How are y'all doing?");
 		return 1;
 	}
 
@@ -57,9 +59,6 @@ int main(int argc, char * argv[]) {
 			int t = atoi(argv[++i]);
 			monad_map(m, set_trace, &t, -1);
 		} else
-		if(!strcmp(argv[i], "orthography")) {
-			cl_orthography = argv[++i];
-		} else
 		if(!strcmp(argv[i], "t")) {		// Set threshold to something other than the default 20 (takes numerical argument)
 //			printf("%s = %d\n", argv[ i+1], atoi(argv[i+1]));
 			threshold = atoi(argv[++i]);
@@ -86,7 +85,7 @@ int main(int argc, char * argv[]) {
 	monad_map(m, set_intext, (void *)sentence, -1);
 	
 	/* Set the rules ready for translation from the original */
-	monad_rules(m, argv[1]);
+	languages(m, argv[1]);
 	
 	/* Parse! */
 	monad_map(m, set_stack, "(constituent main)", -1);
@@ -120,8 +119,12 @@ int main(int argc, char * argv[]) {
 	/* Set the rules ready for translation to the wanted language (but of course we don't need to do that if the source language 
 	 * and destination language are the same, or if "none" is specified). */
 	if(strcmp(argv[2], "none")) {
-		if(strcmp(argv[1], argv[2]))
-			monad_rules(m, argv[2]);
+		if(strcmp(argv[1], argv[2])) {
+			if(languages(m, argv[2])) {
+				if(cl_verbose) printf("Unknown language code %s\n", argv[2]);
+				exit(127);
+			}
+		}
 	} else {
 		cl_none = 1;
 	}
@@ -129,24 +132,11 @@ int main(int argc, char * argv[]) {
 	/* Generate! */
 	if(!cl_none) {
 		
-		/* Construct the code to execute */
-		char * exec;
-		if(cl_orthography) {
-			exec = malloc(strlen("(constituent main) (language (orthography ))") + strlen(cl_orthography) + 1);
-			strcpy(exec, "(language (orthography ");
-			strcat(exec, cl_orthography);
-			strcat(exec, "))");
-		} else {
-			exec = malloc(strlen("(constituent main)") + 1);
-			exec[0]='\0';
-		}
-		strcat(exec, "(constituent main)");
-		
-		if(cl_verbose) printf("Going to execute %s\n", exec);
 		/* Prepare the monads for generation */
 		monad_map(m, remove_ns, "rection", -1);
+		monad_map(m, remove_ns, "record", -1);
 		monad_map(m, remove_ns, "theta", -1);
-		monad_map(m, set_stack, exec, -1);
+		monad_map(m, set_stack, "(call main)", -1);
 		
 		for(; i <= threshold * 2; i++) {
 			retval = monad_map(m, tranny_generate, (void *)0, i);

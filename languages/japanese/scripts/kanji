@@ -24,6 +24,11 @@
 (df kanji (flags 室 ya)        (call kyouiku -3) (call mora ya))
 (df kanji (flags 室 shitsu)    (call kyouiku -3) (call mora si) (call mora tu))
 
+; KIMI - you
+(df kanji (flags 君 kimi kun) (call kyouiku  3) (lit 君))
+(df kanji (flags 君 kimi)     (call kyouiku -3) (call mora ki) (call mora mi))
+(df kanji (flags 君 kun)      (call kyouiku -3) (call mora ku) (call mora n))
+
 ;; KYOUIKU LEVEL 4
 ; AI - Love
 (df kanji (flags 愛 ai) (call kyouiku 4)  (lit 愛))

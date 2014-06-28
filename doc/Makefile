@@ -9,5 +9,5 @@ programming.pdf: programming.tex
 	pdflatex programming
 
 clean:
-	rm -f *.pdf *.aux *.out *.log
+	rm -f *.aux *.out *.log
 	

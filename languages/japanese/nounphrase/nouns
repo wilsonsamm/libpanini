@@ -23,3 +23,9 @@
 	(record otoko)
 	(call #)
 	(seme (head man)))
+
+(df noun
+	(call kanji 君 kimi)
+	(record kimi)
+	(call #)
+	(seme (head referential) (person second)))

@@ -11,8 +11,7 @@
 (include scripts/kanji)
 (include scripts/katakana)
 (include scripts/romaji)
-
-(include orthography)
+(include scripts/orthography)
 
 (include verbphrase/suru)
 (include verbphrase/verbs)

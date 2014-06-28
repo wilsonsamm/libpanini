@@ -1,7 +1,12 @@
 
+;(df substantive
+;	(flags subject object)
+;	(constituent dp))
+
+; Just experimenting with my new generative approach
 (df substantive
 	(flags subject object)
-	(constituent dp))
+	(constituent nounphrase))
 
 (df substantive
 	(flags subject)

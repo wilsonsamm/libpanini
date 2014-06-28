@@ -27,7 +27,6 @@
 (include punctuation)
 
 (df main
-	(fuzzy 1 language (orthography classical))  ; By default, we'll generate classical spellings.
 	(constituent supplementation)
 	(call punctuation sentence-final))
 
