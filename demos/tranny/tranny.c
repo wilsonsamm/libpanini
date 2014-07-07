@@ -120,6 +120,7 @@ int main(int argc, char * argv[]) {
 	 * and destination language are the same, or if "none" is specified). */
 	if(strcmp(argv[2], "none")) {
 		if(strcmp(argv[1], argv[2])) {
+			monad_map(m, remove_ns, "language", -1);
 			if(languages(m, argv[2])) {
 				if(cl_verbose) printf("Unknown language code %s\n", argv[2]);
 				exit(127);
@@ -154,7 +155,6 @@ int main(int argc, char * argv[]) {
 		
 		monad_map(m, print_out, stdout, i);
 	}
-	
 	
 	monad_free(m);
 	free(sentence);

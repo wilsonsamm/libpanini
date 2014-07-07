@@ -50,12 +50,27 @@
 		(clues -human -animate -abstract -time space)))
 
 ; Things
-(for headword (axe thing banana book)
+(for headword (axe thing banana book eraser condom)
 	(df nounstem
 		(lit .headword)
 		(seme (head .headword))
 		(rection -enclosed -time countable)
 		(clues -human -animate -abstract -time -space)))
+
+(df nounstem
+	(lit rubber)
+	(seme (head eraser))
+	(language (norm british))
+	(rection -enclosed -time countable)
+	(clues -human -animate -abstract -time -space))
+	
+(df nounstem
+	(lit rubber)
+	(seme (head condom))
+	(rection -enclosed -time countable)
+	(fuzzy 10 language -formal)
+	(language (norm american))
+	(clues -human -animate -abstract -time -space))
 
 ; Times
 (for headword (day week year summer winter time)

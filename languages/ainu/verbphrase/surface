@@ -1,15 +1,104 @@
+;; This file describes the structure of a verb, from beginning to end, starting with the first slot, for personal prefices and 
+; ending with the last slot for valency-increasing operations.
 
-;(for valency (avalent monovalent bivalent copula trivalent))
-(for valency (monovalent bivalent)
-	(df verb
-		(flags .valency)
-		(constituent personal-prefix .valency)
-		(constituent personal-stem .valency)))
+;;;; PERSONAL PREFICES
+;; Transitive verbs take these prefices.
+; ECI - First person subject and second person object. 
+(df personal-prefix
+	(lit eci)
+	(theta -absolutive)
+	(seme (trajectory projective))
+	(into (theta subject) rection (person kuani))
+	(into (theta object)  rection (person eani)))
+
+; KU-0- First person subject and third person object.
+(df personal-prefix
+	(lit ku)
+	(theta -absolutive)
+	(seme (trajectory projective))
+	(into (theta subject) rection (person kuani))
+	(into (theta object)  rection (person ani)))
+
+; ECI - Second person subject and first person object. 
+(df personal-prefix
+	(lit eci)
+	(theta -absolutive)
+	(seme (trajectory projective))
+	(into (theta subject) rection (person eani))
+	(into (theta object)  rection (person kuani)))
 	
+; E-0- - Second person subject and third person object. 
+(df personal-prefix
+	(lit e)
+	(theta -absolutive)
+	(seme (trajectory projective))
+	(into (theta subject) rection (person eani))
+	(into (theta object)  rection (person ani)))
+
+; 0-EN- - Third person subject and first person object. 
+(df personal-prefix
+	(lit en)
+	(theta -absolutive)
+	(seme (trajectory projective))
+	(into (theta subject) rection (person ani))
+	(into (theta object)  rection (person kuani)))
+	
+; E-0- - Second person subject and third person object. 
+(df personal-prefix
+	(lit e)
+	(theta -absolutive)
+	(seme (trajectory projective))
+	(into (theta subject) rection (person eani))
+	(into (theta object)  rection (person ani)))
+	
+; 0-0- - Third person subject and third person object. 
+(df personal-prefix
+	(theta -absolutive)
+	(seme (trajectory projective))
+	(into (theta subject) rection (person ani))
+	(into (theta object)  rection (person ani)))
+
+;; INTRANSITIVE VERBS TAKE THESE PREFICES
+(df personal-prefix
+	(lit ku)
+	(theta -subject -object)
+	(into (theta absolutive) rection (person kuani)))
+(df personal-prefix
+	(lit e)
+	(theta -subject -object)
+	(into (theta absolutive) rection (person eani)))
+(df personal-prefix
+	(theta -subject -object)
+	(into (theta absolutive) rection (person ani)))
+
+;;;; VERBAL BASE
+; This calls a plain old stative verb.
+(df verbal-base
+	(theta absolutive -subject -object)
+	(call verbstem monotransitive))
+; This calls a plain old transitive verb.
+(df verbal-base
+	(theta -absolutive subject object)
+	(call verbstem transitive))
+
 (df verb
-	(constituent personal-stem monovalent)
-	(constituent personal-suffix))
+	(call personal-prefix)
+	(call verbal-base)
+	(call personal-suffix)
+	(space))
 	
 (df copula
 	(into copula constituent personal-prefix monovalent)
 	(lit ne) (space))
+
+;;;; PERSONAL SUFFICES
+(df personal-suffix
+	(theta -absolutive))
+
+(df personal-suffix
+	(into (theta absolutive) rection (person okayan))
+	(lit an))
+
+(for person (kuani eani ani eciokay okay)
+(df personal-suffix
+	(into (theta absolutive) rection (person .person))))

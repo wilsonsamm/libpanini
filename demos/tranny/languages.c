@@ -45,7 +45,9 @@ int var_assert(monad * m, char * namespace, char * varname, char * value) {
 int languages_english(monad * m, char * language) {
 	monad_rules(m, "english");
 	if(strstr(language, ":british"))   var_assert(m, "language", "orthography", "british");
+	if(strstr(language, ":british"))   var_assert(m, "language", "norm",        "british");
 	if(strstr(language, ":american"))  var_assert(m, "language", "orthography", "american");
+	if(strstr(language, ":american"))  var_assert(m, "language", "norm",        "american");
 	if(strstr(language, ":yorkshire")) var_assert(m, "language", "region",      "yorkshire");
 	
 	return 0;

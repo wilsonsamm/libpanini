@@ -8,7 +8,7 @@
 ; these are just two shades of the one colour, "hure").
 (df verbstem
 	(lit hure)
-	(flags stative colour)
+	(flags stative)
 	(fork
 		((seme (head red)))
 		((seme (head pink)))))
@@ -16,7 +16,7 @@
 ; "Inkar" means "see"
 (df verbstem
 	(lit inkar)
-	(flags intransitive perception active)
+	(flags intransitive)
 	(fork
 		((seme (head see)))
 		((seme (head watch)))))
@@ -24,13 +24,13 @@
 ; "Isam" can mean "dead"
 (df verbstem
 	(lit isam)
-	(flags stative animacy)
+	(flags stative)
 	(seme (head dead)))
 
 ; Kasiw means "help"
 (df verbstem
 	(lit kasiw)
-	(flags binary assistance active)
+	(flags binary)
 	(seme (head help)))
 	
 ; Pirka means "beautiful" or "good"
@@ -50,7 +50,7 @@
 ; "Nukar" means "see"
 (df verbstem
 	(lit nukar)
-	(flags transitive perception active)
+	(flags transitive)
 	(theta (subject agent) (object patient))
 	(fork
 		((seme (head see)))
@@ -59,7 +59,7 @@
 ; "Omap" means "love"
 (df verbstem
 	(lit omap)
-	(flags transitive perception active)
+	(flags transitive)
 	(theta (roles perception))
 	(seme (head love)))
 

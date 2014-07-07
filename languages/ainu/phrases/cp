@@ -1,0 +1,11 @@
+(df cp
+	(phrase
+		(bar
+			(placement left)
+			(exec (call vp)))
+		(bar
+			(placement head)
+			(exec (call complementiser)))))
+
+(df complementiser
+	(rection (complementiser none)))

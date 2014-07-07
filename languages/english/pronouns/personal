@@ -16,12 +16,14 @@
 	(flags subject)
 	(lit thou) (space)
 	(rection (person thou) -plural)
-	(seme (head referential) (person second) (number singular)))
+	(seme (head referential) (person second) (number singular))
+	(fork ((language archaic)) ((language (region yorkshire)))))
 (df pronoun
 	(flags object)
 	(lit thee) (space)
 	(rection (person thou) -plural)
-	(seme (head referential) (person second) (number singular)))
+	(seme (head referential) (person second) (number singular))
+	(fork ((language archaic)) ((language (region yorkshire)))))
 
 ; Second person (this "you" form that is grammatically plural but does not necessarily have plural meaning)
 (df pronoun
@@ -29,6 +31,17 @@
 	(lit you) (space)
 	(rection (person you))
 	(seme (head referential) (person second)))
+
+; Second person plural "y'all"
+(df pronoun
+	(flags subject object)
+	(fork 
+		((lit y'all) (region america))
+		((lit yinz) (region pittsburg)))
+	(space)
+	(rection (person you))
+	(seme (head referential) (person second)))
+
 
 
 ; Third person singular

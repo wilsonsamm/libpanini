@@ -17,3 +17,11 @@
 	(flags absolutive)
 	(theta -subject -object)
 	(into (theta absolutive) constituent arg))
+
+(df argument
+	(flags absolutive-or-subject)
+	(call argument absolutive))
+
+(df argument
+	(flags absolutive-or-subject)
+	(call argument subject))

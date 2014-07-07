@@ -29,3 +29,9 @@
 	(record kimi)
 	(call #)
 	(seme (head referential) (person second)))
+
+(df noun
+	(call kanji 消 ke) (call mora si) (call mora go) (call mora mu)
+	(seme (head eraser))
+	(record keshi-gomu)
+	(call #))

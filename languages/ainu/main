@@ -1,5 +1,4 @@
 (include arguments/arguments)
-(include arguments/personal-affices)
 (include arguments/pronouns)
 
 (include nounphrase/np)
@@ -7,6 +6,8 @@
 (include nounphrase/suffices)
 (include nounphrase/rel-clauses)
 
+(include phrases/cp)
+(include phrases/vp)
 
 (include verbphrase/dictionary)
 (include verbphrase/surface)
@@ -21,6 +22,6 @@
 (include learn)
 
 (df main
-	(constituent complementiser-phrase)
+	(constituent cp)
 	(fullstop))
 

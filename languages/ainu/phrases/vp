@@ -1,0 +1,28 @@
+(df vp
+	(phrase
+	
+		(bar
+			(placement far left)
+			(exec 
+				(call argument absolutive-or-subject)))
+			
+		(bar
+			(placement left)
+			(exec
+				(call argument object)
+				(rection (arg subject)))) ; There can only be an object if there is also a subject.
+		
+		(bar
+			(placement head)
+			(exec
+				(phrase
+						
+					(bar
+						(placement left)
+						(exec
+							(fork
+								((seme negative) (call negator))
+								((seme -negative)))))
+					(bar
+						(placement head)
+						(exec (call verb))))))))

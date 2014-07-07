@@ -61,6 +61,9 @@ int tranny_generate(monad * m, void * nothing) {
 	
 	/* Is the command one of the ones deals with memory? */
 	if(tranny_memory(m, command)) return 1;
+
+	/* Is the command one of the ones that generates rules? */
+	if(tranny_phrase(m, command)) return 1;
 	
 	/* Is the command one of the ones that binds variables? */
 	if(tranny_binders(m, 1)) return 1;

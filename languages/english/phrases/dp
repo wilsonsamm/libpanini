@@ -3,7 +3,8 @@
 	(constituent determiner)
 	(adjunct adjp attributive)
 	(constituent noun)
-	(adjunct prepositional-phrases))
+	(adjunct prepositional-phrases)
+	)
 
 (df dp
 	(flashbulb determiner)

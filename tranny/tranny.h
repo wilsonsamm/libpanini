@@ -20,6 +20,8 @@ int tranny_exec(monad * m, char * command, int(reduce)(monad * m, list * l));
 /* These functions have to do with memory. */
 int tranny_memory(monad * m, char * command);
 
+/* These functions generate rules to execute */
+int tranny_phrase(monad * m, char * command);
 
 /* */
 int parse_reduce(monad * m, list * l);

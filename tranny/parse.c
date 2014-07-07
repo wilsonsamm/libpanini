@@ -3,36 +3,6 @@
 #include <string.h>
 #include <stdlib.h>
 
-//int parse_reduce(monad * m, list * l) {
-	//list * lit = list_find_list(l, "lit");
-	//if(lit) {
-		//char * l = list_get_token(lit, 2);
-		//if(strstr(m->intext + m->index, l)) {
-			//if(m->debug) {
-				//printf("parse_reduce skipped a rule because it had (lit %s) which is bound to fail.\n", l);
-			//}
-			//return 1;
-		//}
-	//}
-	
-	//list * makedef = list_find_list(l, "makedef");
-	//if(makedef) {
-		//if(m->debug) {
-			//printf("parse_reduce skipped a rule because it had a makedef instruction which is bound to fail.\n");
-		//}
-		//return 1;
-	//}
-	
-	//list * attest = list_find_list(l, "attest");
-	//if(attest) {
-		//if(m->debug) {
-			//printf("parse_reduce skipped a rule because it had an attest instruction which is bound to fail.\n");
-		//}
-		//return 1;
-	//}
-	//return 0;
-//}
-
 void parse_record(monad * m) {
 	list * r = list_find_list(m->namespace, "record"); 
 	if(!r) {
@@ -43,7 +13,6 @@ void parse_record(monad * m) {
 	list_append_token(r, list_get_token(m->command, 2));
 	return;
 }
-	
 
 void into_spawner_head(monad * m) {
 	
@@ -298,6 +267,9 @@ int tranny_parse(monad * m, void * nothing) {
 
 	/* Is the command one of the ones that binds variables? */
 	if(tranny_binders(m, 0)) return 1;
+
+	/* Is the command one of the ones that generates rules? */
+	if(tranny_phrase(m, command)) return 1;
 	
 	if(!strcmp(command, "record")) {
 		parse_record(m);

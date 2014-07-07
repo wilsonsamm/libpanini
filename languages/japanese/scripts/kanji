@@ -29,6 +29,10 @@
 (df kanji (flags 君 kimi)     (call kyouiku -3) (call mora ki) (call mora mi))
 (df kanji (flags 君 kun)      (call kyouiku -3) (call mora ku) (call mora n))
 
+; KESU - extinguish
+(df kanji (flags 消 ke) (call kyouiku  3) (lit 君))
+(df kanji (flags 消 ke) (call kyouiku -3) (call mora ke))
+
 ;; KYOUIKU LEVEL 4
 ; AI - Love
 (df kanji (flags 愛 ai) (call kyouiku 4)  (lit 愛))
