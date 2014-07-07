@@ -16,7 +16,7 @@ monad * monad_new() {
 	m->child = 0;
 	m->command = 0;
 	m->id = 1;
-	m->outtext = strdup("");
+	m->outtext = 0;
 	m->index = 0;
 	m->trace = 0;
 	m->debug = 0;

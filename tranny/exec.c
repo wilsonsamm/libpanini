@@ -197,6 +197,7 @@ void tranny_fuzzy(monad * m) {
 	
 	monad_join(m, monad_spawn(m, rules, 0));
 	m->alive = 0;
+	list_free(rules);
 }
 
 int tranny_exec_ops(monad * m, char * command, int(reduce)(monad * m, list * l)) {

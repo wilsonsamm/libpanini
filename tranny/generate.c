@@ -4,26 +4,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-//int generate_reduce(monad * m, list * l) {
-	//list * makedef = list_find_list(l, "makedef");
-	//if(makedef) {
-		//if(m->debug) {
-			//printf("generate_reduce skipped a rule because it had a makedef instruction which is bound to fail.\n");
-		//}
-		//return 1;
-	//}
-	
-	//list * attest = list_find_list(l, "attest");
-	//if(attest) {
-		//if(m->debug) {
-			//printf("generate_reduce skipped a rule because it had an attest instruction which is bound to fail.\n");
-		//}
-		//return 1;
-	//}
-	
-	//return 0;
-//}
-
 void generate_record(monad * m) {
 	list * r = list_find_list(m->namespace, "record"); 
 	if(!r) return;
@@ -35,6 +15,7 @@ void generate_record(monad * m) {
 	}
 	return;
 }
+
 int tranny_generate(monad * m, void * nothing) {
 	if(!m->alive) return 0;
 	
