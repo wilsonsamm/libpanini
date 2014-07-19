@@ -107,6 +107,7 @@ int languages(monad * m, char * langname) {
 	else if(!shortstrcmp(langname, "swahili"))  languages_swahili(m, langname);
 	else if(!shortstrcmp(langname, "nahuatl"))  languages_nahuatl(m, langname);
 	else if(!shortstrcmp(langname, "ainu"))     languages_ainu(m, langname);
+	else if(!shortstrcmp(langname, "czech"))    languages_czech(m, langname);
 	else return 1;
 	return 0;
 }

@@ -145,6 +145,7 @@ clean: lang-clean
 	make -C demos/kanjify clean
 	make -C utils clean
 	make -C doc clean
+	make -C imports clean
 	
 # Git commands might be useful to have in a Makefile.
 pull:

@@ -8,7 +8,9 @@
 #define UNDEF 3
 
 /* Undefine this token if you want to leave out bounds checking in the functions list_get_token and list_get_list. 
- * This speeds the program up. But you might like to keep bounds checking if you are debugging. */
+ * This speeds the program up. But you might like to keep bounds checking if you are debugging. 
+ * In that case, if something tries to access something outside the range of the list, those functions will return the
+ * null pointer and the program will segfault and you can then determine why in your debugger. */
 //#define BOUNDSCHECK
 
 /* Define how much space to allocate to the list each time it needs to be extended */

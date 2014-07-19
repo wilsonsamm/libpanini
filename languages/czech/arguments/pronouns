@@ -30,3 +30,20 @@
 	(fork ((lit ti)) ((lit tobě))) (space)
 	(rection (case dative) (person second) (number singular))
 	(seme (head referential) (person second) (number singular)))
+
+	
+;; THIRD PERSON SINGULAR
+(df pronoun
+	(lit on) (space)
+	(rection (case nominative) (person third) (number singular) (gender masculine))
+	(seme (head referential) (person third) (number singular) (gender male)))
+
+(df pronoun
+	(fork ((lit ho)) ((lit tebe))) (space)
+	(rection (case accusative) (person third) (number singular) (gender masculine))
+	(seme (head referential) (person third) (number singular) (gender male)))
+	
+(df pronoun
+	(fork ((lit mu)) ((lit tobě))) (space)
+	(rection (case dative) (person third) (number singular) (gender masculine))
+	(seme (head referential) (person third) (number singular) (gender male)))
