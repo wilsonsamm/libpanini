@@ -67,7 +67,7 @@ char * append_string(char * x, char * y) {
 	return retval;
 }
 
-int makeentry(char * kanji, char * token, char * jouyou, char * negjouyou) {
+int makeentry(char * kanji, char * jis, char * token, char * jouyou, char * negjouyou) {
 	int i = 0;
 	int offset = 0;
 	
@@ -77,6 +77,7 @@ int makeentry(char * kanji, char * token, char * jouyou, char * negjouyou) {
 	char * kana   = strdup(""); /* This will contain the instructions to call the kana */
 	char * def1   = strdup(""); /* This will contain the definition for the kanji. */
 	char * def2   = strdup(""); /* This will contain the definition for the kanji. */
+	char * learn  = strdup(""); /* This will contain the definition for the kanji. */
 	for(;;) {
 		/* If the token does not start with hiragana, then assume it's not a reading for the kanji. */
 		if(!strcmp(hiragana[i], "")) return 0;
@@ -104,15 +105,16 @@ int makeentry(char * kanji, char * token, char * jouyou, char * negjouyou) {
 		free(def2);
 		return 1;
 	}
-		
 	
 	/* Construct the definition that matches/outputs the kanji. */
-	def1 = append_string(def1, "(df kanji ");
+	def1 = append_string(def1, "(segment (underlying ");
+	def1 = append_string(def1, jis);
+	def1 = append_string(def1, "-");
+	def1 = append_string(def1, romaji);
+	def1 = append_string(def1, ") ");
 	
 	/* Should have the kanji itself and the reading for flags. */
-	def1 = append_string(def1, "(flags ");
-	def1 = append_string(def1, romaji);
-	def1 = append_string(def1, " ");
+	def1 = append_string(def1, "(surface ");
 	def1 = append_string(def1, kanji);
 	def1 = append_string(def1, ") ");
 	
@@ -121,19 +123,11 @@ int makeentry(char * kanji, char * token, char * jouyou, char * negjouyou) {
 	def1 = append_string(def1, jouyou);
 	def1 = append_string(def1, ") ");
 	
-	/* Should match/output the kanji */
-	def1 = append_string(def1, "(lit ");
-	def1 = append_string(def1, kanji);
-	def1 = append_string(def1, ")) ");
-	
 	/* Construct the definition that matches/outputs the kana. */
-	def2 = append_string(def2, "(df kanji ");
-	
-	/* Should have the kanji itself and the reading for flags. */
-	def2 = append_string(def2, "(flags ");
+	def2 = append_string(def2, "(segment (underlying ");
+	def2 = append_string(def2, jis);
+	def2 = append_string(def2, "-");
 	def2 = append_string(def2, romaji);
-	def2 = append_string(def2, " ");
-	def2 = append_string(def2, kanji);
 	def2 = append_string(def2, ") ");
 	
 	/* Should assert the jouyou grade */
@@ -145,13 +139,27 @@ int makeentry(char * kanji, char * token, char * jouyou, char * negjouyou) {
 	def2 = append_string(def2, kana);
 	def2 = append_string(def2, ") ");
 	
+	/* Construct the routine for learning kanji. */
+	learn = append_string(learn, "(df learnkanji (segment ");
+	learn = append_string(learn, jis);
+	learn = append_string(learn, "-");
+	learn = append_string(learn, romaji);
+	learn = append_string(learn, ") (addseg ");
+	learn = append_string(learn, jis);
+	learn = append_string(learn, "-");
+	learn = append_string(learn, romaji);
+	learn = append_string(learn, ") (adjunct learnkanji))");
+	
+	
 	printf("%s\n", def1);
 	printf("%s\n", def2);
+	printf("%s\n", learn);
+	
 	return 0;
 	
 }
 
-int readtokens(FILE * kanjidic, char * kanji) {
+int readtokens(FILE * kanjidic, char * jis, char * kanji) {
 	char * line = readline(kanjidic);
 	
 	char * jouyou = "";
@@ -193,7 +201,7 @@ int readtokens(FILE * kanjidic, char * kanji) {
 	char * token = line;
 	while(strstr(token, " ")) {
 		token = strstr(token, " ") + strlen(" ");
-		makeentry(kanji, token, jouyou, negjouyou);
+		makeentry(kanji, jis, token, jouyou, negjouyou);
 	}
 	return 0;
 }
@@ -214,14 +222,15 @@ int main(int argc, char * argv[]) {
 		if(!kanji) break;
 		if(!strlen(kanji)) break;
 		
-		printf("; KANJIDIC LINE %d ENTRY %s\n", i, kanji);
+		char * jis = readword(kanjidic);
 		
-		readtokens(kanjidic, kanji);
+		//printf("; KANJIDIC ENTRY %s, ON LINE %d, JIS CODE %s \n", kanji, i, jis);
+		
+		readtokens(kanjidic, jis, kanji);
 		i++;
+		
+		free(kanji);
+		free(jis);
 	}
 	return 0;
 }
-		
-		
-		
-		

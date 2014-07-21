@@ -1,6 +1,6 @@
 CCOPTS = -ggdb -c -Wall
 
-all: docs libpanini.a languages 
+all: docs  
 
 vlad: validate.o list.o list-tokenise.o monad.o parse.o generate.o learn.o bind.o spawn.o variables.o misc.o intext.o outtext.o exec.o binders.o memory.o phrase.o
 	gcc -o vlad validate.o list.o list-tokenise.o monad.o parse.o generate.o bind.o learn.o spawn.o variables.o misc.o intext.o outtext.o exec.o binders.o memory.o phrase.o
@@ -97,34 +97,30 @@ languages: lang-clean nahuatl swahili ainu english czech quenya japanese
 lang-clean:
 	rm -rf nahuatl swahili ainu english czech quenya japanese
 
-quenya: compiler
-	@echo Compiling Quenya.
-	@./tc quenya > quenya
-	
+# LANGUAGES
+ainu: compiler
+	@echo Compiling Ainu.
+	@./tc ainu > ainu
 czech: compiler
 	@echo Compiling Czech.
 	@./tc czech > czech
-	
 english: compiler
 	@echo Compiling English.
 	@./tc english > english
-
+japanese: panini-kanji compiler
+	@echo Compiling Japanese.
+	@./tc japanese > japanese
 nahuatl: compiler
 	@echo Compiling Nahuatl.
 	@./tc nahuatl > nahuatl
-
+quenya: compiler
+	@echo Compiling Quenya.
+	@./tc quenya > quenya
 swahili: compiler
 	@echo Compiling Swahili.
 	@./tc swahili > swahili
 
-japanese: compiler
-	@echo Compiling Japanese.
-	@./tc japanese > japanese
-
-ainu: compiler
-	@echo Compiling Ainu.
-	@./tc ainu > ainu
-	
+#
 install: 
 	mkdir -p /usr/panini/languages
 	mkdir -p /usr/panini/learned

@@ -3,48 +3,6 @@
 #include <string.h>
 #include <stdlib.h>
 
-int learning_reduce(monad * m, list * l) {
-	//list * lit = list_find_list(l, "lit");
-	//if(lit) {
-		//char * l = list_get_token(lit, 2);
-		//if(strstr(m->intext + m->index, l)) {
-			//if(m->debug) {
-				//printf("learning_reduce skipped a rule because it had (lit %s) which is bound to fail.\n", l);
-			//}
-			//return 1;
-		//}
-	//}
-	
-	return 0;
-}
-
-char * concat(char * a, char * b) {
-	char * c = malloc(strlen(a) + strlen(b) + 1);
-	strcpy(c, a);
-	strcpy(c + strlen(a), b);
-	free(a);
-	free(b);
-	return c;
-}
-
-char * strlist(list * l, char * takeme) {
-	int i = 0;
-	takeme = concat(takeme, strdup("("));
-	while(i < l->length) {
-		if(!l->types) break;
-		if(l->types[i] == TOKEN) {
-			char * tmp = concat(takeme, strdup((char *)l->data[i]));
-			takeme = concat(tmp, strdup(" "));
-		}
-		if(l->types[i] == LIST) {
-			takeme = strlist(l->data[i], strdup(takeme));
-		}
-		i++;
-	}
-	char * temp = concat(takeme, strdup(")"));
-	return temp;
-}
-
 void monad_learn_open(monad * m) {
 	if(!m->namespace) {
 		m->alive = 0;
@@ -328,7 +286,7 @@ int tranny_learn(monad * m, void * nothing) {
 	if(tranny_intext(m, command)) return 1;
 	
 	/* Is the command one of those that spawns other monads? */
-	if(tranny_exec(m, command, learning_reduce)) return 1;
+	if(tranny_exec(m, command, 0)) return 1;
 	
 	/* Is the command one of the ones deals with memory? */
 	if(tranny_memory(m, command)) return 1;

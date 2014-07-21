@@ -1,6 +1,7 @@
 #define LANGPATH "./languages/"
-#define LEARNEDPATH "/usr/tranny/learned/"
-#define ATTESTEDPATH "/usr/tranny/attested/"
+#define LEARNEDPATH "/usr/panini/learned/"
+#define ATTESTEDPATH "/usr/panini/attested/"
+#define IMPORTPATH "./import-"
 
 #include "../list/list.h"
 #include "compiler.h"
@@ -134,6 +135,7 @@ int main(int argv, char * argc[]) {
 	list_tokenise_chars(input, "(include main)");
 	load_file(input, LEARNEDPATH, argc[1]);
 	load_file(input, ATTESTEDPATH, argc[1]);
+	load_file(input, IMPORTPATH, argc[1]);
 
 	/* First run all the (include) commands. They take a filename as the first
 	 * argument, and loads that file, and appends it to the end of the input.

@@ -1,21 +1,13 @@
 
-all: panini-kanji
+all: panini-kanji panini-edict
 
-kanjidic:
-	@echo Copying /usr/share/edict/kanjidic to here
-	@cp /usr/share/edict/kanjidic ./
-
-kanjidic.locale: kanjidic
+kanjidic.locale: 
 	@echo Converting kanjidic to the current locale.
-	@cat kanjidic | iconv --from EUC-JISX0213 > kanjidic.locale
+	@cat /usr/share/edict/kanjidic | iconv --from EUC-JISX0213 > kanjidic.locale
 
-edict:
-	@echo Copying /usr/share/edict/edict to here
-	@cp /usr/share/edict/edict ./
-
-edict.locale: kanjidic
+edict.locale: 
 	@echo Converting edict to the current locale.
-	@cat edict | iconv --from EUC-JP > edict.locale
+	@cat /usr/share/edict/edict | iconv --from EUC-JP > edict.locale
 
 readword.o : readword.c read.h
 	gcc -g -c -ggdb readword.c
@@ -26,11 +18,20 @@ kanji.o: kanji.c
 kanji: kanji.o readword.o
 	gcc -ggdb -o kanji kanji.o readword.o
 
+edict.o: edict.c
+	gcc -g -c -ggdb edict.c
+
+edict: edict.o readword.o
+	gcc -o edict edict.o readword.o -lpanini
+
 deepclean: clean
 	rm -rf kanjidic
 
 clean:
-	rm -rf readword.o kanji.o kanjidic kanjidic.locale panini-kanji edict edict.locale kanji
+	rm -rf readword.o kanji.o edict.o kanjidic kanjidic.locale panini-kanji edict edict.locale kanji
 
 panini-kanji: kanji kanjidic.locale
-	./kanji | uniq > panini-kanji
+	./kanji | sort | uniq > panini-kanji
+
+panini-edict: edict edict.locale
+	./edict | sort | uniq > panini-edict
