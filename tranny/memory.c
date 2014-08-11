@@ -98,6 +98,7 @@ void remember(monad * m, char * memname) {
 	int i;
 	list * flashbulb = 0;
 	
+	if(!m->namespace) m->namespace = list_new();
 	list * memory = list_find_list(m->namespace, "memory");
 	if(!memory) return;
 	

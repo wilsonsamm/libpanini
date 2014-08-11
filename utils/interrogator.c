@@ -24,18 +24,17 @@ void prompt(monad * m, char * target, FILE * fp) {
 	char input[BUFLEN];
 	
 	fgets(input, BUFLEN, stdin);
+	if(!strlen(input)) return;
 	
 	tidyup(input);
 	strcat(input, ".");
-	
-	if(!strlen(input)) return;
 	
 	monad * n = monad_duplicate(m);
 	monad_rules(n, target);
 	
 	monad_map(n, (int(*)(monad *, void *))remove_ns, "rection", -1);
 	monad_map(n, (int(*)(monad *, void *))set_intext, input, -1);
-	monad_map(n, (int(*)(monad *, void *))set_stack, "(constituent Learn lemma)", -1);
+	monad_map(n, (int(*)(monad *, void *))set_stack, "(debug) (constituent Learn lemma)", -1);
 	monad_map(n, (int(*)(monad *, void *))tranny_learn, (void *)0, 5);
 	monad_map(n, (int(*)(monad *, void *))print_out, fp, 5);	
 	fflush(fp);

@@ -263,6 +263,13 @@ int set_trace(monad * m, int * n) {
 }
 
 int set_intext(monad * m, char * n) {
+	/* Round brackets need to be switched for square ones, for syntactic reasons. */
+	int i;
+	int len = strlen(n);
+	for(i=0; i<len; i++) {
+		if(n[i] == '(') n[i] = '[';
+		if(n[i] == ')') n[i] = ']';
+	}
 	m->intext = n;
 	m->index = 0;
 	return 0;
@@ -278,6 +285,7 @@ int set_stack(monad * m, char * stack) {
 
 	return 0;
 }
+
 int set_seme(monad * m, char * seme) {
 	if(!m->namespace) m->namespace = list_new();
 	list_remove(m->namespace, "seme");
@@ -288,16 +296,25 @@ int set_seme(monad * m, char * seme) {
 
 	return 0;
 }
+
 int print_out(monad * m, FILE * fp) {
 	if(m->outtext) fprintf(fp,"%s\n", m->outtext);
 	return 0;
 }
+
 int print_ns(monad * m, void * nothing) {
 	printf("\nMonad %d:\nBRAKE: %d\nCONFIDENCE: %d\n", m->id, m->brake, m->confidence);
 	list_prettyprinter(m->namespace);
 	printf("\n");
 	return 0;
 }
+
+int print_seme(monad * m, void * nothing) {
+	list * s = list_find_list(m->namespace, "seme");
+	list_prettyprinter(s);
+	return 0;
+}
+
 int remove_ns(monad * m, char * n) {
 	if(m->namespace) list_remove(m->namespace, n);
 	return 0;

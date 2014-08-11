@@ -3,6 +3,7 @@
 ; These rules provide the headwords and translations, respectively, of a dictionary.
 (df Headword
 	(clues (class nominal) (label n.))
+	(flags noun)
 	(constituent noun lemma))
 	
 (df Translation

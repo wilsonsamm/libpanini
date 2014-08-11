@@ -32,7 +32,7 @@ int check_syntax1(list * input) {
 		if(!command) {
 			c = list_get_token(input, i);
 
-			printf("What is the token %s doing here?\n", c);
+			fprintf(stderr, "What is the token %s doing here?\n", c);
 			return 1;
 		}
 

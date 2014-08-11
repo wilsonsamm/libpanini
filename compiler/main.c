@@ -1,7 +1,7 @@
 #define LANGPATH "./languages/"
 #define LEARNEDPATH "/usr/panini/learned/"
 #define ATTESTEDPATH "/usr/panini/attested/"
-#define IMPORTPATH "./import-"
+#define IMPORTPATH "./imports-"
 
 #include "../list/list.h"
 #include "compiler.h"

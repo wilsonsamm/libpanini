@@ -1,6 +1,6 @@
 #include "../monad/monad.h"
 
-#define LEARNPATH "/usr/tranny/learned/"
+#define LEARNPATH "/usr/panini/learned/"
 
 /* Given the name of a language, generate all the headwords in a chain of monads and return it. */
 monad * headwords(char * language);

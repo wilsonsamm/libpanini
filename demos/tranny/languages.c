@@ -62,8 +62,7 @@ int languages_japanese(monad * m, char * language) {
 	monad_rules(m, "japanese");
 	if(strstr(language, ":kyouiku="))  var_assert(m, "language", "kyouiku", strstr(language, ":kyouiku=") + 9);
 	if(strstr(language, ":romaji"))    m_do(m, "(call romaji)");
-	if(strstr(language, ":nokanji"))   m_do(m, "(language -kanji)");
-	if(strstr(language, ":nokanji"))   m_do(m, "(call hiragana)");
+	if(strstr(language, ":nokanji"))   m_do(m, "(language -kanji) (call hiragana)");
 	
 	return 0;
 }

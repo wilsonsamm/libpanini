@@ -37,6 +37,7 @@ int set_seme(monad * m, void * d); // SEME contains some meaning or other.
 int remove_ns(monad * m, void * n); // Takes something out of the namespace. 
 int print_out(monad * m, void * nothing); // Prints the OUTTEXT out.
 int print_ns(monad * m, void * nothing); // Prints the NAMESPACE out.
+int print_seme(monad * m, void * nothing); // Prints (seme ...) out.
 int kill_identical_outtexts(monad * m, void * nothing); // Kills monads that have the same OUTTEXT.
 int kill_least_confident(monad * m, void * nothing); // Kills monads except the most confident ones.
 int kill_braked_monads(monad * m, void * thr); // Kills monads where the BRAKE is higher than *(int*)thr.

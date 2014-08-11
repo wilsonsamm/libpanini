@@ -40,6 +40,7 @@ char * readline(FILE *fp) {
 			allocated += INCALLOC;
 			line = realloc(line, allocated);
 		}
+		line[i] = '\0';
 		c = fgetc(fp);
 	}
 	line[i] = '\0';
@@ -52,7 +53,7 @@ int skip_word(FILE * fp) {
 }
 
 int skip_line(FILE * fp) {
-	int c = fgetc(fp);
-	while(c != '\n' && c != '\r' && c != '\f') c = fgetc(fp);
+	char * line = readline(fp);
+	free(line);
 }
 	

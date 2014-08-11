@@ -1,5 +1,5 @@
 
-all: panini-kanji panini-edict
+all: ekan
 
 kanjidic.locale: 
 	@echo Converting kanjidic to the current locale.
@@ -9,14 +9,25 @@ edict.locale:
 	@echo Converting edict to the current locale.
 	@cat /usr/share/edict/edict | iconv --from EUC-JP > edict.locale
 
+ekan.out: ekan
+	@echo -n Number of lines to process: " "
+	@cat edict.locale | wc -l
+	@./ekan > ekan.out
+
 readword.o : readword.c read.h
-	gcc -g -c -ggdb readword.c
+	gcc -g -c -pg -ggdb readword.c
+	
+reading.o : reading.c reading.h
+	gcc -g -c -pg -ggdb reading.c
 
-kanji.o: kanji.c
-	gcc -g -c -ggdb kanji.c
+ekan: kanjidic.o edict.o readword.o kanjidic.locale edict.locale
+	gcc -pg -o ekan edict.o kanjidic.o readword.o -lpanini
 
-kanji: kanji.o readword.o
-	gcc -ggdb -o kanji kanji.o readword.o
+kanjidic.o: kanjidic.c
+	gcc -g -c -pg -ggdb kanjidic.c
+
+kanji: kanji.o readword.o reading.o
+	gcc -ggdb -o kanji kanji.o readword.o reading.o
 
 edict.o: edict.c
 	gcc -g -c -ggdb edict.c
@@ -28,7 +39,8 @@ deepclean: clean
 	rm -rf kanjidic
 
 clean:
-	rm -rf readword.o kanji.o edict.o kanjidic kanjidic.locale panini-kanji edict edict.locale kanji
+	rm -rf *.o kanjidic kanjidic.locale edict edict.locale ekan ekan.out
+	rm -rf gmon.out edict.locale
 
 panini-kanji: kanji kanjidic.locale
 	./kanji | sort | uniq > panini-kanji
