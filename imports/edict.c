@@ -18,9 +18,8 @@ monad * pmonad;
  * computer-readable dictionaries and provide something of a computational
  * linguistics Swiss Army knife. 
  * 
- * This program reads in edict and spits out Panini source code (the 
- * functional equivalent of (mostly) the same data, but usable by
- * libpanini.
+ * This program reads in edict and spits out Panini source code (the functional 
+ * equivalent of (mostly) the same data, but usable by libpanini.
  */
 
 /* This function, given these parameters, will determine the meaning of
@@ -164,6 +163,8 @@ int main(int argc, char * argv[]) {
 	pmonad = monad_new();
 	monad_rules(pmonad, "english");
 	
+	int elen = count_lines(edict);
+	
 	/* Read the edict file in line by line */
 	int i = 0;
 	for(;;) {
@@ -175,7 +176,7 @@ int main(int argc, char * argv[]) {
 		/* Every 32nd line, print out how far we've come. 
 		 * (This test is an optimisation; the terminal is a slow thing to print to.) */
 		if(i == (i & ~(017)))
-			fprintf(stderr, "EDICT importer: %d %s                            \r", i, headword);
+			fprintf(stderr, "EDICT importer: %d%% %s                            \r", (i*100)/elen, headword);
 		
 		/* Parse the line and try to generate Panini source code */
 		readentry(edict, headword, klist);

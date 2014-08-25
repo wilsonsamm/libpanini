@@ -1,0 +1,15 @@
+(include nouns/dict)
+
+(include reflex/ojibwe)
+(include reflex/cree-swampy)
+(include reflex/cree-moose)
+
+
+(df Headword
+	(clues (class nominal) (label ni))
+	(call nounstem inanimate)
+	(sandhi #))
+(df Headword
+	(clues (class nominal) (label na))
+	(call nounstem animate)
+	(sandhi #))

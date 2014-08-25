@@ -57,3 +57,19 @@ int skip_line(FILE * fp) {
 	free(line);
 }
 	
+int count_lines(FILE * fp) {
+	rewind(fp);
+	
+	int c = fgetc(fp);
+
+	int i = 0;
+		
+	while(c != EOF) {
+		if(c == '\n') i++;
+		c = fgetc(fp);
+	}
+	
+	rewind(fp);
+	
+	return i;
+}

@@ -50,7 +50,7 @@
 		(clues -human -animate -abstract -time space)))
 
 ; Things
-(for headword (axe thing banana book eraser condom)
+(for headword (axe thing banana book eraser condom boat)
 	(df nounstem
 		(lit .headword)
 		(seme (head .headword))

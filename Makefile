@@ -1,5 +1,11 @@
 CCOPTS = -ggdb -c -Wall
 
+nobuild:
+	@echo Do not invoke make directly.
+	@echo Use the enclosed script build.sh.
+	@echo You may also do "make docs" to generate documentation, which turns \
+			up in the
+	@echo docs/ directory.
 all: docs  
 
 vlad: validate.o list.o list-tokenise.o monad.o parse.o generate.o learn.o bind.o spawn.o variables.o misc.o intext.o outtext.o exec.o binders.o memory.o phrase.o
@@ -95,30 +101,7 @@ compiler-ontology.o: compiler/ontology.c compiler/compiler.h
 languages: lang-clean nahuatl swahili ainu english czech quenya japanese
 
 lang-clean:
-	rm -rf nahuatl swahili ainu english czech quenya japanese
-
-# LANGUAGES
-ainu: compiler
-	@echo Compiling Ainu.
-	@./tc ainu > ainu
-czech: compiler
-	@echo Compiling Czech.
-	@./tc czech > czech
-english: compiler
-	@echo Compiling English.
-	@./tc english > english
-japanese: panini-kanji compiler
-	@echo Compiling Japanese.
-	@./tc japanese > japanese
-nahuatl: compiler
-	@echo Compiling Nahuatl.
-	@./tc nahuatl > nahuatl
-quenya: compiler
-	@echo Compiling Quenya.
-	@./tc quenya > quenya
-swahili: compiler
-	@echo Compiling Swahili.
-	@./tc swahili > swahili
+	rm -rf nahuatl swahili ainu english czech quenya japanese algonquian
 
 #
 install: 
@@ -126,7 +109,7 @@ install:
 	mkdir -p /usr/panini/learned
 	mkdir -p /usr/panini/attested
 	chmod a=rxw /usr/panini/learned /usr/panini/attested
-	mv nahuatl swahili ainu czech english quenya japanese /usr/panini/languages
+	mv nahuatl swahili ainu czech english quenya japanese algonquian /usr/panini/languages
 	cp libpanini.a /usr/lib/
 	cp panini.h /usr/include
 

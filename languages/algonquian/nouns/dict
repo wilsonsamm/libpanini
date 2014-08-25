@@ -1,0 +1,9 @@
+(df nounstem
+	(flags inanimate)
+	(segments c ii m aa n)
+	(seme (head boat)))
+
+(df nounstem
+	(flags animate)
+	(segments e r e n i w a)
+	(seme (head man)))

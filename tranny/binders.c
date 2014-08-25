@@ -3,6 +3,13 @@
 #include <string.h>
 #include <stdlib.h>
 
+
+/* Here is a list of "how to bind" flags */
+#define STRICT	1 /* Variable must already be bound in GENERATE (but not in PARSE) */
+#define CREATE	2 /* Scopes may be created */
+#define WRITE	4 /* Variables may be created */
+#define BLOCK	8 /* Delete the variables, don't create them */
+
 int howtobind;
 
 /* Enter a scope
@@ -40,7 +47,11 @@ list * enter_scope(list * namespace, list * scopelist, int create, int debug) {
 	return namespace;
 }
 
-/* This function returns the place where the variables are bound. */
+/* This function returns the place where the variables are bound. 
+ * If the integer "create" is zero, then if the namespace does not exist, then 
+ * the function will return zero. Otherwise, the function will create the
+ * namespace if it does not exist, and then return it.
+ */
 list * get_namespace(monad * m, char * nsname, int create) {
 	list * namespace;
 	

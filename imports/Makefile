@@ -10,9 +10,7 @@ edict.locale:
 	@cat /usr/share/edict/edict | iconv --from EUC-JP > edict.locale
 
 ekan.out: ekan
-	@echo -n Number of lines to process: " "
-	@cat edict.locale | wc -l
-	@./ekan > ekan.out
+	./ekan > ekan.out
 
 readword.o : readword.c read.h
 	gcc -g -c -pg -ggdb readword.c
@@ -39,8 +37,8 @@ deepclean: clean
 	rm -rf kanjidic
 
 clean:
-	rm -rf *.o kanjidic kanjidic.locale edict edict.locale ekan ekan.out
-	rm -rf gmon.out edict.locale
+	rm -rf *.o kanjidic kanjidic.locale edict edict.locale edict.locale.tmp 
+	rm -rf ekan ekan.out gmon.out 
 
 panini-kanji: kanji kanjidic.locale
 	./kanji | sort | uniq > panini-kanji

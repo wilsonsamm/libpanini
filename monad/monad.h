@@ -7,11 +7,11 @@
 /* The path where we'll find our files */
 #define FN_PATH	"/usr/panini/languages/"
 
-/* Here is a list of "how to bind" flags */
-#define STRICT	1 /* Variable must already be bound in GENERATE (but not in PARSE) */
-#define CREATE	2 /* Scopes may be created */
-#define WRITE	4 /* Variables may be created */
-#define BLOCK	8 /* Delete the variables, don't create them */
+/* Here is a list of switches. These alter the programs' behaviour as they run.
+ */
+#define SPELLCHK	1 // Activates "spellchecker mode". 
+#define FORGIVE		2 // Forgives common grammatical mistakes.
+
 
 /* The monad. I have put all the pointers at the beginning of the monad
  * so as to keep alignment problems from swelling up the amount of memory
@@ -35,6 +35,7 @@ typedef struct _monad {
 	int debug;
 	int trace;
 	int confidence;
+	int switches;
 	struct _monad * adjunct;
 	int parent_id;
 	int id;
@@ -92,6 +93,8 @@ void monad_generate_forgive(monad * m);
 void monad_generate_readahead(monad * m);
 void monad_parse_segments(monad * m);
 
+char * strlist(list * l, char * takeme);
+
 char * evaluate(monad * m, list * var);
 void speculate(monad * m, char * namespace, char * varname);
 void bind_vars(monad * m);
@@ -115,5 +118,8 @@ int print_out(monad * m, FILE * fp);
 int unlink_the_dead(monad * m, void * nothing);
 int set_trace(monad * m, int * i);
 int kill_least_confident(monad * m, void * nothing); // Kills monads except the most confident ones.
+
+int set_switches(monad * m, int * s);
+int clear_switches(monad * m, int * s);
 
 #endif

@@ -6,3 +6,4 @@ int skip_word(FILE *fp);
 int skip_line(FILE *fp);
 
 
+int count_lines(FILE *fp);

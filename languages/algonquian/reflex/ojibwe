@@ -1,0 +1,31 @@
+; This file describes the sound changes from Proto-Algonquian to Ojibwe
+
+(segment (sandhi -c -#) (underlying a)  (surface a)  (language (language ojibwe)) (sandhi -#))
+(segment (sandhi -c  #) (underlying a)  (language (language ojibwe)) (sandhi #))
+(segment (sandhi -c)    (underlying e)  (surface i)  (language (language ojibwe)))
+(segment (sandhi -c)    (underlying i)  (surface i)  (language (language ojibwe)))
+(segment (sandhi -c)    (underlying o)  (surface o)  (language (language ojibwe)))
+
+(segment (sandhi -c)    (underlying aa) (surface aa) (language (language ojibwe)))
+(segment (sandhi -c)    (underlying ee) (surface ee) (language (language ojibwe)))
+(segment (sandhi -c)    (underlying ii) (surface ii) (language (language ojibwe)))
+(segment (sandhi -c)    (underlying oo) (surface oo) (language (language ojibwe)))
+
+; The labial consonants
+(segment (sandhi (c m)   ) (underlying m)  (surface m)  (language (language ojibwe)))
+(segment (sandhi (c m)   ) (underlying p)  (surface b)  (language (language ojibwe)))
+(segment (sandhi (c m) -#) (underlying w)  (surface w)  (language (language ojibwe)) (sandhi -#))
+(segment (sandhi (c m)  #) (underlying w)               (language (language ojibwe)) (sandhiblock) (sandhi #))
+
+; The alveolar and dental consonants
+(segment (sandhi (c n)) (underlying r)  (surface n)  (language (language ojibwe)))
+(segment (sandhi (c n)) (underlying l)  (surface n)  (language (language ojibwe)))
+(segment (sandhi (c n)) (underlying n)  (surface n)  (language (language ojibwe)))
+
+; The postalveolar consonants
+(segment (sandhi (c n)) (underlying c)  (surface j)  (language (language ojibwe)))
+
+
+; (this one does funny stuff when it's the first member of clusters)
+(segment (underlying th) (surface n)  (language (language ojibwe)) (sandhi -c))
+(segment (underlying th) (surface m)  (language (language ojibwe)) (sandhi (c m)))

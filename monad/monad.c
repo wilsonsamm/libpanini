@@ -26,7 +26,9 @@ monad * monad_new() {
 	m->brake = 0;
 	m->intext = 0;
 	m->outtext = 0;
+	m->switches = 0;
 	m->parent_id = 0;
+	
 
 	return m;
 }
@@ -392,3 +394,13 @@ int unlink_the_dead(monad * m, void * nothing) {
 	
 	return 1;
 }
+
+int set_switches(monad * m, int * s) {
+	m->switches |= *s;
+	return 1;
+}
+int clear_switches(monad * m, int * s) {
+	m->switches &= ~*s;
+	return 1;
+}
+

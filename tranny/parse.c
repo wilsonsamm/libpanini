@@ -16,7 +16,7 @@ void parse_record(monad * m) {
 
 void into_spawner_head(monad * m) {
 	
-	list * ns = get_namespace(m, "seme", CREATE);
+	list * ns = get_namespace(m, "seme", 1);
 	if(!ns) {
 		m->alive = 0;
 		return;
@@ -217,7 +217,7 @@ void monad_parse_open(monad * m) {
 }
 
 void monad_parse_check(monad * m) {
-	list * checks = get_namespace(m, "checks", CREATE);
+	list * checks = get_namespace(m, "checks", 1);
 	char * check = list_get_token(m->command, 2);
 	
 	if(list_contains(checks, check)) {
