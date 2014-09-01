@@ -100,6 +100,29 @@ int languages_nahuatl(monad * m, char * language) {
 	return 0;
 }
 
+/* The cree language option has these options:
+ *   :plains    Plains Cree
+ *   :woods     Woods Cree
+ *   :moose     Moose Cree
+ */
+int languages_cree(monad * m, char * language) {
+	monad_rules(m, "algonquian");
+	m_do(m, "(language (language cree))");
+	if(strstr(language, ":plains"))  m_do(m, "(language (language cree) (dialect plains))");
+	if(strstr(language, ":woods"))   m_do(m, "(language (language cree) (dialect woods))");
+	if(strstr(language, ":moose"))   m_do(m, "(language (language cree) (dialect moose))");
+	
+	return 0;
+}
+
+/* The Ojibwe language option does not have any dialect switches (yet)
+ */
+int languages_ojibwe(monad * m, char * language) {
+	monad_rules(m, "algonquian");
+	m_do(m, "(language (language ojibwe))");
+	return 0;
+}
+
 int languages(monad * m, char * langname) {
 	     if(!shortstrcmp(langname, "english"))  languages_english(m, langname);
 	else if(!shortstrcmp(langname, "japanese")) languages_japanese(m, langname);
@@ -107,6 +130,8 @@ int languages(monad * m, char * langname) {
 	else if(!shortstrcmp(langname, "nahuatl"))  languages_nahuatl(m, langname);
 	else if(!shortstrcmp(langname, "ainu"))     languages_ainu(m, langname);
 	else if(!shortstrcmp(langname, "czech"))    languages_czech(m, langname);
+	else if(!shortstrcmp(langname, "cree"))     languages_cree(m, langname);
+	else if(!shortstrcmp(langname, "ojibwe"))   languages_ojibwe(m, langname);
 	else return 1;
 	return 0;
 }

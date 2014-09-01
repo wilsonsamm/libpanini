@@ -1,0 +1,29 @@
+;
+(segment (sandhi -c -#) (underlying a)  (surface a)  (language (language cree) (dialect moose)) (sandhi -#))
+(segment (sandhi -c  #) (underlying a)  (language (language cree) (dialect moose)) (sandhi #))
+(segment (sandhi -c)    (underlying e)  (surface i)  (language (language cree) (dialect moose)))
+(segment (sandhi -c)    (underlying i)  (surface i)  (language (language cree) (dialect moose)))
+(segment (sandhi -c)    (underlying o)  (surface o)  (language (language cree) (dialect moose)))
+
+(segment (sandhi -c)    (underlying aa) (surface aa) (language (language cree) (dialect moose)))
+(segment (sandhi -c)    (underlying ee) (surface ee) (language (language cree) (dialect moose)))
+(segment (sandhi -c)    (underlying ee) (surface ii) (language (language cree) (dialect woods)))
+(segment (sandhi -c)    (underlying ii) (surface ii) (language (language cree) (dialect moose)))
+(segment (sandhi -c)    (underlying oo) (surface oo) (language (language cree) (dialect moose)))
+
+; The labial consonants
+(segment (sandhi (c m)) (underlying m)  (surface m)  (language (language cree) (dialect moose)))
+(segment (sandhi (c m)) (underlying p)  (surface p)  (language (language cree) (dialect moose)))
+(segment (sandhi (c m)) (underlying w)  (surface w)  (language (language cree) (dialect moose)))
+
+; The alveolar and dental consonants
+(segment (sandhi (c n)) (underlying r)  (surface l)  (language (language cree) (dialect moose)))
+(segment (sandhi (c n)) (underlying l)  (surface l)  (language (language cree) (dialect moose)))
+(segment (sandhi (c n)) (underlying n)  (surface n)  (language (language cree) (dialect moose)))
+(segment (sandhi (c n)) (underlying t)  (surface t)  (language (language cree) (dialect moose)))
+(segment (sandhi (c n)) (underlying th) (surface t)  (language (language cree) (dialect moose)))
+(segment (sandhi (c n)) (underlying sh) (surface s)  (language (language cree) (dialect plains)))
+(segment (sandhi (c n)) (underlying sh) (surface š)  (language (language cree) (dialect moose)))
+
+; The postalveolar consonants
+(segment (sandhi (c n)) (underlying c)  (surface c)  (language (language cree) (dialect moose)))

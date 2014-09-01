@@ -9,10 +9,8 @@
 
 LANGUAGES="ainu czech english japanese nahuatl quenya swahili algonquian"
 
-# The first thing to do is to build the library.
+# The first thing to do is to build the library and the compiler.
 make libpanini.a
-
-# Next, build the compiler.
 make compiler
 
 # Next, we need to bootstrap each language and install
@@ -30,10 +28,8 @@ sudo make install
 # excellent open-source KANJIDIC and EDICT projects and converts them
 # to Panini source code.
 
-cat /usr/share/edict/edict | iconv --from EUC-JP > edict.locale.txt
-cat /usr/share/edict/kanjidic | iconv --from EUC-JP > imports/kanjidic.locale
-
-cat edict.locale.txt | uniq | sort > imports/edict.locale
+make -C imports kanjidic.locale
+make -C imports edict.locale
 
 rm -f imports-japanese
 make -C imports ekan.out
@@ -44,3 +40,6 @@ for lang in $LANGUAGES; do
 	echo Compiling $lang
 	./tc $lang > $lang
 done
+
+echo I am going to install libpanini now. I may need your password.
+sudo make install

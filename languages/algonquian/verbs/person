@@ -1,0 +1,17 @@
+(df personal-prefix
+	(segments n i)
+	(into (theta subject) rection (person third)))
+
+(df personal-prefix
+	(segments k i)
+	(into (theta subject) rection (person second)))
+
+(df pronominal
+	(segments w)
+	(into (theta subject) fork
+		((rection (person first)))
+		((rection (person second)))))
+
+(df pronominal
+	(segments n)
+	(into (theta subject) rection (person third)))

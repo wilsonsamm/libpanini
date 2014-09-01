@@ -90,7 +90,7 @@ Let's define a few more symbols:
 \end{lstlisting}
 Here, you can see that the \emph{call} instruction is followed by sometimes one word, and sometimes two. In the previous paragraph I
 said that \emph{call} tries to resolve a symbol named by the second word in the parentheses. The third (and there may be many more
-after this) are called flags, and serve to define more narrowly which rules may apply. The rules may contain the \emph{flags} 
+after this) are called flags, and serve to define more narrowly which symbols may be applied. The rules may contain the \emph{flags} 
 instruction, together with any token you want to flag the rule with. When it is called, it is checked to see that all the flags in 
 the \emph{call} instruction are also in the flag list in the rule. If you have another look at the Backus-Naur form above, you can 
 see that we needed to define the verb "love" twice, because it occurs with an object or without one. 
@@ -101,5 +101,21 @@ Panini offers a more elegant solution, because you may flag a verb with both tra
 	(lit love))
 \end{lstlisting}
 (the \emph{lit} instruction matches the given word to the input, or appends it to the output).
+
+In this way, Panini does exactly the same as the Backus-Naur notation. In the next section, you will see how Panini also provides
+more than context-free grammar.
+
+\section{Namespaces, scopes and variables}
+A variable is a small piece of information that is also addressed by name, and may optionally have some value attached to it. 
+Variables are kept in a scope, which may also contain other scopes. A scope can also be addressed by name. Several scopes may exist
+inside each other. In this way, we can build up information and representations of arbitrary complexity.
+
+Scopes live in namespaces. Namespaces have specific purposes. We will introduce two here. One namespace, called \emph{rection}, is,
+by convention, used to build up grammatical information about a phrase. This may be the gender of a noun, or the number and person
+of a subject, for instance. This information may be used again later on, to ensure that the correct suffix or article is used with
+the noun, or to ensure that a verb is conjugated correctly, for instance.
+
+Another namespace is called \emph{seme}. This is used to represent the meaning of a phrase.
+
 
 \label{end}\end{document}

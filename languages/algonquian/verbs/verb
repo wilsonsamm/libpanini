@@ -1,0 +1,6 @@
+(df verb
+	(call personal-prefix)
+	(call preverbs)
+	(call stem)
+	(call transitivity)
+	(call pronominal))

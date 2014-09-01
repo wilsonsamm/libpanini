@@ -1,0 +1,9 @@
+(df stem
+	(segments w aa p a m)
+	(seme (head see))
+	(theta (subject agent)))
+	
+(df stem
+	(segments n i p aa)
+	(seme (head sleep))
+	(theta (subject patient)))

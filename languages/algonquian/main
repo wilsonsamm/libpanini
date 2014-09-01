@@ -1,9 +1,16 @@
 (include nouns/dict)
 
+(include reflex/cree)
 (include reflex/ojibwe)
-(include reflex/cree-swampy)
-(include reflex/cree-moose)
 
+(include verbs/transitivity)
+(include verbs/person)
+(include verbs/preverbs)
+(include verbs/stem)
+(include verbs/verb)
+
+(df main
+	(call verb))
 
 (df Headword
 	(clues (class nominal) (label ni))

@@ -34,6 +34,12 @@
 	(rection -spatiodeixis))
 
 (df verbroot
+	(lit sleep)
+	(flags intransitive arg1:patient)
+	(seme (head sleep) -agent patient)
+	(rection -spatiodeixis))
+
+(df verbroot
 	(lit die)
 	(flags intransitive arg1:patient)
 	(seme (head dead) -agent patient)

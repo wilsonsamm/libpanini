@@ -251,6 +251,8 @@ int check_vars(list * namespace, list * vars) {
 			if(!cvar) continue;
 			
 			char * cval = list_get_token(cvar, 2);
+			if(!cval) continue;
+			
 			if(strcmp(cval, value)) return 0;
 		}
 			
