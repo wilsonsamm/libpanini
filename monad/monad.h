@@ -20,6 +20,7 @@ typedef struct _monad {
 	list * command;		/* Contains the command currently executing */
 	list * stack;		/* Contains the list of commands to execute next */
 	list * rules;		/* Rules for parsing */
+	int ralloc;
 	
 	list * namespace;	/* Variables can be bound in here. */
 	list * scopestack;	/* This keeps track of which scope we're currently in */

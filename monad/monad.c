@@ -9,6 +9,7 @@ monad * monad_new() {
 	monad * m = malloc(sizeof(monad));
 	
 	m->rules = 0;
+	m->ralloc = 0;
 	m->alive = 1;
 	m->namespace = 0;
 	m->scopestack = 0;
@@ -42,7 +43,8 @@ monad * monad_duplicate(monad * m) {
 	}
 	
 	monad * n = monad_new();
-	n->rules = 0;
+	n->rules = m->rules;
+	n->ralloc = 0;
 	n->alive = m->alive;
 	n->namespace = list_new();
 	if(m->namespace) list_append_copy(n->namespace, m->namespace);
@@ -66,6 +68,14 @@ monad * monad_duplicate(monad * m) {
 	return n;
 }
 
+monad * monad_duplicate_all(monad * m) {
+	if(!m) return 0;
+	
+	monad * n = monad_duplicate(m);
+	n->child = monad_duplicate_all(m->child);
+	return n;
+}
+
 void monad_set_trace(monad * m, int trace) {
 	while(m) {
 		m->trace = trace;
@@ -75,11 +85,9 @@ void monad_set_trace(monad * m, int trace) {
 
 void monad_free(monad * m) {
 	if(!m) return;
-
-	if(m->rules) list_free(m->rules);
 	
 	while(m) {
-		
+		if(m->ralloc) list_free(m->rules);
 		if(m->outtext)	free(m->outtext);
 		if(m->namespace)	list_free(m->namespace);
 		if(m->scopestack)	list_free(m->scopestack);
@@ -112,13 +120,12 @@ list * __monad_rule_loader(char * lang) {
 int monad_rules(monad * m, char * lang) {
 
 	list * rules = __monad_rule_loader(lang);
-
-	/* Free existing rules from the monads */
-	if(m->rules) list_free(m->rules);
-
+	m->rules = rules;
+	m->ralloc = 1;
 	/* Set the RULES register on all the monads to point to the rules we just
 	 * loaded */
 	while(m) {
+		m->ralloc = 0;
 		m->rules = rules;
 		m = m->child;
 	}
@@ -195,7 +202,6 @@ void monad_join(monad * to, monad * addition) {
 	last->child = temp;
 }
 
-
 /* This function calls the chosen function on the monads that:
  *  - are still alive. 
  *  - the BRAKE register must not be higher than the given threshold 
@@ -265,7 +271,8 @@ int set_trace(monad * m, int * n) {
 }
 
 int set_intext(monad * m, char * n) {
-	/* Round brackets need to be switched for square ones, for syntactic reasons. */
+	/* Round brackets need to be switched for square ones, for syntactic
+	 * reasons. */
 	int i;
 	int len = strlen(n);
 	for(i=0; i<len; i++) {

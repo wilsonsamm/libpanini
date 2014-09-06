@@ -37,8 +37,9 @@ deepclean: clean
 	rm -rf kanjidic
 
 clean:
-	rm -rf *.o kanjidic kanjidic.locale edict edict.locale edict.locale.tmp 
-	rm -rf ekan ekan.out gmon.out 
+	rm -rf *.o ekan
+	rm -rf kanjidic kanjidic.locale edict edict.locale edict.locale.tmp 
+	rm -rf ekan.out gmon.out 
 
 panini-kanji: kanji kanjidic.locale
 	./kanji | sort | uniq > panini-kanji

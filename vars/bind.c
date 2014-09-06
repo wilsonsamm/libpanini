@@ -185,28 +185,7 @@ void speculate(monad * m, char * namespace, char * varname) {
 char * evaluate(monad * m, list * e) {
 	/* The namespace */
 	char * ns = list_get_token(e,1);
-	list * namespace = 0;
-	
-	if(!m->namespace) m->namespace = list_new();
-	namespace = list_find_list(m->namespace, ns); 
-	if(!namespace) {
-		namespace = list_append_list(m->namespace);
-		list_append_token(namespace, ns);
-	}
-	
-	/* Then enter the right scope */
-	int i;
-	if(!m->scopestack) m->scopestack = list_new();
-	for(i = 1; i <= m->scopestack->length; i++) {
-		list * new;
-		char * scopename = list_get_token(m->scopestack, i);
-		if((new = list_find_list(namespace, scopename))) {
-			namespace = new;
-		} else {
-			namespace = list_append_list(namespace);
-			list_append_token(namespace, scopename);
-		}
-	}
+	list * namespace = get_namespace(m, ns);
 	
 	/* The variable's name (which can itself be evaluated) */
 	char * varname = list_get_token(e,2); 

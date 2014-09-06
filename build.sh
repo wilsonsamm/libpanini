@@ -32,6 +32,7 @@ make -C imports kanjidic.locale
 make -C imports edict.locale
 
 rm -f imports-japanese
+rm -f imports/ekan*
 make -C imports ekan.out
 cat imports/ekan.out >> imports-japanese
 

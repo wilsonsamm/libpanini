@@ -41,10 +41,13 @@ monad * pmonad;
  */
 int learnentry_func(char * headword, char * reading, char * ttemp, \
                  kanji * klist, char * postag, char * incode, char * jpos) {
+	
 	if(!klist) {
 		printf("No klist!\n");
 		return 0;
 	}
+	
+	
 	/* Remove the part-of-speech tag at the front of the translation. */
 	int poslen = strlen(postag);
 	if(!strncmp(ttemp, postag, poslen)) ttemp += poslen + 1;
@@ -61,16 +64,21 @@ int learnentry_func(char * headword, char * reading, char * ttemp, \
 	
 	if(!strlen(headword)) return 0;
 	
-	monad_map(pmonad, unlink_the_dead, (void*)0, -1);
-	monad_map(pmonad, set_intext, (void *)translation, -1);
-	monad_map(pmonad, set_stack, incode, -1);
-	if(!monad_map(pmonad, tranny_parse, (void *)0, 20)) return 0;
+	monad * m = monad_duplicate_all(pmonad);
+	monad_map(m, unlink_the_dead, (void*)0, -1);
+	monad_map(m, set_intext, (void *)translation, -1);
+	monad_map(m, set_stack, incode, -1);
+	if(!monad_map(m, tranny_parse, (void *)0, 20)) {
+		monad_free(m);
+		return 0;
+	}
 	
-	monad_map(pmonad, remove_ns, "rection", -1);
-	monad_map(pmonad, remove_ns, "record", -1);
-	monad_map(pmonad, remove_ns, "theta", -1);
-	monad_map(pmonad, remove_ns, "clues", -1);
-	monad_map(pmonad, remove_ns, "record", -1);
+	
+	monad_map(m, remove_ns, "rection", -1);
+	monad_map(m, remove_ns, "record", -1);
+	monad_map(m, remove_ns, "theta", -1);
+	monad_map(m, remove_ns, "clues", -1);
+	monad_map(m, remove_ns, "record", -1);
 
 	/* Find the kanji in the list */
 	while(klist) {
@@ -87,8 +95,6 @@ int learnentry_func(char * headword, char * reading, char * ttemp, \
 	
 	/* No kanji found? Then just stop here. */
 	if(!klist) return 0;
-
-	printf("; %s: %s\n", headword, translation);
 	
 	/* Define the Japanese word */
 	printf("(df %s ", jpos);
@@ -99,17 +105,21 @@ int learnentry_func(char * headword, char * reading, char * ttemp, \
 	free(r);
 	
 	/* It should have the right meaning */
-	monad_map(pmonad, kill_least_confident, (void *)0, -1);
-	monad_map(pmonad, print_seme, stdout, -1);
+	monad_map(m, kill_least_confident, (void *)0, -1);
+	monad_map(m, print_seme, stdout, -1);
 
 	printf(")\n");
+	
+	fprintf(stderr, "%s [%s] (%s) %s                           \n", \
+	        headword, reading, jpos, translation);
+	monad_free(m);
 	return 1;
 }
 
 int learnentry_n(char * headword, char * reading, char * translation, kanji * klist) {
 	if(learnentry_func(headword, reading, translation, klist, "(n)", "(constituent Headword noun)", "noun")) return 1;
 	if(learnentry_func(headword, reading, translation, klist, "(n,n-suf)", "(constituent Headword noun)", "noun")) return 1;
-}
+} 
 
 int learnentry(char * headword, char * reading, char * translation, kanji * klist) {
 	if(learnentry_n(headword, reading, translation, klist)) return 1;
