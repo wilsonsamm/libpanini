@@ -28,6 +28,7 @@ int monad_map(monad * m, int(*fn)(monad * m, void * argp), void * arg, int thres
 /* This function loads a particular language. */
 void monad_rules(monad * m, void * t);
 monad * monad_duplicate(monad * m); 
+monad * monad_duplicate_all(monad * m); 
 
 /* These following functions can be used with monad_map to set various parts of the state of all monads. */
 int set_trace(monad * m, void * n); // TRACE says "Set the debug flag on this monad."

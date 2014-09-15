@@ -59,7 +59,7 @@ int learnentry_func(char * headword, char * reading, char * ttemp, \
 		free(translation);
 		return 0;
 	}
-	slash[0] = ' ';
+	slash[0] = '.';
 	slash[1] = '\0';
 	
 	if(!strlen(headword)) return 0;
@@ -80,45 +80,84 @@ int learnentry_func(char * headword, char * reading, char * ttemp, \
 	monad_map(m, remove_ns, "clues", -1);
 	monad_map(m, remove_ns, "record", -1);
 
+	
+	/* this string will hold the code to generate the japanese word */
+	char * def = strdup("");
+	
 	/* Find the kanji in the list */
-	while(klist) {
-		if(!klist->glyph) return 0;
-		if(strcmp(klist->glyph, headword)) {
-			klist = klist->next;
-			//printf("\n;strcmp(\"%s\", \"%s\")\n", klist->glyph, headword); 
-			continue;
-		} else {
-			klist->used = 1;
-			break;
+	int offset = 0;
+	while(strlen(headword + offset)) {
+		
+		kanji * tklist = klist;
+		int i;
+		
+		while(tklist) {
+			if(!tklist->glyph) {
+				break;
+			}
+			//fprintf(stderr,"comparing kanji: %s.\n", tklist->glyph);
+			if(strncmp(tklist->glyph, headword + offset,strlen(tklist->glyph))) {
+				tklist = tklist->next;
+				continue;
+			} else {
+				tklist->used = 1;
+				char * r = transliterate(reading);
+				if(!r) {
+					free(def);
+					monad_free(m);
+					return 1;
+				}
+				def = append_string(strdup(def), "(segments ");
+				def = append_string(strdup(def), tklist->jiscode);
+				def = append_string(strdup(def), "-");
+				def = append_string(strdup(def), r);
+				def = append_string(strdup(def), ")(call #)");
+				
+				free(r);
+				
+				offset += strlen(tklist->glyph);
+			}
+		}
+		i = 0;
+		for(;;) {
+			if(!strlen(hiragana[i])) {
+				free(def);
+				monad_free(m);
+				return 1;
+			}
+			if(strncmp(headword+offset, hiragana[i], strlen(hiragana[i]))) {
+				i++;
+				continue;
+			} else {
+				def = append_string(def, "(call mora ");
+				def = append_string(def, latin[i]);
+				def = append_string(def, ")");
+				offset += strlen(hiragana[i]);
+				break;
+			}
 		}
 	}
 	
-	/* No kanji found? Then just stop here. */
-	if(!klist) return 0;
-	
-	/* Define the Japanese word */
+	/* Define a [whatever the part of speech is] */
+	printf("; %s [%s] (%s) %s\n", headword, reading, jpos, translation);
 	printf("(df %s ", jpos);
-	
-	/* It should call the right kanji,*/
-	char * r = transliterate(reading);
-	printf("(segments %s-%s) ", klist->jiscode, r);
-	free(r);
 	
 	/* It should have the right meaning */
 	monad_map(m, kill_least_confident, (void *)0, -1);
 	monad_map(m, print_seme, stdout, -1);
 
-	printf(")\n");
+	printf("%s)\n\n", def);
 	
 	fprintf(stderr, "%s [%s] (%s) %s                           \n", \
 	        headword, reading, jpos, translation);
 	monad_free(m);
+	free(def);
 	return 1;
 }
 
 int learnentry_n(char * headword, char * reading, char * translation, kanji * klist) {
-	if(learnentry_func(headword, reading, translation, klist, "(n)", "(constituent Headword noun)", "noun")) return 1;
-	if(learnentry_func(headword, reading, translation, klist, "(n,n-suf)", "(constituent Headword noun)", "noun")) return 1;
+	if(learnentry_func(headword, reading, translation, klist, "(n)", "(constituent Headword noun)(fullstop)", "noun")) return 1;
+	return 0;
 } 
 
 int learnentry(char * headword, char * reading, char * translation, kanji * klist) {
@@ -148,13 +187,13 @@ int readentry(FILE * kanjidic, char * headword, kanji * klist) {
 
 int main(int argc, char * argv[]) {
 	
-	FILE * edict = fopen("./edict.locale", "r");
+	FILE * edict = fopen("./edict.txt", "r");
 	if(!edict) {
 		fprintf(stderr, "Could not open the file edict.locale.\n");
 		fprintf(stderr, "Exiting.\n");
 	}
 	
-	FILE * kanjidic = fopen("./kanjidic.locale", "r");
+	FILE * kanjidic = fopen("./kanjidic.txt", "r");
 	if(!kanjidic) {
 		fprintf(stderr, "Could not open the file kanjidic.locale.\n");
 		fprintf(stderr, "Exiting.\n");
@@ -163,10 +202,8 @@ int main(int argc, char * argv[]) {
 	//skip_line(edict);
 	skip_line(kanjidic);
 	
-	fprintf(stderr, "I have opened both edict.locale and kanjidic.locale.\n");
 	/* Read in the kanjidic file. */
 	kanji * klist = readkanjidic(kanjidic);
-	fprintf(stderr, "Parsed the KANJIDIC file.\n");
 	
 	/* We'll need a panini monad later (this is used by learnentry_func)
 	 */
@@ -183,10 +220,11 @@ int main(int argc, char * argv[]) {
 		if(!headword) break;
 		if(!strlen(headword)) break;
 		
-		/* Every 32nd line, print out how far we've come. 
+		/* Every 256th line, print out how far we've come. 
 		 * (This test is an optimisation; the terminal is a slow thing to print to.) */
-		if(i == (i & ~(017)))
-			fprintf(stderr, "EDICT importer: %d%% %s                            \r", (i*100)/elen, headword);
+		if(i == (i & ~(0377)))
+			fprintf(stderr, "EDICT importer: %d%% \r", (i*100)/elen);
+			//fprintf(stderr, "EDICT importer: %d \r", i);
 		
 		/* Parse the line and try to generate Panini source code */
 		readentry(edict, headword, klist);

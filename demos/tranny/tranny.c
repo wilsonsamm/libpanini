@@ -29,8 +29,8 @@ int main(int argc, char * argv[]) {
 		printf(" $ tranny srclang dstlang [OPTIONS ...] -- Sentence goes here.\n");
 		printf("srclang and dstlang are names/descriptions of the language to translate to and\nfrom, respectively.\n");
 		printf("Here are some examples:\n");
-		printf(" $ tranny english japanese -- I can see you.");
-		printf(" $ tranny english:american english:british -- How are y'all doing?");
+		printf(" $ tranny english japanese -- I can see you.\n");
+		printf(" $ tranny english:american english:british -- How are y'all doing?\n");
 		return 1;
 	}
 

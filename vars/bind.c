@@ -1,5 +1,6 @@
 #include "../list/list.h"
 #include "../monad/monad.h"
+#include "../tranny/tranny.h"
 #include <stdlib.h>
 #include <string.h>
 
@@ -185,13 +186,13 @@ void speculate(monad * m, char * namespace, char * varname) {
 char * evaluate(monad * m, list * e) {
 	/* The namespace */
 	char * ns = list_get_token(e,1);
-	list * namespace = get_namespace(m, ns);
+	list * namespace = get_namespace(m, ns, 0);
 	
 	/* The variable's name (which can itself be evaluated) */
 	char * varname = list_get_token(e,2); 
 	if(!varname) return 0;
 	char * neg = negative(varname);
-	if(list_contains(namespace, neg)) {
+	if(namespace && list_contains(namespace, neg)) {
 		free(neg);
 		return 0;
 	}

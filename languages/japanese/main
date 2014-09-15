@@ -4,7 +4,6 @@
 
 (include ko-so-a-do)
 
-(include nounphrase/nouns)
 (include nounphrase/nounphrase)
 
 (include scripts/hiragana)

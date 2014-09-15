@@ -1,4 +1,4 @@
-CCOPTS = -ggdb -c -Wall
+CCOPTS = -ggdb -c -Wall -O2
 
 nobuild:
 	@echo Do not invoke make directly.
@@ -118,7 +118,7 @@ uninstall:
 	rm -rf /usr/lib/libtranny.a
 
 clean: lang-clean
-	rm -f *.o *.gch *.a *.txt vlad core tc learn a.out gmon.out
+	rm -f *.o *.gch *.a *.txt *.gz vlad core tc learn a.out gmon.out
 	rm -f english.headwords.txt imports-japanese
 	rm -f monad/*.o monad/*.gch tranny/*.o tranny/*.gch list/*.o list/*.gch vars/*.o vars/*.gch compiler/*.o
 	make -C demos/tranny clean

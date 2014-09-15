@@ -84,8 +84,8 @@ int check_wronginstruction(list * output) {
 			char * iname; // name of the instruction
 			iname = list_get_token(instr, 1);
 			if(!strcmp(iname, "into")) iname = list_get_token(instr, 3);
-			if(!strcmp(iname, "lit")) continue;
 			if(!strcmp(iname, "constituent")) continue;
+			if(!strcmp(iname, "lit")) continue;
 			if(!strcmp(iname, "flags")) continue;
 			if(!strcmp(iname, "sandhi")) continue;
 			if(!strcmp(iname, "fullstop")) continue;
