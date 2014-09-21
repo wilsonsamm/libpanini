@@ -22,6 +22,51 @@ monad * pmonad;
  * equivalent of (mostly) the same data, but usable by libpanini.
  */
 
+/* This function, given a headword and a reading, 
+ * will return the panini code to match or generate that headword/reading.
+ */
+char * segmentation(char * headword, char * moras, kanji * klist) {
+	
+	if(!headword) return 0;
+	if(!moras) return 0;
+	if(!strlen(headword) && !strlen(moras)) return strdup("");
+	
+	kanji * tklist = klist;
+	
+	while(tklist) {
+		if(!tklist->glyph) {
+			break;
+		}
+		if(strncmp(tklist->glyph, headword, strlen(tklist->glyph))) {
+			tklist = tklist->next;
+			continue;
+		} 
+		
+		reading * r = tklist->r;
+		while(r) {
+			if(!r->moras) {
+				r = r->next;
+				continue;
+			}
+			if(!strncmp(r->moras, moras, strlen(r->moras))) {
+				char * next = segmentation(headword + strlen(tklist->glyph), moras + strlen(r->moras), klist);
+				if(!next) return 0;
+				char * def = malloc(strlen("(segments -)") + strlen(tklist->jiscode) + strlen(r->moras) + strlen(next) + 1);
+				strcpy(def, "(segments ");
+				strcat(def, tklist->jiscode);
+				strcat(def, "-");
+				strcat(def, r->moras);
+				strcat(def, ")");
+				strcat(def, next);
+				free(next);
+				return def;
+			}
+			r = r->next;
+		}
+		if(!r) return 0;
+	}
+	return 0;
+}
 /* This function, given these parameters, will determine the meaning of
  * the English translation, and then creates a Panini function to
  * match the headword to this meaning.
@@ -46,7 +91,6 @@ int learnentry_func(char * headword, char * reading, char * ttemp, \
 		printf("No klist!\n");
 		return 0;
 	}
-	
 	
 	/* Remove the part-of-speech tag at the front of the translation. */
 	int poslen = strlen(postag);
@@ -73,7 +117,6 @@ int learnentry_func(char * headword, char * reading, char * ttemp, \
 		return 0;
 	}
 	
-	
 	monad_map(m, remove_ns, "rection", -1);
 	monad_map(m, remove_ns, "record", -1);
 	monad_map(m, remove_ns, "theta", -1);
@@ -82,61 +125,10 @@ int learnentry_func(char * headword, char * reading, char * ttemp, \
 
 	
 	/* this string will hold the code to generate the japanese word */
-	char * def = strdup("");
-	
-	/* Find the kanji in the list */
-	int offset = 0;
-	while(strlen(headword + offset)) {
-		
-		kanji * tklist = klist;
-		int i;
-		
-		while(tklist) {
-			if(!tklist->glyph) {
-				break;
-			}
-			//fprintf(stderr,"comparing kanji: %s.\n", tklist->glyph);
-			if(strncmp(tklist->glyph, headword + offset,strlen(tklist->glyph))) {
-				tklist = tklist->next;
-				continue;
-			} else {
-				tklist->used = 1;
-				char * r = transliterate(reading);
-				if(!r) {
-					free(def);
-					monad_free(m);
-					return 1;
-				}
-				def = append_string(strdup(def), "(segments ");
-				def = append_string(strdup(def), tklist->jiscode);
-				def = append_string(strdup(def), "-");
-				def = append_string(strdup(def), r);
-				def = append_string(strdup(def), ")(call #)");
-				
-				free(r);
-				
-				offset += strlen(tklist->glyph);
-			}
-		}
-		i = 0;
-		for(;;) {
-			if(!strlen(hiragana[i])) {
-				free(def);
-				monad_free(m);
-				return 1;
-			}
-			if(strncmp(headword+offset, hiragana[i], strlen(hiragana[i]))) {
-				i++;
-				continue;
-			} else {
-				def = append_string(def, "(call mora ");
-				def = append_string(def, latin[i]);
-				def = append_string(def, ")");
-				offset += strlen(hiragana[i]);
-				break;
-			}
-		}
-	}
+	char * tr = transliterate(reading);
+	char * seg = segmentation(headword, tr, klist);
+	free(tr);
+	if(!seg) return 0;
 	
 	/* Define a [whatever the part of speech is] */
 	printf("; %s [%s] (%s) %s\n", headword, reading, jpos, translation);
@@ -146,12 +138,12 @@ int learnentry_func(char * headword, char * reading, char * ttemp, \
 	monad_map(m, kill_least_confident, (void *)0, -1);
 	monad_map(m, print_seme, stdout, -1);
 
-	printf("%s)\n\n", def);
+	printf("%s)\n\n", seg);
 	
 	fprintf(stderr, "%s [%s] (%s) %s                           \n", \
 	        headword, reading, jpos, translation);
 	monad_free(m);
-	free(def);
+	free(seg);
 	return 1;
 }
 
@@ -220,11 +212,11 @@ int main(int argc, char * argv[]) {
 		if(!headword) break;
 		if(!strlen(headword)) break;
 		
-		/* Every 256th line, print out how far we've come. 
+		/* Every 512th line, print out how far we've come. 
 		 * (This test is an optimisation; the terminal is a slow thing to print to.) */
-		if(i == (i & ~(0377)))
+		if(i == (i & ~(0777)))
 			fprintf(stderr, "EDICT importer: %d%% \r", (i*100)/elen);
-			//fprintf(stderr, "EDICT importer: %d \r", i);
+			//fprintf(stderr, "EDICT importer: %d%% - %d \r", (i*100)/elen, i);
 		
 		/* Parse the line and try to generate Panini source code */
 		readentry(edict, headword, klist);

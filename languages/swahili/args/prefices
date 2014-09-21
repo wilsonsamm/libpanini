@@ -12,82 +12,82 @@
 (df prefix
 	(lit ni)
 	(flags subject object)
-	(rection (class mimi)))
+	(rection (class m/wa) (person first) (number singular)))
 
 ; First person plural
 (df prefix
 	(lit tu)
 	(flags subject object)
-	(rection (class sisi)))
+	(rection (class m/wa) (person first) (number plural)))
 
 ; Second person singular
 (df prefix
 	(lit u)
 	(flags subject)
-	(rection (class wewe)))
+	(rection (class m/wa) (person second) (number singular)))
 
 (df prefix
 	(lit ku)
 	(flags object)
-	(rection (class wewe)))
+	(rection (class m/wa) (person second) (number singular)))
 
 ; Second person plural
 (df prefix
 	(lit u)
 	(flags subject)
-	(rection (class ninyi)))
+	(rection (class m/wa) (person second) (number plural)))
 (df prefix
 	(lit wa)
 	(flags object)
-	(rection (class ninyi)))
+	(rection (class m/wa) (person second) (number plural)))
 	
 ;; M/WA class
 (df prefix
 	(lit a)
 	(flags subject)
-	(rection (class m/wa) (number singular)))
+	(rection (class m/wa) (person third) (number singular)))
 (df prefix
 	(lit m)
 	(sandhi -vowel)
 	(flags object)
-	(rection (class m/wa) (number singular)))
+	(rection (class m/wa) (person third) (number singular)))
 (df prefix
 	(lit mw)
 	(sandhi vowel)
 	(flags object)
-	(rection (class m/wa) (number singular)))
+	(rection (class m/wa) (person third) (number singular)))
 (df prefix
 	(lit wa)
 	(flags subject object adjectival)
 	(sandhi -vowel)
-	(rection (class m/wa) (number plural)))
+	(rection (class m/wa) (person third) (number plural)))
 (df prefix
 	(lit w)
 	(sandhi vowel)
 	(flags possessive adjectival)
-	(rection (class m/wa)))
+	(rection (class m/wa) (person third)))
 
 ;; N class
 (df prefix
 	(lit i)
 	(flags subject object)
-	(rection (class n) (number singular)))
+	(rection (class n) (number singular) -animate))
 (df prefix
 	(lit zi)
 	(flags subject object)
-	(rection (class n) (number plural)))
+	(rection (class n) (number plural) -animate))
 (df prefix
 	(lit y)
 	(flags possessive)
-	(rection (class n) (number singular)))
+	(rection (class n) (number singular) -animate))
 (df prefix
 	(lit z)
 	(flags possessive)
-	(rection (class n) (number plural)))
+	(rection (class n) (number plural) -animate))
 (df prefix
 	(lit n)
 	(flags adjectival)
-	(rection (class n) (number singular)))
+	(rection (class n) (number singular) -animate))
 
 
 ;; KI/VI class

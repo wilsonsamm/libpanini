@@ -173,13 +173,13 @@ int compilekanji(kanji * klist) {
 			/* Create a rule that matches the kanji */
 			printf("(segment ");
 			printf("(underlying %s-%s) ", klist->jiscode, r->moras);
-			printf("(call kyouiku %d) ", klist->jouyou);
-			printf("(surface %s))\n", klist->glyph);
+			if(klist->jouyou) printf("(call kyouiku %d) ", klist->jouyou);
+			printf("(surface %s) (language hiragana))\n", klist->glyph);
 			
 			/* And one to match the hiragana/romaji */
 			printf("(segment ");
 			printf("(underlying %s-%s) ", klist->jiscode, r->moras);
-			printf("(call kyouiku -%d) ", klist->jouyou);
+			if(klist->jouyou) printf("(call kyouiku -%d) ", klist->jouyou);
 			printf("%s)\n", r->moracode);
 			
 			r = r->next;
