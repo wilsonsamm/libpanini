@@ -4,7 +4,7 @@
 
 (df vprefix
 	(flags subject)
-	(into (theta subject) constituent prefix subject))
+	(into (theta subject) call prefix subject))
 
 (df vprefix
 	(flags object intransitive)
@@ -12,7 +12,7 @@
 	
 (df vprefix
 	(flags object transitive)
-	(into (theta object) constituent prefix object)
+	(into (theta object) call prefix object)
 	(seme (trajectory projective)))
 	
 (df vprefix

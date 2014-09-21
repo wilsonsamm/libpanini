@@ -70,7 +70,7 @@ void translate(monad * m, char * language) {
 	monad_rules(m, language);
 	
 	/* Generate all the translations for the headwords in this chain of monads. */
-	monad_map(m, (int(*)(monad *, void *))set_stack, "(constituent Translation)", -1);
+	monad_map(m, (int(*)(monad *, void *))set_stack, "(call Translation)", -1);
 	monad_map(m, tranny_generate, (void *)0, -1);
 	
 	/* Strip the whitespace off the INTEXT and the OUTTEXT */

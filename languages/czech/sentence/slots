@@ -1,2 +1,2 @@
 (df slots
-	(constituent slot thema))
+	(call slot thema))

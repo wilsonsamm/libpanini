@@ -1,17 +1,17 @@
 (df dp
 	(flags unconjunctivised)
-	(constituent determiner)
+	(call determiner)
 	(adjunct adjp attributive)
-	(constituent noun)
+	(call noun)
 	(adjunct prepositional-phrases)
 	)
 
 (df dp
 	(flashbulb determiner)
 	(seme (head union))
-	(into 1 constituent dp unconjunctivised)
-	(constituent conjunction)
-	(into 2 constituent dp unconjunctivised)
+	(into 1 call dp unconjunctivised)
+	(call conjunction)
+	(into 2 call dp unconjunctivised)
 	(rection (person they) (number plural))
 	(kill-flashbulb determiner))
 

@@ -29,7 +29,7 @@
 (for animacy (inanimate animate)
 (df noun-learn
 	(flags ki/vi)
-	(constituent noun-prefix ki/vi)
+	(call noun-prefix ki/vi)
 	(open nounstem
 		(flags ki/vi .animacy)
 		(remove number))))

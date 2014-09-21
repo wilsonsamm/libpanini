@@ -84,7 +84,6 @@ int check_wronginstruction(list * output) {
 			char * iname; // name of the instruction
 			iname = list_get_token(instr, 1);
 			if(!strcmp(iname, "into")) iname = list_get_token(instr, 3);
-			if(!strcmp(iname, "constituent")) continue;
 			if(!strcmp(iname, "lit")) continue;
 			if(!strcmp(iname, "flags")) continue;
 			if(!strcmp(iname, "sandhi")) continue;
@@ -193,31 +192,6 @@ int check_removenops(list * output) {
 	return 0;
 }
 
-/* This function checks rules for instructions that don't do anything, and removes them. */
-int check_space(list * output) {
-	int space(list * def, char * name) {
-		if(!strcmp(name, "space")) return 0;
-		int i;
-		for(i = 1; i <= def->length; i++) {
-			list * instr; // the instruction
-			instr = list_get_list(def, i);
-			if(!instr) continue;
-			char * iname; // name of the instruction
-			iname = list_get_token(instr, 1);
-			if(!iname) continue;
-			if(strcmp(iname, "space")) continue;
-			
-			list_drop(instr, 1);
-			list_append_token(instr, "constituent");
-			list_append_token(instr, "space");
-			
-		}
-		return 0;
-	}
-	if(list_find_list(output, "space")) crawl(output, space);
-	return 0;
-}
-
 /* Since natural languages can go on recursively ad infinitum, and therefore won't fit in a finite state machine, this function adds
  * the (brake) instruction to recursive rules like:
  *  (df nounphrase
@@ -252,14 +226,14 @@ int check_recursion(list * output) {
 			}
 			
 			if(!strcmp(iname, "into")) {
-				if(!strcmp("constituent", list_get_token(instr, 3))) {
+				if(!strcmp("call", list_get_token(instr, 3))) {
 					if(!strcmp(name, list_get_token(instr, 4))) {
 						return 0;
 					}
 				}
 			}
 			
-			if(!strcmp(iname, "constituent")) {
+			if(!strcmp(iname, "call")) {
 				if(!strcmp(name, list_get_token(instr, 2))) {
 					return 0;
 				}

@@ -1,15 +1,15 @@
 (df Headword
 	(clues (class verbal) (label v.))
-	(constituent verb infinitive))
+	(call verb infinitive))
 
 (df Headword
 	(clues (class nominal) (label n.))
-	(constituent noun nominative))
+	(call noun nominative))
 
 (df Translation
 	(clues (class verbal))
-	(constituent verb infinitive))
+	(call verb infinitive))
 
 (df Word
 	(clues (class verbal))
-	(constituent verb))
+	(call verb))

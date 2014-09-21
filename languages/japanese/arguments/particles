@@ -2,6 +2,6 @@
 (for particle (ga wo)
 (df argument
 	(flags .particle)
-	(into (theta .particle) constituent arg)
+	(into (theta .particle) call arg)
 	(call mora .particle)
 	(call #)))

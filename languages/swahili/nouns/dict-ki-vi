@@ -2,8 +2,8 @@
 (df noun
 	(flags ki/vi .number)
 	(rection (class ki/vi) (number .number))
-	(constituent prefix ki/vi .number)
-	(constituent nounstem ki/vi)
+	(call prefix ki/vi .number)
+	(call nounstem ki/vi)
 	(space)
 	(seme (number .number))
 	(clues (class nominal))))

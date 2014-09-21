@@ -33,22 +33,22 @@
 ;; adjp is something that calls adjective and makes sure the class is rectioned properly.
 (df adjp
 	(flags uninflected)
-	(constituent adjective uninflected))
+	(call adjective uninflected))
 
 (for class (m/wa ki/vi n)
 	(df adjp
 		(rection (class .class))
 		(flags uninflected)
-		(constituent adjective irregular .class)))
+		(call adjective irregular .class)))
 	
 (df adjp
 	(flags inflected)
-	(constituent adjective inflected))
+	(call adjective inflected))
 
 
 (df qualifier
-	(constituent prefix adjectival)
-	(into (head) constituent adjp inflected))
+	(call prefix adjectival)
+	(into (head) call adjp inflected))
 	
 (df qualifier
-	(into (head) constituent adjp uninflected))
+	(into (head) call adjp uninflected))

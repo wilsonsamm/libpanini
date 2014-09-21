@@ -87,7 +87,7 @@ int main(int argc, char * argv[]) {
 	monad_rules(m, "japanese");
 	
 	/* Parse! */
-	monad_map(m, set_stack, "(language -kanji) (constituent main)", 20);
+	monad_map(m, set_stack, "(language -kanji) (call main)", 20);
 	retval = monad_map(m, tranny_parse, (void *)0, 20);
 
 	/* If the parse wasn't successful, then exit. */

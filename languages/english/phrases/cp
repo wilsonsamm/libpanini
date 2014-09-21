@@ -1,9 +1,9 @@
 (df cp
-	(constituent complementiser)
-	(constituent subject)
-	(constituent predicate))
+	(call complementiser)
+	(call subject)
+	(call predicate))
 
 (df cp
-	(constituent complementiser)
+	(call complementiser)
 	(lit there) (space)
-	(constituent vp dummy))
+	(call vp dummy))

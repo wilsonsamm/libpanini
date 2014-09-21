@@ -60,7 +60,7 @@ int main(int argc, char * argv[]) {
 	monad_rules(m, argv[1]);
 	
 	/* Parse! */
-	monad_map(m, set_stack, "(constituent main)", -1);
+	monad_map(m, set_stack, "(call main)", -1);
 	monad_map(m, tranny_attest, argv[1], 5);
 	monad_map(m, kill_not_done, (void*)0, -1);
 	monad_map(m, kill_least_confident, (void*)0, -1);

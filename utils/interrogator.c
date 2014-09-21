@@ -34,7 +34,7 @@ void prompt(monad * m, char * target, FILE * fp) {
 	
 	monad_map(n, (int(*)(monad *, void *))remove_ns, "rection", -1);
 	monad_map(n, (int(*)(monad *, void *))set_intext, input, -1);
-	monad_map(n, (int(*)(monad *, void *))set_stack, "(debug) (constituent Learn lemma)", -1);
+	monad_map(n, (int(*)(monad *, void *))set_stack, "(debug) (call Learn lemma)", -1);
 	monad_map(n, (int(*)(monad *, void *))tranny_learn, (void *)0, 5);
 	monad_map(n, (int(*)(monad *, void *))print_out, fp, 5);	
 	fflush(fp);
@@ -50,7 +50,7 @@ int test(monad * m, char * target) {
 	
 	monad_map(n, (int (*)(monad *, void *))set_intext, m->intext, -1);
 	
-	monad_map(n, (int (*)(monad *, void *))set_stack, "(constituent Translation)", -1);
+	monad_map(n, (int (*)(monad *, void *))set_stack, "(call Translation)", -1);
 
 	retval = monad_map(n, (int (*)(monad *, void *))tranny_generate, (void *)0, 20);
 	

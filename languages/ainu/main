@@ -22,6 +22,6 @@
 (include learn)
 
 (df main
-	(constituent cp)
+	(call cp)
 	(fullstop))
 

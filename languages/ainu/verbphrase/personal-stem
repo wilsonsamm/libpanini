@@ -5,14 +5,14 @@
 ; Plain-old monovalent verb
 (df personal-stem
 	(flags monovalent)
-	(constituent verbstem monovalent)
+	(call verbstem monovalent)
 	(space))
 
 ; bivalent verb with valency reducing operation
 (df personal-stem
 	(flags monovalent)
-	(constituent prefix valency-reduction)
-	(constituent verbstem bivalent)
+	(call prefix valency-reduction)
+	(call verbstem bivalent)
 	(space))
 
 ;; Bivalent personal stems
@@ -20,6 +20,6 @@
 ; bivalent verb
 ;(df personal-stem
 ;	(flags bivalent)
-;	(constituent verbstem bivalent))
+;	(call verbstem bivalent))
 
 

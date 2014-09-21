@@ -2,15 +2,15 @@
 	(adjunct argument ha)
 	(adjunct argument ga)
 	(adjunct argument wo)
-	(constituent verb-and-endings))
+	(call verb-and-endings))
 
 (df verb-and-endings
-	(constituent verb ichidan)
-	(constituent ending ichidan))
+	(call verb ichidan)
+	(call ending ichidan))
 
 (df verb-and-endings
-	(constituent verb suru)
-	(constituent suru))
+	(call verb suru)
+	(call suru))
 
 (df ending
 	(flags ichidan)

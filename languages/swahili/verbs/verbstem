@@ -4,13 +4,13 @@
 
 (df verbstem
 	(flags intransitive)
-	(constituent verbroot stative bantu)
+	(call verbroot stative bantu)
 	(lit a)
 	(theta (subject patient))
 	(seme -agent))
 	
 (df verbstem
 	(flags transitive)
-	(constituent verbroot bantu arg1:agent arg2:patient transitive)
+	(call verbroot bantu arg1:agent arg2:patient transitive)
 	(lit a)
 	(theta (subject agent) (object patient)))

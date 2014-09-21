@@ -1,42 +1,42 @@
 
 ;(df substantive
 ;	(flags subject object)
-;	(constituent dp))
+;	(call dp))
 
 ; Just experimenting with my new generative approach
 (df substantive
 	(flags subject object)
-	(constituent nounphrase))
+	(call nounphrase))
 
 (df substantive
 	(flags subject)
-	(constituent pronoun subject))
+	(call pronoun subject))
 
 (df substantive
 	(flags object)
-	(constituent pronoun object))
+	(call pronoun object))
 
 (df subject
 	(rection (subject argument))
-	(into (theta subject) constituent dp))
+	(into (theta subject) call dp))
 	
 (df subject
 	(rection (subject argument))
-	(into (theta subject) constituent pronoun subject))
+	(into (theta subject) call pronoun subject))
 
 (df object
 	(rection object)
-	(into (theta object) constituent dp)
+	(into (theta object) call dp)
 	(seme (trajectory projective)))
 
 (df object
 	(rection object)
-	(into (theta object) constituent pronoun object)
+	(into (theta object) call pronoun object)
 	(seme (trajectory projective)))
 
 (df object
 	(rection object)
-	(constituent pronoun reflexive))
+	(call pronoun reflexive))
 
 ; This "subject" is the subject of imperative clauses (which may seem to
 ; have no subject but actually do).
@@ -47,7 +47,7 @@
 	(seme (irrealis imperative)))
 
 (df where?
-	(into location constituent pp))
+	(into location call pp))
 
 (df where?
-	(into location constituent locative-particle))
+	(into location call locative-particle))

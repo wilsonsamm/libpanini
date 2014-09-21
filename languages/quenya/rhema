@@ -1,6 +1,6 @@
 (df rhema
-	(constituent verb transitive)
-	(constituent object))
+	(call verb transitive)
+	(call object))
 
 (df rhema
-	(constituent verb intransitive))
+	(call verb intransitive))

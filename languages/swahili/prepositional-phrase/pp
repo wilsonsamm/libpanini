@@ -1,6 +1,6 @@
 (df kwa-pp
 	(lit kwa) (space)
-	(into instrument constituent nounphrase))
+	(into instrument call nounphrase))
 
 (df prepositional-phrase
 	(adjunct kwa-pp))

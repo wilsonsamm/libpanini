@@ -6,8 +6,8 @@
 
 (df noun
 	(flags .gender .case .animacy .number)
-	(constituent nounstem .gender)
-	(constituent case-ending .gender .case)
+	(call nounstem .gender)
+	(call case-ending .gender .case)
 	(segments #)
 	(rection (animacy .animacy) (gender .gender) (case .case)))
 
@@ -18,7 +18,7 @@
 		((call guess-syllable))
 		((call guess-syllable) (call guess-syllable))
 		((call guess-syllable) (call guess-syllable) (call guess-syllable)))
-	(constituent case-ending .gender .case .number)
+	(call case-ending .gender .case .number)
 	(segments #)
 	(rection (animacy .animacy) (gender .gender) (case .case))
 	(makedef nounstem (flags .gender) (remove number)))))))
@@ -30,4 +30,4 @@
 
 (df nounphrase
 	(rection (person third))
-	(constituent noun))
+	(call noun))

@@ -8,20 +8,20 @@
 (df nc
 	(sandhi -suppress-whitespace)
 	(flags nominal pronominal)
-	(constituent personal-affix realis)
-	(constituent pronominal-stem)
+	(call personal-affix realis)
+	(call pronominal-stem)
 	(segments w aa)
-	(constituent absolutive tl)
+	(call absolutive tl)
 	(rection (number singular))
 	(segments #))
 
 (df nc
 	(sandhi -suppress-whitespace)
 	(flags nominal pronominal)
-	(constituent personal-affix realis)
-	(constituent pronominal-stem)
+	(call personal-affix realis)
+	(call pronominal-stem)
 	(segments w aa n)
-	(constituent absolutive tin)
+	(call absolutive tin)
 	(rection (number plural))
 	(segments #))
 	

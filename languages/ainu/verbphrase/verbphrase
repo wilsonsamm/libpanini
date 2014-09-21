@@ -1,14 +1,14 @@
 (df verbphrase
-	(constituent argument absolutive)
-	(constituent verb))
+	(call argument absolutive)
+	(call verb))
 	
 (df verbphrase
-	(constituent argument subject)
-	(constituent argument object)
-	(constituent verb))
+	(call argument subject)
+	(call argument object)
+	(call verb))
 
 (df verbphrase
-	(constituent argument absolutive)
-	(constituent nounphrase)
-	(constituent copula)
+	(call argument absolutive)
+	(call nounphrase)
+	(call copula)
 	(theta (absolutive copula)))

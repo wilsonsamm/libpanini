@@ -30,7 +30,7 @@ monad * headwords(char * language) {
 	monad_rules(m, language);
 	
 	/* Generate all the lemmas. */
-	monad_map(m, (int(*)(monad *, void *))set_stack, "(constituent Headword)", -1);
+	monad_map(m, (int(*)(monad *, void *))set_stack, "(call Headword)", -1);
 	
 	monad_map(m, tranny_generate, (void*)0, -1);
 	monad_map(m, kill_identical_outtexts, (void *)0, -1);
@@ -39,7 +39,7 @@ monad * headwords(char * language) {
 	monad_map(m, movetxt, (void *)0, -1);
 	
 	/* Next, generate the meaning of the headwords */
-	monad_map(m, (int(*)(monad *, void *))set_stack, "(constituent Headword)", -1);
+	monad_map(m, (int(*)(monad *, void *))set_stack, "(call Headword)", -1);
 	monad_map(m, tranny_parse, language, -1);
 	monad_map(m, kill_identical_intexts, (void *)0, -1);
 	
@@ -58,7 +58,7 @@ monad * words(char * language) {
 	monad_rules(m, language);
 	
 	/* Generate all the lemmas. */
-	monad_map(m, (int(*)(monad *, void *))set_stack, "(constituent Headword)", -1);
+	monad_map(m, (int(*)(monad *, void *))set_stack, "(call Headword)", -1);
 	
 	monad_map(m, tranny_generate, language, -1);
 	monad_map(m, kill_identical_outtexts, (void *)0, -1);

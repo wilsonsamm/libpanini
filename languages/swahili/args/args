@@ -1,13 +1,13 @@
 (df argument
-	(constituent nounphrase))
+	(call nounphrase))
 (df argument
-	(constituent pronoun))
+	(call pronoun))
 
 (df subject
-	(into (theta subject) constituent argument))
+	(into (theta subject) call argument))
 
 (df object
-	(into (theta object) constituent argument))
+	(into (theta object) call argument))
 
 ;(for theta (patient agent)
 ;	(df object

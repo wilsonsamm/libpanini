@@ -4,7 +4,7 @@
 (df nc
 	(flags intransitive verbal)
 	(segments #)
-	(constituent pers subject)
-	(constituent verbstem intransitive)
-	(constituent number subject)
+	(call pers subject)
+	(call verbstem intransitive)
+	(call number subject)
 	(segments #))

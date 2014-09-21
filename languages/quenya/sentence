@@ -1,4 +1,4 @@
 (df sentence
-	(constituent complementiser)
-	(constituent thema)
-	(constituent rhema))
+	(call complementiser)
+	(call thema)
+	(call rhema))

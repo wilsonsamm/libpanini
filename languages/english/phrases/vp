@@ -2,40 +2,40 @@
 ; Modal verbs
 (df vp
 	(flags finite)
-	(constituent verb modal)
-	(constituent vp infinitive))
+	(call verb modal)
+	(call vp infinitive))
 
 ;; Main verbs
 (df vp
 	(flags finite)
 	(seme -irrealis -negative)
-	(constituent verb finite)
-	(constituent verbal-argument))
+	(call verb finite)
+	(call verbal-argument))
 (df vp
 	(flags present participle)
 	(seme -irrealis -negative)
-	(constituent verb present participle)
-	(constituent verbal-argument))
+	(call verb present participle)
+	(call verbal-argument))
 
 ; Make sure that only "you" can occur as subject in imperative sentences
 (df vp
 	(flags finite)
 	(into (theta subject) rection (person you))
 	(seme (irrealis imperative))
-	(constituent verb finite)
-	(constituent verbal-argument))
+	(call verb finite)
+	(call verbal-argument))
 
 (df vp
 	(flags infinitive)
-	(constituent verb infinitive)
-	(constituent verbal-argument))
+	(call verb infinitive)
+	(call verbal-argument))
 
 
 ;; To be -- Takes different arguments from other verbs.
 (df vp
 	(flags finite)
 	(seme -irrealis)
-	(constituent copula finite)
+	(call copula finite)
 	(adjunct where?)
 	(seme (head exist)))
 
@@ -46,8 +46,8 @@
 	(theta (subject patient))
 	(into patient fuzzy 35 rection (definition definite))
 	(seme -irrealis (aspect stative) (head stative))
-	(constituent copula finite)
-	(constituent adjp-chain predicative))
+	(call copula finite)
+	(call adjp-chain predicative))
 
 ; to be verbing [something].
 (df vp
@@ -55,23 +55,23 @@
 	(theta (subject patient))
 	(into patient fuzzy 35 rection (definition definite))
 	(seme -irrealis (aspect stative))
-	(constituent copula finite)
-	(constituent vp present participle))
+	(call copula finite)
+	(call vp present participle))
 
 ; to be a thing
 (df vp
 	(flags finite)
 	(theta (subject copula))
-	(constituent copula)
-	(constituent substantive))
+	(call copula)
+	(call substantive))
 
 ;; There is, there are
 (df vp
 	(confidence 100)
 	(flags dummy)
 	(theta (subject agent))
-	(constituent copula)
-	(into agent constituent dp)
+	(call copula)
+	(into agent call dp)
 	(adjunct where?)
 	(seme (head exist)))
 

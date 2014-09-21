@@ -23,7 +23,7 @@
 (df nc
 	(sandhi -suppress-whitespace)
 	(flags nominal possessive)
-	(into (theta pers) constituent personal-affix realis)
-	(into (theta poss) constituent st)
-	(constituent nounstem)
-	(constituent poss-num))
+	(into (theta pers) call personal-affix realis)
+	(into (theta poss) call st)
+	(call nounstem)
+	(call poss-num))

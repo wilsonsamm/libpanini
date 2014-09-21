@@ -23,7 +23,7 @@
 	(seme (head referential) (person third) (number plural) animate))
 
 (df qualifier
-	(constituent prefix possessive)
-	(into owner constituent possessive-stem)
+	(call prefix possessive)
+	(into owner call possessive-stem)
 	(space)
 	(check possessive))

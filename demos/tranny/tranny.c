@@ -88,7 +88,7 @@ int main(int argc, char * argv[]) {
 	languages(m, argv[1]);
 	
 	/* Parse! */
-	monad_map(m, set_stack, "(constituent main)", -1);
+	monad_map(m, set_stack, "(call main)", -1);
 	for(i = 0; i < threshold; i++) {
 		monad_map(m, unlink_the_dead, (void *)0, i);
 		retval = monad_map(m, tranny_parse, argv[1], i);

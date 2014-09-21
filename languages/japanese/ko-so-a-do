@@ -5,13 +5,13 @@
 
 (df ko-so-a-do
 	(flags adnominal)
-	(constituent ko-so-a-do-prefix)
+	(call ko-so-a-do-prefix)
 	(call mora no)
 	(call #))
 	
 (df ko-so-a-do
 	(flags pronominal)
-	(constituent ko-so-a-do-prefix)
+	(call ko-so-a-do-prefix)
 	(call mora re)
 	(call #)
 	(seme (head referential) (person third)))

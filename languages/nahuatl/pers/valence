@@ -1,7 +1,7 @@
 ; The valence position in transitive nuclear clauses encoding the object pronoun.
 (df valence
-	(constituent pers object)
-	(into (theta object) constituent case-marker object)
+	(call pers object)
+	(into (theta object) call case-marker object)
 	(seme (trajectory projective)))
 
 ; The indefinite pronouns in the valence position of transitive nuclear clauses.

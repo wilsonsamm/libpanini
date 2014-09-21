@@ -21,12 +21,11 @@
 (include verbs/dict)
 (include verbs/verbs)
 (include verbs/verbstem)
-(include verbs/tense-markers)
 (include verbs/prefices)
 
 (df main
-	(constituent sentence)
-	(constituent punctuation sentence-final))
+	(call sentence)
+	(call punctuation sentence-final))
 
 (sandhi-initial (b ch d f g h j k l m n p r s t v w x z) (-vowel))
 (sandhi-initial (a e i o u) (vowel))

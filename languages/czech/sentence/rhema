@@ -2,16 +2,16 @@
 ; (likely to be a verb)
 (df rhema
 	(flags 1)
-	(constituent verb finite main)
-	(constituent rhema 2)
+	(call verb finite main)
+	(call rhema 2)
 	(confidence 20)
 	(check verb-finite))
 
 ; (could also be a direct or indirect object)
 (df rhema
 	(flags 1)
-	(constituent object)
-	(constituent rhema 2 finite)
+	(call object)
+	(call rhema 2 finite)
 	(seme (trajectory projective))
 	(confidence 10)
 	(check object))
@@ -20,19 +20,19 @@
 ; (could be nothing at all ("ty vidíš")).
 (df rhema
 	(flags 2)
-	(constituent nothing object))
+	(call nothing object))
 
 ; (could be a verb)
 (df rhema
 	(flags 2)
-	(constituent verb finite main)
+	(call verb finite main)
 	(confidence 2)
 	(check verb-finite))
 
 ; (could also be a direct or indirect object)
 (df rhema
 	(flags 2)
-	(constituent object)
+	(call object)
 	(seme (trajectory projective))
 	(confidence 7)
 	(check object))
@@ -43,4 +43,4 @@
 ;
 (df slot
 	(flags rhema)
-	(constituent rhema 1))
+	(call rhema 1))

@@ -17,4 +17,4 @@
 (include verbphrase/dict)
 
 (df main
-	(constituent verbphrase))
+	(call verbphrase))

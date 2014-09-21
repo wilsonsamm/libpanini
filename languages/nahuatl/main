@@ -27,6 +27,6 @@
 (include punctuation)
 
 (df main
-	(constituent supplementation)
+	(call supplementation)
 	(call punctuation sentence-final))
 

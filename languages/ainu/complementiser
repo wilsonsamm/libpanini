@@ -17,5 +17,5 @@
 	(rection (complementiser wa)))
 
 (df complementiser-phrase
-	(constituent clause finite)
-	(constituent complementiser))
+	(call clause finite)
+	(call complementiser))

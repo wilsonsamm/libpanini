@@ -148,7 +148,7 @@ int learnentry_func(char * headword, char * reading, char * ttemp, \
 }
 
 int learnentry_n(char * headword, char * reading, char * translation, kanji * klist) {
-	if(learnentry_func(headword, reading, translation, klist, "(n)", "(constituent Headword noun)(fullstop)", "noun")) return 1;
+	if(learnentry_func(headword, reading, translation, klist, "(n)", "(call Headword noun)(fullstop)", "noun")) return 1;
 	return 0;
 } 
 

@@ -3,4 +3,4 @@
 (df clause
 	(flags finite)
 	(adjunct constraint)
-	(constituent verbphrase))
+	(call verbphrase))

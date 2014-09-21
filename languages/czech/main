@@ -25,7 +25,7 @@
 (include orthography)
 
 (df main
-	(constituent sentence))
+	(call sentence))
 
 (df dummy
 	(theta (nominative patient)))

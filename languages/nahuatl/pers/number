@@ -26,5 +26,5 @@
 
 (for num1 (0 k)
  (df number
-	(constituent num1 .num1)
-	(constituent num2 .num1)))
+	(call num1 .num1)
+	(call num2 .num1)))

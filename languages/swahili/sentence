@@ -1,23 +1,23 @@
 (df sentence
-	(constituent subject)
-	(constituent verb not-copular)
+	(call subject)
+	(call verb not-copular)
 	(fork
-		((constituent object))
+		((call object))
 		((seme (trajectory none)))))
 
 ;(df sentence
-;	(constituent subject)
-;	(constituent verb intransitive))
+;	(call subject)
+;	(call verb intransitive))
 
 (df sentence
-	(constituent subject)
-	(constituent verb copula)
-	(constituent nounphrase)
+	(call subject)
+	(call verb copula)
+	(call nounphrase)
 	(into (theta subject) seme explicit)
 	(theta (subject copula)))
 
 (df sentence
-	(constituent subject)
-	(constituent verb copula)
+	(call subject)
+	(call verb copula)
 	(seme -irrealis (aspect stative) (head stative))
-	(constituent qualifier))
+	(call qualifier))

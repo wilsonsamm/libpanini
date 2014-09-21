@@ -2,7 +2,7 @@
 (for class (tl tli in 0)
 (df Learn
 	(flags lemma)
-	(into (theta pers) constituent personal-affix realis)
+	(into (theta pers) call personal-affix realis)
 	(language (orthography classical))
 	
 	; Deduce either one or two syllables for the stem.
@@ -11,7 +11,7 @@
 		((call guess-syllable) (call guess-syllable)))
 	
 	; Tack the absolutive ending on.
-	(constituent absolutive .class)
+	(call absolutive .class)
 	(segments #) 
 	; Deduce the meaning and go ahead and
 	(makedef nounstem

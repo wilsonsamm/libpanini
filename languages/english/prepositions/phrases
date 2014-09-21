@@ -25,5 +25,5 @@
 	(rection enclosed-space (preposition to)))
 
 (df pp
-	(constituent preposition)
-	(constituent dp))
+	(call preposition)
+	(call dp))

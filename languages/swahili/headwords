@@ -2,28 +2,28 @@
 (for class (m/wa n ki/vi)
 	(df Headword
 		(clues (class nominal) (label .class))
-		(constituent noun .class singular))
+		(call noun .class singular))
 		
 	(df Translation
 		(clues (class nominal))
-		(constituent noun .class singular))
+		(call noun .class singular))
 		
 	(df Word
-		(constituent noun .class singular)))
+		(call noun .class singular)))
 
 
 ; Adjectives
 (df Headword
 	(clues (class adjectival) (label adj.))
-	(constituent adjective uninflected))
+	(call adjective uninflected))
 
 (df Translation
 	(clues (class adjectival))
-	(constituent adjective uninflected))
+	(call adjective uninflected))
 
 (df Word
-	(constituent adjective uninflected))
+	(call adjective uninflected))
 
 ; Verbs
 (df Word
-	(constituent verb))
+	(call verb))

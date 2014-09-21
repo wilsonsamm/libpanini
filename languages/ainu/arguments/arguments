@@ -1,22 +1,20 @@
-;(df argument (constituent pronoun))
-;(df argument (constituent nounphrase))
-(df arg (constituent nounphrase))
-(df arg (constituent pronoun))
+(df arg (call nounphrase))
+(df arg (call pronoun))
 
 (df argument
 	(flags subject)
 	(theta -absolutive)
-	(into (theta subject) constituent arg))
+	(into (theta subject) call arg))
 	
 (df argument 
 	(flags object)
 	(theta -absolutive)
-	(into (theta object) constituent arg))
+	(into (theta object) call arg))
 
 (df argument
 	(flags absolutive)
 	(theta -subject -object)
-	(into (theta absolutive) constituent arg))
+	(into (theta absolutive) call arg))
 
 (df argument
 	(flags absolutive-or-subject)

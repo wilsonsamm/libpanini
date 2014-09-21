@@ -201,7 +201,7 @@ void tranny_fuzzy(monad * m) {
 }
 
 int tranny_exec_ops(monad * m, char * command, int(reduce)(monad * m, list * l)) {
-	if(!strcmp(command, "constituent") || !strcmp(command, "call")) {
+	if(!strcmp(command, "call")) {
 		tranny_call(m, 0, reduce);
 		return 1;
 	}

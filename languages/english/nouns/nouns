@@ -9,7 +9,7 @@
 		(theta (possessive owner)))
 	
 	(df nounstem
-		(constituent species-preword .headword headless)
+		(call species-preword .headword headless)
 		(seme (head .headword))
 		(rection -enclosed -time countable)
 		(clues -human animate -abstract -time -space)
@@ -83,14 +83,14 @@
 ;;; Regular nouns are defined down here as something which consists of a nounstem plus an optional plural suffix.
 (df noun
 	(seme (number singular))
-	(constituent nounstem) (space)
+	(call nounstem) (space)
 	(flags lemma)
 	(rection (person he-she-it))
 	(clues (class nominal)))
 
 (df noun
 	(seme (number plural))
-	(constituent nounstem)
+	(call nounstem)
 	(lit s) (space)
 	(rection countable plural (person they))
 	(clues (class nominal)))

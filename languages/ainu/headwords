@@ -1,11 +1,11 @@
 ; These rules provide the headwords and translations, respectively, of a dictionary.
 (df Headword
 	(clues (class nominal) (label n.))
-	(constituent noun))
+	(call noun))
 	
 (df Translation
 	(clues (class nominal))
-	(constituent noun))
+	(call noun))
 
 (df Learn
 	(flags lemma)
@@ -19,12 +19,12 @@
 	
 (df Headword
 	(clues (class verbal) (label v.))
-	(constituent verbstem))
+	(call verbstem))
 	
 (df Translation	
 	(clues (class verb))
-	(constituent verbstem))
+	(call verbstem))
 
 (df Translation
 	(clues (class adjectival))
-	(constituent verbstem stative))
+	(call verbstem stative))

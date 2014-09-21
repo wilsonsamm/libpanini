@@ -46,43 +46,43 @@
 	
 ;; This part makes sure that there's an object if one is needed.
 (df verb
-	(constituent verbroot arg1:agent arg2:patient)
-	(constituent verb-conjugation)
+	(call verbroot arg1:agent arg2:patient)
+	(call verb-conjugation)
 	(flags finite)
 	(theta (subject agent) (object patient))
 	(space))
 
 ;; 
 (df verb
-	(constituent verbroot intransitive arg1:patient)
-	(constituent verb-conjugation)
+	(call verbroot intransitive arg1:patient)
+	(call verb-conjugation)
 	(flags finite)
 	(theta (subject patient) -object)
 	(space))
 (df verb
-	(constituent verbroot intransitive arg1:patient)
-	(constituent verb-ending ing)
+	(call verbroot intransitive arg1:patient)
+	(call verb-ending ing)
 	(flags present participle)
 	(theta (subject patient) -object)
 	(space))
 	
 (df verb
-	(constituent verbroot intransitive arg1:patient)
+	(call verbroot intransitive arg1:patient)
 	(flags infinitive)
 	(theta (subject patient) -object)
 	(space))
 
 ;; This is for motive verbs like "bring" or "go".
 (df verb
-	(constituent verbroot motive intransitive)
-	(constituent verb-conjugation)
+	(call verbroot motive intransitive)
+	(call verb-conjugation)
 	(flags finite)
 	(theta (subject agent))
 	(seme -patient) (space))
 
 ;; Infinitive
 (df verb
-	(constituent verbroot arg1:agent arg2:patient)
+	(call verbroot arg1:agent arg2:patient)
 	(flags infinitive)
 	(theta (subject agent) (object patient))
 	(space))

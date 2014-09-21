@@ -10,15 +10,15 @@
 
 (df noun
 	(lit elen)
-	(constituent noun-ending pl-i)
+	(call noun-ending pl-i)
 	(seme (head star)))
 
 (df noun
 	(lit elen)
-	(constituent noun-ending pl-i)
+	(call noun-ending pl-i)
 	(seme (head star)))
 
 (df noun
 	(lit rocco)
-	(constituent noun-ending pl-r)
+	(call noun-ending pl-r)
 	(seme (head horse)))
