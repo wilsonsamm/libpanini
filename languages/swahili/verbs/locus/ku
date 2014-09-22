@@ -1,0 +1,10 @@
+; Some verbs sometimes need to have this weird -ku- prefix in certain tenses.
+
+(df locus
+	(flags ku yes)
+	(segments k u)
+	(call locus root ku))
+
+(df locus
+	(flags no)
+	(call locus root))

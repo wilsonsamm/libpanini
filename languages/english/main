@@ -30,6 +30,8 @@
 
 (include punctuation)
 
+(include segments/punctuation)
+
 (include learn)
 
 (include headwords)

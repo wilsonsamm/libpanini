@@ -34,7 +34,7 @@ char * readline(FILE *fp) {
 	char * line = malloc(INITALLOC);
 	int i = 0;
 		
-	while(c != '\n' && c != '\f' && c != '\r') {
+	while(c != '\n' && c != '\f' && c != '\r' && c != EOF) {
 		line[i++] = (char)c;
 		if(i > allocated - 2) {
 			allocated += INCALLOC;

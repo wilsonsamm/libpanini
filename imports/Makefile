@@ -29,5 +29,5 @@ deepclean: clean
 	rm -rf kanjidic
 
 clean:
-	rm -rf *.o ekan *.txt
+	rm -rf *.o ekan *.txt core
 	rm -rf edict ekan.out gmon.out 

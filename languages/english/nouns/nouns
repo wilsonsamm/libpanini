@@ -83,7 +83,7 @@
 ;;; Regular nouns are defined down here as something which consists of a nounstem plus an optional plural suffix.
 (df noun
 	(seme (number singular))
-	(call nounstem) (space)
+	(call nounstem) (segments space)
 	(flags lemma)
 	(rection (person he-she-it))
 	(clues (class nominal)))
@@ -91,7 +91,7 @@
 (df noun
 	(seme (number plural))
 	(call nounstem)
-	(lit s) (space)
+	(lit s) (segments space)
 	(rection countable plural (person they))
 	(clues (class nominal)))
 
@@ -100,7 +100,7 @@
 
 ; Child.
 (df noun
-	(lit child) (space)
+	(lit child) (segments space)
 	(rection countable (number singular))
 	(flags lemma)
 	(seme (head child) (number singular))
@@ -108,14 +108,14 @@
 
 ; Children.
 (df noun
-	(lit children) (space)
+	(lit children) (segments space)
 	(rection countable (number plural))
 	(seme (head child) (number plural))
 	(clues human animate -abstract -time -space (class nominal)))
 
 ; Woman.
 (df noun
-	(lit woman) (space)
+	(lit woman) (segments space)
 	(rection countable (number singular))
 	(flags lemma)
 	(seme (head woman) (number singular))
@@ -123,14 +123,14 @@
 
 ; Women.
 (df noun
-	(lit women) (space)
+	(lit women) (segments space)
 	(rection countable (number plural))
 	(seme (head woman) (number plural))
 	(clues human animate -abstract -time -space (class nominal)))
 
 ; Man.
 (df noun
-	(lit man) (space)
+	(lit man) (segments space)
 	(rection countable (number singular))
 	(flags lemma)
 	(seme (head man) (number singular))
@@ -138,7 +138,7 @@
 
 ; Men.
 (df noun
-	(lit men) (space)
+	(lit men) (segments space)
 	(rection countable (number plural))
 	(seme (head man) (number plural))
 	(clues human animate -abstract -time -space (class nominal)))

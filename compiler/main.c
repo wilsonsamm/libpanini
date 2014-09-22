@@ -169,7 +169,6 @@ int main(int argv, char * argc[]) {
 	/* Dirty tricks */
 	check_recursion(output);
 	check_deprecated(output);
-	check_space(output);
 	
 	/* Optimisations */
 	check_early_binding(output);

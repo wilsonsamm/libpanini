@@ -114,8 +114,8 @@ install:
 	cp panini.h /usr/include
 
 uninstall:
-	rm -rf /usr/tranny
-	rm -rf /usr/lib/libtranny.a
+	rm -rf /usr/panini
+	rm -rf /usr/lib/libpanini.a
 
 clean: lang-clean
 	rm -f *.o *.gch *.a *.txt *.gz vlad core tc learn a.out gmon.out

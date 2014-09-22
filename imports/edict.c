@@ -213,10 +213,13 @@ int main(int argc, char * argv[]) {
 		if(!strlen(headword)) break;
 		
 		/* Every 512th line, print out how far we've come. 
-		 * (This test is an optimisation; the terminal is a slow thing to print to.) */
+		 * (This test is an optimisation; stderr is a slow thing to print to.) 
+		 */
 		if(i == (i & ~(0777)))
 			fprintf(stderr, "EDICT importer: %d%% \r", (i*100)/elen);
-			//fprintf(stderr, "EDICT importer: %d%% - %d \r", (i*100)/elen, i);
+		
+		/* Print the line number of the EDICT file (good for debugging) */
+		//fprintf(stderr, "EDICT importer: %d%% - %d \r", (i*100)/elen, i);
 		
 		/* Parse the line and try to generate Panini source code */
 		readentry(edict, headword, klist);

@@ -1,0 +1,42 @@
+;;;; For positive verbs the situation is simple:
+; just make sure that's what we want, and then call the next locus to put the
+; subject-prefix in.
+(df locus
+	(flags negation)
+	(seme -negative)
+	(call locus subject positive))
+
+;;;; Negation in the indicative and subjunctive.
+; This is encoded by a morpheme that sits just ahead of the subject prefix.
+; One minor complication with this is that in the M/WA class singular, and N 
+; class animate, some contraction has taken place so that one morpheme has come
+; to encode both the negation and the class of the subject.
+
+; first person singular: si- (not *hani-)
+; second person singular: hu- (not *hau-)
+; third person singular: ha- (not *haa-)
+
+; For this reason, the next locus is flagged with information about whether or
+; not the verb is negative. If the verb is not negative, then we call the next
+; locus as (call locus subject positive). Otherwise, we (call locus subject 
+; negative).
+
+;;; For negative verbs:
+; (either write "ha" and communicate to the subject that we did so,
+;  or do not write "ha" and communicate to the subject that we didn't.)
+(df locus
+	(flags negation)
+	(seme negative)
+	(segments h a)
+	(call locus subject negative ha)
+	(fork
+		((rection (mood indicative)))
+		((rection (mood subjunctive)))))
+(df locus
+	(flags negation)
+	(seme negative)
+	(call locus subject negative no-ha)
+	(fork
+		((rection (mood indicative)))
+		((rection (mood subjunctive)))))
+		

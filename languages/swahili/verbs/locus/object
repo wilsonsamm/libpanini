@@ -1,0 +1,8 @@
+; This slot is the locus for various morphemes that agree with the 
+; object of the sentence if there is one.
+
+(df locus
+	(flags object)
+	(seme (trajectory none))
+	(rection -relative)
+	(call locus ku))

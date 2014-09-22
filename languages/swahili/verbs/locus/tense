@@ -1,0 +1,25 @@
+; Tense markers in Swahili
+
+(df locus
+	(flags tense)
+	(segments n a)
+	(seme (tense present) (aspect imperfective))
+	(call locus object))
+
+(df locus
+	(flags tense)
+	(segments n a)
+	(seme (tense present) (aspect inchoative))
+	(call locus object))
+
+(df locus
+	(flags tense)
+	(segments l i)
+	(seme (tense past))
+	(call locus object))
+	
+(df locus
+	(flags tense)
+	(segments me)
+	(seme (tense present) (aspect stative))
+	(call locus object))

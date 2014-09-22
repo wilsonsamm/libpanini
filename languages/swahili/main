@@ -21,7 +21,14 @@
 (include verbs/dict)
 (include verbs/verbs)
 (include verbs/verbstem)
-(include verbs/prefices)
+(include verbs/locus/ku)
+(include verbs/locus/negation)
+(include verbs/locus/object)
+(include verbs/locus/root)
+(include verbs/locus/slotting)
+(include verbs/locus/subject)
+(include verbs/locus/tense)
+
 
 (df main
 	(call sentence)

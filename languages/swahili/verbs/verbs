@@ -1,2 +1,2 @@
 (df verb
-	(call verb-slot-negative))
+	(call locus negation))

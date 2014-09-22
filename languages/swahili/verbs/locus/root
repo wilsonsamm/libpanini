@@ -1,0 +1,4 @@
+(df locus
+	(flags root ku)
+	(call verbstem)
+	(call locus suffix))
