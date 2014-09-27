@@ -1,6 +1,6 @@
 ; Suru is such an irregular verb that it gets a file all to itself.
 
 (df suru
-	(call mora su) (call mora ru) (seme (tense present)))
+	(segments su ru) (seme (tense present)))
 (df suru
-	(call mora si) (call mora ta) (seme (tense present)))
+	(segments si ta) (seme (tense present)))

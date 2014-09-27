@@ -104,16 +104,20 @@ char * segmentation(char * headword, char * moras, kanji * klist) {
  *                   (eg. noun, verb etc.)
  */
 int learnentry_func(char * headword, char * reading, char * ttemp, \
-                 kanji * klist, char * postag, char * incode, char * jpos) {
+                 kanji * klist, char * postag, char * incode, char * jpos, char * flags) {
 	
-	if(!klist) {
-		printf("No klist!\n");
-		return 0;
-	}
+	/* If this is not actually a [noun/verb/adj-i/...] then just quit.
+	 * We need to look for the tag between the parentheses. First find 
+	 * the left one */
+	char * leftparen = strstr(ttemp, "(");
+	if(!leftparen) return;
+	
+	/* See if the tag is between after the "(" and before the ")". */
+	if(!strstr(leftparen, postag)) return;
+	if(strstr(leftparen, postag) > strstr(leftparen, ")")) return;
 	
 	/* Remove the part-of-speech tag at the front of the translation. */
-	int poslen = strlen(postag);
-	if(!strncmp(ttemp, postag, poslen)) ttemp += poslen + 1;
+	ttemp = strstr(leftparen, ")") + strlen(") ");
 	
 	/* Remove the slash at the end of the translation */
 	char * translation = strdup(ttemp);
@@ -152,7 +156,7 @@ int learnentry_func(char * headword, char * reading, char * ttemp, \
 	
 	/* Define a [whatever the part of speech is] */
 	printf("; %s [%s] (%s) %s\n", headword, reading, jpos, translation);
-	printf("(df %s ", jpos);
+	printf("(df %s (flags %s) ", jpos, flags);
 	
 	/* It should have the right meaning */
 	monad_map(m, kill_least_confident, (void *)0, -1);
@@ -169,13 +173,11 @@ int learnentry_func(char * headword, char * reading, char * ttemp, \
 	return 1;
 }
 
-int learnentry_n(char * headword, char * reading, char * translation, kanji * klist) {
-	if(learnentry_func(headword, reading, translation, klist, "(n)", "(call Headword noun)(fullstop)", "noun")) return 1;
-	return 0;
-} 
-
 int learnentry(char * headword, char * reading, char * translation, kanji * klist) {
-	if(learnentry_n(headword, reading, translation, klist)) return 1;
+	
+	learnentry_func(headword, reading, translation, klist, "n",  "(call Headword noun)(fullstop)", "noun", "");
+	learnentry_func(headword, reading, translation, klist, "pn", "(call Headword noun)(fullstop)", "noun", "");
+	learnentry_func(headword, reading, translation, klist, "vs", "(call Headword noun)(fullstop)", "verb", "suru");
 	return 0;
 }
 
@@ -252,6 +254,8 @@ int main(int argc, char * argv[]) {
 	/* Print out all the used kanji. */
 	compilekanji(klist);
 	free_kanji(klist);
+	
+	fprintf(stderr, "All done!            \n");
 	
 	return 0;
 }
