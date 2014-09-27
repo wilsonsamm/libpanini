@@ -6,7 +6,11 @@ nobuild:
 	@echo You may also do "make docs" to generate documentation, which turns \
 			up in the
 	@echo docs/ directory.
-all: docs  
+
+
+# Easter egg
+love:
+	@echo Not war?
 
 vlad: validate.o list.o list-tokenise.o monad.o parse.o generate.o learn.o bind.o spawn.o variables.o misc.o intext.o outtext.o exec.o binders.o memory.o phrase.o
 	gcc -o vlad validate.o list.o list-tokenise.o monad.o parse.o generate.o bind.o learn.o spawn.o variables.o misc.o intext.o outtext.o exec.o binders.o memory.o phrase.o
@@ -126,7 +130,8 @@ clean: lang-clean
 	make -C utils clean
 	make -C doc clean
 	make -C imports clean
-	
+
+
 # Git commands might be useful to have in a Makefile.
 pull:
 	git pull

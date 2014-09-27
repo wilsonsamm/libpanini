@@ -33,6 +33,26 @@ char * segmentation(char * headword, char * moras, kanji * klist) {
 	
 	kanji * tklist = klist;
 	
+	int i = 0;
+	while(strlen(hiragana[i])) {
+		
+		if(strncmp(hiragana[i], headword, strlen(hiragana[i]))) {
+			i++;
+			continue;
+		}
+		
+		char * next = segmentation(headword + strlen(hiragana[i]), moras + strlen(latin[i]), klist);
+		if(!next) return 0;
+		
+		char * def = malloc(strlen(next) + strlen("(segments ) ") + strlen(latin[i]) + 1);
+		strcpy(def, latin[i]);
+		strcat(def, " ");
+		strcat(def, next);
+		free(next);
+		return def;
+	}
+		
+	
 	while(tklist) {
 		if(!tklist->glyph) {
 			break;
@@ -51,12 +71,11 @@ char * segmentation(char * headword, char * moras, kanji * klist) {
 			if(!strncmp(r->moras, moras, strlen(r->moras))) {
 				char * next = segmentation(headword + strlen(tklist->glyph), moras + strlen(r->moras), klist);
 				if(!next) return 0;
-				char * def = malloc(strlen("(segments -)") + strlen(tklist->jiscode) + strlen(r->moras) + strlen(next) + 1);
-				strcpy(def, "(segments ");
-				strcat(def, tklist->jiscode);
+				char * def = malloc(+ strlen(tklist->jiscode) + strlen(r->moras) + strlen(next) + 5);
+				strcpy(def, tklist->jiscode);
 				strcat(def, "-");
 				strcat(def, r->moras);
-				strcat(def, ")");
+				strcat(def, " ");
 				strcat(def, next);
 				free(next);
 				return def;
@@ -114,6 +133,7 @@ int learnentry_func(char * headword, char * reading, char * ttemp, \
 	monad_map(m, set_stack, incode, -1);
 	if(!monad_map(m, tranny_parse, (void *)0, 20)) {
 		monad_free(m);
+		free(translation);
 		return 0;
 	}
 	
@@ -127,7 +147,7 @@ int learnentry_func(char * headword, char * reading, char * ttemp, \
 	/* this string will hold the code to generate the japanese word */
 	char * tr = transliterate(reading);
 	char * seg = segmentation(headword, tr, klist);
-	free(tr);
+	
 	if(!seg) return 0;
 	
 	/* Define a [whatever the part of speech is] */
@@ -138,12 +158,14 @@ int learnentry_func(char * headword, char * reading, char * ttemp, \
 	monad_map(m, kill_least_confident, (void *)0, -1);
 	monad_map(m, print_seme, stdout, -1);
 
-	printf("%s)\n\n", seg);
+	printf("(segments %s) (call #))\n\n", seg);
 	
 	fprintf(stderr, "%s [%s] (%s) %s                           \n", \
 	        headword, reading, jpos, translation);
 	monad_free(m);
 	free(seg);
+	free(tr);
+	free(translation);
 	return 1;
 }
 
