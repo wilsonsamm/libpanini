@@ -15,7 +15,7 @@ int tranny_intext(monad * m, char * command);
 int tranny_outtext(monad * m, char * command);
 
 /* These functions tests for and executes those instructions that spawn other monads. */
-int tranny_exec(monad * m, char * command, int(reduce)(monad * m, list * l));
+int tranny_exec(monad * m, char * command, int(reduce)(monad * m, list * l), int generate);
 
 /* These functions have to do with memory. */
 int tranny_memory(monad * m, char * command);

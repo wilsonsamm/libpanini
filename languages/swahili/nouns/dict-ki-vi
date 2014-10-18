@@ -14,11 +14,11 @@
 ;  inanimate  - if the noun is not animate, as above, then it should have this flag.
 
 (df nounstem
-	(lit umba)
+	(segments u m b a)
 	(flags ki/vi)
 	(seme (head room)))
 
 (df nounstem
-	(lit tabu)
+	(segments t a b u)
 	(flags ki/vi)
 	(seme (head book)))

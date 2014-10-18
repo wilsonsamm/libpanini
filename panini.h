@@ -42,17 +42,13 @@ int print_seme(monad * m, void * nothing); // Prints (seme ...) out.
 int kill_identical_outtexts(monad * m, void * nothing); // Kills monads that have the same OUTTEXT.
 int kill_least_confident(monad * m, void * nothing); // Kills monads except the most confident ones.
 int kill_braked_monads(monad * m, void * thr); // Kills monads where the BRAKE is higher than *(int*)thr.
-int kill_not_done(monad * m, void * nothing); // Kills monads that have not finished their program.
-int unlink_the_dead(monad * m, void * nothing); // Removes dead monads from the linked list.
-int set_switches(monad * m, void * switches); // Sets switches
-int clear_switches(monad * m, void * switches); // Clears switches
 
-/* These function interpret a Tranny program */
-int tranny_parse(monad * m, void * nothing);      // This one parses the incoming text and produces the meaning.
-int tranny_generate(monad * m, void * nothing);   // This one generates a new text, given the meaning stored in the monads.
-int tranny_learn(monad * m, void * filepointer);  // This takes the incoming text, and the meaning, and then learns, producing
-                                                  // (unattested) rules that may be added to the tranny program.
-int tranny_attest(monad * m, void * nothing);     // This, if it ever runs an unattested rule and succeeds, then that rule will be
-                                                  // attested.
+/* These functions are an abstraction level over monad_map and the
+ * various functions you can pass to it. */
+int panini_parse(monad * m, char * exec, char * intext, int edit, int record, int threshold);
+int panini_generate(monad * m, char * exec, int record, int threshold);
+int panini_keep_confident(monad * m);
+int panini_keep_unique(monad * m);
+
 
 #endif

@@ -13,13 +13,15 @@ int shortstrcmp(char * x, char * y) {
 	return 0;
 }
 
-int m_do(monad * m, char * instr) {
-	
-	monad_map(m, set_stack, instr, -1);
-	monad_map(m, tranny_parse, (void*)0, -1);
-	
-	return 0;
-}
+//int m_do(monad * m, char * instr) {
+//	
+//	panin
+//	
+//	monad_map(m, set_stack, instr, -1);
+//	monad_map(m, tranny_parse, (void*)0, -1);
+//	
+//	return 0;
+//}
 
 int var_assert(monad * m, char * namespace, char * varname, char * value) {
 	char instruction[2048];
@@ -32,7 +34,7 @@ int var_assert(monad * m, char * namespace, char * varname, char * value) {
 	strcat(instruction, value);
 	strcat(instruction, "))");
 	
-	m_do(m, instruction);
+	panini_parse(m, instruction, "", 0, 0, -1);
 	
 	return 0;
 }
@@ -61,8 +63,8 @@ int languages_english(monad * m, char * language) {
 int languages_japanese(monad * m, char * language) {
 	monad_rules(m, "japanese");
 	if(strstr(language, ":kyouiku="))  var_assert(m, "language", "kyouiku", strstr(language, ":kyouiku=") + 9);
-	if(strstr(language, ":romaji"))    m_do(m, "(call romaji)");
-	if(strstr(language, ":nokanji"))   m_do(m, "(language -kanji) (call hiragana)");
+	if(strstr(language, ":romaji"))    panini_parse(m, "(call romaji)", "", 0, 0, -1);
+	if(strstr(language, ":nokanji"))   panini_parse(m, "(language -kanji) (call hiragana)", "", 0, 0, -1);
 	
 	return 0;
 }
@@ -94,8 +96,8 @@ int languages_czech(monad * m, char * language) {
  */
 int languages_nahuatl(monad * m, char * language) {
 	monad_rules(m, "nahuatl");
-	if(strstr(language, ":carochi"))   m_do(m, "(language (orthography carochi))");
-	if(strstr(language, ":classical")) m_do(m, "(language (orthography classical))");
+	if(strstr(language, ":carochi"))   panini_parse(m, "(language (orthography carochi))", "", 0, 0, -1);
+	if(strstr(language, ":classical")) panini_parse(m, "(language (orthography classical))", "", 0, 0, -1);
 	
 	return 0;
 }
@@ -107,10 +109,9 @@ int languages_nahuatl(monad * m, char * language) {
  */
 int languages_cree(monad * m, char * language) {
 	monad_rules(m, "algonquian");
-	m_do(m, "(language (language cree))");
-	if(strstr(language, ":plains"))  m_do(m, "(language (language cree) (dialect plains))");
-	if(strstr(language, ":woods"))   m_do(m, "(language (language cree) (dialect woods))");
-	if(strstr(language, ":moose"))   m_do(m, "(language (language cree) (dialect moose))");
+	if(strstr(language, ":plains"))  panini_parse(m, "(language (language cree) (dialect plains))", "", 0, 0, -1);
+	if(strstr(language, ":woods"))   panini_parse(m, "(language (language cree) (dialect woods) )", "", 0, 0, -1);
+	if(strstr(language, ":moose"))   panini_parse(m, "(language (language cree) (dialect moose) )", "", 0, 0, -1);
 	
 	return 0;
 }
@@ -119,7 +120,7 @@ int languages_cree(monad * m, char * language) {
  */
 int languages_ojibwe(monad * m, char * language) {
 	monad_rules(m, "algonquian");
-	m_do(m, "(language (language ojibwe))");
+	panini_parse(m, "(language (language ojibwe))", "", 0, 0, -1);
 	return 0;
 }
 

@@ -113,14 +113,16 @@ int kill_identical_outtexts(monad * m, void * nothing);
 char * monad_get_outtext(monad * m);
 int set_stack(monad * m, char * stack);
 int set_intext(monad * m, char * n);
+int set_edit(monad * m, int * edit);
 int remove_ns(monad * m, char * n);
 int print_ns(monad * m, void * nothing);
 int print_out(monad * m, FILE * fp);
 int unlink_the_dead(monad * m, void * nothing);
 int set_trace(monad * m, int * i);
+int kill_not_done(monad * m, void * nothing);
 int kill_least_confident(monad * m, void * nothing); // Kills monads except the most confident ones.
-
-int set_switches(monad * m, int * s);
-int clear_switches(monad * m, int * s);
+int append_record_ns(monad * m, void * nothing);
+int max_confidence(monad * m, int * c);
+int kill_less_confident(monad * m, int * c);
 
 #endif

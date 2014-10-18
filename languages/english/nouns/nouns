@@ -82,9 +82,9 @@
 
 ;;; Regular nouns are defined down here as something which consists of a nounstem plus an optional plural suffix.
 (df noun
+	(flags lemma)
 	(seme (number singular))
 	(call nounstem) (segments space)
-	(flags lemma)
 	(rection (person he-she-it))
 	(clues (class nominal)))
 

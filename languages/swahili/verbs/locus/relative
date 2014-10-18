@@ -1,0 +1,7 @@
+(df locus
+	(rection -relative)
+	(call locus object))
+
+(df locus
+	(call prefix relative)
+	(call locus object))

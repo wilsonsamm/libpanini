@@ -18,6 +18,7 @@ int cl_all = 0;
 int main(int argc, char * argv[]) {
 
 	int threshold = 20;
+	int edit = 0;
 	int retval;
 	
 	/* create a new monad. */
@@ -30,7 +31,7 @@ int main(int argc, char * argv[]) {
 		printf("srclang and dstlang are names/descriptions of the language to translate to and\nfrom, respectively.\n");
 		printf("Here are some examples:\n");
 		printf(" $ tranny english japanese -- I can see you.\n");
-		printf(" $ tranny english:american english:british -- How are y'all doing?\n");
+		printf(" $ tranny english:american english:british -- I can see a rubber.\n");
 		return 1;
 	}
 
@@ -54,6 +55,9 @@ int main(int argc, char * argv[]) {
 		} else
 		if(!strcmp(argv[i], "all")) {	// Don't stop when monad_map succeeds at a threshold level
 			cl_all = 1;
+		} else
+		if(!strcmp(argv[i], "edit")) {		// Debug a monad (takes numerical argument)
+			edit = atoi(argv[++i]);
 		} else
 		if(!strcmp(argv[i], "d")) {		// Debug a monad (takes numerical argument)
 			int t = atoi(argv[++i]);
@@ -82,19 +86,13 @@ int main(int argc, char * argv[]) {
 		sentence = tmp;
 		i++;
 	}
-	monad_map(m, set_intext, (void *)sentence, -1);
 	
 	/* Set the rules ready for translation from the original */
 	languages(m, argv[1]);
 	
 	/* Parse! */
-	monad_map(m, set_stack, "(call main)", -1);
-	for(i = 0; i < threshold; i++) {
-		monad_map(m, unlink_the_dead, (void *)0, i);
-		retval = monad_map(m, tranny_parse, argv[1], i);
-		if(retval && !cl_all) break;
-	}
-	
+	retval = panini_parse(m, "(call main)", sentence, edit, 0, threshold);
+		
 	/* If the parse wasn't successful, then exit. */
 	if(!retval) {
 		if(cl_verbose) {
@@ -104,14 +102,10 @@ int main(int argc, char * argv[]) {
 		monad_free(m);
 		exit(1);
 	}
-	monad_map(m, kill_not_done, (void*)0, -1);
 	i++;
 	
-	/* Only keep the best interpretation if that's what the user requested */
-	if(cl_best)	monad_map(m, kill_least_confident, (void*)0, -1);
-	
 	/* Do we want to only use the most likely interpretation? */
-	if(cl_one) monad_map(m, kill_least_confident, (void *)0, -1);
+	if(cl_one) panini_keep_confident(m);
 	
 	/* Did the user want to see all the namespaces? */
 	if(cl_verbose) monad_map(m, print_ns, stdout, -1);
@@ -137,19 +131,16 @@ int main(int argc, char * argv[]) {
 		monad_map(m, remove_ns, "rection", -1);
 		monad_map(m, remove_ns, "record", -1);
 		monad_map(m, remove_ns, "theta", -1);
-		monad_map(m, set_stack, "(call main)", -1);
 		
-		for(; i <= threshold * 2; i++) {
-			retval = monad_map(m, tranny_generate, (void *)0, i);
-			if(retval && !cl_all) break;
-		}
+		retval = panini_generate(m, "(call main)", 0, threshold);
+		
 		if((!retval) && cl_verbose) {
 			printf("I understood the input but I don't know of a way to say it in %s.\n", argv[2]);
 			printf("Try another language maybe?\n");
 		}
 			
 		/* Only keep the best interpretation if that's what the user requested */
-		if(cl_best)	monad_map(m, kill_least_confident, (void*)0, -1);
+		if(cl_best)	panini_keep_confident(m);
 		
 		monad_map(m, kill_identical_outtexts, (void *)0, -1);
 		

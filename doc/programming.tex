@@ -105,17 +105,37 @@ Panini offers a more elegant solution, because you may flag a verb with both tra
 In this way, Panini does exactly the same as the Backus-Naur notation. In the next section, you will see how Panini also provides
 more than context-free grammar.
 
-\section{Namespaces, scopes and variables}
-A variable is a small piece of information that is also addressed by name, and may optionally have some value attached to it. 
-Variables are kept in a scope, which may also contain other scopes. A scope can also be addressed by name. Several scopes may exist
-inside each other. In this way, we can build up information and representations of arbitrary complexity.
+\section{Introduction to namespaces, scopes and variables}
+A variable is a small piece of information that is also addressed by 
+name, and may optionally have some value attached to it. Variables 
+are kept in a scope, which may also contain other scopes. A scope 
+can also be addressed by name. Several scopes may exist inside each 
+other. In this way, we can build up information and representations 
+of arbitrary complexity.
 
-Scopes live in namespaces. Namespaces have specific purposes. We will introduce two here. One namespace, called \emph{rection}, is,
-by convention, used to build up grammatical information about a phrase. This may be the gender of a noun, or the number and person
-of a subject, for instance. This information may be used again later on, to ensure that the correct suffix or article is used with
-the noun, or to ensure that a verb is conjugated correctly, for instance.
+Scopes live in namespaces. Namespaces have specific purposes. We will 
+introduce two here. One namespace, called \emph{rection}, is, by 
+convention, used to build up grammatical information about a phrase. 
+This may be the gender of a noun, or the number and person of a subject,
+for instance. This information may be used again later on, to ensure 
+that the correct suffix or article is used with the noun, or to ensure 
+that a verb is conjugated correctly, for instance.
 
-Another namespace is called \emph{seme}. This is used to represent the meaning of a phrase.
+Another namespace is called \emph{seme}. This is used to represent the 
+meaning of a phrase. The variables' names and values should match from 
+language to language, so that they can be translate from one to another
+or so that a program may take its input in any language that has been
+included in the Panini Project.
+
+You will be told about the specifics of these and other namespaces as and when they are talked about in this documentation.
+
+\section{Scoping} 
+Because natural and artificial languages are 
+recursive, so that a predication may take several arguments, and 
+those arguments may themselves take other arguments, the Panini 
+Project must provide a way to scope the various information in sensible and flexible ways.
+
+
 
 
 \label{end}\end{document}

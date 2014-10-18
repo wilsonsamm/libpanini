@@ -6,3 +6,9 @@
 	(seme (trajectory none))
 	(rection -relative)
 	(call locus ku))
+
+(df locus
+	(flags object)
+	(seme (trajectory projective))
+	(language -formal)
+	(call locus ku))

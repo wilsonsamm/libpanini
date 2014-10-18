@@ -3,8 +3,8 @@ CCOPTS = -ggdb -c -Wall -O2
 nobuild:
 	@echo Do not invoke make directly.
 	@echo Use the enclosed script build.sh.
-	@echo You may also do "make docs" to generate documentation, which turns \
-			up in the
+	@echo -n You may also do "make docs" to generate documentation, 
+	@echo which turns up in the
 	@echo docs/ directory.
 
 
@@ -12,14 +12,8 @@ nobuild:
 love:
 	@echo Not war?
 
-vlad: validate.o list.o list-tokenise.o monad.o parse.o generate.o learn.o bind.o spawn.o variables.o misc.o intext.o outtext.o exec.o binders.o memory.o phrase.o
-	gcc -o vlad validate.o list.o list-tokenise.o monad.o parse.o generate.o bind.o learn.o spawn.o variables.o misc.o intext.o outtext.o exec.o binders.o memory.o phrase.o
-
-libpanini.a: list.o list-tokenise.o generate.o parse.o spawn.o learn.o attest.o monad.o bind.o variables.o misc.o intext.o outtext.o exec.o binders.o memory.o reduce.o phrase.o
-	ar rcs libpanini.a list.o list-tokenise.o generate.o parse.o spawn.o learn.o attest.o monad.o bind.o variables.o misc.o intext.o outtext.o exec.o binders.o memory.o reduce.o phrase.o
-
-validate.o: validate.c
-	gcc $(CCOPTS) validate.c
+libpanini.a: list.o list-tokenise.o generate.o parse.o spawn.o learn.o attest.o monad.o bind.o variables.o misc.o intext.o outtext.o exec.o binders.o memory.o reduce.o phrase.o operations.o panini.o 
+	ar rcs libpanini.a list.o list-tokenise.o generate.o parse.o spawn.o learn.o attest.o monad.o bind.o variables.o misc.o intext.o outtext.o exec.o binders.o memory.o reduce.o phrase.o operations.o panini.o 
 
 list.o: list/list.c list/list.h
 	gcc $(CCOPTS) list/list.c 
@@ -35,6 +29,12 @@ variables.o: monad/monad.h vars/variables.c
 
 monad.o: monad/monad.h monad/monad.c
 	gcc $(CCOPTS) monad/monad.c 
+
+operations.o: monad/monad.h monad/operations.c
+	gcc $(CCOPTS) monad/operations.c
+
+panini.o: panini/panini.c
+	gcc $(CCOPTS) panini/panini.c
 
 parse.o: monad/monad.h monad/monad.c tranny/parse.c
 	gcc $(CCOPTS) tranny/parse.c 
@@ -102,8 +102,6 @@ compiler-for.o: compiler/for.c compiler/compiler.h
 compiler-ontology.o: compiler/ontology.c compiler/compiler.h
 	gcc $(CCOPTS) -o compiler-ontology.o compiler/ontology.c
 	
-languages: lang-clean nahuatl swahili ainu english czech quenya japanese
-
 lang-clean:
 	rm -rf nahuatl swahili ainu english czech quenya japanese algonquian
 
@@ -113,7 +111,8 @@ install:
 	mkdir -p /usr/panini/learned
 	mkdir -p /usr/panini/attested
 	chmod a=rxw /usr/panini/learned /usr/panini/attested
-	mv nahuatl swahili ainu czech english quenya japanese algonquian /usr/panini/languages
+	cp nahuatl swahili ainu czech english quenya /usr/panini/languages
+	cp japanese algonquian /usr/panini/languages
 	cp libpanini.a /usr/lib/
 	cp panini.h /usr/include
 
@@ -124,10 +123,10 @@ uninstall:
 clean: lang-clean
 	rm -f *.o *.gch *.a *.txt *.gz vlad core tc learn a.out gmon.out
 	rm -f english.headwords.txt imports-japanese
-	rm -f monad/*.o monad/*.gch tranny/*.o tranny/*.gch list/*.o list/*.gch vars/*.o vars/*.gch compiler/*.o
+	rm -f monad/*.o monad/*.gch tranny/*.o tranny/*.gch list/*.o 
+	rm -f list/*.gch vars/*.o vars/*.gch compiler/*.o
 	make -C demos/tranny clean
 	make -C demos/kanjify clean
-	make -C utils clean
 	make -C doc clean
 	make -C imports clean
 

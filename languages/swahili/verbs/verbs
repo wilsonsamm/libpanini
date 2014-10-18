@@ -1,2 +1,3 @@
 (df verb
+	(flags not-copular)
 	(call locus negation))

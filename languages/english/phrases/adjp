@@ -5,7 +5,7 @@
 (for k (predicative attributive)
 	(df adjp
 		(flags .k)
-		(call adjective .k)))
+		(into (head) call adjective .k)))
 
 (for k (predicative attributive)
 	(df adjp-chain

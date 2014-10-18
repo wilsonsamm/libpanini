@@ -3,36 +3,36 @@
 ; sentence.
 
 (df locus
-	(flags subject)
+	(flags subject positive)
 	(segments n i)
 	(into (theta subject) rection (class m/wa) (person first) (number singular))
 	(call locus tense))
 
 (df locus
-	(flags subject)
+	(flags subject positive)
 	(segments u)
 	(into (theta subject) rection (class m/wa) (person second) (number singular))
 	(call locus tense))
 
 (df locus
-	(flags subject)
+	(flags subject positive)
 	(into (theta subject) rection (class m/wa) (person third) (number singular))
 	(call locus tense))
 
 (df locus
-	(flags subject)
+	(flags subject positive)
 	(segments a)
 	(into (theta subject) rection (class n) (number singular) animate)
 	(call locus tense))
 
 (df locus
-	(flags subject)
+	(flags subject positive)
 	(segments i)
 	(into (theta subject) rection (class n) (number singular) -animate)
 	(call locus tense))
 
 (df locus
-	(flags subject)
+	(flags subject positive)
 	(segments z i)
 	(into (theta subject) rection (class n) (number plural) -animate)
 	(call locus tense))

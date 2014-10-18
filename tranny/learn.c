@@ -286,7 +286,7 @@ int tranny_learn(monad * m, void * nothing) {
 	if(tranny_intext(m, command)) return 1;
 	
 	/* Is the command one of those that spawns other monads? */
-	if(tranny_exec(m, command, 0)) return 1;
+	if(tranny_exec(m, command, 0, 0)) return 1;
 	
 	/* Is the command one of the ones deals with memory? */
 	if(tranny_memory(m, command)) return 1;

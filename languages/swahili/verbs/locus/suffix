@@ -1,0 +1,5 @@
+; This file describes the suffix of Bantu verbs. -a is, -wa is passive
+; etc.
+
+(df locus
+	(flags suffix))

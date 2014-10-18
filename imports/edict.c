@@ -26,7 +26,7 @@ monad * pmonad;
  * will return the panini code to match or generate that headword/reading.
  */
 char * segmentation(char * headword, char * moras, kanji * klist) {
-	
+
 	if(!headword) return 0;
 	if(!moras) return 0;
 	if(!strlen(headword) && !strlen(moras)) return strdup("");
@@ -110,14 +110,18 @@ int learnentry_func(char * headword, char * reading, char * ttemp, \
 	 * We need to look for the tag between the parentheses. First find 
 	 * the left one */
 	char * leftparen = strstr(ttemp, "(");
-	if(!leftparen) return;
+	if(!leftparen) return 0;
 	
 	/* See if the tag is between after the "(" and before the ")". */
-	if(!strstr(leftparen, postag)) return;
-	if(strstr(leftparen, postag) > strstr(leftparen, ")")) return;
+	if(!strstr(leftparen, postag)) return 0;
+	if(strstr(leftparen, postag) > strstr(leftparen, ")")) return 0;
 	
 	/* Remove the part-of-speech tag at the front of the translation. */
 	ttemp = strstr(leftparen, ")") + strlen(") ");
+	
+	/* Also, see if there's a (1) or (2) at the front. */
+	if(!strncmp(ttemp, "(1) ", strlen("(1) "))) ttemp += strlen("(1) ");
+	if(!strncmp(ttemp, "(2) ", strlen("(2) "))) ttemp += strlen("(2) ");
 	
 	/* Remove the slash at the end of the translation */
 	char * translation = strdup(ttemp);
@@ -132,12 +136,8 @@ int learnentry_func(char * headword, char * reading, char * ttemp, \
 	if(!strlen(headword)) return 0;
 	
 	monad * m = monad_duplicate_all(pmonad);
-	monad_map(m, unlink_the_dead, (void*)0, -1);
-	monad_map(m, set_intext, (void *)translation, -1);
-	monad_map(m, set_stack, incode, -1);
-	if(!monad_map(m, tranny_parse, (void *)0, 20)) {
+	if(!panini_parse(m, incode, translation, 0, 20)) {
 		monad_free(m);
-		free(translation);
 		return 0;
 	}
 	

@@ -16,14 +16,12 @@ void kyouiku(monad * m) {
 	strcpy(exec, "(language (kyouiku ");
 	strcat(exec, cl_kyouiku);
 	strcat(exec, "))");
-	monad_map(m, set_stack, exec, -1);
 	
-	monad_map(m, tranny_generate, (void*)0, -1);
+	panini_parse(m, exec, "", 0, -1);
 }
 
 void nokanji(monad * m) {
-	monad_map(m, set_stack, "(language -kanji)", -1);
-	monad_map(m, tranny_generate, (void*)0, -1);
+	panini_parse(m, "(language -kanji)", "", 0, -1);
 }
 
 int main(int argc, char * argv[]) {
@@ -81,20 +79,19 @@ int main(int argc, char * argv[]) {
 		sentence = tmp;
 		i++;
 	}
-	monad_map(m, set_intext, (void *)sentence, -1);
-	
+
 	/* Set the rules ready for translation from the original */
 	monad_rules(m, "japanese");
 	
 	/* Parse! */
-	monad_map(m, set_stack, "(language -kanji) (call main)", 20);
-	retval = monad_map(m, tranny_parse, (void *)0, 20);
-
+	retval = panini_parse(m, "(language -kanji) (call main)", sentence, 0, 1, 20);
 	/* If the parse wasn't successful, then exit. */
 	if(!retval) {
+		fprintf(stderr, "I couldn't work your sentence out.\n");
 		monad_free(m);
 		exit(1);
-	} 
+	}
+	
 	monad_map(m, kill_least_confident, (void *)0, -1);
 	monad_map(m, kill_not_done, (void*)0, -1);
 	i++;
@@ -106,21 +103,18 @@ int main(int argc, char * argv[]) {
 
 	/* Select the kyouiku level */
 	if(cl_nokanji) nokanji(m);
-
-	/* Select the kyouiku level */
 	if(cl_kyouiku) kyouiku(m);
 	
-	monad_map(m, set_stack, "(call main)", -1);
+	retval = panini_generate(m, "(call main)", 1, -1);
 	
-	retval = monad_map(m, tranny_generate, (void *)0, 20);
-	
-	/* Only keep the best interpretation if that's what the user requested */
+	/* Only keep the best result if that's what the user requested */
 	monad_map(m, kill_least_confident, (void*)0, -1);
 	monad_map(m, kill_identical_outtexts, (void *)0, -1);
 	monad_map(m, print_out, stdout, i);
 	
 	monad_free(m);
 	free(sentence);
+	
 	if(retval) return 0;
 	exit(2);
 }

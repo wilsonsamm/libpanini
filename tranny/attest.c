@@ -18,7 +18,7 @@ char * strlist(list * l, char * takeme) {
 	while(i < l->length) {
 		if(!l->types) break;
 		if(l->types[i] == TOKEN) {
-			takeme = concat(takeme, (char *)l->data[i]);
+			takeme = concat(takeme, strdup((char *)l->data[i]));
 			takeme = concat(takeme, strdup(" "));
 		}
 		if(l->types[i] == LIST) {
@@ -72,7 +72,7 @@ int tranny_attest(monad * m, char * langname) {
 	if(tranny_intext(m, command)) return 1;
 	
 	/* Is the command one of those that spawns other monads? */
-	if(tranny_exec(m, command, 0)) return 1;
+	if(tranny_exec(m, command, 0, 0)) return 1;
 	
 	/* Is the command one of the ones deals with memory? */
 	if(tranny_memory(m, command)) return 1;

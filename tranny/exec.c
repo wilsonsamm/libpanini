@@ -71,17 +71,39 @@ monad * exec_spawn(monad * m, list * rules, list * flags, int(reduce)(monad * m,
 	return first;
 }
 
-void tranny_segments(monad * m) {
+void tranny_segments(monad * m, int generate) {
 	
 	/* Base case: no more segments to do. */
 	if(m->command->length == 1) return;
 	
-	/* A list of segments is really a list of function calls. Generate that list: */
-	list * calls = list_new();
-	
+	/* What is the next segment to process? */
 	char * segment = list_get_token(m->command, 2);
 	if(!segment) return;
 	
+	/* While parsing, we might need to append this to the (record) 
+	 */
+	list * record = list_find_list(m->namespace, "record");
+	if(record && generate == 0) list_append_token(record, segment);
+		
+	/* While generating, we might need to check that this is indeed the
+	 * segment we want to call. */
+	if(record && generate != 0) {
+		char * current = list_get_token(record,2);
+		
+		if(!current || strcmp(segment, list_get_token(record,2))) {
+			m->alive = 0;
+			return;
+		}
+		
+		list_drop(record, 2);
+	}
+	
+	list * spawn = list_new();
+	/* A list of segments is really a list of function calls. Generate
+	 * the list where the first instruction is that function call and 
+	 * the second instrction is the next (segments x y z): */
+	list * calls = list_append_list(spawn);
+		
 	list * call = list_append_list(calls);
 	
 	list_append_token(call, "call");
@@ -92,20 +114,41 @@ void tranny_segments(monad * m) {
 	list_append_copy(segments, m->command);
 	list_drop(segments, 2);
 	
-	/* Update the stack */
-	list * newstack = list_new();
-	list_append_copy(newstack, calls);
-	list_append_copy(newstack, m->stack);
-	list_free(m->stack);
-	m->stack = newstack;
-	if(m->debug) {
-		printf("This will be the new stack:\n");
-		list_prettyprinter(m->stack);
-		printf("\n");
+	if(!generate && list_find_list(m->namespace, "edit")) {
+	/* Also, try not calling the segment, but decreasing the edit 
+	 * distance. */
+		list * edit1 = list_append_list(spawn);
+		list * edec1 = list_append_list(edit1);
+		list_append_token(edec1, "decrement-edit-distance");
+		if(m->command->length > 2) {
+			list * eseg1 = list_append_list(edit1);
+			list_append_copy(eseg1, m->command);
+			list_drop(eseg1, 2);
+			list_drop(eseg1, 2);
+		}
+	
+	/* Also, try calling some random segment instead, and also
+	 * decreasing the edit distance. */
+		list * edit2 = list_append_list(spawn);
+		list * edec2 = list_append_list(edit2);
+		list_append_token(edec2, "decrement-edit-distance");
+		
+		list * ecal2 = list_append_list(edit2);
+		list_append_token(ecal2, "call");
+		list_append_token(ecal2, "Segment");
+		
+		list * eseg2 = list_append_list(edit2);
+		list_append_copy(eseg2, m->command);
+		list_drop(eseg2, 2);
 	}
-
+		
+	/* Spawn this whole lot of stuff */
+	monad * c = exec_spawn(m, spawn, 0, 0);
+	monad_join(m,c);
+	
 	/* Tidy up */
 	list_free(calls);
+	m->alive = 0;
 }
 
 void tranny_forgive(monad * m) {
@@ -200,44 +243,37 @@ void tranny_fuzzy(monad * m) {
 	list_free(rules);
 }
 
-int tranny_exec_ops(monad * m, char * command, int(reduce)(monad * m, list * l)) {
-	if(!strcmp(command, "call")) {
-		tranny_call(m, 0, reduce);
-		return 1;
-	}
-	if(!strcmp(command, "adjunct")) {
-		tranny_call(m, 1, reduce);
-		return 1;
-	}
-	if(!strcmp(command, "fork")) {
-		tranny_fork(m, reduce);
-		return 1;
-	}
-	if(!strcmp(command, "fuzzy")) {
-		tranny_fuzzy(m);
-		return 1;
-	}
-	if(!strcmp(command, "segments")) {
-		tranny_segments(m);
-		return 1;
-	}
-	
-	
-	return 0;
-}
-	
 /* This tries to execute the instruction, and if it was possible to do that:
  *   - frees some memory up 
  *   - returns 1 to say "Success"
  * If it was not possible to execute the instruction, returns 0.
  */
-int tranny_exec(monad * m, char * command, int(reduce)(monad * m, list * l)) {
+int tranny_exec(monad * m, char * command, int(reduce)(monad * m, list * l), int generate) {
 	
-	if(tranny_exec_ops(m, command, reduce)) {
+	if(!strcmp(command, "call")) {
+		tranny_call(m, 0, reduce);
 		list_free(m->command);
-		m->command = 0;
 		return 1;
-	} else {
-		return 0;
 	}
+	if(!strcmp(command, "adjunct")) {
+		tranny_call(m, 1, reduce);
+		list_free(m->command);
+		return 1;
+	}
+	if(!strcmp(command, "fork")) {
+		tranny_fork(m, reduce);
+		list_free(m->command);
+		return 1;
+	}
+	if(!strcmp(command, "fuzzy")) {
+		tranny_fuzzy(m);
+		list_free(m->command);
+		return 1;
+	}
+	if(!strcmp(command, "segments")) {
+		tranny_segments(m, generate);
+		list_free(m->command);
+		return 1;
+	}
+	return 0;
 }

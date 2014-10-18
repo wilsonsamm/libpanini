@@ -1,33 +1,33 @@
 ; Personal pronouns
 (df pronoun
-	(lit mimi) (space)
+	(segments m i m i space)
 	(seme (head referential) (person first) (number singular) explicit)
-	(rection (class mimi))
+	(rection (class m/wa) (person first) (number singular))
 	(confidence -5))
 
 (df pronoun
 	(seme (head referential) (person first) (number singular) -explicit)
-	(rection (class mimi)))
+	(rection (class m/wa) (person first) (number singular)))
 
 (df pronoun
-	(lit wewe) (space)
+	(segments w e w e space)
 	(seme (head referential) (person second) (number singular) explicit)
-	(rection (class wewe))
+	(rection (class m/wa) (person second) (number singular))
 	(confidence -5))
 
 (df pronoun
 	(seme (head referential) (person second) (number singular) -explicit)
-	(rection (class wewe)))
+	(rection (class m/wa) (person second) (number singular)))
 
 (df pronoun
-	(lit yeye) (space)
+	(segments y e y e space)
 	(seme (head referential) (person third) (number singular) explicit)
-	(rection (class class-1))
+	(rection (class m/wa) (person third) (number singular)(class class-1))
 	(confidence -5))
 
 (df pronoun
 	(seme (head referential) (person third) (number singular) -explicit)
-	(rection (class class-1)))
+	(rection (class m/wa) (person third) (number singular)))
 
 
 ; These pronouns match the null string to referential sememes

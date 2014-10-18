@@ -3,16 +3,36 @@
 #include <string.h>
 #include <stdlib.h>
 
-void parse_record(monad * m) {
-	list * r = list_find_list(m->namespace, "record"); 
-	if(!r) {
-		r = list_append_list(m->namespace);
-		list_append_token(r, "record");
+void monad_parse_dec_edit(monad * m) {
+	char str[15];
+	
+	/* Find the edit variable */
+	list * edit = list_find_list(m->namespace, "edit");
+	if(!edit) {
+		m->alive = 0;
+		return;
 	}
 	
-	list_append_token(r, list_get_token(m->command, 2));
+	/* Get the number out of it. */
+	int e = atoi(list_get_token(edit, 2));
+	
+	/* If the number has reached 0, then the edit distance is too great
+	 * so then we'll just kill the monad. */
+	if(!e) {
+		m->alive = 0;
+		return;
+	}
+	
+	/* Otherwise, we'll stick that number minus 1 back into the edit
+	 * variable. */
+	list_drop(edit, 2);
+	
+	e--;
+	sprintf(str, "%d", e);
+	list_append_token(edit, str);
 	return;
 }
+	
 
 void into_spawner_head(monad * m) {
 	
@@ -260,7 +280,7 @@ int tranny_parse(monad * m, void * nothing) {
 	if(tranny_intext(m, command)) return 1;
 	
 	/* Is the command one of those that spawns other monads? */
-	if(tranny_exec(m, command, parse_reduce)) return 1;
+	if(tranny_exec(m, command, parse_reduce, 0)) return 1;
 	
 	/* Is the command one of the ones deals with memory? */
 	if(tranny_memory(m, command)) return 1;
@@ -271,13 +291,6 @@ int tranny_parse(monad * m, void * nothing) {
 	/* Is the command one of the ones that generates rules? */
 	if(tranny_phrase(m, command)) return 1;
 	
-	if(!strcmp(command, "record")) {
-		parse_record(m);
-		list_free(m->command);
-		m->command = 0;
-		return 1;
-	}
-		
 	if(!strcmp(command, "into")) {
 		monad_parse_into(m, 0);
 		list_free(m->command);
@@ -310,6 +323,12 @@ int tranny_parse(monad * m, void * nothing) {
 	}
 	if(!strcmp(command, "pushscope")) {
 		monad_parse_pushscope(m);
+		list_free(m->command);
+		m->command = 0;
+		return 1;
+	}
+	if(!strcmp(command, "decrement-edit-distance")) {
+		monad_parse_dec_edit(m);
 		list_free(m->command);
 		m->command = 0;
 		return 1;

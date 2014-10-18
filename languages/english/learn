@@ -13,10 +13,10 @@
 (for space     (enclosed  -enclosed )
 (for time      (time      -time     )
 (df Learn
-	(flags learn)
+	(flags lemma)
 	(open nounstem
 		(rection .countable .space .time))))))
 
 (df Learn
-	(flags learn)
+	(flags lemma)
 	(open adjective))

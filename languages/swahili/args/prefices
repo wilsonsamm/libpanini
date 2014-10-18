@@ -10,62 +10,52 @@
 ;; Personal
 ; First person singular
 (df prefix
-	(lit ni)
+	(segments n i)
 	(flags subject object)
 	(rection (class m/wa) (person first) (number singular)))
 
 ; First person plural
 (df prefix
-	(lit tu)
+	(segments t u)
 	(flags subject object)
 	(rection (class m/wa) (person first) (number plural)))
 
 ; Second person singular
 (df prefix
-	(lit u)
+	(segments u)
 	(flags subject)
 	(rection (class m/wa) (person second) (number singular)))
 
 (df prefix
-	(lit ku)
+	(segments k u)
 	(flags object)
 	(rection (class m/wa) (person second) (number singular)))
 
 ; Second person plural
 (df prefix
-	(lit u)
+	(segments u)
 	(flags subject)
 	(rection (class m/wa) (person second) (number plural)))
 (df prefix
-	(lit wa)
+	(segments w a)
 	(flags object)
 	(rection (class m/wa) (person second) (number plural)))
 	
 ;; M/WA class
 (df prefix
-	(lit a)
+	(segments a)
 	(flags subject)
 	(rection (class m/wa) (person third) (number singular)))
+
 (df prefix
-	(lit m)
-	(sandhi -vowel)
-	(flags object)
+	(segments m w)
+	(flags object adjectival)
 	(rection (class m/wa) (person third) (number singular)))
 (df prefix
-	(lit mw)
-	(sandhi vowel)
-	(flags object)
-	(rection (class m/wa) (person third) (number singular)))
-(df prefix
-	(lit wa)
+	(segments w ?a)
 	(flags subject object adjectival)
 	(sandhi -vowel)
 	(rection (class m/wa) (person third) (number plural)))
-(df prefix
-	(lit w)
-	(sandhi vowel)
-	(flags possessive adjectival)
-	(rection (class m/wa) (person third)))
 
 ;; N class
 (df prefix
@@ -95,6 +85,7 @@
 	(flags ki/vi singular subject object)
 	(lit ki)
 	(sandhi -vowel)
+	(debug)
 	(rection (class ki/vi) (number singular)))
 	
 (df prefix

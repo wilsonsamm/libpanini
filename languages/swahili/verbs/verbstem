@@ -5,12 +5,12 @@
 (df verbstem
 	(flags intransitive)
 	(call verbroot stative bantu)
-	(lit a)
+	(segments a space)
 	(theta (subject patient))
 	(seme -agent))
 	
 (df verbstem
 	(flags transitive)
 	(call verbroot bantu arg1:agent arg2:patient transitive)
-	(lit a)
+	(segments a space)
 	(theta (subject agent) (object patient)))

@@ -186,7 +186,9 @@ void speculate(monad * m, char * namespace, char * varname) {
 char * evaluate(monad * m, list * e) {
 	/* The namespace */
 	char * ns = list_get_token(e,1);
+	
 	list * namespace = get_namespace(m, ns, 0);
+	if(!namespace) return 0;
 	
 	/* The variable's name (which can itself be evaluated) */
 	char * varname = list_get_token(e,2); 

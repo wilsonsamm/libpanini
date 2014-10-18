@@ -1,0 +1,18 @@
+(for cons (b ch d dh f g gh j k l m n p r s sh t th v z)
+(segment (sandhi -vowel) (underlying .cons) (surface .cons)))
+
+
+; consonants that only occur before vowels
+(for cons (w y)
+(segment (sandhi -vowel) (underlying .cons) (surface .cons) (sandhi  vowel))
+(segment (sandhi -vowel) (underlying .cons)                 (sandhi -vowel)))
+
+
+(for vowel (a i u e o)
+(segment (sandhi vowel) (underlying .vowel) (surface .vowel)))
+
+(segment (sandhi vowel) (underlying ?a) (surface a) (sandhi -vowel))
+(segment (sandhi vowel) (underlying ?a)             (sandhi  vowel))
+
+
+(segment (underlying space) (space))

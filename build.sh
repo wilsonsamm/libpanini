@@ -11,8 +11,7 @@ LANGUAGES="ainu czech english japanese nahuatl quenya swahili algonquian"
 
 MAKEOPTS="--no-print-directory -j4"
 # The first thing to do is to build the library and the compiler.
-make $MAKEOPTS libpanini.a
-make $MAKEOPTS  compiler
+make $MAKEOPTS libpanini.a compiler
 
 # Next, we need to bootstrap each language and install
 # (this is needed because some later stages of the build rely on libpanini
@@ -27,7 +26,7 @@ sudo make install
 # We need to prepare the ekan import. Ekan is a program that takes the 
 # excellent open-source KANJIDIC and EDICT projects and converts them
 # to Panini source code.
-if [ ! -f import-japanese ];
+if [ ! -f imports-japanese ];
 then
 	if [ -f  /usr/share/edict/kanjidic ];
 	then
@@ -55,7 +54,7 @@ then
 	if [ ! -f imports/edict.txt ]; then
 		cat edict | iconv --from EUC-JISX0213 > imports/edict.txt
 	fi
-	
+
 	rm -f imports-japanese
 	rm -f imports/ekan*
 	make $MAKEOPTS -C imports ekan.out

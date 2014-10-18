@@ -18,6 +18,8 @@
 
 (include sentence)
 
+(include segmentation)
+
 (include verbs/dict)
 (include verbs/verbs)
 (include verbs/verbstem)
@@ -27,12 +29,10 @@
 (include verbs/locus/root)
 (include verbs/locus/slotting)
 (include verbs/locus/subject)
+(include verbs/locus/suffix)
 (include verbs/locus/tense)
 
 
 (df main
 	(call sentence)
 	(call punctuation sentence-final))
-
-(sandhi-initial (b ch d f g h j k l m n p r s t v w x z) (-vowel))
-(sandhi-initial (a e i o u) (vowel))

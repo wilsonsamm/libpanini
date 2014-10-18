@@ -4,18 +4,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-void generate_record(monad * m) {
-	list * r = list_find_list(m->namespace, "record"); 
-	if(!r) return;
-	
-	if(strcmp(list_get_token(m->command, 2), list_get_token(r, 2))) {
-		m->alive = 0;
-	} else {
-		list_drop(r, 2);
-	}
-	return;
-}
-
 int tranny_generate(monad * m, void * nothing) {
 	if(!m->alive) return 0;
 	
@@ -38,7 +26,7 @@ int tranny_generate(monad * m, void * nothing) {
 	if(tranny_outtext(m, command)) return 1;
 	
 	/* Is the command one of those that spawns other monads? */
-	if(tranny_exec(m, command, generate_reduce)) return 1;
+	if(tranny_exec(m, command, generate_reduce, 1)) return 1;
 	
 	/* Is the command one of the ones deals with memory? */
 	if(tranny_memory(m, command)) return 1;
@@ -48,13 +36,6 @@ int tranny_generate(monad * m, void * nothing) {
 	
 	/* Is the command one of the ones that binds variables? */
 	if(tranny_binders(m, 1)) return 1;
-	
-	if(!strcmp(command, "record")) {
-		generate_record(m);
-		list_free(m->command);
-		m->command = 0;
-		return 1;
-	}
 	
 	if(!strcmp(command, "into")) {
 		monad_parse_into(m, 1);

@@ -12,10 +12,10 @@
 (df adjective (lit tajiri)  (space) (flags uninflected) (seme (head rich)))
 
 ;; This kind of adjective needs to change according to the noun class. They're mostly of Bantu wordstock
-(df adjective (lit dogo)  (space) (flags inflected) (seme (head small)))
-(df adjective (lit refu)  (space) (flags inflected) (seme (head tall)))
-(df adjective (lit kubwa) (space) (flags inflected) (seme (head big)))
-(df adjective (lit zuri)  (space) (flags inflected) (seme (head good)))
+(df adjective (segments d o g o)  (space) (flags inflected) (seme (head small)))
+(df adjective (segments r e f u)  (space) (flags inflected) (seme (head tall)))
+(df adjective (segments k u b w a) (space) (flags inflected) (seme (head big)))
+(df adjective (segments z u r i)  (space) (flags inflected) (seme (head good)))
 
 ;; These adjectives are irregular, so I have put all their forms in.
 ; -ema means good.
