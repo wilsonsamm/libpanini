@@ -136,7 +136,7 @@ int learnentry_func(char * headword, char * reading, char * ttemp, \
 	if(!strlen(headword)) return 0;
 	
 	monad * m = monad_duplicate_all(pmonad);
-	if(!panini_parse(m, incode, translation, 0, 20)) {
+	if(!panini_parse(m, incode, translation, 0, 0, 20)) {
 		monad_free(m);
 		return 0;
 	}
@@ -205,15 +205,15 @@ int main(int argc, char * argv[]) {
 	
 	FILE * edict = fopen("./edict.txt", "r");
 	if(!edict) {
-		fprintf(stderr, "Could not open the file edict.locale.\n");
-		fprintf(stderr, "Exiting.\n");
+		fprintf(stderr, "Could not open the file edict.txt.\n");
 	}
 	
 	FILE * kanjidic = fopen("./kanjidic.txt", "r");
 	if(!kanjidic) {
-		fprintf(stderr, "Could not open the file kanjidic.locale.\n");
-		fprintf(stderr, "Exiting.\n");
+		fprintf(stderr, "Could not open the file kanjidic.txt.\n");
 	} 
+	if(!edict || !kanjidic) exit(99);
+	
 	/* The first line is only a comment */
 	//skip_line(edict);
 	skip_line(kanjidic);

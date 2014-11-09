@@ -17,11 +17,11 @@ void kyouiku(monad * m) {
 	strcat(exec, cl_kyouiku);
 	strcat(exec, "))");
 	
-	panini_parse(m, exec, "", 0, -1);
+	panini_parse(m, exec, "", 0, 0, -1);
 }
 
 void nokanji(monad * m) {
-	panini_parse(m, "(language -kanji)", "", 0, -1);
+	panini_parse(m, "(language -kanji)", "", 0, 0, -1);
 }
 
 int main(int argc, char * argv[]) {
@@ -93,7 +93,6 @@ int main(int argc, char * argv[]) {
 	}
 	
 	monad_map(m, kill_least_confident, (void *)0, -1);
-	monad_map(m, kill_not_done, (void*)0, -1);
 	i++;
 	
 	/* Prepare the monads for generation */
