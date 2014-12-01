@@ -13,7 +13,7 @@ int panini_parse(monad *m, char * commands, char * intext, int editdistance, int
 	/* First, set the stack to contain the right instructions */
 	monad_map(m, (int(*)(monad * m, void * argp))set_stack, commands, threshold);
 	
-	/* Next, next the INTEXT */
+	/* Next, set the INTEXT up */
 	monad_map(m, (int(*)(monad * m, void * argp))set_intext, intext, threshold);
 	
 	/* Then, parse the instructions and the INTEXT */
@@ -29,6 +29,33 @@ int panini_parse(monad *m, char * commands, char * intext, int editdistance, int
 	return retval;
 }
 
+int panini_learn(monad * m, char * commands, FILE * out, char * intext, int threshold) {
+	
+	int retval;
+	
+	/* First, set the stack to contain the right instructions */
+	monad_map(m, (int(*)(monad * m, void * argp))set_stack, commands, threshold);
+	
+	/* Next, set the INTEXT up */
+	monad_map(m, (int(*)(monad * m, void * argp))set_intext, intext, threshold);
+	
+	/* Then, learn the language given the intext */
+	retval = monad_map(m, tranny_learn, (void*)0, threshold);
+	
+	/* Then, kill any monad that didn't finish the program. */
+	monad_map(m, kill_not_done, (void *)0, -1);
+	
+	/* and free any monads that are not still alive
+	 * (this forgets their state so that the memory becomes free. */
+	monad_map(m, unlink_the_dead, m, -1);
+	
+	/* Then print out what we learned. */
+	monad_map(m, (int(*)(monad * m, void * argp))print_out, out, threshold);
+	
+	return retval;
+}
+	
+	
 
 int panini_generate(monad *m, char * commands, int record, int threshold) {
 	

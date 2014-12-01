@@ -1,4 +1,4 @@
-CCOPTS = -ggdb -c -Wall -O2
+CCOPTS = -ggdb -c -Wall #-O2
 
 nobuild:
 	@echo Do not invoke make directly.
@@ -7,8 +7,6 @@ nobuild:
 	@echo which turns up in the
 	@echo docs/ directory.
 
-
-# Easter egg
 love:
 	@echo Not war?
 
@@ -78,8 +76,8 @@ spawn.o: monad/monad.h monad/monad.c monad/spawn.c
 docs:
 	make -C doc
 	
-compiler: compiler-main.o compiler-definition.o compiler-check.o compiler-sandhi-init.o compiler/compiler.h list.o list-tokenise.o compiler-sandhi-fin.o compiler-for.o compiler-ontology.o 
-	gcc -o tc compiler-main.o list.o list-tokenise.o compiler-check.o compiler-sandhi-init.o compiler-definition.o compiler-sandhi-fin.o compiler-for.o compiler-ontology.o 
+compiler: compiler-tag.o compiler-main.o compiler-definition.o compiler-check.o compiler-sandhi-init.o compiler/compiler.h list.o list-tokenise.o compiler-sandhi-fin.o compiler-for.o compiler-ontology.o 
+	gcc -o tc compiler-tag.o compiler-main.o list.o list-tokenise.o compiler-check.o compiler-sandhi-init.o compiler-definition.o compiler-sandhi-fin.o compiler-for.o compiler-ontology.o 
 
 compiler-main.o: compiler/main.c compiler/compiler.h
 	gcc $(CCOPTS) -o compiler-main.o compiler/main.c
@@ -96,6 +94,9 @@ compiler-sandhi-init.o: compiler/sandhi-init.c compiler/compiler.h
 compiler-sandhi-fin.o: compiler/sandhi-fin.c compiler/compiler.h
 	gcc $(CCOPTS) -o compiler-sandhi-fin.o compiler/sandhi-fin.c
 
+compiler-tag.o: compiler/tag.c compiler/compiler.h
+	gcc $(CCOPTS) -o compiler-tag.o compiler/tag.c
+
 compiler-for.o: compiler/for.c compiler/compiler.h
 	gcc $(CCOPTS) -o compiler-for.o compiler/for.c
 	
@@ -104,15 +105,14 @@ compiler-ontology.o: compiler/ontology.c compiler/compiler.h
 	
 lang-clean:
 	rm -rf nahuatl swahili ainu english czech quenya japanese algonquian
+	rm -rf spanish
 
 #
-install: 
+install: uninstall
 	mkdir -p /usr/panini/languages
 	mkdir -p /usr/panini/learned
 	mkdir -p /usr/panini/attested
 	chmod a=rxw /usr/panini/learned /usr/panini/attested
-	cp nahuatl swahili ainu czech english quenya /usr/panini/languages
-	cp japanese algonquian /usr/panini/languages
 	cp libpanini.a /usr/lib/
 	cp panini.h /usr/include
 
@@ -122,14 +122,13 @@ uninstall:
 
 clean: lang-clean
 	rm -f *.o *.gch *.a *.txt *.gz vlad core tc learn a.out gmon.out
-	rm -f english.headwords.txt imports-japanese
+	rm -f imports-japanese
 	rm -f monad/*.o monad/*.gch tranny/*.o tranny/*.gch list/*.o 
 	rm -f list/*.gch vars/*.o vars/*.gch compiler/*.o
 	make -C demos/tranny clean
 	make -C demos/kanjify clean
 	make -C doc clean
 	make -C imports clean
-
 
 # Git commands might be useful to have in a Makefile.
 pull:

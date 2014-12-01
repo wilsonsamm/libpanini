@@ -5,7 +5,13 @@
 #include <stdlib.h>
 #include <string.h>
 
+extern char * langname;
+
+
 int define(char * name, list * definition, list * output) {
+	
+	static int num = 0;
+	
 	list * rule_list = list_find_list(output, name);
 	if(!rule_list) {
 		rule_list = list_append_list(output);
@@ -24,12 +30,12 @@ int define(char * name, list * definition, list * output) {
 	 * will add (seme), (language) and (rection) here. In a later pass, we will 
 	 * move any variables bound later on. This will (hopefully!) speed the program
 	 * up a little. */
-	list * rection = list_append_list(new_pattern);
-	list_append_token(rection, "rection");
-	list * seme = list_append_list(new_pattern);
-	list_append_token(seme, "seme");
-	list * language = list_append_list(new_pattern);
-	list_append_token(language, "language");
+//	list * rection = list_append_list(new_pattern);
+//	list_append_token(rection, "rection");
+//	list * seme = list_append_list(new_pattern);
+//	list_append_token(seme, "seme");
+//	list * language = list_append_list(new_pattern);
+//	list_append_token(language, "language");
 	
 	/* We'll add a (brake) command in here to the beginning of the rule.
 	 * In a later pass it gets removed from patterns that must not have 
@@ -38,6 +44,15 @@ int define(char * name, list * definition, list * output) {
 	list_append_token(brake, "brake");	
 	list_append_copy(new_pattern, definition);
 
+	list * tag = list_find_list(new_pattern, "tag");
+	if(tag) {
+		char strnum[20];
+		snprintf(strnum, 20, "%d", num++);
+		
+		list_append_token(tag, langname);
+		list_append_token(tag, strnum);
+	}
+	
 	return 0;
 }
 

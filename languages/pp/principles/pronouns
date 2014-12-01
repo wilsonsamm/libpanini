@@ -1,0 +1,25 @@
+(for p (first second third)
+(for n (singular dual plural)
+
+(df pronoun
+	(seme (person .p) (number .n) -gender)
+	(open pronoun
+		(segments 3)
+		(seme    head person number)
+		(rection head person number))
+	(segments space))
+
+(for g (male female)
+(df pronoun
+	(seme (person .p) (number .n) (gender .g))
+	(open pronoun
+		(segments 3)
+		(seme    head person number gender)
+		(rection head person number gender))
+	(segments space)))))
+
+(df pronoun
+	(language null-subject)
+	(open pronoun
+		(seme    head person gender number)
+		(rection head person gender number)))

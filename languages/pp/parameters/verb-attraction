@@ -1,0 +1,6 @@
+(df parameter
+	(flags verb-attraction)
+	(language (subject-side beginning))
+	(fork
+		((language verb-attraction))
+		((language -verb-attraction))))

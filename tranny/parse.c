@@ -32,7 +32,6 @@ void monad_parse_dec_edit(monad * m) {
 	list_append_token(edit, str);
 	return;
 }
-	
 
 void into_spawner_head(monad * m) {
 	
@@ -100,7 +99,8 @@ void into_spawner_head(monad * m) {
 	return;
 }	
 
-void monad_parse_into(monad * m, int head) {
+/* */
+void monad_parse_into(monad * m, int head, int create) {
 	/* The name of the scope we need to enter */
 	char * intowhat = list_get_token(m->command, 2);
 	if(!intowhat) {
@@ -132,13 +132,22 @@ void monad_parse_into(monad * m, int head) {
 		return;
 	} 
 	
-	
 	if(m->debug) {
 		printf("The scope we are going to enter is called ");
 		printf("%s.\n", intowhat);
 	}
 	if(!m->scopestack) m->scopestack = list_new();
 	list_append_token(m->scopestack, intowhat);
+	
+	/* We might need to check that the scope actually exists. */
+	if(!get_namespace(m, "seme", create)) {
+		if(m->debug) {
+			printf("This monad is going to die because it wants to ");
+			printf("go into the scope %s, which doesn't ", intowhat);
+			printf("exist.\n");
+		}
+		m->alive = 0;
+	}
 	
 	/* The command to execute in that scope */
 	list * toexecute = list_new();
@@ -292,7 +301,7 @@ int tranny_parse(monad * m, void * nothing) {
 	if(tranny_phrase(m, command)) return 1;
 	
 	if(!strcmp(command, "into")) {
-		monad_parse_into(m, 0);
+		monad_parse_into(m, 0, 1);
 		list_free(m->command);
 		m->command = 0;
 		return 1;
@@ -329,6 +338,11 @@ int tranny_parse(monad * m, void * nothing) {
 	}
 	if(!strcmp(command, "decrement-edit-distance")) {
 		monad_parse_dec_edit(m);
+		list_free(m->command);
+		m->command = 0;
+		return 1;
+	}
+	if(!strcmp(command, "tag")) {
 		list_free(m->command);
 		m->command = 0;
 		return 1;

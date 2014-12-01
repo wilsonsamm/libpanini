@@ -1,0 +1,9 @@
+(df parameters
+	(call parameter serial-verbs)
+	(call parameter null-subject)
+	(call parameter subject-placement)
+	(call parameter verb-attraction)
+	(call parameter subject-side)
+	(call parameter head-directionality)
+	(call parameter optional-polysynthesis)
+	(call parameter polysynthesis))

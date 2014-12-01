@@ -38,7 +38,7 @@ int tranny_generate(monad * m, void * nothing) {
 	if(tranny_binders(m, 1)) return 1;
 	
 	if(!strcmp(command, "into")) {
-		monad_parse_into(m, 1);
+		monad_parse_into(m, 1, 0);
 		list_free(m->command);
 		m->command = 0;
 		return 1;
@@ -57,6 +57,11 @@ int tranny_generate(monad * m, void * nothing) {
 	}
 	if(!strcmp(command, "check")) {
 		monad_parse_check(m);
+		list_free(m->command);
+		m->command = 0;
+		return 1;
+	}
+	if(!strcmp(command, "tag")) {
 		list_free(m->command);
 		m->command = 0;
 		return 1;

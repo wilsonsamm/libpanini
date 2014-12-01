@@ -1,0 +1,6 @@
+(df parameter
+	(flags subject-side)
+	(language (head first) -optional-polysynthesis)
+	(fork	
+		((language (subject-side beginning)))
+		((language (subject-side end)))))

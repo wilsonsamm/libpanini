@@ -1,8 +1,8 @@
-#include <panini.h>
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
+#include <panini.h>
 #include "tranny.h"
 
 // To use this program, type:

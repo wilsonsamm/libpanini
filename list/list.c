@@ -89,18 +89,49 @@ list * list_append_list(list * l) {
 	return l->data[l->length - 1];
 }
 
+char * append(char * x, char * y) {
+	x = realloc(x, strlen(x) + strlen(y) + 1);
+	strcat(x,y);
+	return x;
+}
+
+char * list_tochar(list * l) {
+	int i = 0;
+	
+	char * c = strdup("(");
+			
+	while(i < l->length) {
+		if(!l->types) break;
+		
+		if(l->types[i] == TOKEN) {
+			c = append(c, (char *)l->data[i]);
+			c = append(c, " ");
+		}
+		if(l->types[i] == LIST) {
+			char * r = list_tochar(l->data[i]);
+			c = append(c, r);
+			free(r);
+		}
+		i++;
+	}
+
+	c = append(c, ")");
+	return c;
+}
+
 int list_prettyprinter(list * l) {
 	int i = 0;
 	printf("(");
 		
 	while(i < l->length) {
 		if(!l->types) break;
-		if(l->types[i] == TOKEN) printf(i == l->length - 1 ? "%s" : "%s ", (char *)l->data[i]);
+		if(l->types[i] == TOKEN) printf("%s", (char *)l->data[i]);
 		if(l->types[i] == LIST) list_prettyprinter(l->data[i]);
+		if(i != l->length -1) printf(" ");
 		i++;
 	}
 
-	printf(") ");
+	printf(")");
 	return 0;
 }
 
@@ -110,12 +141,13 @@ int list_fprettyprinter(FILE * fp, list * l) {
 		
 	while(i < l->length) {
 		if(!l->types) break;
-		if(l->types[i] == TOKEN) fprintf(fp, i == l->length - 1 ? "%s" : "%s ", (char *)l->data[i]);
+		if(l->types[i] == TOKEN) fprintf(fp, "%s", (char *)l->data[i]);
 		if(l->types[i] == LIST) list_fprettyprinter(fp, l->data[i]);
+		if(i != l->length - 1) fprintf(fp, " ");
 		i++;
 	}
 
-	fprintf(fp, ") ");
+	fprintf(fp, ")");
 	return 0;
 }
 

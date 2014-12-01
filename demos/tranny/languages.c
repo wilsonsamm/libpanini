@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <panini.h>
 #include <string.h>
 
@@ -12,16 +13,6 @@ int shortstrcmp(char * x, char * y) {
 	}
 	return 0;
 }
-
-//int m_do(monad * m, char * instr) {
-//	
-//	panin
-//	
-//	monad_map(m, set_stack, instr, -1);
-//	monad_map(m, tranny_parse, (void*)0, -1);
-//	
-//	return 0;
-//}
 
 int var_assert(monad * m, char * namespace, char * varname, char * value) {
 	char instruction[2048];
@@ -124,6 +115,13 @@ int languages_ojibwe(monad * m, char * language) {
 	return 0;
 }
 
+/* The Spanish language option does not have any dialect switches (yet)
+ */
+int languages_spanish(monad * m, char * language) {
+	monad_rules(m, "spanish");
+	return 0;
+}
+
 int languages(monad * m, char * langname) {
 	     if(!shortstrcmp(langname, "english"))  languages_english(m, langname);
 	else if(!shortstrcmp(langname, "japanese")) languages_japanese(m, langname);
@@ -133,6 +131,7 @@ int languages(monad * m, char * langname) {
 	else if(!shortstrcmp(langname, "czech"))    languages_czech(m, langname);
 	else if(!shortstrcmp(langname, "cree"))     languages_cree(m, langname);
 	else if(!shortstrcmp(langname, "ojibwe"))   languages_ojibwe(m, langname);
+	else if(!shortstrcmp(langname, "spanish"))  languages_spanish(m, langname);
 	else return 1;
 	return 0;
 }

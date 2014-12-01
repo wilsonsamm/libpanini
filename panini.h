@@ -47,8 +47,8 @@ int kill_braked_monads(monad * m, void * thr); // Kills monads where the BRAKE i
  * various functions you can pass to it. */
 int panini_parse(monad * m, char * exec, char * intext, int edit, int record, int threshold);
 int panini_generate(monad * m, char * exec, int record, int threshold);
+int panini_learn(monad * m, char * commands, FILE * out, char * intext, int threshold);
 int panini_keep_confident(monad * m);
 int panini_keep_unique(monad * m);
-
 
 #endif

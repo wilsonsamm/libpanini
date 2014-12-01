@@ -1,0 +1,4 @@
+(include pp-out)
+
+(df main
+	(call sentence))

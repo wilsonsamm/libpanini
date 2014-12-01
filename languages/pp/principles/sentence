@@ -1,0 +1,11 @@
+(df sentence
+	(tag)
+	(language (subject-side beginning))
+	(into (theta subject) call subject)
+	(call verbphrase))
+
+;(df sentence
+;	(tag)
+;	(language (subject-side end))
+;	(call verb-phrase)
+;	(call subject))

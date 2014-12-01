@@ -1,0 +1,5 @@
+(df parameter 
+	(flags subject-placement)
+	(fork
+		((language verb-attraction (subject-placement low)))
+		((language verb-attraction (subject-placement high)))))

@@ -1,0 +1,6 @@
+(df parameter 
+	(flags head-directionality)
+	(language -polysynthesis)
+	(fork
+		((language (head first)))
+		((language (head last)))))

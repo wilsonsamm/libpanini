@@ -7,12 +7,6 @@
 /* The path where we'll find our files */
 #define FN_PATH	"/usr/panini/languages/"
 
-/* Here is a list of switches. These alter the programs' behaviour as they run.
- */
-#define SPELLCHK	1 // Activates "spellchecker mode". 
-#define FORGIVE		2 // Forgives common grammatical mistakes.
-
-
 /* The monad. I have put all the pointers at the beginning of the monad
  * so as to keep alignment problems from swelling up the amount of memory
  * this takes. */
@@ -66,7 +60,7 @@ int tranny_learn(monad * m, void * nothing);
 void monad_parse_constituent(monad * m, int adjunct);
 void monad_parse_nop();
 void monad_parse_req(monad * m);
-void monad_parse_into(monad * m, int head);
+void monad_parse_into(monad * m, int head, int create);
 void monad_parse_return(monad * m);
 void monad_parse_debug(monad * m);
 void monad_parse_confidence(monad * m);

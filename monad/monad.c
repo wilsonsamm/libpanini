@@ -175,7 +175,7 @@ void print_debugging_info(monad * m) {
 	printf("\nNamespace: ");
 	if(m->namespace) list_prettyprinter(m->namespace);
 	printf("\n");
-	printf("Intext: (%d) %s\n", m->index, m->intext);
+	printf("Intext: (%d) \"%s\"\n", m->index, m->intext);
 	printf("Outtext: \"%s\"\n", m->outtext);
 	printf("Scopestack:");
 	if(m->scopestack) list_prettyprinter(m->scopestack);
@@ -217,13 +217,31 @@ int monad_map(monad * m, int(*fn)(monad * m, void * argp), void * arg, int thr) 
 
 	int retval = 0;
 	
+	monad * beginning = m;
+	
+	int i = 0;
+	
 	/* Run! */
 	while(m) {
+		
+		/* Every hundredth time we step across a monad, we'll run 
+		 * something across the chain a monads which unlinks the dead
+		 * ones. This should save the program from allocating gigabytes
+		 * and gigabytes of memory. */
+		i++;
+		if(i>100) {
+			i = 0;
+			//printf("I should probably clean up after myself.\n");
+			if(fn != unlink_the_dead)
+				monad_map(beginning, unlink_the_dead, (void*)0, -1);
+			continue;
+		}
+		
 		if(m->trace == m->id) m->debug = 1;
 		if(!m->alive) m->debug = 0;
 		if(m->debug) print_debugging_info(m);
 
-		/* Make sure the monad we are about to process really is alive. */
+		/* Make sure the monad we are about to process really is alive.*/
 		if(!m->alive) {
 			m = m->child;
 			continue;
@@ -264,6 +282,8 @@ int monad_map(monad * m, int(*fn)(monad * m, void * argp), void * arg, int thr) 
 			continue;
 		}
 	}
+	if(fn != unlink_the_dead)
+		monad_map(beginning, unlink_the_dead, (void*)0, -1);
 	return retval;
 }
 

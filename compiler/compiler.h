@@ -1,3 +1,4 @@
+int tagg(list * command, list * input, list * output);
 int df(list * command, list * input, list * output);
 int define(char * name, list * definition, list * output);
 int segment(list * command, list * input, list * output);

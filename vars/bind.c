@@ -187,7 +187,7 @@ char * evaluate(monad * m, list * e) {
 	/* The namespace */
 	char * ns = list_get_token(e,1);
 	
-	list * namespace = get_namespace(m, ns, 0);
+	list * namespace = get_namespace(m, ns, 1);
 	if(!namespace) return 0;
 	
 	/* The variable's name (which can itself be evaluated) */

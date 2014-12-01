@@ -1,0 +1,5 @@
+(df parameter
+	(flags polysynthesis)
+	(fork
+		((language -polysynthesis))
+		((language polysynthesis))))

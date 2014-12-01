@@ -1,0 +1,15 @@
+(df verbphrase
+	(call verb intransitive)
+	(tag))
+
+;(df verbphrase
+;	(language (head first))
+;	(call verb transitive)
+;	(call object)
+;	(tag))
+
+;(df verbphrase
+;	(language (head last))
+;	(call object)
+;	(call verb transitive)
+;	(tag))

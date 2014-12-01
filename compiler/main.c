@@ -1,7 +1,5 @@
 #define LANGPATH "./languages/"
-#define LEARNEDPATH "/usr/panini/learned/"
-#define ATTESTEDPATH "/usr/panini/attested/"
-#define IMPORTPATH "./imports-"
+
 
 #include "../list/list.h"
 #include "compiler.h"
@@ -9,8 +7,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-/* This global function hackishly passes a parameter to include(). */
 char * global_fn;
+char * langname;
 
 int paren_tester(FILE * fp) {
 	int paren = 0;
@@ -41,14 +39,14 @@ int paren_tester(FILE * fp) {
 }
 
 int include(list * command, list * input, list * output) {
+	
 	/* Construct the filename we want */
 	char * operand = list_get_token(command, 2);
 	char * filename = malloc(strlen(global_fn) + strlen("/") + strlen(LANGPATH) + strlen(operand) + 1);
 
-	strcpy(filename, LANGPATH);
-	strcpy(filename + strlen(filename), global_fn);
-	strcpy(filename + strlen(filename), "/");
-	strcpy(filename + strlen(filename), operand);
+	strcpy(filename, global_fn);
+	strcat(filename, "/");
+	strcat(filename, operand);
 
 	FILE * fp = fopen(filename, "r");
 	if(!fp) {
@@ -101,9 +99,8 @@ void printout(list * output) {
 int load_file(list * input, char * directory, char * langname) {
 	/* Construct the filename we want */
 	char * filename = malloc(strlen(directory) + strlen(langname) + 1);
-
 	strcpy(filename, directory);
-	strcpy(filename + strlen(filename), langname);
+	strcat(filename, langname);
 
 	FILE * fp = fopen(filename, "r");
 	if(!fp) {
@@ -122,20 +119,52 @@ int load_file(list * input, char * directory, char * langname) {
 
 	free(filename);
 	return 0;
-	
 }
 
 int main(int argv, char * argc[]) {
 	list * input = list_new();
 	list * output = list_new();
-
-	global_fn = argc[1];
+	global_fn = 0;
+	int i = 1;
 	
 	/* Neat trick to get the thing to load the file called main. */
 	list_tokenise_chars(input, "(include main)");
-	load_file(input, LEARNEDPATH, argc[1]);
-	load_file(input, ATTESTEDPATH, argc[1]);
-	load_file(input, IMPORTPATH, argc[1]);
+	
+	for( ; ; ) {
+		if(!argc[i]) break;
+		
+		// This switch says which directory to look for more source code
+		// in. This is used for example by (include ...)
+		if(!strcmp("-d", argc[i])) {
+			i++;
+			global_fn = argc[i++];
+			continue;
+		}
+		// This switch says which file in that directory to open first
+		if(!strcmp("-i", argc[i])) {
+			i++;
+			langname = argc[i];
+			load_file(input, LANGPATH, argc[i++]);
+			continue;
+		}
+		if(!strcmp("-I", argc[i])) {
+			i++;
+			load_file(input, "./", argc[i++]);
+			continue;
+		}
+		if(!strcmp("-l", argc[i])) {
+			i++;
+			load_file(output, "./", argc[i++]);
+			continue;
+		}
+	}
+	if(!global_fn) {
+		fprintf(stderr, "You forgot to specify the directory where ");
+		fprintf(stderr, "I should look for more source code.\n");
+		list_free(input);
+		list_free(output);
+		exit(99);
+	}
 
 	/* First run all the (include) commands. They take a filename as the first
 	 * argument, and loads that file, and appends it to the end of the input.
@@ -153,6 +182,10 @@ int main(int argv, char * argc[]) {
 
 	/* The (for ...) macro works a bit like in Bash */
 	pass(input, output, "for", for_);
+	
+	/* The (tag ...) grabs a symbol from another file. Useful for cross-
+	 * linguistically common features */
+	pass(input, output, "tag", tagg);
 	
 	/* Next pass is to create all the definitions, (def's are mostly dictionary definitions and such) 
 	 * and then to check they're OK. */

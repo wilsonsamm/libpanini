@@ -48,6 +48,7 @@ int check_syntax1(list * input) {
 		if(!strcmp(c, "for"))				continue;
 		if(!strcmp(c, "df"))				continue;
 		if(!strcmp(c, "segment"))			continue;
+		if(!strcmp(c, "tag"))				continue;
 		if(!strcmp(c, "sandhi-initial"))	continue;
 		if(!strcmp(c, "sandhi-final"))		continue;
 		
@@ -119,6 +120,7 @@ int check_wronginstruction(list * output) {
 			if(!strcmp(iname, "makedef")) continue;
 			if(!strcmp(iname, "record")) continue;
 			if(!strcmp(iname, "phrase")) continue;
+			if(!strcmp(iname, "tag")) continue;
 			
 			fprintf(stderr, "\tWhat is this?\n");
 			fprintf(stderr, "\tA definition of %s has an ", name);

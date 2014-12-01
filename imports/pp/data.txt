@@ -1,0 +1,10 @@
+english: I kiss .
+spanish: beso.
+
+english: you kiss .
+spanish: beses.
+french: tu embrasses.
+
+english: he kisses .
+spanish: bese.
+french: il embrasse.

@@ -253,26 +253,31 @@ int tranny_exec(monad * m, char * command, int(reduce)(monad * m, list * l), int
 	if(!strcmp(command, "call")) {
 		tranny_call(m, 0, reduce);
 		list_free(m->command);
+		m->command = 0;
 		return 1;
 	}
 	if(!strcmp(command, "adjunct")) {
 		tranny_call(m, 1, reduce);
 		list_free(m->command);
+		m->command = 0;
 		return 1;
 	}
 	if(!strcmp(command, "fork")) {
 		tranny_fork(m, reduce);
 		list_free(m->command);
+		m->command = 0;
 		return 1;
 	}
 	if(!strcmp(command, "fuzzy")) {
 		tranny_fuzzy(m);
 		list_free(m->command);
+		m->command = 0;
 		return 1;
 	}
 	if(!strcmp(command, "segments")) {
 		tranny_segments(m, generate);
 		list_free(m->command);
+		m->command = 0;
 		return 1;
 	}
 	return 0;

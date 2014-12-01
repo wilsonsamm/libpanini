@@ -5,6 +5,12 @@
 	(rection -spatiodeixis))
 
 (df verbroot
+	(lit kiss)
+	(flags transitive intransitive arg1:agent arg2:patient)
+	(seme (head kiss))
+	(rection -spatiodeixis))
+
+(df verbroot
 	(lit watch)
 	(flags transitive intransitive arg1:agent arg2:patient)
 	(seme (head watch))

@@ -80,7 +80,6 @@ int generate_reduce(monad * m, list * l) {
 	if(reduce_no_attest(m, l)) return 1;
 	if(reduce_vars(m, l)) return 1;
 	
-	
 	return 0;
 }
 

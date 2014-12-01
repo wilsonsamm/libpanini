@@ -164,8 +164,8 @@ int learnentry_func(char * headword, char * reading, char * ttemp, \
 
 	printf("(segments %s) (call #))\n\n", seg);
 	
-	fprintf(stderr, "%s [%s] (%s) %s                           \n", \
-	        headword, reading, jpos, translation);
+//	fprintf(stderr, "%s [%s] (%s) %s                           \n", \
+//	        headword, reading, jpos, translation);
 	monad_free(m);
 	free(seg);
 	free(tr);

@@ -1,0 +1,2 @@
+(df principles
+	(call sentence) (segments fullstop))

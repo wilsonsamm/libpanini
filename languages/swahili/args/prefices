@@ -85,7 +85,6 @@
 	(flags ki/vi singular subject object)
 	(lit ki)
 	(sandhi -vowel)
-	(debug)
 	(rection (class ki/vi) (number singular)))
 	
 (df prefix

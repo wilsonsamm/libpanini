@@ -42,5 +42,5 @@ int list_contains(list * l, char * c);
 int list_contains_neg(list * l, char * c);
 void list_remove(list * l, char * c);
 void list_rename(list * l, char * c);
-
+char * list_tochar(list * l);
 #endif

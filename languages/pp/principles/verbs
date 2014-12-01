@@ -1,0 +1,16 @@
+(for subj-theta (agent theme patient source)
+
+(df verb
+	(theta (subject .subj-theta))
+	(open verb 
+		(segments 8)
+		(flags intransitive)
+		(seme head)
+		(theta subject object))
+	(into (theta subject)
+		open conjugation
+			(segments 3)
+			(rection person number))
+	(segments space)
+	(flags intransitive))
+)

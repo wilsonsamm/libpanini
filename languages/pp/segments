@@ -1,0 +1,7 @@
+(for segment (a b c d e f g h i j k l m n o p q r s t u v x y z)
+	(segment (tag) (sandhi -suppress-whitespace) (underlying .segment) (surface .segment)))
+
+(segment (tag) (sandhi -suppress-whitespace) (underlying space) (space) (sandhi -suppress-whitespace))
+(segment (tag) (underlying space)         (sandhi  suppress-whitespace))
+
+(segment (tag) (underlying fullstop) (sandhi suppress-whitespace) (surface .))
