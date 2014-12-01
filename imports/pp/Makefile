@@ -1,8 +1,9 @@
+
 pp:	main.o
 	gcc -o pp main.o -lpanini
 
 main.o: main.c
-	gcc -g -c -Wall main.c
+	gcc -ggdb -g -c -Wall main.c
 
 langclean:
 	rm -rf spanish-pp-out

@@ -147,8 +147,8 @@ void tranny_segments(monad * m, int generate) {
 	monad_join(m,c);
 	
 	/* Tidy up */
-	list_free(calls);
 	m->alive = 0;
+	list_free(spawn);
 }
 
 void tranny_forgive(monad * m) {

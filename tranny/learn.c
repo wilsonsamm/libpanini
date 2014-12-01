@@ -138,6 +138,7 @@ void monad_learn_open(monad * m) {
 			//monad * children = exec_spawn(m, exec, 0, 0);
 			monad_join(m, children);
 			m->alive = 0;
+			list_free(exec);
 			return;
 		}
 	}
@@ -162,6 +163,10 @@ void monad_learn_open(monad * m) {
 	list_drop(segs, 2);
 	if(segments && segs->length == 1) {
 		m->alive = 0;
+		list_free(df);
+		if(nseme)    list_free(nseme);
+		if(nrection) list_free(nrection);
+		if(ntheta)   list_free(ntheta);
 		return;
 	}
 	
@@ -176,6 +181,11 @@ void monad_learn_open(monad * m) {
 	strcat(m->outtext, definition);
 	strcat(m->outtext, "\n");
 	free(definition);
+	
+	if(nseme)    list_free(nseme);
+	if(nrection) list_free(nrection);
+	if(ntheta)   list_free(ntheta);
+	list_free(df);
 	
 	list_remove(m->namespace, "record");
 	

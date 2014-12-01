@@ -42,13 +42,22 @@ int parsesection(FILE * fp) {
 	/* get the language name and sentence from the first line in the 
 	 * section. */
 	int retval = getline(&line, &len, fp);
-	if(retval == -1) return 0;
 	if(!line) return 0;
 	
+	if(retval == -1) {
+		if(line) free(line);
+		return 0;
+	}
 	char * srclang = getlang(line);
-	if(!srclang) return 1;
+	if(!srclang) {
+		free(line);
+		return 1;
+	}
 	char * srctext = gettext(line);
-	if(!srctext) return 1;
+	if(!srctext) {
+		free(line);
+		return 1;
+	}
 	
 	/* Find out what the sentence means */
 	monad_rules(m, srclang);
@@ -67,14 +76,20 @@ int parsesection(FILE * fp) {
 	
 	/* For all remaining lines in the section, */
 	retval = getline(&line, &len, fp);
-	if(retval == -1) return 0;
+	if(retval == -1) {
+		free(line);
+		monad_free(m);
+		return 0;
+	}
 	while(strstr(line, ":")) {
 		
 		char * dstlang = getlang(line);
 		if(learnlang && strcmp(learnlang, dstlang)) {
 			retval = getline(&line, &len, fp);
+			free(dstlang);
 			if(retval == -1) {
 				monad_free(m);
+				free(line);
 				return 0;
 			}
 			continue;
@@ -92,6 +107,9 @@ int parsesection(FILE * fp) {
 		
 		/* Open a new file in that directory */
 		FILE * out = fopen(filename, "a");
+		free(filename);
+		free(dstlang);
+		
 		if(!out) {
 			printf("Could not open %s for writing.\n", filename);
 			exit(99);
@@ -102,15 +120,19 @@ int parsesection(FILE * fp) {
 		
 		/* Tidy up */
 		monad_free(n);
-		free(dstlang);
 		free(dsttext);
 		fclose(out);
 		
 		/* Try the next line out */
 		retval = getline(&line, &len, fp);
-		if(retval == -1) return 0;
+		if(retval == -1) {
+			free(line);
+			monad_free(m);
+			return 0;
+		}
 	}
 	monad_free(m);
+	free(line);
 	return 1;
 }
 

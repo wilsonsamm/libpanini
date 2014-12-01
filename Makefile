@@ -105,7 +105,7 @@ compiler-ontology.o: compiler/ontology.c compiler/compiler.h
 	
 lang-clean:
 	rm -rf nahuatl swahili ainu english czech quenya japanese algonquian
-	rm -rf spanish
+	rm -rf spanish pp
 
 #
 install: uninstall
@@ -121,10 +121,10 @@ uninstall:
 	rm -rf /usr/lib/libpanini.a
 
 clean: lang-clean
-	rm -f *.o *.gch *.a *.txt *.gz vlad core tc learn a.out gmon.out
+	rm -f *.o *.gch *.a *.txt *.gz vlad core tc learn a.out gmon.out 
 	rm -f imports-japanese
 	rm -f monad/*.o monad/*.gch tranny/*.o tranny/*.gch list/*.o 
-	rm -f list/*.gch vars/*.o vars/*.gch compiler/*.o
+	rm -f list/*.gch vars/*.o vars/*.gch compiler/*.o panini/*.o
 	make -C demos/tranny clean
 	make -C demos/kanjify clean
 	make -C doc clean
