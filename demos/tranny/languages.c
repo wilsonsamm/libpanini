@@ -60,27 +60,6 @@ int languages_japanese(monad * m, char * language) {
 	return 0;
 }
 
-/* The swahili language option has no options (yet!)
- */
-int languages_swahili(monad * m, char * language) {
-	monad_rules(m, "swahili");
-	return 0;
-}
-
-/* The ainu language option has no options (yet!)
- */
-int languages_ainu(monad * m, char * language) {
-	monad_rules(m, "ainu");
-	return 0;
-}
-
-/* The czech language option has no options (yet!)
- */
-int languages_czech(monad * m, char * language) {
-	monad_rules(m, "czech");
-	return 0;
-}
-
 /* The nahuatl language option has these options:
  *   :carochi    Use the Carochi orthography.
  *   :classical  Use the classical orthography.
@@ -115,23 +94,31 @@ int languages_ojibwe(monad * m, char * language) {
 	return 0;
 }
 
-/* The Spanish language option does not have any dialect switches (yet)
+/* These languages does not have any dialect switches (yet)
+ * spanish french ainu swahili czech
  */
-int languages_spanish(monad * m, char * language) {
-	monad_rules(m, "spanish");
+int langs_misc(monad * m, char * language) {
+	/* If it's not one of the miscellaneous languages we know,
+	 * then just return */
+	if(strcmp(language, "spanish") && \
+	   strcmp(language, "french") && \
+	   strcmp(language, "ainu") && \
+	   strcmp(language, "swahili") && \
+	   strcmp(language, "czech")) {
+		   return 1;
+	}
+
+	/* Otherwise load that language */
+	monad_rules(m, language);
 	return 0;
 }
 
 int languages(monad * m, char * langname) {
 	     if(!shortstrcmp(langname, "english"))  languages_english(m, langname);
 	else if(!shortstrcmp(langname, "japanese")) languages_japanese(m, langname);
-	else if(!shortstrcmp(langname, "swahili"))  languages_swahili(m, langname);
 	else if(!shortstrcmp(langname, "nahuatl"))  languages_nahuatl(m, langname);
-	else if(!shortstrcmp(langname, "ainu"))     languages_ainu(m, langname);
-	else if(!shortstrcmp(langname, "czech"))    languages_czech(m, langname);
 	else if(!shortstrcmp(langname, "cree"))     languages_cree(m, langname);
 	else if(!shortstrcmp(langname, "ojibwe"))   languages_ojibwe(m, langname);
-	else if(!shortstrcmp(langname, "spanish"))  languages_spanish(m, langname);
-	else return 1;
+	else return langs_misc(m, langname);
 	return 0;
 }

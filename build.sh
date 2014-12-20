@@ -54,7 +54,7 @@ fi
 make $MAKEOPTS -C imports/pp langs
 for lang in $PPLANGS; do
 	echo Compiling $lang, which was produced by the pp importer.
-	./tc -d imports/pp/spanish -i spanish > spanish
+	./tc -d imports/pp/$lang -i $lang > $lang
 	install-lang $lang
 done
 

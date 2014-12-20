@@ -1,16 +1,37 @@
-(for subj-theta (agent theme patient source)
-
-(df verb
-	(theta (subject .subj-theta))
-	(open verb 
-		(segments 8)
+(for theta (agent patient source)
+(df verbstem
+	(theta (subject .theta))
+	(flags intransitive)
+	(open verbstem
+		(segments 10)
 		(flags intransitive)
 		(seme head)
-		(theta subject object))
-	(into (theta subject)
-		open conjugation
-			(segments 3)
-			(rection person number))
-	(segments space)
-	(flags intransitive))
-)
+		(theta subject object))))
+
+(df verb
+	(tag)
+	(flags intransitive finite)
+	(call verbstem intransitive)
+	(call conjugation))
+
+(for tense (past present future)
+(df tam
+	(tag)
+	(flags .tense)
+	(seme (tense .tense))
+	(rection (tense .tense)))
+
+(df conjugation
+	(tag)
+	(flags .tense)
+	(call tam .tense)
+	(into (theta subject) call conj-aff .tense))
+
+(df conj-aff
+	(debug)
+	(flags .tense)
+	(open conj-aff
+		(flags .tense)
+		(rection person number)
+		(segments 4))))
+

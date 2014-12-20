@@ -5,6 +5,6 @@ do
 	rm -rf $lang-pp-out
 	touch $lang/pp-out
 	./pp $lang
-	cat $lang-pp-out | uniq | sort > $lang/pp-out
+	cat $lang-pp-out | sort | uniq > $lang/pp-out
 	rm $lang-pp-out
 done

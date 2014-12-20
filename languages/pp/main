@@ -1,13 +1,12 @@
-; According to the Principles-and-Parameters theory, the surprisingly 
-; small amount of syntactic variability among human languages can be
-; explained by the so-called Principles, (also known as the Universal
-; Grammar), which is parameterised in various ways in various languages.
+; According to the Principles-and-Parameters theory, the surprisingly small
+; amount of syntactic variability among human languages can be explained by the
+; so-called Principles, (also known as the Universal Grammar), which is
+; Parameterised in various ways in various languages.
 
-; These files describe (roughly) how this works. The idea is that 
-; eventually we can take advantage of this, and the computer will learn 
-; a language in the same way that a human child does. If this works, 
-; there will be obvious benefits over a purely statistical system like
-; Google Translate or Babelfish.
+; These files describe (roughly) how this works. The idea is that eventually we
+; can take advantage of this, and the computer will learn a language in the same
+; way that a human child does. If this works, there will be obvious benefits
+; over purely statistical models of translation like MOSES...
 
 (include segments)
 

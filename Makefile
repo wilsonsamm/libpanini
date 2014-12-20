@@ -105,7 +105,7 @@ compiler-ontology.o: compiler/ontology.c compiler/compiler.h
 	
 lang-clean:
 	rm -rf nahuatl swahili ainu english czech quenya japanese algonquian
-	rm -rf spanish pp
+	rm -rf spanish french pp
 
 #
 install: uninstall

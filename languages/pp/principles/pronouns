@@ -1,25 +1,26 @@
 (for p (first second third)
 (for n (singular dual plural)
 
-(df pronoun
+(df prolex
 	(seme (person .p) (number .n) -gender)
-	(open pronoun
+	(open prolex
 		(segments 3)
 		(seme    head person number)
-		(rection head person number))
-	(segments space))
+		(rection head person number)))
 
 (for g (male female)
-(df pronoun
+(df prolex
 	(seme (person .p) (number .n) (gender .g))
-	(open pronoun
+	(open prolex
 		(segments 3)
 		(seme    head person number gender)
-		(rection head person number gender))
-	(segments space)))))
+		(rection head person number gender))))
 
 (df pronoun
+	(tag)
 	(language null-subject)
-	(open pronoun
-		(seme    head person gender number)
-		(rection head person gender number)))
+	(seme    (head referential) (person .p) (number .n))
+	(rection                    (person .p) (number .n)))))
+
+
+(df pronoun (tag) (call prolex) (call Segment space))

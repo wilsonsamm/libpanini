@@ -127,7 +127,7 @@ int list_prettyprinter(list * l) {
 		if(!l->types) break;
 		if(l->types[i] == TOKEN) printf("%s", (char *)l->data[i]);
 		if(l->types[i] == LIST) list_prettyprinter(l->data[i]);
-		if(i != l->length -1) printf(" ");
+		if(i != l->length) printf(" ");
 		i++;
 	}
 
@@ -143,7 +143,7 @@ int list_fprettyprinter(FILE * fp, list * l) {
 		if(!l->types) break;
 		if(l->types[i] == TOKEN) fprintf(fp, "%s", (char *)l->data[i]);
 		if(l->types[i] == LIST) list_fprettyprinter(fp, l->data[i]);
-		if(i != l->length - 1) fprintf(fp, " ");
+		if(i != l->length) fprintf(fp, " ");
 		i++;
 	}
 
@@ -172,8 +172,9 @@ int list_uglyprinter(list*l) {
 	return 0;
 }
 	
-/* This function gets the nth token out of the list. If the nth element is not a
- * token you'll get the NULL pointer. */
+/* This function gets the nth element out of the list iff it is a
+ * string. If the nth element is not a string you get the NULL pointer.
+ */
 char * list_get_token(list * l, int n) {
 	n--;
 
@@ -189,8 +190,9 @@ char * list_get_token(list * l, int n) {
 	return l->data[n];
 }
 
-/* This function gets the nth list out of the list. If the nth element is not a
- * list you'll get the NULL pointer. */
+/* This function gets the nth element out of the list, iff that element
+ * is a list. If the nth element is not a list you get the NULL pointer.
+ */
 list * list_get_list(list * l, int n) {
 
 	n--;
@@ -236,9 +238,9 @@ int list_tokenise_file(list * l, FILE *fp) {
 	for( ; ; ) {
 		ch = fgetc(fp);
 		
-		// This is a new line in some very stable code, designed to skip any comments. (they don't need to be tokenised, so
-		// they don't need to be read into the memory.) 
-		// If any tokenising troubles start happening, look at this first.
+		// This line is designed to skip any comments. (they don't need
+		// to be tokenised, so they don't need to be read into the
+		// memory.)
 		if(ch == ';') while(ch != '\n') ch = fgetc(fp);
 		
 		if(ch == EOF) {

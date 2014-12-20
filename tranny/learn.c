@@ -83,6 +83,47 @@ list * learn_namespace(monad * m, char * nsname) {
 	}
 	return instr;
 }
+
+list * learn_into(monad * m) {
+	list * into = list_new();
+	int i = 1;
+
+	for(i = 3; i <= m->command->length; i++) {
+		list * inst = list_get_list(m->command, i);
+		if(!inst) continue;
+		char * instc = list_get_token(inst, 1);
+		if(!instc) continue;
+		if(strcmp(instc, "into")) continue;
+
+		char * nextscope = list_get_token(inst, 2);
+		if(!nextscope) {
+			nextscope = evaluate(m, list_get_list(m->command, 2));
+			if(!nextscope) continue;
+		}
+
+		list * scope = get_namespace(m, list_get_token(inst, 3), 0);
+		if(!scope) continue;
+		scope = list_find_list(scope, nextscope);
+
+		list * linst = list_append_list(into);
+		list_append_token(linst, "into");
+		if(list_get_token(inst, 2))
+			list_append_token(linst, list_get_token(inst, 2));
+		if(list_get_list(inst, 2))
+			list_append_copy(list_append_list(linst), list_get_list(inst, 2));
+
+		int j;
+		for(j = 3; j <= inst->length; j++) {
+			char * varname = list_get_token(inst, j);
+			list * tvar = 0;
+			if((tvar = list_find_list(scope, varname)))
+				list_append_copy(list_append_list(linst), tvar);
+		}
+	}
+	return into;
+}
+			
+	
 	
 void monad_learn_open(monad * m) {
 
@@ -147,6 +188,8 @@ void monad_learn_open(monad * m) {
 	list * nseme  = learn_namespace(m, "seme");
 	list * nrection=learn_namespace(m, "rection");
 	list * ntheta = learn_namespace(m, "theta");
+
+	list * into = learn_into(m);
 	
 	/* Get the flags */
 	list * flags = list_find_list(m->command, "flags");
@@ -175,6 +218,7 @@ void monad_learn_open(monad * m) {
 	if(ntheta)   list_append_copy(list_append_list(df),ntheta);
 	
 	if(flags)    list_append_copy(list_append_list(df),flags);
+	if(into)     list_append_copy(df, into);	
 	
 	char * definition = list_tochar(df);
 	m->outtext = realloc(m->outtext, strlen(m->outtext) + strlen(definition) + 3);

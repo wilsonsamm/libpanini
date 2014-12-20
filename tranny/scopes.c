@@ -3,9 +3,10 @@
 #include <string.h>
 #include <stdlib.h>
 
+
 void into_spawner_head(monad * m) {
 	
-	list * ns = get_namespace(m, "seme", CREATE);
+	list * ns = get_namespace(m, "seme", 1);
 	if(!ns) {
 		m->alive = 0;
 		return;
@@ -44,7 +45,8 @@ void into_spawner_head(monad * m) {
 		char * head = list_get_token(headv, 2);
 		if(strcmp(head, pname)) {
 			if(m->debug) {
-				printf("\nWrong (head) variable. (%s != %s)", head, pname);
+				printf("\nWrong (head) variable. ");
+				printf("(%s != %s)", head, pname);
 			}
 			continue;
 		}
@@ -67,48 +69,17 @@ void into_spawner_head(monad * m) {
 	list_free(spawn);
 	
 	return;
-}
+}	
 
-void monad_return(monad * m) {
-	/* This function returns after an (into ... ) instruction by popping a scopename off the scopestack. 
-	 * The problem is if we said (into (head) do something). (head) means "whatever scope names itself in the (head) variable. 
-	 * In that case, while parsing, (into) goes into a scope called .temporary_token and that is renamed when we return. */
-	list * seme = get_namespace(m, "seme", 0);
-	list * rection = get_namespace(m, "rection", 0);
-	list * theta = get_namespace(m, "theta", 0);
-	
-	char * head = 0;
-	list * headv = 0;
-	
-	if(seme) headv = list_find_list(seme, "head");
-	if(headv) head = list_get_token(headv, 2);
-	
-	if(seme && !strcmp(list_get_token(seme, 1), ".temporary_token")) {
-		if(!head) {
-			m->alive = 0;
-			if(m->debug) {
-				printf("Monad died while returning, because we needed to rename the scope we left ");
-				printf("but there was nothing to rename it to. \n(I look this up in the (head) ");
-				printf("variable in the seme namespace, but there was no such variable.\n");
-			}
-			return;
-		}
-		if(seme) list_rename(seme, head);
-		if(rection) list_rename(rection, head);
-		if(theta) list_rename(theta, head);
-	}
-	
-	list_drop(m->ontscope, m->ontscope->length);
-	
-}
-
-void monad_into(monad * m, int head) {
+/* */
+void monad_into(monad * m, int head, int create) {
 	/* The name of the scope we need to enter */
 	char * intowhat = list_get_token(m->command, 2);
 	if(!intowhat) {
 		char * e = list_get_token(list_get_list(m->command, 2), 1);
 		// Look the scopename up in some namespace.
-		if(!strcmp(e, "rection") || !strcmp(e, "concord") || !strcmp(e, "seme") || !strcmp(e, "theta"))
+		if(!strcmp(e, "rection") || !strcmp(e, "concord") || \
+			!strcmp(e, "seme") || !strcmp(e, "theta"))
 			intowhat = evaluate(m, list_get_list(m->command, 2));
 		
 		// Go into a scope that names itself
@@ -122,8 +93,10 @@ void monad_into(monad * m, int head) {
 		}
 		
 		else if(m->debug) {
-			printf("I don't know how to evaluate which scope to enter. This could be a problem in\n");
-			printf("void monad_parse_into(monad * m), which you can find in parse.c.\n");
+			printf("I don't know how to evaluate which scope to ");
+			printf("enter. This could be a problem in\n");
+			printf("void monad_parse_into(monad * m), which you \n");
+			printf("can find in scopes.c.\n");
 		}
 	}
 		
@@ -132,15 +105,24 @@ void monad_into(monad * m, int head) {
 			printf("Could not evaluate which scope to enter.\n");
 		m->alive = 0;
 		return;
-	} 
-	
+	}
 	
 	if(m->debug) {
 		printf("The scope we are going to enter is called ");
 		printf("%s.\n", intowhat);
 	}
-	if(!m->ontscope) m->ontscope = list_new();
-	list_append_token(m->ontscope, intowhat);
+	if(!m->scopestack) m->scopestack = list_new();
+	list_append_token(m->scopestack, intowhat);
+	
+	/* We might need to check that the scope actually exists. */
+	if(!get_namespace(m, "seme", create)) {
+		if(m->debug) {
+			printf("This monad is going to die because it wants to ");
+			printf("go into the scope %s, which doesn't ", intowhat);
+			printf("exist.\n");
+		}
+		m->alive = 0;
+	}
 	
 	/* The command to execute in that scope */
 	list * toexecute = list_new();
@@ -170,26 +152,55 @@ void monad_into(monad * m, int head) {
 	list_free(toexecute);
 }
 
-void monad_pushscope(monad * m) {
-	if(!m->ontscope) m->ontscope = list_new();
-	list_append_token(m->ontscope, list_get_token(m->command, 2));
+void monad_return(monad * m) {
+	/* This function returns after an (into ... ) instruction by popping
+	 * a scopename off the scopestack. The problem is if we said 
+	 * (into (head) do something). (head) means "whatever scope names 
+	 * itself in the (head) variable.  In that case, while parsing, 
+	 * (into) goes into a scope called .temporary_token and that is 
+	 * renamed when we return. */
+	list * seme = get_namespace(m, "seme", 0);
+	list * rection = get_namespace(m, "rection", 0);
+	list * theta = get_namespace(m, "theta", 0);
+	
+	char * head = 0;
+	list * headv = 0;
+	
+	if(seme) headv = list_find_list(seme, "head");
+	if(headv) head = list_get_token(headv, 2);
+	
+	if(seme && !strcmp(list_get_token(seme, 1), ".temporary_token")) {
+		if(!head) {
+			m->alive = 0;
+			if(m->debug) {
+				printf("Monad died while returning, because we ");
+				printf("needed to rename the scope we left but there ");
+				printf("was nothing to rename it to. \n(I look this ");
+				printf("up in the (head) variable in the seme ");
+				printf("namespace, but there was no such variable.\n");
+			}
+			return;
+		}
+		if(seme) list_rename(seme, head);
+		if(rection) list_rename(rection, head);
+		if(theta) list_rename(theta, head);
+	}
+	
+	list_drop(m->scopestack, m->scopestack->length);
+	
 }
 
-int tranny_scope(monad * m, char * command) {
+int tranny_scope(monad * m, int head, int create) {
+	char * command  = list_get_token(m->command, 1);
+	
 	if(!strcmp(command, "into")) {
-		monad_into(m, 0);
+		monad_into(m, head, create);
 		list_free(m->command);
 		m->command = 0;
 		return 1;
 	}
 	if(!strcmp(command, "return")) {
 		monad_return(m);
-		list_free(m->command);
-		m->command = 0;
-		return 1;
-	}
-	if(!strcmp(command, "pushscope")) {
-		monad_pushscope(m);
 		list_free(m->command);
 		m->command = 0;
 		return 1;
