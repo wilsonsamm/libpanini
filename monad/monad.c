@@ -119,10 +119,14 @@ list * __monad_rule_loader(char * lang) {
 int monad_rules(monad * m, char * lang) {
 
 	list * rules = __monad_rule_loader(lang);
+
+	/* ralloc is for memory management reasons. monad_free uses it to determine
+	 * when to free the rules. */
 	m->rules = rules;
 	m->ralloc = 1;
-	/* Set the RULES register on all the monads to point to the rules we just
-	 * loaded */
+	/* Set the RULES register on all the other monads to point to the rules we
+	 * just loaded */
+	m = m->child;
 	while(m) {
 		m->ralloc = 0;
 		m->rules = rules;
@@ -242,7 +246,7 @@ int monad_map(monad * m, int(*fn)(monad * m, void * argp), void * arg, int thr) 
 		if(m->debug) print_debugging_info(m);
 
 		/* Make sure the monad we are about to process really is alive.*/
-		if(!m->alive) {
+		if(!m->alive && fn != unlink_the_dead) {
 			m = m->child;
 			continue;
 		}

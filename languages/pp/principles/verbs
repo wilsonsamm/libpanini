@@ -28,7 +28,6 @@
 	(into (theta subject) call conj-aff .tense))
 
 (df conj-aff
-	(debug)
 	(flags .tense)
 	(open conj-aff
 		(flags .tense)

@@ -210,6 +210,7 @@ void monad_learn_open(monad * m) {
 		if(nseme)    list_free(nseme);
 		if(nrection) list_free(nrection);
 		if(ntheta)   list_free(ntheta);
+		if(into)     list_free(into);  
 		return;
 	}
 	
@@ -229,6 +230,7 @@ void monad_learn_open(monad * m) {
 	if(nseme)    list_free(nseme);
 	if(nrection) list_free(nrection);
 	if(ntheta)   list_free(ntheta);
+	if(into)     list_free(into);
 	list_free(df);
 	
 	list_remove(m->namespace, "record");
