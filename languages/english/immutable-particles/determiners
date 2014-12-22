@@ -3,7 +3,7 @@
 
 (df determiner
 	(seme -owner)
-	(lit that) (space)
+	(lit that) (segments space)
 	(seme definite (spatiodeixis distal))
 	(rection (definition definite))
 	(remember determiner
@@ -11,7 +11,7 @@
 
 (df determiner
 	(seme -owner)
-	(lit the) (space)
+	(lit the) (segments space)
 	(seme definite)
 	(rection (definition definite))
 	(remember determiner
@@ -20,8 +20,8 @@
 (df determiner
 	(seme -owner)
 	(fork
-		((lit a) (space) (sandhi -vowel))
-		((lit an) (space) (sandhi vowel)))
+		((lit a) (segments space) (sandhi -vowel))
+		((lit an) (segments space) (sandhi vowel)))
 	(seme -definite (number singular))
 	(rection (definition indefinite) countable)
 	(remember determiner
@@ -42,21 +42,21 @@
 	(remember determiner (todo (seme -definite (number singular)) (rection (definition indefinite)))))
 
 (df determiner
-	(lit my) (space)
+	(lit my) (segments space)
 	(into (theta possessive) seme (head referential) (person first) (number singular))
 	(remember determiner (todo (into (theta possessive) seme (head referential) (person first)))))
 
 (df determiner
-	(lit your) (space)
+	(lit your) (segments space)
 	(into (theta possessive) seme (head referential) (person second) (number singular))
 	(remember determiner (todo (into (theta possessive) seme (head referential) (person second)))))
 
 (df determiner
-	(lit his) (space)
+	(lit his) (segments space)
 	(into (theta possessive) seme (head referential) (person third) (number singular) (gender male))
 	(remember determiner (todo (into (theta possessive) seme (head referential) (person third) (number singular) (gender male)))))
 
 (df determiner
-	(lit her) (space)
+	(lit her) (segments space)
 	(into (theta possessive) seme (head referential) (person third) (number singular) (gender female))
 	(remember determiner (todo (into (theta possessive) seme (head referential) (person third) (number singular) (gender female)))))

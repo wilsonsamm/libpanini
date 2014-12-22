@@ -147,11 +147,13 @@ int tranny_memory(monad * m, char * command) {
 	if(!strcmp(command, "kill-flashbulb")) {
 		mem_end(m, memname);
 		list_free(m->command);
+		m->command = 0;
 		return 1;
 	}
 	if(!strcmp(command, "flashbulb")) {
 		mem_begin(m, memname);
 		list_free(m->command);
+		m->command = 0;
 		return 1;
 	}
 	
@@ -160,11 +162,13 @@ int tranny_memory(monad * m, char * command) {
 	if(!strcmp(command, "remember")) {
 		remember(m, memname);
 		list_free(m->command);
+		m->command = 0;
 		return 1;
 	}
 	if(!strcmp(command, "recall")) {
 		recall(m, memname);
 		list_free(m->command);
+		m->command = 0;
 		return 1;
 	}
 	

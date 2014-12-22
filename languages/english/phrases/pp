@@ -1,18 +1,18 @@
 (df from-source
-	(lit from) (space)
+	(lit from) (segments space)
 	(into source call object))
 
 (df to-target
-	(lit to) (space)
+	(lit to) (segments space)
 	(into target call object))
 
 (df in-location
-	(lit in) (space)
+	(lit in) (segments space)
 	(into location rection (location-preposition in))
 	(into location call object))
 
 (df to-location
-	(lit to) (space)
+	(lit to) (segments space)
 	(into location rection (location-preposition to))
 	(into location call pp-substantive))
 

@@ -1,10 +1,35 @@
-english: I kiss .
+english: I kiss.
 spanish: beso.
+spanish: yo beso.
+norwegian: jeg kysser.
 
-english: you kiss .
+english: you kiss.
 spanish: beses.
-french: tu embrasses.
+spanish: tu beses.
+kfrench: tu embrasses.
+norwegian: du kysser.
 
-english: he kisses .
+english: he kisses.
 spanish: bese.
+spanish: el bese.
 french: il embrasse.
+norwegian: han kysser.
+
+english: I understand.
+spanish: comprendo.
+spanish: yo comprendo.
+norwegian: jeg forstår.
+
+english: I kill.
+spanish: mato.
+spanish: yo mato.
+norwegian: jeg dreper.
+
+english: I see.
+norwegian: jeg ser.
+
+english: I read.
+norwegian: jeg leser.
+
+english: I read you.
+norwegian: jeg leser deg.

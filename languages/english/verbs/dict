@@ -68,3 +68,8 @@
 	(lit hold)
 	(flags transitive arg1:agent arg2:patient)
 	(seme (head hold)))
+
+(df verbroot
+	(lit read)
+	(flags transitive arg1:agent arg2:patient)
+	(seme (head read)))

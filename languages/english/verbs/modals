@@ -1,11 +1,11 @@
 (df verb
 	(flags modal)
-	(lit can) (space)
+	(lit can) (segments space)
 	(seme (irrealis desiderative) (tense present) (aspect imperfective)))
 	
 (df verb
 	(flags modal)
-	(lit will) (space)
+	(lit will) (segments space)
 	(seme -irrealis (tense future)))
 	
 ; It's extremely common in English to use the word "can" together with
@@ -14,7 +14,7 @@
 ; "He can hear something" is more common than "He is hearing something".
 (df verb
 	(flags modal)
-	(lit can) (space)
+	(lit can) (segments space)
 	(confidence 20)
 	(seme -irrealis (tense present) (aspect imperfective))
 	(fork 
@@ -23,6 +23,6 @@
 
 (df verb
 	(flags modal)
-	(lit want) (space) (lit to) (space)
+	(lit want) (segments space) (lit to) (segments space)
 	(seme -irrealis)
 	(seme (irrealis desiderative)))

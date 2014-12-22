@@ -6,12 +6,27 @@
 		(segments 10)
 		(flags intransitive)
 		(seme head)
-		(theta subject object))))
+		(theta subject))))
+
+(for theta (agent patient source)
+(df verbstem
+	(theta (subject .theta))
+	(flags transitive)
+	(open verbstem
+		(segments 10)
+		(flags intransitive)
+		(seme head)
+		(theta subject))))
 
 (df verb
 	(tag)
 	(flags intransitive finite)
 	(call verbstem intransitive)
+	(call conjugation))
+(df verb
+	(tag)
+	(flags transitive finite)
+	(call verbstem transitive)
 	(call conjugation))
 
 (for tense (past present future)

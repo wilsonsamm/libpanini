@@ -1,10 +1,8 @@
 #!/bin/bash
-for lang in spanish french;
-do
-	echo I\'m using pp to learn $lang now.
-	rm -rf $lang-pp-out
-	touch $lang/pp-out
-	./pp $lang
-	cat $lang-pp-out | sort | uniq > $lang/pp-out
-	rm $lang-pp-out
-done
+
+echo I\'m using pp to learn $1 now.
+rm -rf $1-pp-out
+touch $1/pp-out
+./pp $1
+cat $1-pp-out | sort | uniq > $1/pp-out
+rm $1-pp-out

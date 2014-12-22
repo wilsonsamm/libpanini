@@ -2,47 +2,47 @@
 
 (df pronoun
 	(flags reflexive)
-	(lit eachother) (space)
+	(lit eachother) (segments space)
 	(into (theta subject) rection plural)
 	(seme (trajectory reciprocative)))
 
 (df pronoun
 	(flags reflexive)
 	(into (theta subject) rection (person I))
-	(lit myself)
+	(lit myself) (segments space)
 	(seme (trajectory reflexive)))
 
 (df pronoun
 	(flags reflexive)
 	(into (theta subject) rection (person you))
 	(into (theta subject) seme (number singular))
-	(lit yourself)
+	(lit yourself) (segments space)
 	(seme (trajectory reflexive)))
 
 (df pronoun
 	(flags reflexive)
 	(into (theta subject) seme (gender female))
 	(into (theta subject) rection (person he-she-it) (gender female))
-	(lit herself)
+	(lit herself) (segments space)
 	(seme (trajectory reflexive)))
 
 (df pronoun
 	(flags reflexive)
 	(into (theta subject) seme (gender male))
 	(into (theta subject) rection (person he-she-it) (gender male))
-	(lit himself)
+	(lit himself) (segments space)
 	(seme (trajectory reflexive)))
 
 (df pronoun
 	(flags reflexive)
 	(into (theta subject) rection (person we))
-	(lit ourselves)
+	(lit ourselves) (segments space)
 	(seme (trajectory reflexive)))
 
 (df pronoun
 	(flags reflexive)
 	(into (theta subject) rection (person you))
 	(into (theta subject) seme (number plural))
-	(lit yourselves)
+	(lit yourselves) (segments space)
 	(seme (trajectory reflexive)))
 

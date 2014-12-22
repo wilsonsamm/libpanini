@@ -24,8 +24,8 @@ int panini_parse(monad *m, char * commands, char * intext, int editdistance, int
 	
 	/* and free any monads that are not still alive
 	 * (this forgets their state so that the memory becomes free. */
-	monad_map(m, unlink_the_dead, m, -1);
-	
+	monad_unlink_dead(m);
+		
 	return retval;
 }
 
@@ -47,8 +47,8 @@ int panini_learn(monad * m, char * commands, FILE * out, char * intext, int thre
 	
 	/* and free any monads that are not still alive
 	 * (this forgets their state so that the memory becomes free. */
-	monad_map(m, unlink_the_dead, m, -1);
-	
+	monad_unlink_dead(m);
+
 	/* Then print out what we learned. */
 	monad_map(m, (int(*)(monad * m, void * argp))print_out, out, threshold);
 	
@@ -70,7 +70,7 @@ int panini_generate(monad *m, char * commands, int record, int threshold) {
 	/* Then, kill any monad that didn't finish the program
      * and free any dead monads so that they don't occupy memory. */
 	monad_map(m, kill_not_done, (void *)0, -1);
-	monad_map(m, unlink_the_dead, m, -1);
+	monad_unlink_dead(m);
 	
 	return retval;
 }
@@ -84,7 +84,7 @@ int panini_keep_confident(monad * m) {
 	/* The kill all monads that are less confident */
 	int retval = monad_map(m,  (int(*)(monad * m, void * argp))kill_less_confident, &confidence, -1);
 	
-	monad_map(m, unlink_the_dead, (void*)0, -1);
+	monad_unlink_dead(m);
 	return retval;
 }
 	

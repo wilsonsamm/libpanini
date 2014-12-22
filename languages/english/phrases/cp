@@ -5,5 +5,5 @@
 
 (df cp
 	(call complementiser)
-	(lit there) (space)
+	(lit there) (segments space)
 	(call vp dummy))

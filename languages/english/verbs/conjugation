@@ -50,7 +50,7 @@
 	(call verb-conjugation)
 	(flags finite)
 	(theta (subject agent) (object patient))
-	(space))
+	(segments space))
 
 ;; 
 (df verb
@@ -58,19 +58,19 @@
 	(call verb-conjugation)
 	(flags finite)
 	(theta (subject patient) -object)
-	(space))
+	(segments space))
 (df verb
 	(call verbroot intransitive arg1:patient)
 	(call verb-ending ing)
 	(flags present participle)
 	(theta (subject patient) -object)
-	(space))
+	(segments space))
 	
 (df verb
 	(call verbroot intransitive arg1:patient)
 	(flags infinitive)
 	(theta (subject patient) -object)
-	(space))
+	(segments space))
 
 ;; This is for motive verbs like "bring" or "go".
 (df verb
@@ -78,11 +78,11 @@
 	(call verb-conjugation)
 	(flags finite)
 	(theta (subject agent))
-	(seme -patient) (space))
+	(seme -patient) (segments space))
 
 ;; Infinitive
 (df verb
 	(call verbroot arg1:agent arg2:patient)
 	(flags infinitive)
 	(theta (subject agent) (object patient))
-	(space))
+	(segments space))

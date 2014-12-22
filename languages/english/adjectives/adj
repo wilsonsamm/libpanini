@@ -16,7 +16,7 @@
 	)
 
 	(df adjective
-		(lit .adjective) (space) (flags predicative attributive) (seme (head .adjective))))
+		(lit .adjective) (segments space) (flags predicative attributive) (seme (head .adjective))))
 
 ; This adjective "drunken" can only really be used attributively. 
 ; (You can't say "the sailor is drunken". At least, it sounds wrong to me)
@@ -27,12 +27,12 @@
 
 ; Synonyms to the words up there
 (df adjective
-	(lit large) (space)
+	(lit large) (segments space)
 	(flags predicative attributive)
 	(seme (head big)))
 
 (df adjective
-	(lit enormous) (space)
+	(lit enormous) (segments space)
 	(flags predicative attributive)
 	(seme (head big) (degree high)))
 

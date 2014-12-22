@@ -16,5 +16,5 @@
 	(kill-flashbulb determiner))
 
 (df conjunction
-	(lit and) (space)
+	(lit and) (segments space)
 	(seme (booles and)))

@@ -24,6 +24,7 @@
 (include principles/pronouns)
 (include principles/sentence)
 (include principles/subject)
+(include principles/object)
 (include principles/verbs)
 (include principles/verb-phrase)
 

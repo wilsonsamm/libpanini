@@ -1,5 +1,5 @@
 (df preposition
-	(lit on) (space)
+	(lit on) (segments space)
 	(flags target location)
 	(seme (relation surface))
 	(rection enclosed-space (preposition in)))
@@ -7,19 +7,19 @@
 (df preposition
 	(fork
 		((lit in) (rection (preposition in)))
-		((lit inside) (rection (preposition inside)))) (space)
+		((lit inside) (rection (preposition inside)))) (segments space)
 	(flags target location)
 	(seme (relation inside))
 	(rection enclosed-space (preposition in)))
 
 (df preposition
-	(lit at) (space)
+	(lit at) (segments space)
 	(flags location)
 	(seme (relation side))
 	(rection enclosed-space (preposition at)))
 
 (df preposition
-	(lit to) (space)
+	(lit to) (segments space)
 	(flags location)
 	(seme (relation side))
 	(rection enclosed-space (preposition to)))

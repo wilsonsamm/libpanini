@@ -3,21 +3,21 @@
 
 (df copula
 	(flags finite)
-	(lit am) (space)
+	(lit am) (segments space)
 	(flags finite)
 	(into (theta subject) rection (person I))
 	(seme (tense present)))
 
 (df copula
 	(flags finite)
-	(lit is) (space)
+	(lit is) (segments space)
 	(flags finite)
 	(into (theta subject) rection (person he-she-it))
 	(seme (tense present)))
 
 (df copula
 	(flags finite)
-	(lit are) (space)
+	(lit are) (segments space)
 	(flags finite)
 	(fork
 		((into (theta subject) rection (person we)))

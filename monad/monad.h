@@ -101,6 +101,7 @@ monad * monad_get_child(monad * m);
 monad * monad_outtoin(monad * m);
 
 monad * monad_copy_one(monad * m);
+void monad_unlink_dead(monad * m);
 
 int kill_identical_outtexts(monad * m, void * nothing);
 
@@ -111,7 +112,6 @@ int set_edit(monad * m, int * edit);
 int remove_ns(monad * m, char * n);
 int print_ns(monad * m, void * nothing);
 int print_out(monad * m, FILE * fp);
-int unlink_the_dead(monad * m, void * nothing);
 int set_trace(monad * m, int * i);
 int kill_not_done(monad * m, void * nothing);
 int kill_least_confident(monad * m, void * nothing); // Kills monads except the most confident ones.

@@ -233,11 +233,10 @@ int monad_map(monad * m, int(*fn)(monad * m, void * argp), void * arg, int thr) 
 		 * ones. This should save the program from allocating gigabytes
 		 * and gigabytes of memory. */
 		i++;
-		if(i>100) {
+		if(i>10000) {
 			i = 0;
 			//printf("I should probably clean up after myself.\n");
-			if(fn != unlink_the_dead)
-				monad_map(beginning, unlink_the_dead, (void*)0, -1);
+			monad_unlink_dead(beginning);
 			continue;
 		}
 		
@@ -246,7 +245,7 @@ int monad_map(monad * m, int(*fn)(monad * m, void * argp), void * arg, int thr) 
 		if(m->debug) print_debugging_info(m);
 
 		/* Make sure the monad we are about to process really is alive.*/
-		if(!m->alive && fn != unlink_the_dead) {
+		if(!m->alive) {
 			m = m->child;
 			continue;
 		}
@@ -286,42 +285,35 @@ int monad_map(monad * m, int(*fn)(monad * m, void * argp), void * arg, int thr) 
 			continue;
 		}
 	}
-	if(fn != unlink_the_dead)
-		monad_map(beginning, unlink_the_dead, (void*)0, -1);
+
 	return retval;
 }
 
-int unlink_the_dead(monad * m, void * nothing) {
-	if(m->alive) return 0;
+void monad_unlink_dead(monad * m) {
+	if(!m) return;
+	while(m->child) {
+		monad * n = m->child;
+
+		if(!n) {
+			m = n;
+			continue;
+		}
+		if(n->alive) {
+			m = n;
+			continue;
+		}
 	
-	if(m->command) list_free(m->command);
-	m->command = m->child->command;
-	
-	if(m->stack) list_free(m->stack);
-	m->stack = m->child->stack;
-	
-	if(m->namespace) list_free(m->namespace);
-	m->namespace = m->child->namespace;
-		
-	if(m->scopestack) list_free(m->scopestack);
-	m->scopestack = m->child->scopestack;
-				
-	if(m->outtext) free(m->outtext);
-	m->outtext = m->child->outtext;
-	
-	m->intext = m->child->intext;
-	m->brake = m->child->brake;
-	m->alive = m->child->alive;
-	m->debug = m->child->debug;
-	m->trace = m->child->trace;
-	m->confidence = m->child->confidence;
-	m->parent_id = m->child->parent_id;
-	m->id = m->child->id;
-	m->index = m->child->index;
-	
-	monad * tmp = m->child->child;
-	free(m->child);
-	m->child = tmp;
-	
-	return 1;
+		if(n->command)	 list_free(n->command);
+		if(n->stack)	 list_free(n->stack);
+		if(n->namespace) list_free(n->namespace);
+		if(n->scopestack)list_free(n->scopestack);
+		if(n->outtext)   free(n->outtext);
+
+		monad * tmp = n->child;
+		free(n);
+		m->child = tmp;
+		m = m->child;
+		if(!m) return;
+		continue;	
+	}
 }
