@@ -1,7 +1,7 @@
 
-(df ko-so-a-do-prefix (call mora ko) (strict seme (spatiodeixis proximal)))
-(df ko-so-a-do-prefix (call mora so) (strict seme (spatiodeixis medial)))
-(df ko-so-a-do-prefix (call mora a)  (strict seme (spatiodeixis distal)))
+(df ko-so-a-do-prefix (call mora ko) (into spatiodeixis seme (d proximal)))
+(df ko-so-a-do-prefix (call mora so) (into spatiodeixis seme (d medial)))
+(df ko-so-a-do-prefix (call mora a)  (into spatiodeixis seme (d distal)))
 
 (df ko-so-a-do
 	(flags adnominal)

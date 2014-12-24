@@ -11,6 +11,7 @@
 #define HAPPY 1
 #define SAD 2
 #define DONE 3
+#define DOTS 4
 
 int totallines;
 int progress = 0;
@@ -29,12 +30,13 @@ int count_lines(FILE * fp) {
 }
 
 void progpc(int smile, char * text) {
-	printf("Line %d/%d: ", progress, totallines);
+	//printf("Line %d/%d: ", progress, totallines);
 	printf("%d%% ", (progress * 100/totallines * 100)/100);
 	if(smile == DONE)  printf("All done!\n");
-	if(smile == NONE)  printf(":-)\r");
-	if(smile == HAPPY) printf("   \r");
+	if(smile == NONE)  printf("   \r");
+	if(smile == HAPPY) printf(":-)\r");
 	if(smile == SAD)   printf(":-(  line %d: %s\r", progress, text);
+	if(smile == DOTS)  printf("...\r");
 	fflush(stdout);
 }
 
@@ -140,6 +142,7 @@ int parsesection(FILE * fp) {
 		
 		/* Copy the monad */
 		monad * n = monad_duplicate(m);
+		if(!n) break;
 		monad_rules(n, "pp");
 		
 		/* Create the directory if needed */
@@ -164,7 +167,9 @@ int parsesection(FILE * fp) {
 		else progpc(NONE, 0);
 
 		/* Tidy up */
+		progpc(DOTS, 0);
 		monad_free(n);
+		progpc(NONE, 0);
 		free(dsttext);
 		fclose(out);
 		

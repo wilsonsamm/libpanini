@@ -1,4 +1,4 @@
-CCOPTS = -ggdb -c -Wall #-O2
+CCOPTS = -ggdb -pg -c -Wall #-O2
 
 nobuild:
 	@echo Do not invoke make directly.

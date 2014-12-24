@@ -236,7 +236,7 @@ int monad_map(monad * m, int(*fn)(monad * m, void * argp), void * arg, int thr) 
 		if(i>10000) {
 			i = 0;
 			//printf("I should probably clean up after myself.\n");
-			monad_unlink_dead(beginning);
+			monad_unlink_dead(beginning, m);
 			continue;
 		}
 		
@@ -289,9 +289,11 @@ int monad_map(monad * m, int(*fn)(monad * m, void * argp), void * arg, int thr) 
 	return retval;
 }
 
-void monad_unlink_dead(monad * m) {
+void monad_unlink_dead(monad * m, monad * end) {
 	if(!m) return;
 	while(m->child) {
+		if(m        == end) return;
+		if(m->child == end) return;
 		monad * n = m->child;
 
 		if(!n) {
@@ -314,6 +316,5 @@ void monad_unlink_dead(monad * m) {
 		m->child = tmp;
 		m = m->child;
 		if(!m) return;
-		continue;	
 	}
 }

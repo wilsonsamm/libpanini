@@ -30,6 +30,3 @@ norwegian: jeg ser.
 
 english: I read.
 norwegian: jeg leser.
-
-english: I read you.
-norwegian: jeg leser deg.

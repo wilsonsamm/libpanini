@@ -1,11 +1,13 @@
-; Short vowels are written plainly in Carochi orthography (unless they are followed by the saltillo).
-; Long vowels are written with a macron above them (unless they are followed by the saltillo).
-; The saltillo is written as a diacritic mark on an immediately preceding vowel. If that saltillo is word final, then the diacritic 
-; used is the circumflex. Otherwise it is the grave accent.
+; Short vowels are written plainly in Carochi orthography (unless they are
+; followed by the saltillo). Long vowels are written with a macron above them
+; (unless they are followed by the saltillo). The saltillo is written as a
+; diacritic mark on an immediately preceding vowel. If that saltillo is word
+; final, then the diacritic used is the circumflex. Otherwise it is the grave accent.
 
-; the underlying short vowels are: "a", "e", "i", "o". The underlying long vowels are doubled "aa", "ee" etc.
-; A supportive short vowel has a prepended question mark: "?i"
-; I want to stress that these are the names of the underlying segments. They are just called to generate the appropriate 
+; the underlying short vowels are: "a", "e", "i", "o". The underlying long
+; vowels are doubled "aa", "ee" etc. A supportive short vowel has a prepended
+; question mark: "?i". I want to stress that these are the names of the
+; underlying segments. They are just called to generate the appropriate 
 ; orthographic representation
 
 (segment (sandhi -front -saltillo inv -?) (underlying a)  (surface a) (sandhi -saltillo    vowel) (language (orthography carochi)))
@@ -31,7 +33,7 @@
 (segment (sandhi  front -saltillo inv -?) (underlying i)  (surface î) (sandhi  saltillo  # vowel) (language (orthography carochi)))
 (segment (sandhi  front -saltillo inv -?) (underlying ?i) (surface î) (sandhi  saltillo  ? vowel) (language (orthography carochi)))
 (segment (sandhi  front -saltillo inv -?) (underlying ii) (surface î) (sandhi  saltillo  # vowel) (language (orthography carochi)))
-(segment                                  (underlying ?i) (block sandhi vowel) (sandhi  -? vowel) (language (orthography carochi)))
+(segment                                  (underlying ?i) (sandhiblock) (sandhi  -? vowel) (language (orthography carochi)))
 
 
 (segment (sandhi -front -saltillo inv -?) (underlying o)  (surface o) (sandhi -saltillo    vowel) (language (orthography carochi)))
@@ -43,7 +45,7 @@
 (segment (sandhi -front -saltillo inv -?) (underlying o)  (surface ô) (sandhi  saltillo  # vowel) (language (orthography carochi)))
 (segment (sandhi  front -saltillo inv -?) (underlying ?o) (surface ô) (sandhi  saltillo  ? vowel) (language (orthography carochi)))
 (segment (sandhi -front -saltillo inv -?) (underlying oo) (surface ô) (sandhi  saltillo  # vowel) (language (orthography carochi)))
-(segment                                  (underlying ?o) (block sandhi vowel) (sandhi  -? vowel) (language (orthography carochi)))
+(segment                                  (underlying ?o) (sandhiblock) (sandhi  -? vowel) (language (orthography carochi)))
 
 ; Consonants that are always written the same are <ch, l, ll m, n, p, t, tl, tz, x, y, z>.
 (for cons (ch l ll m n p t tl tz x y z)
@@ -55,7 +57,7 @@
 
 ; The saltillo is technically a consonant, but the way it's written is with a mark over the preceding vowel. (This is realised by
 ; a sandhi binding)
-(segment (underlying saltillo) (sandhi saltillo) (block sandhi saltillo) (language (orthography carochi)))
+(segment (underlying saltillo) (sandhi saltillo) (sandhiblock) (language (orthography carochi)))
 
 ; The digraphs <cu> for /kw/ and <hu> for /w/ are reversed at the end of a syllable, resulting in <uc> and <uh>.
 (segment (underlying kw) (sandhi -saltillo -front ? -#) (surface cu) (sandhi  inv) (language (orthography carochi)))

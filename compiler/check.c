@@ -98,12 +98,10 @@ int check_wronginstruction(list * output) {
 			if(!strcmp(iname, "forgive")) continue;
 			if(!strcmp(iname, "fuzzy")) continue;
 			if(!strcmp(iname, "fork")) continue;
-			if(!strcmp(iname, "adjunct")) continue;
-			if(!strcmp(iname, "strict")) continue;
+			if(!strcmp(iname, "adjunct")) continue;  
 			if(!strcmp(iname, "open")) continue;
 			if(!strcmp(iname, "theta")) continue;
 			if(!strcmp(iname, "attest")) continue;
-			if(!strcmp(iname, "block")) continue;
 			if(!strcmp(iname, "language")) continue;
 			if(!strcmp(iname, "check")) continue;
 			if(!strcmp(iname, "read-ahead")) continue;

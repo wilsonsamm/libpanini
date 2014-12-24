@@ -8,8 +8,7 @@
 	(seme -irrealis)
 	(fork 
 		((rection -perfective) (seme (tense present)))
-		((rection perfective)  (seme (tense future))))
-	(block rection verb-ending))
+		((rection perfective)  (seme (tense future)))))
 
 (df verb-ending
 	(flags finite 113)
@@ -18,8 +17,7 @@
 	(seme -irrealis)
 	(fork 
 		((rection -perfective) (seme (tense present)))
-		((rection perfective)  (seme (tense future))))
-	(block rection verb-ending))
+		((rection perfective)  (seme (tense future)))))
 
 ;; Second person singular
 (df verb-ending
@@ -29,8 +27,7 @@
 	(seme -irrealis)
 	(fork 
 		((rection -perfective) (seme (tense present)))
-		((rection perfective)  (seme (tense future))))
-	(block rection verb-ending))
+		((rection perfective)  (seme (tense future)))))
 (df verb-ending
 	(flags finite 113)
 	(lit íš)
@@ -38,8 +35,7 @@
 	(seme -irrealis)
 	(fork 
 		((rection -perfective) (seme (tense present)))
-		((rection perfective)  (seme (tense future))))
-	(block rection verb-ending))
+		((rection perfective)  (seme (tense future)))))
 
 ;; Third person singular
 (df verb-ending
@@ -49,8 +45,7 @@
 	(seme -irrealis)
 	(fork 
 		((rection -perfective) (seme (tense present)))
-		((rection perfective)  (seme (tense future))))
-	(block rection verb-ending))
+		((rection perfective)  (seme (tense future)))))
 (df verb-ending
 	(flags finite 113)
 	(lit í)
@@ -58,17 +53,14 @@
 	(seme -irrealis)
 	(fork 
 		((rection -perfective) (seme (tense present)))
-		((rection perfective)  (seme (tense future))))
-	(block rection verb-ending))
+		((rection perfective)  (seme (tense future)))))
 
 ;;; Infinitive verb endings
 (df verb-ending
 	(flags infinitive 97)
 	(lit et)
-	(seme -irrealis)
-	(block rection verb-ending))
+	(seme -irrealis))
 (df verb-ending
 	(flags infinitive 113)
 	(lit ět)
-	(seme -irrealis)
-	(block rection verb-ending))
+	(seme -irrealis))

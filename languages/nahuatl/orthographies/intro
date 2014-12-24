@@ -1,29 +1,34 @@
-; This comment introduces the compiler instruction "segment". Segment matches some underlying phoneme or other element to its
-; orthographical representation(s). This is useful because a single morpheme may have dozens of orthographical realisations 
-; (depending for example on phonemic environment or spelling standard) but that's no reason to put dozens of definitions in the
+; This comment introduces the compiler instruction "segment". Segment matches
+; some underlying phoneme or other element to its orthographical
+; representation(s). This is useful because a single morpheme may have dozens of
+; orthographical realisations (depending for example on phonemic environment or
+; spelling standard) but that's no reason to put dozens of definitions in the
 ; dictionary. 
 
-; That makes a big difference to Nahuatl, which has so many varying spelling standards.
-; And English may now define "ize" to surface either as <ise> or <ize> at the end of a word, or <is> or <iz> before a vowel.
-; In Greenlandic, high vowels regularly become mid vowel before uvular stops and this is represented in the modern orthography.
+; That makes a big difference to Nahuatl, which has so many varying spelling
+; standards. And English may now define "ize" to surface either as <ise> or
+; <ize> at the end of a word, which is realised as <is> or <iz> before a vowel.
+; In Greenlandic, high vowels regularly become mid vowel before uvular stops and
+; this is represented in the orthography.
 
-; To use this feature, type the "segment" in brackets, following by regular tranny code. Use (underlying ...) to name the underlying
-; element, and (surface ...) to give the orthographic representation.
+; To use this feature, type the "segment" in brackets. Use (underlying ...) to
+; name the underlying element, and (surface ...) to give the orthographic
+; representation. You may use anything else too (excepting (lit) and (flags)).
 
-; define the underlying thing and the orthography respectively.
-; A (sandhi ...) statement which appears before a (surface ...) statement is bound to the left of the segment;
-; A (sandhi ...) statement which appears after a (surface ...) statement is bound to the right of the segment;
-
-; Elsewhere, you can now say:
+; Once you have defined all the segments, then elsewhere, you can say:
 ; (df word
 ;	(segments n ee saltillo w a tl)
 ;   (seme (head referential) (person first)))
-; Look at the line beginning with (segments ...). This spells <nehuatl>, <nehhuatl>, <nēhuatl>, <nêwał>, etc. etc (the many ways I 
-; have seen this spelt), and the way it does that is by listing the names of the underlying segments. 
+; Look at the line beginning with (segments ...). This spells <nehuatl>,
+; <nehhuatl>, <nēhuatl>, <nêwał>, etc. etc (the many ways I have seen this
+; spelt), and the way it does that is by listing the underlying segments by
+; name.
 
 ; These file define two orthographies:
-;  - Classical:    This is much like the Spanish orthography. It was introduced by Jesuit missionaries.
-;  - Carochi:      This orthography was developed by the famous grammarian; it marks vowel length and the saltillo.
+;  - Classical:    This is much like the Spanish orthography. It was introduced
+;                  by Jesuit missionaries apparently
+;  - Carochi:      This orthography was developed by the famous grammarian; it
+;                  marks vowel length and the saltillo.
 
 (include orthographies/carochi)
 (include orthographies/classical)

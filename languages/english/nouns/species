@@ -13,30 +13,30 @@
 (df species-preword
 	(flags whale)
 	(lit blue) (segments space)
-	(strict seme (genus balaenoptera) (species musculus)))
+	(into taxonomy seme (genus balaenoptera) (species musculus)))
 
 (df species-preword
 	(flags whale)
 	(lit sperm) (segments space)
-	(strict seme (genus physeter) (species macrocephalus)))
+	(into taxonomy seme (genus physeter) (species macrocephalus)))
 
 (df species-preword
-	(flags whale headless)
+	(flags whale headless) 
 	(lit beluga) (segments space)
-	(strict seme (genus delphinapterus) (species leucas)))
+	(into taxonomy seme (genus delphinapterus) (species leucas)))
 
 ;; Species of DUCK
 (df species-preword
 	(flags duck)
 	(lit mandarin) (segments space)
-	(strict seme (genus aix) (species galericulata)))
+	(into taxonomy seme (genus aix) (species galericulata)))
 
 (df species-preword
 	(flags duck)
 	(lit wood) (segments space)
-	(strict seme (genus aix) (species sponsa)))
+	(into taxonomy seme (genus aix) (species sponsa)))
 
 (df species-preword
 	(flags duck headless)
 	(lit mallard) (segments space)
-	(strict seme (genus anas) (species platyrhynchos)))
+	(into taxonomy seme (genus anas) (species platyrhynchos)))

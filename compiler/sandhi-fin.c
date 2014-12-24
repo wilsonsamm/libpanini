@@ -20,7 +20,7 @@ int add_sandhi_fin(list * rule, list * osandhi) {
 /* This function is like strcmp except it only looks as far as (char*)y 
  * goes. */
 int end_strcmp(char * x, char * y) {
-
+	if(strlen(x) < strlen(y)) return 0;
 	return strcmp(x + strlen(x) - strlen(y), y); 
 
 }

@@ -354,13 +354,11 @@ list * list_find_list(list * l, char * lname) {
 
 int list_append_copy(list * dst, list * src) {
 	int i;
-	char * t;
-	list * l;
-	for(i = 1; i <= src->length; i++) {
-		if((t = list_get_token(src, i)))
-			list_append_token(dst, t);
-		if((l = list_get_list(src, i)))
-			list_append_copy(list_append_list(dst), l);
+	for(i = 0; i < src->length; i++) {
+		if(src->types[i] == TOKEN)
+			list_append_token(dst, (char*)src->data[i]);
+		if(src->types[i] == LIST)
+			list_append_copy(list_append_list(dst), (list*)src->data[i]);
 	}
 	return 0;
 }
