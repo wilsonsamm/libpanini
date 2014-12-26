@@ -1,4 +1,4 @@
-CCOPTS = -ggdb -pg -c -Wall #-O2
+CCOPTS = -ggdb -c -Wall #-O2
 
 nobuild:
 	@echo Do not invoke make directly.
@@ -105,7 +105,7 @@ compiler-ontology.o: compiler/ontology.c compiler/compiler.h
 	
 lang-clean:
 	rm -rf nahuatl swahili ainu english czech quenya japanese algonquian
-	rm -rf spanish french pp
+	rm -rf spanish french norwegian pp
 
 #
 install: uninstall

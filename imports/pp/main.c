@@ -7,11 +7,11 @@
 
 #define INFILE "data.txt"
 
-#define NONE 0
+#define NONE  0
 #define HAPPY 1
-#define SAD 2
-#define DONE 3
-#define DOTS 4
+#define SAD   2
+#define DONE  3
+#define DOTS  4
 
 int totallines;
 int progress = 0;
@@ -30,7 +30,7 @@ int count_lines(FILE * fp) {
 }
 
 void progpc(int smile, char * text) {
-	//printf("Line %d/%d: ", progress, totallines);
+	printf("Learning %s with pp. ", learnlang);
 	printf("%d%% ", (progress * 100/totallines * 100)/100);
 	if(smile == DONE)  printf("All done!\n");
 	if(smile == NONE)  printf("   \r");
@@ -192,7 +192,7 @@ int parsesection(FILE * fp) {
 
 int main(int argc, char * argv[]) {
 
-	/* Open the texfile that has all the sentences in it. */
+	/* Open the textfile that has all the sentences in it. */
 	FILE * fp = fopen(INFILE, "r");
 	if(!fp) {
 		fprintf(stderr,"Cannot open %s.\n", INFILE);

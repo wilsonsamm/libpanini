@@ -27,3 +27,4 @@ int tranny_phrase(monad * m, char * command);
 monad * exec_spawn(monad * m, list * rules, list * flags, int(reduce)(monad * m, list * rules));
 int parse_reduce(monad * m, list * l);
 int generate_reduce(monad * m, list * l);
+int learning_reduce(monad * m, list * l);
