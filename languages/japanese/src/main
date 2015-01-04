@@ -1,0 +1,21 @@
+
+(include arguments/particles)
+(include arguments/arguments)
+
+(include ko-so-a-do)
+
+(include nounphrase/nounphrase)
+
+(include scripts/hiragana)
+(include scripts/katakana)
+(include scripts/romaji)
+(include scripts/orthography)
+
+(include verbphrase/suru)
+(include verbphrase/verbs)
+(include verbphrase/dict)
+
+(load ekan)
+
+(df main
+	(call verbphrase))

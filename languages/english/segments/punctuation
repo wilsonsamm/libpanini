@@ -1,5 +1,0 @@
-(segment (underlying space) (space) (sandhi -suppress-whitespace))
-(segment (underlying space)         (sandhi  suppress-whitespace))
-
-(segment (sandhi suppress-whitespace) (underlying period) (surface .))
-(segment (sandhi suppress-whitespace) (underlying comma) (surface ,))

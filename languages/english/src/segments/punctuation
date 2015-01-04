@@ -1,0 +1,6 @@
+(for v (-vowel vowel)
+(segment (sandhi .v) (underlying space) (space) (sandhi .v -nospace))
+(segment (sandhi .v) (underlying space)         (sandhi .v  nospace)))
+
+(segment (sandhi  nospace) (underlying period) (surface .))
+(segment (sandhi -nospace) (underlying comma)  (surface ,))
