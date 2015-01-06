@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/stat.h>
-#include <panini.h>
+#include "../../panini.h"
 
 #define INFILE "data.txt"
 

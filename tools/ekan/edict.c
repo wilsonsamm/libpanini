@@ -1,9 +1,12 @@
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
-#include <panini.h>
+#include "../../panini.h"
 #include "read.h"
 #include "reading.h"
+
+#define PATHTOENGLISH "/languages/english/english"
+
 monad * pmonad;
 /* 
  * This program reads in all the entries in the edict.locale file. This is 
@@ -51,7 +54,7 @@ char * segmentation(char * headword, char * moras, kanji * klist) {
 		free(next);
 		return def;
 	}
-		
+	
 	
 	while(tklist) {
 		if(!tklist->glyph) {
@@ -60,7 +63,7 @@ char * segmentation(char * headword, char * moras, kanji * klist) {
 		if(strncmp(tklist->glyph, headword, strlen(tklist->glyph))) {
 			tklist = tklist->next;
 			continue;
-		} 
+		}
 		
 		reading * r = tklist->r;
 		while(r) {
@@ -201,7 +204,7 @@ int readentry(FILE * kanjidic, char * headword, kanji * klist) {
 	return 0;
 }
 
-int main(int argc, char * argv[]) {
+int main(int argc, char * argv[], char * envp[]) {
 	
 	FILE * edict = fopen("./edict.txt", "r");
 	if(!edict) {
@@ -224,7 +227,16 @@ int main(int argc, char * argv[]) {
 	/* We'll need a panini monad later (this is used by learnentry_func)
 	 */
 	pmonad = monad_new();
-	monad_rules(pmonad, "english");
+	char * buildpath = strdup(getenv("PANINI"));
+	if(!buildpath) {
+		fprintf(stderr, "The environment variable PANINI has not been set");
+		exit(99);
+	}
+	char * fn = malloc(strlen(buildpath) + strlen(PATHTOENGLISH) + 1);
+	strcpy(fn, buildpath);
+	strcat(fn, PATHTOENGLISH);
+	monad_rules(pmonad, fn);
+	free(fn);
 	
 	int elen = count_lines(edict);
 	

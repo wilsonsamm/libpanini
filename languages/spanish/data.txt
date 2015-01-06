@@ -1,0 +1,19 @@
+english: I kiss.
+spanish: beso.
+spanish: yo beso.
+
+english: you kiss.
+spanish: beses.
+spanish: tu beses.
+
+english: he kisses.
+spanish: bese.
+spanish: el bese.
+
+english: I understand.
+spanish: comprendo.
+spanish: yo comprendo.
+
+english: I kill.
+spanish: mato.
+spanish: yo mato.

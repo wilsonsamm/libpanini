@@ -1,4 +1,4 @@
-pp:	main.o
+pp:	main.o 
 	gcc -o pp main.o $(PANINI)/libpanini.a
 
 main.o: main.c
@@ -7,7 +7,7 @@ main.o: main.c
 langclean:
 	rm -rf spanish-pp-out french-pp-out norwegian-pp-out
 	rm -rf spanish/pp-out french/pp-out norwegian/pp-out
-
+	
 clean: langclean
 	rm -rf pp *.o
 

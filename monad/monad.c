@@ -100,9 +100,13 @@ void monad_free(monad * m) {
 
 list * __monad_rule_loader(char * lang) {
 	/* Prepare the filename */
-	char * fn = malloc(1024);
-	strcpy(fn, FN_PATH);
-	strcat(fn, lang);
+	char * fn = malloc(strlen(lang) + strlen(FN_PATH) + 1);
+	if(lang[0] != '.' && lang[0] != '/') {
+		strcpy(fn, FN_PATH);
+		strcat(fn, lang);
+	} else {
+		strcpy(fn, lang);
+	}
 
 	/* Open the file and tokenise it, and then close it */
 	FILE * fp = fopen(fn, "r");

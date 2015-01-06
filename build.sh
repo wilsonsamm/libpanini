@@ -34,4 +34,5 @@ make $MAKEOPTS japanese
 make $MAKEOPTS nahuatl
 make $MAKEOPTS pp
 make $MAKEOPTS quenya
+make $MAKEOPTS spanish
 make $MAKEOPTS swahili

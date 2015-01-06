@@ -1,5 +1,3 @@
-
-
 nobuild:
 	@echo Do not invoke make directly.
 	@echo Use the enclosed script build.sh.
@@ -92,6 +90,8 @@ pp:
 	+make -C languages/pp pp
 quenya:
 	+make -C languages/quenya quenya
+spanish:
+	+make -C languages/spanish spanish
 swahili:
 	+make -C languages/swahili swahili
 
@@ -133,6 +133,7 @@ clean:
 	make -C languages/nahuatl clean
 	make -C languages/pp clean
 	make -C languages/quenya clean
+	make -C languages/spanish clean
 	make -C languages/swahili clean
 
 # Git commands might be useful to have in a Makefile.
