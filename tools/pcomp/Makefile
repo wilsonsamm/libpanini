@@ -1,5 +1,5 @@
 pcomp: main.o check.o ontology.o definition.o for.o tag.o
-	gcc -o pcomp main.o check.o ontology.o definition.o for.o tag.o \
+	gcc -ggdb -o pcomp main.o check.o ontology.o definition.o for.o tag.o \
 	../../list.o ../../list-tokenise.o
 
 main.o: main.c

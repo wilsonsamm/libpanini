@@ -41,10 +41,7 @@ int tagg(list * command, list * input, list * output) {
 				}
 				
 				list_append_copy(list_append_list(newsym), symb);
-				
-				//fprintf(stderr, "\t(tag %s %s)\n\t\tyielded", fn, num);
-				//list_fprettyprinter(stderr, newsym);
-				//fprintf(stderr, "\n");
+
 				return 0;
 			}
 		}

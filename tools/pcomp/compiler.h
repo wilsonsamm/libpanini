@@ -1,6 +1,6 @@
 int tagg(list * command, list * input, list * output);
-int df(list * command, list * input, list * output);
-int define(char * name, list * definition, list * output);
+int df(list * command, list * input, list * output, char * outfn);
+int define(char * name, list * definition, list * output, char * outfn);
 int segment(list * command, list * input, list * output);
 int table(list * command, list * input, list * output);
 int for_(list * command, list * input, list * output);

@@ -1,4 +1,5 @@
 english:
+	echo Compiling english.
 	$(PANINI)/tools/pcomp/pcomp -d src -i src/main > english
 
 clean:

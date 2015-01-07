@@ -1,12 +1,13 @@
-pp-out: data.txt
-	$(PANINI)/tools/pp/pp spanish > pp-out
+spanish-pp-out: data.txt
+	$(PANINI)/tools/pp/pp spanish
 
-spanish: pp-out
-	cp pp-out src/
-	$(PANINI)/tools/pcomp/pcomp -d src -i src/main > spanish
+spanish: spanish-pp-out
+	echo Compiling spanish.
+	cat spanish-pp-out | sort | uniq > src/pp-out
+	$(PANINI)/tools/pcomp/pcomp -d ./src/ -i src/main > spanish
 
 clean:
-	rm -f spanish pp-out src/pp-out
+	rm -f spanish spanish-pp-out src/pp-out
 
 install:
 	cp spanish /usr/panini/languages

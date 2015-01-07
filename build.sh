@@ -18,11 +18,15 @@ fi
 echo Building the system in $PANINI
 
 # Build the runtime library
+echo Building the runtime library libpanini.a.
 make $MAKEOPTS libpanini.a
 
 # Build the compiler and other tools
+echo Building the compiler.
 make $MAKEOPTS -C tools/pcomp pcomp
+echo Building the PP machine learner.
 make $MAKEOPTS -C tools/pp    pp
+echo Building the EDICT and KANJIDIC importer.
 make $MAKEOPTS -C tools/ekan  ekan
 
 # And then build the languages.
@@ -32,7 +36,7 @@ make $MAKEOPTS czech
 make $MAKEOPTS english
 make $MAKEOPTS japanese
 make $MAKEOPTS nahuatl
-make $MAKEOPTS pp
 make $MAKEOPTS quenya
+make $MAKEOPTS pp
 make $MAKEOPTS spanish
 make $MAKEOPTS swahili

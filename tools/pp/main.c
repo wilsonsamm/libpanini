@@ -95,7 +95,19 @@ int parsesection(FILE * fp) {
 	progpc(NONE, 0);
 		
 	/* Find out what the sentence means */
-	monad_rules(m, srclang);
+	if(!getenv("PANINI")) {
+		//fprintf(stderr, "No variable PANINI.\n");
+		exit(99);
+	}
+	char * fn = malloc(strlen(getenv("PANINI")) + strlen("/languages/") +(strlen(srclang) *2) + 1);
+	strcpy(fn, getenv("PANINI"));
+	strcat(fn, "/languages/");
+	strcat(fn, srclang);
+	strcat(fn, "/");
+	strcat(fn, srclang);
+	//fprintf(stderr, "Opening rules in %s.\n\n\n", fn);
+	
+	monad_rules(m, fn);
 	if(!panini_parse(m, "(call main)", srctext, 0, 0, 5)) {
 		monad_map(m, print_ns, stdout, -1);
 		progpc(SAD, line);
@@ -143,7 +155,13 @@ int parsesection(FILE * fp) {
 		/* Copy the monad */
 		monad * n = monad_duplicate(m);
 		if(!n) break;
-		monad_rules(n, "pp");
+		char * fn = malloc(strlen(getenv("PANINI")) + strlen("/languages/pp/pp") + 1);
+		strcpy(fn, getenv("PANINI"));
+		strcat(fn, "/languages/pp/pp");
+		//fprintf(stderr, "Opening rules in %s.\n\n\n", fn);
+		
+		monad_rules(n, fn);
+		free(fn);
 		
 		/* Create the directory if needed */
 		char * filename = malloc(strlen(dstlang) + strlen("-pp-out") + 1);

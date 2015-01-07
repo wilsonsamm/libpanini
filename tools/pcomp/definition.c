@@ -5,9 +5,11 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define PATH_MAX 2048
+
 extern char * langname;
 
-int define(char * name, list * definition, list * output) {
+int define(char * name, list * definition, list * output, char * outfn) {
 	
 	static int num = 0;
 	
@@ -45,17 +47,27 @@ int define(char * name, list * definition, list * output) {
 
 	list * tag = list_find_list(new_pattern, "tag");
 	if(tag) {
+		if(!outfn) {
+			fprintf(stderr, "\tBecause this source code uses (tag), ");
+			fprintf(stderr, "the -o option is required.\n");
+			exit(99);
+		}
+			
+		char cwd[PATH_MAX];
 		char strnum[20];
+		getcwd(cwd, PATH_MAX - strlen(outfn));
+		strcat(cwd, "/");
+		strcat(cwd, outfn);
 		snprintf(strnum, 20, "%d", num++);
 		
-		list_append_token(tag, langname);
+		list_append_token(tag, cwd);
 		list_append_token(tag, strnum);
 	}
 	
 	return 0;
 }
 
-int df(list * command, list * input, list * output) {
+int df(list * command, list * input, list * output, char * outfn) {
 	int retval;
 	
 	char * name = list_get_token(command, 2);
@@ -72,7 +84,7 @@ int df(list * command, list * input, list * output) {
 		}
 	}
 	
-	retval = define(name, rule, output);
+	retval = define(name, rule, output, outfn);
 	list_free(rule);
 	
 

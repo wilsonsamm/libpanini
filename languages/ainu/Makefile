@@ -1,4 +1,5 @@
 ainu:
+	echo Compiling ainu.
 	$(PANINI)/tools/pcomp/pcomp -d src -i src/main > ainu
 
 clean:

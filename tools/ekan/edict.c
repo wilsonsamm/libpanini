@@ -267,7 +267,7 @@ int main(int argc, char * argv[], char * envp[]) {
 	compilekanji(klist);
 	free_kanji(klist);
 	
-	fprintf(stderr, "All done!            \n");
+	fprintf(stderr, "All done!            \r");
 	
 	return 0;
 }

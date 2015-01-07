@@ -4,7 +4,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-//char * global_fn;
 char * langname;
 
 int paren_tester(FILE * fp) {
@@ -102,12 +101,30 @@ int pass(list * input, list * output, char * token, int (*fn)(list * command, li
 	return 0;
 }
 
-void printout(list * output) {
+int passdf(list * input, list * output, char * token, char * outfn) {
+	int i;
+	for(i = 0; i <= input->length; i++) {
+		list * command = list_get_list(input, i);
+		if(!command) continue;
+
+		char * test = list_get_token(command, 1);
+		if(strcmp(test, token)) continue;
+
+		if(df(command, input, output, outfn)) {
+			list_free(output);
+			list_free(input);
+			return 1;
+		}
+	}
+	return 0;
+}
+
+void printout(list * output, FILE * outfile) {
 	int i;
 	for(i = 0; i <= output->length; i++) {
 		if(list_get_list(output, i)) {
-			list_prettyprinter(list_get_list(output, i));
-			printf("\n");
+			list_fprettyprinter(outfile, list_get_list(output, i));
+			fprintf(outfile, "\n");
 		}
 	}
 	return;
@@ -186,6 +203,8 @@ int linkfile(list * output, char * filename) {
 int main(int argv, char * argc[]) {
 	list * input = list_new();
 	list * output = list_new();
+	FILE * outfile = stdout;
+	char * outfilename = 0;
 	char * dirname = 0;
 	int i = 1;
 	
@@ -219,6 +238,11 @@ int main(int argv, char * argc[]) {
 			linkfile(output, argc[i++]);
 			continue;
 		}
+		if(!strcmp("-o", argc[i])) {
+			i++;
+			outfilename = argc[i++];
+			continue;
+		}
 	}
 	if(!dirname) {
 		fprintf(stderr, "You forgot to specify the directory where ");
@@ -232,9 +256,6 @@ int main(int argv, char * argc[]) {
 	 * argument, and loads that file, and appends it to the end of the input.
 	 * In other words it's akin to #include in the C preprocessor. */
 	include_pass(input, dirname);
-	//if(pass(input, output, "include", include)) {
-	//	return 1;
-	//}
 
 	if(check_syntax1(input)) {
 		fprintf(stderr, "\tThis is a fatal error.\n\tExiting.\n");
@@ -253,7 +274,7 @@ int main(int argv, char * argc[]) {
 	/* Next pass is to create all the definitions, (def's are mostly dictionary definitions and such) 
 	 * and then to check they're OK. */
 	pass(input, output, "segment", segment);
-	pass(input, output, "df", df);
+	passdf(input, output, "df", outfilename);
 	check_debug(output);
 	check_wronginstruction(output);
 	check_main_exists(output);
@@ -264,7 +285,12 @@ int main(int argv, char * argc[]) {
 	/* Optimisations */
 	check_early_binding(output);
 	check_removenops(output);
-	printout(output);
+
+	/* Output */
+	if(outfilename) {
+		outfile = fopen(outfilename, "w");
+	}
+	printout(output, outfile);
 	
 	/* Check for ontological sanity */
 	//check_ontology(output);
