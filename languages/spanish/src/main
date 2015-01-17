@@ -1,4 +1,6 @@
-(include pp-out)
+(load pp-out)
 
-(df main
-	(call sentence))
+(include verbstem)
+
+(df defparam)
+

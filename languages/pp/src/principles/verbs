@@ -22,12 +22,14 @@
 	(tag)
 	(flags intransitive finite)
 	(call verbstem intransitive)
-	(call conjugation))
+	(call conjugation)
+	(segments space))
 (df verb
 	(tag)
 	(flags transitive finite)
 	(call verbstem transitive)
-	(call conjugation))
+	(call conjugation)
+	(segments space))
 
 (for tense (past present future)
 (df tam

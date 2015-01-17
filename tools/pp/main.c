@@ -30,13 +30,14 @@ int count_lines(FILE * fp) {
 }
 
 void progpc(int smile, char * text) {
-	printf("Learning %s with pp. ", learnlang);
-	printf("%d%% ", (progress * 100/totallines * 100)/100);
-	if(smile == DONE)  printf("All done!\n");
-	if(smile == NONE)  printf("   \r");
-	if(smile == HAPPY) printf(":-)\r");
-	if(smile == SAD)   printf(":-(  line %d: %s\r", progress, text);
-	if(smile == DOTS)  printf("...\r");
+	printf("Learning %s with pp", learnlang);
+	printf(" %d%%", (progress * 100/totallines * 100)/100);
+	//printf(", line %d,", progress);
+	if(smile == DONE)  printf(" All done!\r");
+	if(smile == NONE)  printf("    \r");
+	if(smile == HAPPY) printf(" :-)\r");
+	if(smile == SAD)   printf(" :-(  line %d: %s\n", progress, text);
+	if(smile == DOTS)  printf(" ...\r");
 	fflush(stdout);
 }
 
@@ -96,10 +97,10 @@ int parsesection(FILE * fp) {
 		
 	/* Find out what the sentence means */
 	if(!getenv("PANINI")) {
-		//fprintf(stderr, "No variable PANINI.\n");
+		fprintf(stderr, "No variable PANINI.\n");
 		exit(99);
 	}
-	char * fn = malloc(strlen(getenv("PANINI")) + strlen("/languages/") +(strlen(srclang) *2) + 1);
+	char * fn = malloc(strlen(getenv("PANINI")) + strlen("/languages/") +(strlen(srclang) *2) + 2);
 	strcpy(fn, getenv("PANINI"));
 	strcat(fn, "/languages/");
 	strcat(fn, srclang);
@@ -155,9 +156,9 @@ int parsesection(FILE * fp) {
 		/* Copy the monad */
 		monad * n = monad_duplicate(m);
 		if(!n) break;
-		char * fn = malloc(strlen(getenv("PANINI")) + strlen("/languages/pp/pp") + 1);
-		strcpy(fn, getenv("PANINI"));
-		strcat(fn, "/languages/pp/pp");
+		char * fn = malloc(strlen("./") + strlen(dstlang) + 1);
+		strcpy(fn, "./");
+		strcat(fn, dstlang);
 		//fprintf(stderr, "Opening rules in %s.\n\n\n", fn);
 		
 		monad_rules(n, fn);
@@ -180,14 +181,12 @@ int parsesection(FILE * fp) {
 		
 		/* Try to do some learning (and turn the smiley on while we do) */
 		progpc(HAPPY, 0);
-		int retval = panini_learn(n, "(call main)", out, dsttext, 20);
+		int retval = panini_learn(n, "(call parameters) (call main)", out, dsttext, 20);
 		if(!retval) progpc(SAD, line);
 		else progpc(NONE, 0);
 
 		/* Tidy up */
-		progpc(DOTS, 0);
 		monad_free(n);
-		progpc(NONE, 0);
 		free(dsttext);
 		fclose(out);
 		

@@ -27,4 +27,9 @@
 	(rection                    (person .p) (number .n)))))
 
 
-(df pronoun (tag) (flags .c) (call prolex .c) (call Segment space)))
+(df pronoun 
+	(tag)
+	(flags .c)
+	(seme (head referential))
+	(call prolex .c)
+	(call Segment space)))

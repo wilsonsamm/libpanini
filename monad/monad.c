@@ -27,7 +27,6 @@ monad * monad_new() {
 	m->brake = 0;
 	m->intext = 0;
 	m->outtext = 0;
-	m->switches = 0;
 	m->parent_id = 0;
 
 	return m;
@@ -239,7 +238,6 @@ int monad_map(monad * m, int(*fn)(monad * m, void * argp), void * arg, int thr) 
 		i++;
 		if(i>10000) {
 			i = 0;
-			//printf("I should probably clean up after myself.\n");
 			monad_unlink_dead(beginning, m);
 			continue;
 		}
@@ -272,10 +270,8 @@ int monad_map(monad * m, int(*fn)(monad * m, void * argp), void * arg, int thr) 
 			if(monad_map(m->adjunct, fn, arg, thr)) {
 				if(m->debug) printf("The Adjunct monads survived, so this monad will now die.\n");
 				m->alive = 0;
-				//printf("Killed off %d because at least some adjunct children survived\n", m->id);
 			} else {
 				if(m->debug) printf("The Adjunct monads all died, so this monad will now keep going.\n");
-				//printf("Kept monad %d because adjunct children are all dead\n", m->id);
 			}
 			monad_join(m, m->adjunct); /* Still need to keep it, for memory management reasons */
 			m->adjunct = 0;
@@ -320,5 +316,37 @@ void monad_unlink_dead(monad * m, monad * end) {
 		m->child = tmp;
 		m = m->child;
 		if(!m) return;
+	}
+}
+
+void monad_kill_braked(monad * m) {
+	unsigned int brake = 999999;
+	
+	// Find the lowest value for m->brake
+	monad * tmp = m;
+	while(tmp) {
+		if(!tmp->alive) {
+			tmp = tmp->child;
+			continue;
+		}
+		if(tmp->brake < brake) brake = tmp->brake;
+		tmp = tmp->child;
+	}
+	
+	// kill any monads with a higher brake value.
+	while(m) {
+		if(m->brake > brake) m->alive = 0;
+		m = m->child;
+	}
+}
+	
+void monad_child_tester(monad * m) {
+	while(m->child) m = m->child;
+}
+
+void monad_kill_unfinished_intext(monad * m) {
+	while(m) {
+		if(m->intext[m->index + 1] != '\0') m->alive = 0;
+		m = m->child;
 	}
 }

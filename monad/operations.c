@@ -109,7 +109,13 @@ int kill_not_done(monad * m, void * nothing) {
 // Search the monads for the highest confidence
 // The integer winds up getting put where c points
 int max_confidence(monad * m, int * c) {
+	if(!m->alive) return 0;
 	if(m->confidence > *c) *c = m->confidence;
+	return 0;
+}
+int min_brake(monad * m, int * c) {
+	if(!m->alive) return 0;
+	if(m->brake < *c) *c = m->brake;
 	return 0;
 }
 

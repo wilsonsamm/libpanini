@@ -220,7 +220,6 @@ int list_tokenise_chars(list * l, char * string) {
 	return 0;
 }
 	
-
 /* A wrapper to __list_tokeniser that gives it the contents of a file. */
 int list_tokenise_file(list * l, FILE *fp) {
 	int alloc = 1024;

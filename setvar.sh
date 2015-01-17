@@ -5,8 +5,8 @@
 export PANINI=$(pwd)/
 
 # These are the options that will be passed to gcc.
-export CCOPTS="-ggdb -c"
+export CCOPTS="-ggdb -Wall -c"
 
 # These are the options that will be passed to make.
 export MAKEOPTS="-j4 --quiet --no-print-directory"
-#export MAKEOPTS="-j4 "
+#export MAKEOPTS="-j4"

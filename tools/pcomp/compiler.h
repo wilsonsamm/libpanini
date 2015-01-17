@@ -4,6 +4,7 @@ int define(char * name, list * definition, list * output, char * outfn);
 int segment(list * command, list * input, list * output);
 int table(list * command, list * input, list * output);
 int for_(list * command, list * input, list * output);
+int tclose(list * command, list * input, list * output);
 void check_ontology(list * output);
 
 int check_syntax1(list * input);
@@ -16,3 +17,4 @@ int check_main_exists(list * output);
 int check_deprecated(list * output);
 int check_space(list * output);
 int check_early_binding(list * output);
+void check_remove_duplicate_tags(list * output);

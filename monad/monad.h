@@ -22,15 +22,15 @@ typedef struct _monad {
 	char * outtext;		/* This is where the translation will be put */
 	char * intext;		/* This is where the original text should be */
 	int index;			/* How far through the intext have we already scanned ? */
-	int brake;			/* Brake -- If this number increases beyond some boundary, then the monad is paused. */
-
+	unsigned int brake;			/* Brake -- If this number increases beyond some boundary, then the monad is paused. */
+	//unsigned int learned;			/* Brake -- If this number increases beyond some boundary, then the monad is paused. */
+	long padding;
 	struct _monad * child;		/* The linked list of spawned monads */
 
 	int alive;			/* Is the monad alive? */
 	int debug;
 	int trace;
 	int confidence;
-	int switches;
 	struct _monad * adjunct;
 	int parent_id;
 	int id;
@@ -88,6 +88,8 @@ void monad_generate_forgive(monad * m);
 void monad_generate_readahead(monad * m);
 void monad_parse_segments(monad * m);
 
+void monad_kill_braked(monad * m);
+
 char * strlist(list * l, char * takeme);
 
 char * evaluate(monad * m, list * var);
@@ -117,6 +119,10 @@ int kill_not_done(monad * m, void * nothing);
 int kill_least_confident(monad * m, void * nothing); // Kills monads except the most confident ones.
 int append_record_ns(monad * m, void * nothing);
 int max_confidence(monad * m, int * c);
+int min_brake(monad * m, int * c);
 int kill_less_confident(monad * m, int * c);
+int kill_braked_monads(monad * m, int * c);
 
+void monad_child_tester(monad * m);
+void monad_kill_unfinished_intext(monad * m);
 #endif

@@ -29,6 +29,6 @@
 (include principles/verb-phrase)
 
 (df main
-	(language (subject-placement high) null-subject)
-	(call principles)
-	(call parameters))
+	(tag)
+	(call defparam)
+	(call principles))

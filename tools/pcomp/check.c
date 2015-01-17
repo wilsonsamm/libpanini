@@ -50,6 +50,7 @@ int check_syntax1(list * input) {
 		if(!strcmp(c, "df"))				continue;
 		if(!strcmp(c, "segment"))			continue;
 		if(!strcmp(c, "tag"))				continue;
+		if(!strcmp(c, "close"))				continue;
 		
 		fprintf(stderr, "\tI do not know any such command as \"%s\".\n", c);
 		return 1;
@@ -242,29 +243,74 @@ int check_main_exists(list * output) {
 	return 0;
 }
 
+void check_remove_duplicate_tags(list * output) {
+	int i;
+	for(i = 1; i <= output->length; i++) {
+		int j;
+		
+		list * symb = list_get_list(output, i);
+		if(!symb) continue;
+		
+		for(j = 1; j <= symb->length; j++) {
+			int k;
+			
+			list * def1 = list_get_list(symb, j);
+			if(!def1) continue;
+			
+			list * tag1 = list_find_list(def1, "tag");
+			if(!tag1) continue;
+			
+			char * tag1fn = list_get_token(tag1, 2);
+			char * tag1no = list_get_token(tag1, 3);
+			
+			for(k = j+1; k <= symb->length; k++) {
+				list * def2 = list_get_list(symb, k);
+				if(!def2) continue;
+				
+				list * tag2 = list_find_list(def2, "tag");
+				if(!tag2) continue;
+				
+				char * tag2fn = list_get_token(tag2, 2);
+				char * tag2no = list_get_token(tag2, 3);
+				
+//				fprintf(stderr, "\tComparing (tag %s %s) and (tag %s %s).\n", tag1fn, tag1no, tag2fn, tag2no);
+				
+				if(strcmp(tag1fn, tag2fn)) continue;
+				if(strcmp(tag1no, tag2no)) continue;
+				
+				list_drop(symb, k);
+				k--;
+			}
+		}
+	}
+}
 
-/* It is theoretically faster to bind variables as early as possible (monads are likely to die when binding variables; if they die
- * earlier, less time is spent on them), so this routine moves variables bound in later instructions upward, like so. If you define 
- * something like this:
+/* It is theoretically faster to bind variables as early as possible (monads are
+ * likely to die when binding variables; if they die earlier, less time is spent
+ * on them), so this routine moves variables bound in later instructions upward,
+ * like so. If you define something like this:
  * (df noun
  * 		(lit Haus)
  * 		(flags count neuter)
  * 		(seme (head house)))
- * when this rule is defined, an extra (seme) is inserted at the beginning like so:
+ * when this rule is defined, an extra (seme) is inserted at the beginning:
  * (df noun
  * 		(seme)
  * 		(lit Haus)
  * 		(flags count neuter)
  * 		(seme (head house)))
- * On its own, it doesn't do anything. But this function moves anything from the second seme to the first:
+ * On its own, it doesn't do anything. But this function moves anything from the
+ * second seme to the first:
  * (df noun
  * 		(seme (head house))
  * 		(lit Haus)
  * 		(flags count neuter)
  * 		(seme))
- * Later, the second seme will get removed. This whole process has effectively moved the (seme) instruction up to the top. A
- * similar thing happens with (rection). Before I did this, it consistently took between 27 and 28 seconds to translate "I see a
- * whale" into Swahili. Now it takes around 21 seconds. I was hoping for a little more dramatic improvement, but that's life.
+ * Later, the second seme will get removed. This whole process has effectively 
+ * moved the (seme) instruction up to the top. A similar thing happens with 
+ * (rection). Before I did this, it consistently took between 27 and 28 seconds 
+ * to translate "I see a whale" into Swahili. Now it takes around 21 seconds. I
+ * was hoping for a little more dramatic improvement, but that's life.
  */
 int check_early_binding(list * output) {
 	int move_binding(list * def, char * name) {

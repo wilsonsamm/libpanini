@@ -40,8 +40,9 @@ int tagg(list * command, list * input, list * output) {
 					list_append_token(newsym, symname);
 				}
 				
-				list_append_copy(list_append_list(newsym), symb);
-
+				list * dest = list_append_list(newsym);
+				list_append_copy(dest, symb);
+				//list_remove(dest, "tag");
 				return 0;
 			}
 		}

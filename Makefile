@@ -8,8 +8,8 @@ nobuild:
 love:
 	@echo Not war?
 
-libpanini.a: list.o list-tokenise.o generate.o parse.o spawn.o learn.o attest.o monad.o bind.o variables.o misc.o intext.o outtext.o exec.o binders.o memory.o reduce.o phrase.o operations.o panini.o 
-	ar rcs libpanini.a list.o list-tokenise.o generate.o parse.o spawn.o learn.o attest.o monad.o bind.o variables.o misc.o intext.o outtext.o exec.o binders.o memory.o reduce.o phrase.o operations.o panini.o 
+libpanini.a: list.o list-tokenise.o generate.o parse.o spawn.o learn.o monad.o bind.o variables.o misc.o intext.o outtext.o exec.o binders.o memory.o reduce.o phrase.o operations.o panini.o 
+	ar rcs libpanini.a list.o list-tokenise.o generate.o parse.o spawn.o learn.o monad.o bind.o variables.o misc.o intext.o outtext.o exec.o binders.o memory.o reduce.o phrase.o operations.o panini.o 
 
 list.o: list/list.c list/list.h
 	gcc $(CCOPTS) list/list.c 
@@ -40,9 +40,6 @@ exec.o: monad/monad.h monad/monad.c panini/exec.c
 
 generate.o: monad/monad.h monad/monad.c panini/generate.c
 	gcc $(CCOPTS) panini/generate.c 
-
-attest.o: monad/monad.h monad/monad.c panini/attest.c
-	gcc $(CCOPTS) panini/attest.c 
 
 misc.o: monad/monad.h monad/monad.c panini/misc.c
 	gcc $(CCOPTS) panini/misc.c 
@@ -107,6 +104,7 @@ install: uninstall
 	make -C languages/nahuatl install
 	make -C languages/pp install
 	make -C languages/quenya install
+	make -C languages/spanish install
 	make -C languages/swahili install
 
 uninstall:

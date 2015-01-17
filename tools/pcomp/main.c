@@ -66,7 +66,6 @@ int include(list * command, list * input, char * dirname, int mand) {
 
 	free(filename);
 	return 0;
-	
 }
 
 int include_pass(list * input, char * dirname) {
@@ -191,7 +190,11 @@ int linkfile(list * output, char * filename) {
 		fprintf(stderr, "which I tried to link in.\n");
 		return 1;
 	}
-	if(!paren_tester(fp)) return 1;
+	int retval;
+	if((retval = paren_tester(fp))) {
+		fprintf(stderr, " in line %d of %s.\n", retval, filename);
+		return 1;
+	}
 	
 	list * in = list_new();
 	list_tokenise_file(in, fp);
@@ -275,9 +278,11 @@ int main(int argv, char * argc[]) {
 	 * and then to check they're OK. */
 	pass(input, output, "segment", segment);
 	passdf(input, output, "df", outfilename);
+	pass(input, output, "close", tclose);
 	check_debug(output);
 	check_wronginstruction(output);
 	check_main_exists(output);
+	check_remove_duplicate_tags(output);
 	
 	/* Dirty tricks */
 	check_recursion(output);

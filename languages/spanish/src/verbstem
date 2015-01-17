@@ -1,0 +1,20 @@
+; To give the machine learning routines a head start, I just stick a few
+; definitions in here. This should cut down the time needed to learn spanish
+; because there will be something to start from.
+
+
+; So a verbstem is the infinitive minus the ending -er/-ar.
+
+(for t (transitive intransitive)
+(df verbstem
+	(theta (subject agent) (object patient))
+	(flags .t)
+	(segments b e s)
+	(seme (head kiss)))
+
+(df verbstem
+	(theta (subject agent) (object patient))
+	(flags .t)
+	(segments m a t)
+	(seme (head kill)))
+)

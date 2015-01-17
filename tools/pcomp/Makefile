@@ -1,5 +1,5 @@
-pcomp: main.o check.o ontology.o definition.o for.o tag.o
-	gcc -ggdb -o pcomp main.o check.o ontology.o definition.o for.o tag.o \
+pcomp: main.o check.o ontology.o definition.o for.o tag.o close.o
+	gcc -ggdb -o pcomp main.o check.o ontology.o definition.o for.o tag.o close.o \
 	../../list.o ../../list-tokenise.o
 
 main.o: main.c
@@ -7,6 +7,9 @@ main.o: main.c
 
 check.o: check.c
 	gcc $(CCOPTS) -o check.o check.c
+
+close.o: close.c
+	gcc $(CCOPTS) -o close.o close.c
 
 ontology.o: ontology.c
 	gcc $(CCOPTS) -o ontology.o ontology.c

@@ -30,8 +30,8 @@ void guess_segments(monad * m) {
 		if(!strcmp(test, "fullstop")) continue;
 		
 		list * forknode = list_append_list(exec);
-		//list * debug = list_append_list(forknode);
-		//list_append_token(debug,"debug");
+		//list * brake = list_append_list(forknode);
+		//list_append_token(debug,"brake");
 		list * seg = list_append_list(forknode);
 		
 		list_append_token(seg, "segments");
@@ -123,12 +123,15 @@ list * learn_into(monad * m) {
 	return into;
 }
 			
-	
-	
 void monad_learn_open(monad * m) {
-
-	/* We'll increment the brake register. */
-	m->brake++;
+	
+	/* Check that the thing has not been closed. */
+	char * symb = list_get_token(m->command, 2);
+	list * deff = list_find_list(m->rules, symb);
+	if(deff && list_contains(deff, "closed")) {
+		m->alive = 0;
+		return;
+	}
 	
 	/* We can't learn anything if there is no namespace. In that case, 
 	 * then, the monad will just die.
@@ -150,19 +153,27 @@ void monad_learn_open(monad * m) {
 	if(segments) {
 		int i = atoi(list_get_token(segments, 2)) - 1;
 		if(i > 0) {
-			char dec[20];
-			snprintf(dec, 20, "%d", i);
+
+			/* The first thing to do is to reduce the counter by one.
+			 * (then we will guess one or zero segments). */
+			char dec[7];
+			snprintf(dec, 7, "%d", i);
 			list_drop(segments, 2);
 			list_append_token(segments, dec);
-		
+			
 			list * exec = list_new();
 			list * exe1 = list_append_list(exec);
 			list * exe2 = list_append_list(exec);
 			list * seg = list_append_list(exe1);
 			list * cur = list_append_list(exe1);
+			//list * brk2 = list_append_list(exe2);
 			list * alt = list_append_list(exe2);
+			list * brk1 = list_append_list(exe1);
 			list_append_token(seg, "guess-segments");
 			list_append_copy(cur, m->command);
+
+			list_append_token(brk1, "brake");
+			//list_append_token(brk2, "brake");
 			
 			/* Did we get enough segments? */
 			list_append_copy(alt, m->command);
@@ -171,14 +182,10 @@ void monad_learn_open(monad * m) {
 				list_drop(enough, 2);
 				list_append_token(enough, "0");
 			}
-			//list_append_copy(exe1, m->stack);
-			//list_append_copy(exe2, m->stack);
-			//list_free(m->stack);
 			
 			monad * children = exec_spawn(m, exec, 0, generate_reduce);
 			//monad * children = exec_spawn(m, exec, 0, 0);
 			monad_join(m, children);
-			m->alive = 0;
 			list_free(exec);
 			return;
 		}
@@ -195,7 +202,7 @@ void monad_learn_open(monad * m) {
 	list * flags = list_find_list(m->command, "flags");
 	
 	/* Now construct the thing starting with (df ...
-	 * which can be compiled by tc. */
+	 * which can be compiled by pcomp. */
 	list * df = list_new();
 	list_append_token(df, "df");
 	list_append_token(df, list_get_token(m->command, 2));
@@ -213,17 +220,21 @@ void monad_learn_open(monad * m) {
 		if(into)     list_free(into);  
 		return;
 	}
+
+	list * tag = list_append_list(df);
+	list_append_token(tag, "tag");
 	
 	if(nseme)    list_append_copy(list_append_list(df),nseme);
 	if(nrection) list_append_copy(list_append_list(df),nrection);
 	if(ntheta)   list_append_copy(list_append_list(df),ntheta);
 	
 	if(flags)    list_append_copy(list_append_list(df),flags);
-	if(into)     list_append_copy(df, into);	
+	if(into)     list_append_copy(df, into);
 	
 	char * definition = list_tochar(df);
-	m->outtext = realloc(m->outtext, strlen(m->outtext) + strlen(definition) + 3);
+	m->outtext = realloc(m->outtext, strlen(m->outtext) + strlen(definition) + 23);
 	strcat(m->outtext, definition);
+	//snprintf(m->outtext + strlen(m->outtext), 20, "\n; break=%d.", m->brake);
 	strcat(m->outtext, "\n");
 	free(definition);
 	
@@ -235,6 +246,7 @@ void monad_learn_open(monad * m) {
 	
 	list_remove(m->namespace, "record");
 	
+	
 }
 
 void learn_tag(monad * m) {
@@ -245,9 +257,9 @@ void learn_tag(monad * m) {
 	int newlen = strlen(m->outtext) + strlen(out) + 1;
 	m->outtext = realloc(m->outtext, newlen);
 	strcat(m->outtext, out);
+	m->brake++;
 }
 	
-
 int tranny_learn(monad * m, void * nothing) {
 	if(!m->alive) return 0;
 	

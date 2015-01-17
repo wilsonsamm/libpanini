@@ -47,12 +47,12 @@ char * readline(FILE *fp) {
 	return line;
 }
 
-int skip_word(FILE * fp) {
+void skip_word(FILE * fp) {
 	int c = fgetc(fp);
 	while(!isspace(c)) c = fgetc(fp);
 }
 
-int skip_line(FILE * fp) {
+void skip_line(FILE * fp) {
 	char * line = readline(fp);
 	free(line);
 }

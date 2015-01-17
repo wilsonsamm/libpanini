@@ -4,6 +4,7 @@
 
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 
 #define PATH_MAX 2048
 

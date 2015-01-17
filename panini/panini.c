@@ -42,10 +42,16 @@ int panini_learn(monad * m, char * commands, FILE * out, char * intext, int thre
 	/* Then, learn the language given the intext */
 	retval = monad_map(m, tranny_learn, (void*)0, threshold);
 	
-	/* Then, kill any monad that didn't finish the program. */
+	/* Then, kill any monad that didn't finish the program, */
 	monad_map(m, kill_not_done, (void *)0, -1);
+
+	/* and any that have a higher brake value than any other, */
+	monad_kill_braked(m);
 	
-	/* and free any monads that are not still alive
+	/* and any that have not finished processing the intext */
+	monad_kill_unfinished_intext(m);
+	
+	/* and then free any monads that are not still alive
 	 * (this forgets their state so that the memory becomes free. */
 	monad_unlink_dead(m, 0);
 
@@ -55,8 +61,6 @@ int panini_learn(monad * m, char * commands, FILE * out, char * intext, int thre
 	return retval;
 }
 	
-	
-
 int panini_generate(monad *m, char * commands, int record, int threshold) {
 	
 	int retval;
