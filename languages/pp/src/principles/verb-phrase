@@ -2,14 +2,15 @@
 	(call verb intransitive)
 	(tag))
 
+(for s (2 3 4 5)
 (df verbphrase
-	(language (head first))
+	(language (head first) (stage .s))
 	(call verb transitive)
-	(call object)
+	(into (theta object) call object)
 	(tag))
 
 (df verbphrase
-	(language (head last))
-	(call object)
+	(language (head last) (stage .s))
+	(into (theta object) call object)
 	(call verb transitive)
-	(tag))
+	(tag)))

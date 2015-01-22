@@ -125,6 +125,21 @@ list * learn_into(monad * m) {
 			
 void monad_learn_open(monad * m) {
 	
+	
+	/* Turn on debugging if we need to */
+	if(list_find_list(m->command, "debug")) {
+		m->debug = 1;
+	}
+	
+	/* Check that this monad has not yet learned anything else */
+	if(m->learned) {
+			if(m->debug) {
+				printf("this monad will die because it, or it's ancestor has already learned something.\n");
+			}
+		m->alive = 0;
+		return;
+	}
+	
 	/* Check that the thing has not been closed. */
 	char * symb = list_get_token(m->command, 2);
 	list * deff = list_find_list(m->rules, symb);
@@ -190,6 +205,14 @@ void monad_learn_open(monad * m) {
 			return;
 		}
 	}
+	list * alos = list_find_list(m->command, "at-least-one-segment");
+	if(alos) {
+		list * record = list_find_list(m->namespace, "record");
+		if(record->length == 1) {
+			m->alive = 0;
+			return;
+		}
+	}
 	
 	/* handle all the namespaces */
 	list * nseme  = learn_namespace(m, "seme");
@@ -246,7 +269,7 @@ void monad_learn_open(monad * m) {
 	
 	list_remove(m->namespace, "record");
 	
-	
+	m->learned = 1;
 }
 
 void learn_tag(monad * m) {

@@ -117,6 +117,8 @@ clean:
 	rm -f imports-japanese
 	rm -f monad/*.o monad/*.gch panini/*.o panini/*.gch list/*.o 
 	rm -f list/*.gch panini/*.o panini/*.gch compiler/*.o panini/*.o
+	rm -f ainu algonquian czech english japanese nahuatl pp quenya 
+	rm -f spanish swahili
 	make -C demos/tranny clean
 	make -C demos/kanjify clean
 	make -C doc clean

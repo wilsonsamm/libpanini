@@ -8,8 +8,6 @@
 ; way that a human child does. If this works, there will be obvious benefits
 ; over purely statistical models of translation like MOSES...
 
-(include segments)
-
 (include parameters/parameters)
 (include parameters/polysynthesis)
 (include parameters/optional-polysynthesis)

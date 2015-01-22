@@ -1,6 +1,7 @@
 (load pp-out)
 
 (include verbstem)
+(include phonotactics)
 
 (df defparam)
 

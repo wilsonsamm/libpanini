@@ -1,0 +1,19 @@
+A baby learns the mother's language better in the mother's arms than in a 
+university lecture. But throughout human childhood, communication grows 
+progressively more complex. In the same way, PP learns a language better in 
+stages. This program facilitates multiple stage machine learning by binding a 
+variable to some numerical value.
+
+If you look at panini/learn.c, you will find that the (open) command, which 
+learns a morpheme, will not finish executing if another (open) command has 
+already been executed. In other words, we may learn either a verb or a 
+conjugation at a time, but never both. Otherwise, we would end up producing 
+unacceptably many results because even a short word may be split in many 
+different ways. This influences what may be learned in any one go.
+
+STAGE 1:
+	intransitive clauses.
+	basic conjugation.
+
+STAGE 2:
+	transitive clauses.

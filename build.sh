@@ -30,13 +30,13 @@ echo Building the EDICT and KANJIDIC importer.
 make $MAKEOPTS -C tools/ekan  ekan
 
 # And then build the languages.
+make $MAKEOPTS pp
 make $MAKEOPTS ainu
 make $MAKEOPTS algonquian
 make $MAKEOPTS czech
 make $MAKEOPTS english
+make $MAKEOPTS japanese
 make $MAKEOPTS nahuatl
 make $MAKEOPTS quenya
-make $MAKEOPTS pp
 make $MAKEOPTS spanish
 make $MAKEOPTS swahili
-make $MAKEOPTS japanese

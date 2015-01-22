@@ -23,7 +23,7 @@ typedef struct _monad {
 	char * intext;		/* This is where the original text should be */
 	int index;			/* How far through the intext have we already scanned ? */
 	unsigned int brake;			/* Brake -- If this number increases beyond some boundary, then the monad is paused. */
-	//unsigned int learned;			/* Brake -- If this number increases beyond some boundary, then the monad is paused. */
+	int learned;		/* We will only ever learn one thing at a time. */
 	long padding;
 	struct _monad * child;		/* The linked list of spawned monads */
 

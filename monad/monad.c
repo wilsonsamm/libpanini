@@ -19,6 +19,7 @@ monad * monad_new() {
 	m->id = 1;
 	m->outtext = 0;
 	m->index = 0;
+	m->learned = 0;
 	m->trace = 0;
 	m->debug = 0;
 	m->confidence = 0;
@@ -62,6 +63,7 @@ monad * monad_duplicate(monad * m) {
 	n->confidence = m->confidence;
 	n->adjunct = 0;
 	n->brake = m->brake;
+	n->learned = m->learned;
 	n->child = 0; 
 	return n;
 }

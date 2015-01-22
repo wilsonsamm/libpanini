@@ -1,33 +1,41 @@
-(for theta (agent patient source)
+(for s (2 3 4 5)
+(for subj-theta (agent patient source)
 (df verbstem
-	(theta (subject .theta))
+	(language (stage .s))
+	(theta (subject .subj-theta))
 	(flags intransitive)
 	(open verbstem
 		(segments 10)
+		(at-least-one-segment)
 		(flags intransitive)
 		(seme head)
 		(theta subject))))
 
-(for theta (agent patient source)
+(for subj-theta (agent patient source)
+(for  obj-theta (agent patient source)
 (df verbstem
-	(theta (subject .theta))
+	(language (stage .s))
+	(theta (subject .subj-theta) (object .obj-theta))
 	(flags transitive)
 	(open verbstem
 		(segments 10)
+		(at-least-one-segment)
 		(flags intransitive)
 		(seme head)
-		(theta subject))))
+		(theta subject object))))))
 
 (df verb
 	(tag)
 	(flags intransitive finite)
 	(call verbstem intransitive)
+	(debug)
 	(call conjugation)
 	(segments space))
 (df verb
 	(tag)
 	(flags transitive finite)
 	(call verbstem transitive)
+	(debug)
 	(call conjugation)
 	(segments space))
 
@@ -44,7 +52,10 @@
 	(call tam .tense)
 	(into (theta subject) call conj-aff .tense))
 
+; We should only try to learn conjugational suffixes at stage 0. Later stages 
+; assume we already know how to conjugate a verb. 
 (df conj-aff
+	(language (stage 1))
 	(flags .tense)
 	(open conj-aff
 		(flags .tense)

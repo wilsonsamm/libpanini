@@ -1,23 +1,11 @@
 english: I kiss.
-stage0: beso.
+spanish: beso.
 
 english: you kiss.
-stage0: beses.
+spanish: beses.
 
 english: he kisses.
-stage0: bese.
+spanish: bese.
 
 english: you read.
-stage1: lees.
-
-english: I kiss.
-stage2: beso.
-stage2: yo beso.
-
-english: you kiss.
-stage2: beses.
-stage3: tu beses.
-
-english: he kisses.
-stage2: bese.
-stage2: el bese.
+spanish: lees.

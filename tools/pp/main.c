@@ -7,6 +7,9 @@
 
 #define INFILE "data.txt"
 
+#define EXEC1 "(language (stage "
+#define EXEC2 ")) (call parameters) (call main)"
+
 #define NONE  0
 #define HAPPY 1
 #define SAD   2
@@ -15,6 +18,8 @@
 
 int totallines;
 int progress = 0;
+
+char * stage;
 char * learnlang = 0;
 
 int count_lines(FILE * fp) {
@@ -30,10 +35,10 @@ int count_lines(FILE * fp) {
 }
 
 void progpc(int smile, char * text) {
-	printf("Learning %s with pp", learnlang);
+	printf("Stage %s of learning %s with pp", stage, learnlang);
 	printf(" %d%%", (progress * 100/totallines * 100)/100);
 	//printf(", line %d,", progress);
-	if(smile == DONE)  printf(" All done!\r");
+	if(smile == DONE)  printf(" All done!\n");
 	if(smile == NONE)  printf("    \r");
 	if(smile == HAPPY) printf(" :-)\r");
 	if(smile == SAD)   printf(" :-(  line %d: %s\n", progress, text);
@@ -180,11 +185,16 @@ int parsesection(FILE * fp) {
 		}
 		
 		/* Try to do some learning (and turn the smiley on while we do) */
+		char * exec = malloc(strlen(EXEC1) + strlen(EXEC2) + strlen(stage) + 1);
+		strcpy(exec, EXEC1);
+		strcat(exec, stage);
+		strcat(exec, EXEC2);
 		progpc(HAPPY, 0);
-		int retval = panini_learn(n, "(call parameters) (call main)", out, dsttext, 20);
+		int retval = panini_learn(n, exec, out, dsttext, 20);
 		if(!retval) progpc(SAD, line);
 		else progpc(NONE, 0);
-
+		free(exec);
+		
 		/* Tidy up */
 		monad_free(n);
 		free(dsttext);
@@ -217,6 +227,7 @@ int main(int argc, char * argv[]) {
 	}
 	
 	learnlang = argv[1];
+	stage = argv[2];
 
 	totallines = count_lines(fp);
 	
