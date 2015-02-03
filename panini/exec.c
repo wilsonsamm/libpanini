@@ -1,5 +1,6 @@
 #include "../monad/monad.h"
 #include "tranny.h"
+#include "panini.h"
 #include <string.h>
 #include <stdlib.h>
 
@@ -16,7 +17,7 @@ int flagstester(list * f1, list * f2) {
 
 /* Call this function by passing the monad and a list of rules, and
  * then the necessary rules will get spawned. */
-monad * exec_spawn(monad * m, list * rules, list * flags, int(reduce)(monad * m, list * rules)) {
+monad * exec_spawn(monad * m, list * rules, list * flags, int * switches) {
 	int i;
 	monad * first = 0;
 	
@@ -44,8 +45,8 @@ monad * exec_spawn(monad * m, list * rules, list * flags, int(reduce)(monad * m,
 		}
 
 		/* Test if the reduce function won't cut this rule off */
-		if(reduce) {
-			if(reduce(m, p)) continue;
+		if(switches) {
+			if(reduce(m, p, switches)) continue;
 		}
 
 		/* Construct a new linked list of monads */
@@ -167,7 +168,7 @@ void tranny_forgive(monad * m) {
 	monad_join(m, monad_spawn(m, rules, 0));
 }
 
-void tranny_call(monad * m, int adjunct, int(reduce)(monad * m, list * l)) {
+void tranny_call(monad * m, int adjunct, int * switches) {
 	/* We'll get the list of rules that need to be parsed */
 	list * patterns = 0;
 	char * rulename = list_get_token(m->command, 2);
@@ -183,7 +184,7 @@ void tranny_call(monad * m, int adjunct, int(reduce)(monad * m, list * l)) {
 	/* If there is such a list, spawn the children. */
 	monad * children = 0;
 	if(patterns) {
-		if(!(children = exec_spawn(m, patterns, flags, reduce))) {
+		if(!(children = exec_spawn(m, patterns, flags, switches))) {
 			if(m->debug) {
 				printf("Couldn't find any definitions for ");
 				printf("%s with the ", list_get_token(m->command, 2));
@@ -218,9 +219,9 @@ void tranny_call(monad * m, int adjunct, int(reduce)(monad * m, list * l)) {
 	return;
 }
 
-void tranny_fork(monad * m, int(reduce)(monad * m, list * l)) {
+void tranny_fork(monad * m, int * switches) {
 	list_drop(m->command, 1);
-	monad_join(m, exec_spawn(m, m->command, 0, reduce));
+	monad_join(m, exec_spawn(m, m->command, 0, switches));
 	m->alive = 0;
 }
 
@@ -248,22 +249,22 @@ void tranny_fuzzy(monad * m) {
  *   - returns 1 to say "Success"
  * If it was not possible to execute the instruction, returns 0.
  */
-int tranny_exec(monad * m, char * command, int(reduce)(monad * m, list * l), int generate) {
+int tranny_exec(monad * m, char * command, int * switches) {
 	
 	if(!strcmp(command, "call")) {
-		tranny_call(m, 0, reduce);
+		tranny_call(m, 0, switches);
 		list_free(m->command);
 		m->command = 0;
 		return 1;
 	}
 	if(!strcmp(command, "adjunct")) {
-		tranny_call(m, 1, reduce);
+		tranny_call(m, 1, switches);
 		list_free(m->command);
 		m->command = 0;
 		return 1;
 	}
 	if(!strcmp(command, "fork")) {
-		tranny_fork(m, reduce);
+		tranny_fork(m, switches);
 		list_free(m->command);
 		m->command = 0;
 		return 1;
@@ -275,7 +276,7 @@ int tranny_exec(monad * m, char * command, int(reduce)(monad * m, list * l), int
 		return 1;
 	}
 	if(!strcmp(command, "segments")) {
-		tranny_segments(m, generate);
+		tranny_segments(m, *switches & OUTTEXT);
 		list_free(m->command);
 		m->command = 0;
 		return 1;

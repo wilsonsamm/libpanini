@@ -1,4 +1,4 @@
-(load pp-out)
+;(load pp-out)
 
 (include verbstem)
 (include phonotactics)

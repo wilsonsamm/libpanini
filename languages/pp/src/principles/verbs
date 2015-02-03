@@ -28,14 +28,12 @@
 	(tag)
 	(flags intransitive finite)
 	(call verbstem intransitive)
-	(debug)
 	(call conjugation)
 	(segments space))
 (df verb
 	(tag)
 	(flags transitive finite)
 	(call verbstem transitive)
-	(debug)
 	(call conjugation)
 	(segments space))
 

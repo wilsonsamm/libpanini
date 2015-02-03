@@ -9,7 +9,7 @@ japanese: ekan.out
 	$(PANINI)/tools/pcomp/pcomp -d src -i src/main > japanese
 
 clean:
-	rm -f japanese core ekan.out gmon.out *.txt src/ekan
+	rm -f japanese core ekan.out gmon.out edict kanjidic *.txt src/ekan
 
 install:
 	cp japanese /usr/panini/languages

@@ -123,7 +123,7 @@ list * learn_into(monad * m) {
 	return into;
 }
 			
-void monad_learn_open(monad * m) {
+void monad_learn_open(monad * m, int * switches) {
 	
 	
 	/* Turn on debugging if we need to */
@@ -198,7 +198,7 @@ void monad_learn_open(monad * m) {
 				list_append_token(enough, "0");
 			}
 			
-			monad * children = exec_spawn(m, exec, 0, generate_reduce);
+			monad * children = exec_spawn(m, exec, 0, switches);
 			//monad * children = exec_spawn(m, exec, 0, 0);
 			monad_join(m, children);
 			list_free(exec);
@@ -307,7 +307,7 @@ int tranny_learn(monad * m, void * nothing) {
 	if(tranny_intext(m, command)) return 1;
 	
 	/* Is the command one of those that spawns other monads? */
-	if(tranny_exec(m, command, learning_reduce, 0)) return 1;
+	if(tranny_exec(m, command, 0)) return 1;
 	
 	/* Is the command one of the ones deals with memory? */
 	if(tranny_memory(m, command)) return 1;
@@ -336,7 +336,7 @@ int tranny_learn(monad * m, void * nothing) {
 		return 1;
 	}
 	if(!strcmp(command, "open")) {
-		monad_learn_open(m);
+		monad_learn_open(m, 0);
 		list_free(m->command);
 		m->command = 0;
 		return 1;

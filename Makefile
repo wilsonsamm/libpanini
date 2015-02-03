@@ -123,7 +123,7 @@ clean:
 	make -C demos/kanjify clean
 	make -C doc clean
 	make -C tools/pcomp clean
-	make -C tools/pp clean
+	make -C tools/learn clean
 	make -C tools/ekan clean
 	make -C languages/ainu clean
 	make -C languages/algonquian clean

@@ -1,5 +1,5 @@
 #include "../monad/monad.h"
-#include "tranny.h"
+#include "panini.h"
 #include <string.h>
 
 int reduce_lit_in(monad * m, list * l) {
@@ -87,5 +87,12 @@ int learning_reduce(monad * m, list * l) {
 	if(reduce_lit_in(m, l)) return 1;
 	if(reduce_vars(m, l)) return 1;
 	
+	return 0;
+}
+
+
+int reduce(monad * m, list * l, int * switches) {
+	if(reduce_vars(m, l));
+	if((*switches & INTEXT) && (reduce_lit_in(m, l))) return 1;
 	return 0;
 }

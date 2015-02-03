@@ -36,8 +36,8 @@
 (df pronoun
 	(flags subject object)
 	(fork 
-		((lit y'all) (region america))
-		((lit yinz) (region pittsburg)))
+		((lit y'all) (language (region america)))
+		((lit yinz) (language (region pittsburg))))
 	(segments space)
 	(rection (person you))
 	(seme (head referential) (person second)))

@@ -1,0 +1,4 @@
+english:spanish
+(call pronoun):(call prolex nominative)
+I:yo
+thou:tu

@@ -25,5 +25,5 @@
 ; the meaning of beséis, because "you kiss" means both.)
 (df conj-aff
 	(segments e s )
-	(flags present))
-	(rection (person second) (number singular))
+	(flags present)
+	(rection (person second) (number singular)))
