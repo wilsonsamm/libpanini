@@ -71,7 +71,7 @@ int parsesection(FILE * fp) {
 		monad_rules(m, fn1);
 		
 		if(!panini_parse(m, exec1, text1, 0, 0, 5)) {
-			progpc(SAD, text1);
+			progpc(SAD, 0);
 		} else {
 			
 			/* Prepare the monads for generation */
@@ -83,7 +83,7 @@ int parsesection(FILE * fp) {
 			monad_rules(m, fn2);
 			
 			if(!panini_learn(m, exec2, outfile, text2, 5)) {
-				progpc(SAD, text2);
+				progpc(SAD, 0);
 			} else {
 				progpc(DOTS, 0);
 			}

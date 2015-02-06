@@ -348,7 +348,7 @@ void monad_child_tester(monad * m) {
 
 void monad_kill_unfinished_intext(monad * m) {
 	while(m) {
-		if(m->intext[m->index + 1] != '\0') m->alive = 0;
+		if(m->intext[m->index] != '\0') m->alive = 0;
 		m = m->child;
 	}
 }

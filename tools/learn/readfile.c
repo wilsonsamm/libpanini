@@ -33,14 +33,16 @@ void count_lines(FILE * fp) {
 	return;
 }
 
-void progpc(int smile, char * text) {
-	printf("\t%d%%", (progress * 100/totallines * 100)/100);
-	printf(", line %d,\t", progress);
-	if(smile == DONE)  printf(" All done!\n");
-	if(smile == NONE)  printf("    \r");
-	if(smile == HAPPY) printf(" :-)\r");
-	if(smile == SAD)   printf(" :-(  line %d: %s\n", progress, text);
-	if(smile == DOTS)  printf(" ...\r");
+void progpc(int smile, char * stage) {
+	printf("\r\t\t\t");
+	if(stage) printf("stage %s/3     \t", stage);
+	printf("%3d%%", (progress * 100/totallines * 100)/100);
+	//printf(", line %d,\t", progress);
+	if(smile == DONE)  printf(" All done!\r");
+	if(smile == NONE)  printf("          \r");
+	if(smile == HAPPY) printf(" :-)      \r");
+	if(smile == SAD)   printf(" :-(      \r");
+	if(smile == DOTS)  printf(" ...      \r");
 	fflush(stdout);
 }
 

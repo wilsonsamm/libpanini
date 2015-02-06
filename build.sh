@@ -24,8 +24,8 @@ make $MAKEOPTS libpanini.a
 # Build the compiler and other tools
 echo Building the compiler.
 make $MAKEOPTS -C tools/pcomp pcomp
-echo Building the PP machine learner.
-make $MAKEOPTS -C tools/pp    pp
+echo Building the machine learning tools.
+make $MAKEOPTS -C tools/learn
 echo Building the EDICT and KANJIDIC importer.
 make $MAKEOPTS -C tools/ekan  ekan
 

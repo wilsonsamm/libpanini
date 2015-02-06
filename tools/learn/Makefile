@@ -16,6 +16,4 @@ readfile.o: readfile.c readfile.h
 	gcc $(CCOPTS) readfile.c
 	
 clean: 
-	rm -rf vocab core *.o
-
-
+	rm -rf vocab pp core *.o 

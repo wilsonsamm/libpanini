@@ -7,6 +7,6 @@
 extern char * currentline;
 
 void count_lines(FILE * fp);
-void progpc(int smile, char * text);
+void progpc(int smile, char * stage);
 int nextline(FILE * fp);
 char * getfield(int n);

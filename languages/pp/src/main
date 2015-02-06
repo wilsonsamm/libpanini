@@ -18,6 +18,7 @@
 (include parameters/serial-verbs)
 (include parameters/null-subject)
 
+(include principles/nouns)
 (include principles/principles)
 (include principles/pronouns)
 (include principles/sentence)

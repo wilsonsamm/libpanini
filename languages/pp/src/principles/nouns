@@ -1,0 +1,11 @@
+(for case (nominative accusative)
+(for number (singular plural)
+(df nounsuffix
+	(rection (case .case) (number .number))
+	(open nounsuffix
+		(segments 3)
+		(rection case number)))))
+
+(df noun
+	(call nounstem)
+	(call nounsuffix))

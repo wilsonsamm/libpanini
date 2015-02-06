@@ -1,9 +1,46 @@
 (df nounstem
-	(flags inanimate)
+	(rection (gender inanimate))
 	(segments c ii m aa n)
 	(seme (head boat)))
 
 (df nounstem
-	(flags animate)
+	(rection (gender animate))
 	(segments e r e n i w a)
 	(seme (head man)))
+
+(df noun-template
+	(call possessive-prefix)
+	(call nounstem)
+	(call possessive-theme)
+	(call proximity-marker)
+	(segments #))
+
+(for g (animate inanimate)
+(df noun
+	(flags lemma .g)
+	(rection (gender .g) -possessed -obviative)
+	(call noun-template)))
+
+;;; Possession is marked by a personal prefix, marking the person of the 
+; possessor, and sometimes a "possessed theme" suffix which marks things like
+; alienability.
+
+;; Possessive prefices
+(df possessive-prefix
+	(rection -possessed -theme))
+
+;; Possessive theme
+(df possessive-theme
+	(rection -theme))
+
+;; Proximity markers
+(df proximity-marker
+	(rection -obviative))
+
+(df proximity-marker
+	(segments a)
+	(rection (gender animate) obviative))
+
+(df proximity-marker
+	(segments e l i w)
+	(rection (gender inanimate) obviative))

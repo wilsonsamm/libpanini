@@ -60,12 +60,12 @@ int parsesection(FILE * fp) {
 	monad_rules(m, srcfn);
 		
 	/* Let's keep the user up-to-date with what's happening. */
-	progpc(NONE, 0);
+	progpc(NONE, stage);
 	
 	int retval = panini_parse(m, "(call main)", srctext, 0, 0, 5);
 	
 	if(!retval) {
-		progpc(SAD, srctext);
+		progpc(SAD, stage);
 	}
 	
 	/* Prepare the monads for generation */
@@ -80,28 +80,15 @@ int parsesection(FILE * fp) {
 		if(!lang) return 1;
 		if(!strlen(lang)) return 1;
 		
-		monad * test = monad_duplicate(m);
-		if(!test) continue;
+		char * txt = getfield(2);
 		
 		monad * n = monad_duplicate(m);
 		if(!n) continue;
-		
 		char * fn = path_to_language(lang);
 		free(lang);
-		
-		char * txt = getfield(2);
 		monad_rules(n, fn);
-		monad_rules(test, fn);
 		
-		/* Is this sentence already known in this language? 
-		 * If so, don't bother trying to learn anything. */
-		if(panini_parse(m, "(call main)", txt, 0, 0, 20)) {
-			monad_free(test);
-			monad_free(n);
-			continue;
-		}
-		
-		progpc(HAPPY, 0);
+		progpc(HAPPY, stage);
 		
 		char * exec = malloc(strlen(EXEC1) + strlen(EXEC2) + 20);
 		strcpy(exec, EXEC1);
@@ -109,9 +96,9 @@ int parsesection(FILE * fp) {
 		strcat(exec, EXEC2);
 		
 		if(!panini_learn(n, exec, outfile, txt, 20)) {
-			progpc(SAD, txt);
+			progpc(SAD, stage);
 		} else {
-			progpc(DOTS, 0);
+			progpc(DOTS, stage);
 		}
 		free(exec);
 	}
@@ -133,7 +120,7 @@ int main(int argc, char * argv[]) {
 	
 	while(parsesection(fp));
 	
-	progpc(DONE, 0);
+	progpc(DONE, stage);
 	fclose(fp);
 	return 0;
 }

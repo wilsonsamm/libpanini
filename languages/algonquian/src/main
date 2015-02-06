@@ -9,6 +9,8 @@
 (include verbs/stem)
 (include verbs/verb)
 
+(segment (underlying #) (sandhi #) (space))
+
 (df main
 	(call verb))
 

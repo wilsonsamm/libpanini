@@ -2,3 +2,17 @@ english:spanish
 (call pronoun):(call prolex nominative)
 I:yo
 thou:tu
+
+english:spanish
+(call noun):(call nounstem)
+whale:ballena
+worm:lombriz
+bird:pajaro
+duck:anade
+rabbit:conejo
+friend:amigo
+mother:madre
+father:padre
+house:casa
+day:dias
+man:hombre

@@ -273,6 +273,10 @@ void monad_learn_open(monad * m, int * switches) {
 }
 
 void learn_tag(monad * m) {
+	if(m->learned) {
+		m->alive = 0;
+		return;
+	}
 	char out[1024];
 	snprintf(out, 1024, "(tag %s %s)\n", list_get_token(m->command, 2), list_get_token(m->command, 3));
 	

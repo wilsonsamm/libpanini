@@ -28,6 +28,11 @@
 	(call noun-learner nominative singular)
 	(space))
 
+(df noun (flags lemma feminine) (call noun feminine singular nominative))
+(df noun (flags lemma neuter)   (call noun neuter   singular nominative))
+(df noun (flags lemma masculine animate) (call noun masculine animate singular nominative))
+(df noun (flags lemma masculine inanimate) (call noun masculine -animate singular nominative))
+
 (df nounphrase
 	(rection (person third))
 	(call noun))

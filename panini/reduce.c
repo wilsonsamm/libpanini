@@ -90,7 +90,6 @@ int learning_reduce(monad * m, list * l) {
 	return 0;
 }
 
-
 int reduce(monad * m, list * l, int * switches) {
 	if(reduce_vars(m, l));
 	if((*switches & INTEXT) && (reduce_lit_in(m, l))) return 1;

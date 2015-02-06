@@ -1,0 +1,4 @@
+; nounsuffix is something you can define to say "how do nouns end". You may 
+; rection case and number.
+(df nounsuffix	(segments o) (rection (gender masculine) (number singular)))
+(df nounsuffix	(segments a) (rection (gender feminine)  (number singular)))

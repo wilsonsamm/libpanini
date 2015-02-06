@@ -120,6 +120,7 @@ int panini_parse(monad *m, char * commands, char * intext, int editdistance, int
 int panini_learn(monad * m, char * commands, FILE * out, char * intext, int threshold) {
 	
 	int retval;
+	int switches = INTEXT | L_OPEN;
 	
 	/* First, set the stack to contain the right instructions */
 	monad_map(m, (int(*)(monad * m, void * argp))set_stack, commands, threshold);
@@ -128,7 +129,7 @@ int panini_learn(monad * m, char * commands, FILE * out, char * intext, int thre
 	monad_map(m, (int(*)(monad * m, void * argp))set_intext, intext, threshold);
 	
 	/* Then, learn the language given the intext */
-	retval = monad_map(m, tranny_learn, (void*)0, threshold);
+	retval = monad_map(m, (int(*)(monad * m, void * argp))panini_despatch, &switches, threshold);
 	
 	/* Then, kill any monad that didn't finish the program, */
 	monad_map(m, kill_not_done, (void *)0, -1);
