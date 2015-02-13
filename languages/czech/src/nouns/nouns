@@ -1,33 +1,30 @@
+
+; Features of the functional head above the nounstem are case and number. 
 (for case (nominative accusative genitive dative 
            vocative prepositional instrumental)
-(for gender (feminine masculine neuter)
-(for animacy (-animate animate)
 (for number (singular plural)
 
+; Features of the nounstem itself are gender and animacy.
+(for gender (feminine masculine neuter)
+(for animacy (-animate animate)
+
+; How to learn a nounstem
+(df nounstem
+	(flags .gender .animacy)
+	(open nounstem
+		(segments 10)
+		(flags .gender .animacy)
+		(seme head)))
+
+; The functional head
 (df noun
+	(sandhi #)
 	(flags .gender .case .animacy .number)
-	(call nounstem .gender)
+	(call nounstem .gender .animacy)
 	(call case-ending .gender .case)
-	(segments #)
-	(rection (animacy .animacy) (gender .gender) (case .case)))
-
-(df noun-learner
-	(flags .gender .case .animacy .number)
-	; Deduce either one, two or three syllables.
-	(fork
-		((call guess-syllable))
-		((call guess-syllable) (call guess-syllable))
-		((call guess-syllable) (call guess-syllable) (call guess-syllable)))
-	(call case-ending .gender .case .number)
-	(segments #)
-	(rection (animacy .animacy) (gender .gender) (case .case))
-	(makedef nounstem (flags .gender) (remove number)))))))
-
-(df Learn
-	(flags lemma)
-	(call noun-learner nominative singular)
-	(space))
-
+	(call Segment space)
+	(rection (animacy .animacy) (gender .gender) (case .case)))))))
+	
 (df noun (flags lemma feminine) (call noun feminine singular nominative))
 (df noun (flags lemma neuter)   (call noun neuter   singular nominative))
 (df noun (flags lemma masculine animate) (call noun masculine animate singular nominative))

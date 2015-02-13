@@ -45,6 +45,9 @@ void progpc(int smile, char * stage) {
 	if(smile == DOTS)  printf(" ...      \r");
 	fflush(stdout);
 }
+void clear_progpc() {
+	printf("                                                     \n");
+}
 
 int nextline(FILE * fp) {
 	

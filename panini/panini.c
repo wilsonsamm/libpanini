@@ -129,10 +129,10 @@ int panini_learn(monad * m, char * commands, FILE * out, char * intext, int thre
 	monad_map(m, (int(*)(monad * m, void * argp))set_intext, intext, threshold);
 	
 	/* Then, learn the language given the intext */
-	retval = monad_map(m, (int(*)(monad * m, void * argp))panini_despatch, &switches, threshold);
+	monad_map(m, (int(*)(monad * m, void * argp))panini_despatch, &switches, threshold);
 	
 	/* Then, kill any monad that didn't finish the program, */
-	monad_map(m, kill_not_done, (void *)0, -1);
+	retval = monad_map(m, kill_not_done, (void *)0, -1);
 
 	/* and any that have a higher brake value than any other, */
 	monad_kill_braked(m);

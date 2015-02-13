@@ -255,6 +255,8 @@ void monad_learn_open(monad * m, int * switches) {
 	if(into)     list_append_copy(df, into);
 	
 	char * definition = list_tochar(df);
+	if(!m->outtext) m->outtext = strdup("");
+
 	m->outtext = realloc(m->outtext, strlen(m->outtext) + strlen(definition) + 23);
 	strcat(m->outtext, definition);
 	//snprintf(m->outtext + strlen(m->outtext), 20, "\n; break=%d.", m->brake);

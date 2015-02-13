@@ -233,12 +233,14 @@ int monad_map(monad * m, int(*fn)(monad * m, void * argp), void * arg, int thr) 
 	/* Run! */
 	while(m) {
 		
-		/* Every hundredth time we step across a monad, we'll run 
-		 * something across the chain a monads which unlinks the dead
-		 * ones. This should save the program from allocating gigabytes
-		 * and gigabytes of memory. */
+		/* Every nth time we step across a monad, we'll run something across the
+		 * chain a monads which unlinks the dead ones. This should save the 
+		 * program from allocating gigabytes and gigabytes of memory 
+		 * unnecessarily. */
 		i++;
 		if(i>10000) {
+			//fprintf(stderr,"Housekeeping triggered: i= %d; ", i);
+			//fprintf(stderr,"m->id = %d;\n", m->id);
 			i = 0;
 			monad_unlink_dead(beginning, m);
 			continue;

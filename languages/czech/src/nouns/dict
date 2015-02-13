@@ -1,14 +1,24 @@
+; Each nounstem must have one of the flags masculine, feminine and neuter.
+; Each nounstem must have one of the flags animate, -animate
+; feminine and neuter nouns are always -animate.
+
+
 (df nounstem
 	(segments v e l r y b)
-	(flags feminine)
+	(flags feminine -animate)
 	(seme (head whale)))
 
 (df nounstem
 	(segments b y t ?e k)
-	(flags masculine)
+	(flags masculine -animate)
 	(seme (head house)))
 
 (df nounstem
 	(segments l e d ?e n)
-	(flags masculine)
+	(flags masculine -animate)
+	(seme (head january)))
+
+(df nounstem
+	(segments č l o v ě k)
+	(flags masculine animate)
 	(seme (head january)))

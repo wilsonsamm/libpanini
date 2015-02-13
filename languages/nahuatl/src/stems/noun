@@ -9,3 +9,12 @@
 	(segments t oo ch)
 	(seme (head rabbit))
 	(theta (poss owner)))
+
+; How to learn a nounstem
+(df nounstem
+	(flags .gender .animacy)
+	(open verbstem
+		(segments 6)
+		(at-least-one-segment)
+		(flags .gender .animacy)
+		(seme head)))

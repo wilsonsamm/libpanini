@@ -29,8 +29,12 @@ make $MAKEOPTS -C tools/learn
 echo Building the EDICT and KANJIDIC importer.
 make $MAKEOPTS -C tools/ekan  ekan
 
-# And then build the languages.
+# Some languages depend on others to already have been built. So build those
+# first.
 make $MAKEOPTS pp
+make $MAKEOPTS english
+
+# And then build the languages.
 make $MAKEOPTS ainu
 make $MAKEOPTS algonquian
 make $MAKEOPTS czech
