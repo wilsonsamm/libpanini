@@ -14,6 +14,7 @@ int cl_one = 0;
 int cl_none = 0;
 int cl_trim = 0;
 int cl_all = 0;
+int cl_world = 0;
 
 int main(int argc, char * argv[]) {
 
@@ -56,8 +57,12 @@ int main(int argc, char * argv[]) {
 		if(!strcmp(argv[i], "all")) {	// Don't stop when monad_map succeeds at a threshold level
 			cl_all = 1;
 		} else
-		if(!strcmp(argv[i], "edit")) {		// Debug a monad (takes numerical argument)
+		if(!strcmp(argv[i], "edit")) {		// Set edit distance for input text (takes numerical argument)
 			edit = atoi(argv[++i]);
+		} else
+		if(!strcmp(argv[i], "world")) {		// Should we check that the output makes sense?
+			cl_world = 1;
+			printf("Setting cl_world\n");
 		} else
 		if(!strcmp(argv[i], "d")) {		// Debug a monad (takes numerical argument)
 			int t = atoi(argv[++i]);
@@ -103,6 +108,14 @@ int main(int argc, char * argv[]) {
 		exit(1);
 	}
 	i++;
+	
+	/* Do we want to check that the interpretation of the sentence makes sense? */
+	printf("cl_world = %d;\n", cl_world);
+	if(cl_world) {
+		printf("cl_world was found to be TRUE.\n");
+		monad_rules(m, "world");
+		panini_parse(m, "(call main)", "", 0, 0, threshold);
+	}
 	
 	/* Do we want to only use the most likely interpretation? */
 	if(cl_one) panini_keep_confident(m);

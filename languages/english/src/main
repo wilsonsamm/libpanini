@@ -49,3 +49,5 @@
 (df Word (call determiner))
 (df Word (call verb))
 (df Word (call copula))
+(df lemma (call noun singular))
+(df lemma (call verb infinitive))

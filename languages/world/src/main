@@ -1,0 +1,21 @@
+; This program resovles ambiguities by looking at relationships between the 
+; objects in the ontology returned by parsing a text in some language. For
+; example, in English, depending on region, the word "rubber" may mean either
+; condom or eraser. But in "he's wearing a rubber", it is easy to see which
+; interpretation to favour because erasers are not worn.
+; Similarly, a sheet may be either a bedsheet or a flat piece of paper, or 
+; steel. But in "The old sheets are in the laundry", we tend to think of 
+; bedsheets first because those are more commonly found in laundry.
+
+; The way this works is by recursively calling "relation", and these relations 
+; describe relations between themselves and other relations. For example, sight:
+; the entity that does the seeing is normally a sentient being (i.e., a man can
+; see, but a book can not), and the entity which is seen is normally visible 
+; (i.e., you can see a beach or a worm, but not a month or fury.). So the 
+; relation flagged "see" should: 
+; - Increment confidence if the agent is sentient 
+; - Increment confidence if the patient is visible 
+;
+
+(include relations)
+(df main (call relation))

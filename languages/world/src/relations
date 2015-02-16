@@ -1,0 +1,58 @@
+;;; Animal
+(for m (whale horse worm bird duck rabbit)
+(df relation (seme (head .m)) (flags animal)))
+
+;;; Area
+(for m (beach house room cave village world road)
+(df relation (seme (head .m)) (flags area)))
+
+;;; Artefact
+(for m (axe thing banana book eraser)
+(df relation (seme (head .m)) (flags artefact)))
+
+;;; Clothes
+(for m (coat shirt skirt shoes)
+(df relation (seme (head .m)) (flags clothes)))
+
+;;; Day of the week
+(for m (monday tuesday wednesday thursday friday saturday sunday)
+(df relation (seme (head .m)) (flags day-of-week)))
+
+;;; Months
+(for m (january february march april may june july august
+        september october november december)
+(df relation (seme (head .m)) (flags month)))
+
+;;; Person
+(for m (friend uncle soldier visitor person woman child man mother father
+        offspring)
+(df relation (seme (head .m)) (flags person)))
+
+;;; See
+(df relation
+	(debug)
+	(seme (head see)) (flags see)
+	(fuzzy 1 into agent call relation sentient)
+	(fuzzy 1 into patient call relation visible))
+
+;;; Sentient
+(for s (person animal)
+(df relation (call relation .s)))
+
+;;; Time
+(for t (month unit-of-time day-of-week)
+(df relation (call relation .t) (flags time)))
+(for m (month week year time day)
+(df relation (seme (head .m)) (flags time)))
+
+;;; Vehicles
+(for m (boat car)
+(df relation (seme (head .m)) (flags vehicles)))
+
+;;; Visible
+(for v (vehicle wearable person animal artefact area)
+(df relation (seme (head .m)) (call relation .v) (flags visible)))
+
+;;; Wearables
+(df relation (seme (head condom)) (flags wearable))
+(df relation (call relation clothes) (flags wearable))

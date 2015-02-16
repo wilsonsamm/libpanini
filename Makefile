@@ -91,6 +91,8 @@ spanish:
 	+make -C languages/spanish spanish
 swahili:
 	+make -C languages/swahili swahili
+world:
+	+make -C languages/world world
 
 install: uninstall
 	mkdir -p /usr/panini/languages
@@ -106,6 +108,7 @@ install: uninstall
 	make -C languages/quenya install
 	make -C languages/spanish install
 	make -C languages/swahili install
+	make -C languages/world install
 
 uninstall:
 	rm -rf /usr/panini
@@ -121,6 +124,7 @@ clean:
 	rm -f spanish swahili
 	make -C demos/tranny clean
 	make -C demos/kanjify clean
+	make -C demos/flashcards clean
 	make -C doc clean
 	make -C tools/pcomp clean
 	make -C tools/learn clean

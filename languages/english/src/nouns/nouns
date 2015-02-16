@@ -82,13 +82,14 @@
 
 ;;; Regular nouns are defined down here as something which consists of a nounstem plus an optional plural suffix.
 (df noun
-	(flags lemma)
+	(flags lemma singular)
 	(seme (number singular))
 	(call nounstem) (segments space)
 	(rection (person he-she-it))
 	(clues (class nominal)))
 
 (df noun
+	(flags plural)
 	(seme (number plural))
 	(call nounstem)
 	(lit s) (segments space)
@@ -102,12 +103,13 @@
 (df noun
 	(lit child) (segments space)
 	(rection countable (number singular))
-	(flags lemma)
+	(flags lemma singular)
 	(seme (head child) (number singular))
 	(clues human animate -abstract -time -space (class nominal)))
 
 ; Children.
 (df noun
+	(flags plural)
 	(lit children) (segments space)
 	(rection countable (number plural))
 	(seme (head child) (number plural))
@@ -117,12 +119,13 @@
 (df noun
 	(lit woman) (segments space)
 	(rection countable (number singular))
-	(flags lemma)
+	(flags lemma singular)
 	(seme (head woman) (number singular))
 	(clues human animate -abstract -time -space (class nominal)))
 
 ; Women.
 (df noun
+	(flags plural)
 	(lit women) (segments space)
 	(rection countable (number plural))
 	(seme (head woman) (number plural))
@@ -132,12 +135,13 @@
 (df noun
 	(lit man) (segments space)
 	(rection countable (number singular))
-	(flags lemma)
+	(flags lemma singular)
 	(seme (head man) (number singular))
 	(clues human animate -abstract -time -space (class nominal)))
 
 ; Men.
 (df noun
+	(flags plural)
 	(lit men) (segments space)
 	(rection countable (number plural))
 	(seme (head man) (number plural))

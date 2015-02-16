@@ -19,6 +19,61 @@
 	(seme (head january)))
 
 (df nounstem
+	(segments ú n o r)
+	(flags masculine -animate)
+	(seme (head february)))
+
+(df nounstem
+	(segments b ř e z e n)
+	(flags masculine -animate)
+	(seme (head march)))
+
+(df nounstem
+	(segments d u b ?e n)
+	(flags masculine -animate)
+	(seme (head april)))
+
+(df nounstem
+	(segments k v ě t ?e n)
+	(flags masculine -animate)
+	(seme (head may)))
+
+(df nounstem
+	(segments č e r v e n)
+	(flags masculine -animate)
+	(seme (head june)))
+
+(df nounstem
+	(segments č e r v e n ?e c)
+	(flags masculine -animate)
+	(seme (head july)))
+
+(df nounstem
+	(segments s r p ?e n)
+	(flags masculine -animate)
+	(seme (head august)))
+
+(df nounstem
+	(segments září)
+	(flags masculine -animate)
+	(seme (head september)))
+
+(df nounstem
+	(segments ř í j e n)
+	(flags masculine -animate)
+	(seme (head october)))
+
+(df nounstem
+	(segments l i s t o p a d)
+	(flags masculine -animate)
+	(seme (head november)))
+
+(df nounstem
+	(segments p r o s i n ?e c)
+	(flags masculine -animate)
+	(seme (head december)))
+
+(df nounstem
 	(segments č l o v ě k)
 	(flags masculine animate)
-	(seme (head january)))
+	(seme (head man)))

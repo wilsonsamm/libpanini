@@ -29,3 +29,6 @@
 
 (df dummy
 	(theta (nominative patient)))
+
+(df lemma (call noun nominative singular))
+(df lemma (call verb infinitive))
