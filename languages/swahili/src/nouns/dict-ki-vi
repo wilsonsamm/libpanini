@@ -5,8 +5,7 @@
 	(call prefix ki/vi .number)
 	(call nounstem ki/vi)
 	(space)
-	(seme (number .number))
-	(clues (class nominal))))
+	(seme (number .number))))
 
 ; To add a KI/VI-class noun to the dictionary, include these flags:
 ;    ki/vi    - this is N class nounstem

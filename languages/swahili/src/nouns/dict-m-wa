@@ -4,8 +4,7 @@
 	(segments m w)
 	(call nounstem m/wa)
 	(space)
-	(seme (number singular))
-	(clues (class nominal)))
+	(seme (number singular)))
 
 (df noun
 	(flags m/wa plural)
@@ -13,8 +12,7 @@
 	(rection (class m/wa) (number plural))
 	(call nounstem m/wa)
 	(space)
-	(seme (number plural))
-	(clues (class nominal)))
+	(seme (number plural)))
 
 ; To add a M/WA-class noun to the dictionary, include these flags:
 ;    m/wa    - this is M/WA class nounstem

@@ -103,8 +103,7 @@ int check_wronginstruction(list * output) {
 			if(!strcmp(iname, "attest")) continue;
 			if(!strcmp(iname, "language")) continue;
 			if(!strcmp(iname, "check")) continue;
-			if(!strcmp(iname, "read-ahead")) continue;
-			if(!strcmp(iname, "clues")) continue;
+			if(!strcmp(iname, "params")) continue;
 			if(!strcmp(iname, "nop")) continue;
 			if(!strcmp(iname, "segments")) continue;
 			if(!strcmp(iname, "call")) continue;
@@ -113,8 +112,6 @@ int check_wronginstruction(list * output) {
 			if(!strcmp(iname, "flashbulb")) continue;
 			if(!strcmp(iname, "remember")) continue;
 			if(!strcmp(iname, "recall")) continue;
-			if(!strcmp(iname, "addseg")) continue;
-			if(!strcmp(iname, "makedef")) continue;
 			if(!strcmp(iname, "record")) continue;
 			if(!strcmp(iname, "phrase")) continue;
 			if(!strcmp(iname, "tag")) continue;

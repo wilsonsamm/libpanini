@@ -2,3 +2,5 @@ english:czech
 (call noun):(call noun nominative singular)
 worm:červ
 house:dům
+bird:pták
+september:září

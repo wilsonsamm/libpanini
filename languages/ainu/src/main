@@ -17,9 +17,6 @@
 (include complementiser)
 (include constraint)
 (include modal-particles)
-(include phonotactics)
-(include headwords)
-(include learn)
 
 (df main
 	(call cp)

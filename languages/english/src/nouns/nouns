@@ -1,18 +1,14 @@
 ; Animals
-(for headword (whale worm bird duck rabbit)
+(for headword (whale bird worm duck rabbit)
 	(df nounstem
 		(adjunct species-preword .headword)
 		(lit .headword)
 		(seme (head .headword))
-		(rection -enclosed -time countable)
-		(clues -human animate -abstract -time -space)
 		(theta (possessive owner)))
 	
 	(df nounstem
 		(call species-preword .headword headless)
 		(seme (head .headword))
-		(rection -enclosed -time countable)
-		(clues -human animate -abstract -time -space)
 		(theta (possessive owner))))
 
 ; Humans
@@ -20,8 +16,6 @@
 	(df nounstem
 		(lit .headword)
 		(seme (head .headword))
-		(rection -enclosed -time countable)
-		(clues human animate -abstract -time -space)
 		(theta (possessive relation))))
 
 
@@ -29,72 +23,56 @@
 (for headword (road beach house room cave village world)
 	(df nounstem
 		(lit .headword)
-		(seme (head .headword))
-		(rection enclosed -time countable)
-		(clues -human -animate -abstract -time space)))
+		(seme (head .headword))))
 
 ; Months
 (for headword (january february march april june july august september november december)
 	(df nounstem
 		(lit .headword)
-		(rection -countable -time -plural)
-		(seme (head .headword))
-		(clues -human -animate -abstract -time space)))
+		(seme (head .headword))))
 
 ; Quarters of the Compass
 (for headword (north east south west)
 	(df nounstem
 		(lit .headword)
-		(rection -countable -time -plural)
-		(seme (head .headword))
-		(clues -human -animate -abstract -time space)))
+		(seme (head .headword))))
 
 ; Things
 (for headword (axe thing banana book eraser condom boat car)
 	(df nounstem
 		(lit .headword)
-		(seme (head .headword))
-		(rection -enclosed -time countable)
-		(clues -human -animate -abstract -time -space)))
+		(seme (head .headword))))
 
 (df nounstem
 	(lit rubber)
 	(seme (head eraser))
-	(language (norm british))
-	(rection -enclosed -time countable)
-	(clues -human -animate -abstract -time -space))
+	(language (norm british)))
 	
 (df nounstem
 	(lit rubber)
 	(seme (head condom))
-	(rection -enclosed -time countable)
 	(fuzzy 10 language -formal)
-	(language (norm american))
-	(clues -human -animate -abstract -time -space))
+	(language (norm american)))
 
 ; Times
 (for headword (day week year summer winter time)
 	(df nounstem
 		(lit .headword)
-		(seme (head .headword))
-		(rection -enclosed time countable)
-		(clues -human -animate -abstract time -space)))
+		(seme (head .headword))))
 
 ;;; Regular nouns are defined down here as something which consists of a nounstem plus an optional plural suffix.
 (df noun
 	(flags lemma singular)
 	(seme (number singular))
 	(call nounstem) (segments space)
-	(rection (person he-she-it))
-	(clues (class nominal)))
+	(rection (person he-she-it)))
 
 (df noun
 	(flags plural)
 	(seme (number plural))
 	(call nounstem)
 	(lit s) (segments space)
-	(rection countable plural (person they))
-	(clues (class nominal)))
+	(rection countable plural (person they)))
 
 ;;; Irregular nouns go down here. And they are defined as "noun", not "nounstem". That way, we won't end up with wrong things like
 ;;; "childs" or "oxes".
@@ -104,45 +82,39 @@
 	(lit child) (segments space)
 	(rection countable (number singular))
 	(flags lemma singular)
-	(seme (head child) (number singular))
-	(clues human animate -abstract -time -space (class nominal)))
+	(seme (head child) (number singular)))
 
 ; Children.
 (df noun
 	(flags plural)
 	(lit children) (segments space)
 	(rection countable (number plural))
-	(seme (head child) (number plural))
-	(clues human animate -abstract -time -space (class nominal)))
+	(seme (head child) (number plural)))
 
 ; Woman.
 (df noun
 	(lit woman) (segments space)
 	(rection countable (number singular))
 	(flags lemma singular)
-	(seme (head woman) (number singular))
-	(clues human animate -abstract -time -space (class nominal)))
+	(seme (head woman) (number singular)))
 
 ; Women.
 (df noun
 	(flags plural)
 	(lit women) (segments space)
 	(rection countable (number plural))
-	(seme (head woman) (number plural))
-	(clues human animate -abstract -time -space (class nominal)))
+	(seme (head woman) (number plural)))
 
 ; Man.
 (df noun
 	(lit man) (segments space)
 	(rection countable (number singular))
 	(flags lemma singular)
-	(seme (head man) (number singular))
-	(clues human animate -abstract -time -space (class nominal)))
+	(seme (head man) (number singular)))
 
 ; Men.
 (df noun
 	(flags plural)
 	(lit men) (segments space)
 	(rection countable (number plural))
-	(seme (head man) (number plural))
-	(clues human animate -abstract -time -space (class nominal)))
+	(seme (head man) (number plural)))

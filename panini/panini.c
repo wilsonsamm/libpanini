@@ -4,6 +4,11 @@
 
 #include <string.h> 
 
+void post_pc(monad * m) {
+	list_free(m->command);
+	m->command = 0;
+}
+
 int panini_despatch(monad * m, int * switches) {
 		
 	/* Pop the next command */
@@ -25,8 +30,63 @@ int panini_despatch(monad * m, int * switches) {
 	
 	char * command = list_get_token(m->command, 1);
 	
-	/* Is the current command a set of miscellaneous ones that work the same in all interpreters? */
-	if(tranny_misc(m, command)) return 1;
+	/* (brake)
+	 * Increments the brake register. If this goes beyond some threshold, 
+	 * execution will stop for that monad. */
+	if(!strcmp(command, "brake")) {
+		m->brake++;
+		post_pc(m);
+		return 1;
+	}
+	
+	/* (confidence 12) 
+	 * Each monad has in it an integer called confidence. This instruction adds
+	 * an integer to that. */
+	if(!strcmp(command, "confidence")) {
+		m->confidence += atoi(list_get_token(m->command, 2));;
+		post_pc(m);
+		return 1;
+	}
+	
+	/* (debug) 
+	 * Each monad has a thing called "debug". If this gets turned on, then as it
+	 * executes, you get some tracecode to stdout, which you may use to debug 
+	 * your language module */
+	if(!strcmp(command, "debug")) {
+		m->debug = 1;
+		post_pc(m);
+		return 1;
+	}
+	
+	/* (flags)
+	 * Does nothing. */
+	if(!strcmp(command, "flags")) {
+		post_pc(m);
+		return 1;
+	}
+	
+	/* (nop)
+	 * Does nothing. */
+	if(!strcmp(command, "nop")) {
+		post_pc(m);
+		return 1;
+	}
+	
+	/* (unbrake)
+	 * Undoes the effect of a matching (brake). */
+	if(!strcmp(command, "unbrake")) {
+		m->brake--;
+		post_pc(m);
+		return 1;
+	}
+	
+	/* (sandhiblock) 
+	 * Removes any sandhi information. */
+	if(!strcmp(command, "sandhiblock")) {
+		list_remove(m->namespace, "sandhi");
+		post_pc(m);
+		return 1;
+	}
 	
 	/* Is the current command one that either:
 	 *   - matches something against the input, or
@@ -133,12 +193,15 @@ int panini_learn(monad * m, char * commands, FILE * out, char * intext, int thre
 	
 	/* Then, kill any monad that didn't finish the program, */
 	retval = monad_map(m, kill_not_done, (void *)0, -1);
-
-	/* and any that have a higher brake value than any other, */
-	monad_kill_braked(m);
 	
 	/* and any that have not finished processing the intext */
 	monad_kill_unfinished_intext(m);
+
+	/* and then any that have a higher brake value than any other, */
+	monad_kill_braked(m);
+	
+	/* and any that have an identical outtext to any other monad, */
+	monad_map(m, (int(*)(monad * m, void * argp))kill_identical_outtexts, (void*)0, -1);
 	
 	/* and then free any monads that are not still alive
 	 * (this forgets their state so that the memory becomes free. */

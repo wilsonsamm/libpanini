@@ -2,8 +2,6 @@
 (include args/pronouns)
 (include args/prefices)
 
-(include headwords)
-
 (include nounphrase/nounphrase)
 (include nounphrase/qualifier)
 (include nounphrase/possessive)

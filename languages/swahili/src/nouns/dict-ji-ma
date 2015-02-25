@@ -6,8 +6,7 @@
 	(call prefix ji/ma .number)
 	(call nounstem ji/ma)
 	(space)
-	(seme (number .number))
-	(clues (class nominal)))
+	(seme (number .number)))
 (df noun
 	(flags ji/ma .number)
 	(rection (class ji/ma) (number .number) locative)
@@ -15,8 +14,7 @@
 	(call nounstem ji/ma)
 	(lit ni)
 	(space)
-	(seme (number .number))
-	(clues (class nominal))))
+	(seme (number .number))))
 	
 
 ; To add a (JI)/MA-class noun to the dictionary, include these flags:

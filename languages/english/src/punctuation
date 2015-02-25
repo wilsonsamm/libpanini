@@ -1,20 +1,20 @@
 (df punctuation
 	(flags sentence-final)
+	(sandhi nospace)
 	(lit .)
 	(seme -exclamation -interrogative))
 
 (df punctuation
 	(flags sentence-final)
+	(sandhi nospace)
 	(lit !)
 	(seme exclamation -interrogative))
 
 (df punctuation
 	(flags sentence-final)
+	(sandhi nospace)
 	(lit ?)
 	(seme interrogative))
 
-(df space (read-ahead .))
-(df space (read-ahead '))
-(df space (read-ahead !))
-(df space (read-ahead ?))
-(df space (space))
+(segment (underlying space) (sandhi nospace) (sandhiblock))
+(segment (underlying space) (sandhi -nospace)(space)(sandhiblock))

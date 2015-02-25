@@ -13,12 +13,3 @@
 
 (df main
 	(call verb))
-
-(df Headword
-	(clues (class nominal) (label ni))
-	(call nounstem inanimate)
-	(sandhi #))
-(df Headword
-	(clues (class nominal) (label na))
-	(call nounstem animate)
-	(sandhi #))

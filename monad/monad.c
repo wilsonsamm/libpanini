@@ -141,7 +141,6 @@ int monad_rules(monad * m, char * lang) {
 	return 0;
 }
 
-
 int monad_popcom(monad * m) {
 	if(!m->stack) {
 		fprintf(stderr, "Monad %d has no stack!\n", m->id);
@@ -324,7 +323,7 @@ void monad_unlink_dead(monad * m, monad * end) {
 }
 
 void monad_kill_braked(monad * m) {
-	unsigned int brake = 999999;
+	int brake = 9999999;
 	
 	// Find the lowest value for m->brake
 	monad * tmp = m;
@@ -333,13 +332,20 @@ void monad_kill_braked(monad * m) {
 			tmp = tmp->child;
 			continue;
 		}
+		//printf("Comparing %d with %d. ",tmp->brake,brake);
 		if(tmp->brake < brake) brake = tmp->brake;
+		//printf("The winner is %d.\n", brake);
 		tmp = tmp->child;
 	}
 	
 	// kill any monads with a higher brake value.
+	// (And any that have a brake value lower than zero. This would only happen
+	// due to a bug in a language module
 	while(m) {
-		if(m->brake > brake) m->alive = 0;
+		if((m->brake > brake) || (m->brake < 0)) {
+			//printf("A brake value of %d kills the monad.\n", m->brake);
+			m->alive = 0;
+		}
 		m = m->child;
 	}
 }

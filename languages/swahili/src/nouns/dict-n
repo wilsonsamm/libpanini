@@ -14,8 +14,7 @@
 (df noun
 	(flags n)
 	(rection (number singular) (class n))
-	(call nounstem n uncountable) (space)
-	(clues (class nominal)))
+	(call nounstem n uncountable) (space))
 
 ; To add a N-class noun to the dictionary, include these flags:
 ;      n     - this is N class nounstem

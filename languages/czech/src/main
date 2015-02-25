@@ -1,9 +1,7 @@
 (include arguments/arguments)
 (include arguments/pronouns)
 
-(include headwords)
-
-(include phonotactics)
+;(include phonotactics)
 
 (include punctuation)
 

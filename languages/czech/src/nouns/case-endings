@@ -1,7 +1,7 @@
-(df case-ending		(flags feminine  accusative hard singular)	(segments u)	(seme (number singular)))
-(df case-ending		(flags feminine  nominative hard singular)	(segments a)	(seme (number singular)))
+(df case-ending	(flags feminine  accusative hard singular)	(segments u)	(seme (number singular)))
+(df case-ending	(flags feminine  nominative hard singular)	(segments a)	(seme (number singular)))
 
-(df case-ending		(flags masculine nominative hard singular)	                (seme (number singular)))
-(df case-ending		(flags masculine accusative hard singular)	(segments a)    (seme (number singular)))
+(df case-ending	(flags masculine nominative hard singular)	                (seme (number singular)))
+(df case-ending	(flags masculine accusative hard singular)	(segments a)    (seme (number singular)))
 
-(df case-ending		(flags neuter nominative accusative)        (segments o)    (seme (number singular)))
+(df case-ending	(flags neuter nominative accusative)        (segments o)    (seme (number singular)))

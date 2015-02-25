@@ -8,8 +8,8 @@ nobuild:
 love:
 	@echo Not war?
 
-libpanini.a: list.o list-tokenise.o generate.o parse.o spawn.o learn.o monad.o bind.o variables.o misc.o intext.o outtext.o exec.o binders.o memory.o reduce.o phrase.o operations.o panini.o 
-	ar rcs libpanini.a list.o list-tokenise.o generate.o parse.o spawn.o learn.o monad.o bind.o variables.o misc.o intext.o outtext.o exec.o binders.o memory.o reduce.o phrase.o operations.o panini.o 
+libpanini.a: list.o list-tokenise.o generate.o parse.o spawn.o learn.o monad.o bind.o variables.o intext.o outtext.o exec.o binders.o memory.o reduce.o phrase.o operations.o panini.o 
+	ar rcs libpanini.a list.o list-tokenise.o generate.o parse.o spawn.o learn.o monad.o bind.o variables.o intext.o outtext.o exec.o binders.o memory.o reduce.o phrase.o operations.o panini.o 
 
 list.o: list/list.c list/list.h
 	gcc $(CCOPTS) list/list.c 
@@ -40,9 +40,6 @@ exec.o: monad/monad.h monad/monad.c panini/exec.c
 
 generate.o: monad/monad.h monad/monad.c panini/generate.c
 	gcc $(CCOPTS) panini/generate.c 
-
-misc.o: monad/monad.h monad/monad.c panini/misc.c
-	gcc $(CCOPTS) panini/misc.c 
 
 binders.o: monad/monad.h monad/monad.c panini/binders.c
 	gcc $(CCOPTS) panini/binders.c 

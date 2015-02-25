@@ -32,10 +32,6 @@
 
 (include segments/punctuation)
 
-(include learn)
-
-(include headwords)
-
 ; Evaluation starts with "main".
 (df main
 	(rection (complementiser none))

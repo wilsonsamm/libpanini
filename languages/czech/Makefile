@@ -1,4 +1,4 @@
-czech: 
+czech: vocab.out
 	echo Compiling czech.
 	$(PANINI)/tools/pcomp/pcomp -d src -i src/main > czech
 
