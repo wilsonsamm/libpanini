@@ -34,7 +34,7 @@ void count_lines(FILE * fp) {
 }
 
 void progpc(int smile, char * stage) {
-	printf("\r\t\t\t");
+	printf("\r\t\t\t\t");
 	if(stage) printf("stage %s/3     \t", stage);
 	printf("%3d%%", (progress * 100/totallines * 100)/100);
 	//printf(", line %d,\t", progress);
@@ -46,7 +46,7 @@ void progpc(int smile, char * stage) {
 	fflush(stdout);
 }
 void clear_progpc() {
-	printf("                                                     \n");
+	printf("                                                       \r");
 }
 
 int nextline(FILE * fp) {
@@ -78,8 +78,9 @@ int nextline(FILE * fp) {
 	}
 	
 	currentline = line;
-//	printf("next line: %s\n=============\n", currentline);
+	//printf("next line: %s\n=============\n", currentline);
 	progress++;
+	if(strlen(line)) return 1;
 	return 0;
 }
 

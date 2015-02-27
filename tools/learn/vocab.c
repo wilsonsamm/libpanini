@@ -66,6 +66,10 @@ int parsesection(FILE * fp) {
 		
 		char * text1 = getfield(1);
 		char * text2 = getfield(2);
+
+		clear_progpc();
+		printf("%s", text2);
+		progpc(NONE, 0);
 		
 		monad * m = monad_new();
 		monad_rules(m, fn1);
@@ -88,16 +92,21 @@ int parsesection(FILE * fp) {
 				progpc(DOTS, 0);
 			}
 		} 
+
+		free(text1);
+		free(text2);
+		nextline(fp);
 		monad_free(m);
 		
-		if(nextline(fp)) {
-			free(fn1);
-			free(fn2);
-			return 0;
+		if(!currentline || (currentline && strlen(currentline) == 1)) {
+			break;
 		}
+		
 	}
 	free(fn1);
 	free(fn2);
+	free(exec1);
+	free(exec2);
 	return 1;
 }
 

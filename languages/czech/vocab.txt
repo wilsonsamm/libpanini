@@ -1,6 +1,31 @@
+czech:czech
+(call pronoun nominative):(call pronoun accusative)
+já:mě
+ty:tě
+ty:tebe
+on:ho
+
+czech:czech
+(call pronoun nominative):(call pronoun dative)
+já:mi
+ty:ti
+ty:tobě
+on:mu
+
 english:czech
-(call noun):(call noun nominative singular)
+(call noun):(call noun masculine animate nominative)
 worm:červ
-house:dům
 bird:pták
+father:otec
+
+english:czech
+(call noun):(call noun masculine -animate nominative)
+house:dům
+
+english:czech
+(call noun):(call noun neuter nominative)
 september:září
+
+english:czech
+(call noun):(call noun feminine nominative)
+beach:pláž

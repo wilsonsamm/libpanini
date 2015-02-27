@@ -1,4 +1,20 @@
 
+;; How to learn a personal pronoun
+(for case (nominative accusative dative genitive)
+(for person (first second third)
+(for number (singular plural)
+(df pronoun
+	(flags .case .person .number)
+	(seme (head referential) (person .person) (number .number))
+	(rection (head referential) (person .person) (number .number))
+;	(debug)
+	(open pronoun
+		(flags .case .person .number)
+		(seme head person number)
+		(rection head person number)
+		(segments 4))))))
+	
+
 ;; FIRST PERSON SINGULAR
 (df pronoun
 	(lit já) (space)

@@ -30,6 +30,23 @@ int panini_despatch(monad * m, int * switches) {
 	
 	char * command = list_get_token(m->command, 1);
 	
+	/* Is the current command one that either:
+	 *   - matches something against the input, or
+	 *   - appends something to the output,
+	 * depending on whether or not we're generating? */
+	if((*switches & INTEXT)  && tranny_intext (m, command)) return 1;
+	if((*switches & OUTTEXT) && tranny_outtext(m, command)) return 1;
+	
+	/* Is the command one of those that spawns other monads? */
+	if(tranny_exec(m, command, switches)) return 1;
+	
+	/* Is the command one of the ones deals with memory? */
+	if(tranny_memory(m, command)) return 1;
+	
+	/* Is the command one of the ones that binds variables? */
+	if( (*switches & CR_SEME) && (tranny_binders(m, 1))) return 1;
+	if(!(*switches & CR_SEME) && (tranny_binders(m, 0))) return 1;
+
 	/* (brake)
 	 * Increments the brake register. If this goes beyond some threshold, 
 	 * execution will stop for that monad. */
@@ -65,17 +82,54 @@ int panini_despatch(monad * m, int * switches) {
 		return 1;
 	}
 	
+	if(!strcmp(command, "guess-segments")) {
+		guess_segments(m);
+		post_pc(m);
+		return 1;
+	}
+	
+	if(!strcmp(command, "into")) {
+		monad_parse_into(m, (*switches & OUTTEXT), (*switches & INTEXT));
+		post_pc(m);
+		return 1;
+	}
+	
 	/* (nop)
 	 * Does nothing. */
 	if(!strcmp(command, "nop")) {
 		post_pc(m);
 		return 1;
 	}
+
+	/* (open ...)
+	 * Opens a lexical class.
+	 * Either learns a morpheme, or copies it to the ontology (for names and
+	 * such, which are not translated but simply transferred verbatim into the
+	 * target text) */
+	if(!strcmp(command, "open")) {
+		if(*switches & L_OPEN) monad_learn_open(m);
+//		if(*switches & P_OPEN) monad_parse_open(m);
+		post_pc(m);
+		return 1;
+	}
 	
-	/* (unbrake)
-	 * Undoes the effect of a matching (brake). */
-	if(!strcmp(command, "unbrake")) {
-		m->brake--;
+	/* (phrase ...) */
+	if(!strcmp(command, "phrase")) {
+		tranny_phrase_ops(m, command);
+		post_pc(m);
+		return 1;
+	}
+
+	/* (return)
+	 * Returns from a matching (into ...) instruction. */
+	if(!strcmp(command, "return")) {
+		monad_parse_return(m);
+		post_pc(m);
+		return 1;
+	}
+	
+	if(!strcmp(command, "tag")) {
+		learn_tag(m);
 		post_pc(m);
 		return 1;
 	}
@@ -88,56 +142,11 @@ int panini_despatch(monad * m, int * switches) {
 		return 1;
 	}
 	
-	/* Is the current command one that either:
-	 *   - matches something against the input, or
-	 *   - appends something to the output,
-	 * depending on whether or not we're generating? */
-	if((*switches & INTEXT)  && tranny_intext (m, command)) return 1;
-	if((*switches & OUTTEXT) && tranny_outtext(m, command)) return 1;
-	
-	/* Is the command one of those that spawns other monads? */
-	if(tranny_exec(m, command, switches)) return 1;
-	
-	/* Is the command one of the ones deals with memory? */
-	if(tranny_memory(m, command)) return 1;
-	
-	/* Is the command one of the ones that binds variables? */
-	if( (*switches & CR_SEME) && (tranny_binders(m, 1))) return 1;
-	if(!(*switches & CR_SEME) && (tranny_binders(m, 0))) return 1;
-	
-	/* Is the command one of the ones that generates rules? */
-	if(tranny_phrase(m, command)) return 1;
-	
-	if(!strcmp(command, "guess-segments")) {
-		guess_segments(m);
-		list_free(m->command);
-		m->command = 0;
-		return 1;
-	}
-	
-	if(!strcmp(command, "into")) {
-		monad_parse_into(m, (*switches & OUTTEXT), (*switches & INTEXT));
-		list_free(m->command);
-		m->command = 0;
-		return 1;
-	}
-	if(!strcmp(command, "return")) {
-		monad_parse_return(m);
-		list_free(m->command);
-		m->command = 0;
-		return 1;
-	}
-	if(!strcmp(command, "open")) {
-		if(*switches & L_OPEN) monad_learn_open(m);
-		if(*switches & P_OPEN) monad_parse_open(m);
-		list_free(m->command);
-		m->command = 0;
-		return 1;
-	}
-	if(!strcmp(command, "tag")) {
-		learn_tag(m);
-		list_free(m->command);
-		m->command = 0;
+	/* (unbrake)
+	 * Undoes the effect of a matching (brake). */
+	if(!strcmp(command, "unbrake")) {
+		m->brake--;
+		post_pc(m);
 		return 1;
 	}
 	

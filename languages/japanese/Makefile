@@ -10,6 +10,7 @@ japanese: ekan.out
 
 clean:
 	rm -f japanese core ekan.out gmon.out edict kanjidic *.txt src/ekan
+	rm -f kanjidic.gz
 
 install:
 	cp japanese /usr/panini/languages
