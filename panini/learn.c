@@ -125,7 +125,6 @@ list * learn_into(monad * m) {
 			
 void monad_learn_open(monad * m, int * switches) {
 	
-	
 	/* Turn on debugging if we need to */
 	if(list_find_list(m->command, "debug")) {
 		m->debug = 1;
@@ -257,11 +256,17 @@ void monad_learn_open(monad * m, int * switches) {
 	char * definition = list_tochar(df);
 	if(!m->outtext) m->outtext = strdup("");
 
-	m->outtext = realloc(m->outtext, strlen(m->outtext) + strlen(definition) + 23);
-	strcat(m->outtext, definition);
-	//snprintf(m->outtext + strlen(m->outtext), 20, "\n; break=%d.", m->brake);
-	strcat(m->outtext, "\n");
+	char * new = malloc(strlen(m->outtext) + strlen(definition) + 4);
+	strcpy(new, definition);
+	strcat(new, "\n");
+	strcat(new, m->outtext);
+	strcat(new, "\n");
+	
+//	fprintf(stderr, "%s\n", definition);
+
 	free(definition);
+	free(m->outtext);
+	m->outtext = new;
 	
 	if(nseme)    list_free(nseme);
 	if(nrection) list_free(nrection);
@@ -275,10 +280,10 @@ void monad_learn_open(monad * m, int * switches) {
 }
 
 void learn_tag(monad * m) {
-	if(m->learned) {
-		m->alive = 0;
-		return;
-	}
+//	if(m->learned) {
+//		m->alive = 0;
+//		return;
+//	}
 	char out[1024];
 	snprintf(out, 1024, "(tag %s %s)\n", list_get_token(m->command, 2), list_get_token(m->command, 3));
 	
@@ -288,74 +293,3 @@ void learn_tag(monad * m) {
 	strcat(m->outtext, out);
 	m->brake++;
 }
-	
-//int tranny_learn(monad * m, void * nothing) {
-	//if(!m->alive) return 0;
-	
-	///* Pop the next command */
-	//monad_popcom(m);
-
-	///* If there was no next command, then we must be finished ... */
-	//if(!m->command) return 0;
-	
-	//if(m->debug) {
-		//printf("Monad %d is executing: ", m->id);
-		//if(m->command) list_prettyprinter(m->command);
-		//printf("\n");
-	//}
-
-	//char * command = list_get_token(m->command, 1);
-	
-	///* Is the current command a set of miscellaneous ones that work the same in all interpreters? */
-	//if(tranny_misc(m, command)) return 1;
-	
-	///* Is the currect command a set of commands that handle the INTEXT register? */
-	//if(tranny_intext(m, command)) return 1;
-	
-	///* Is the command one of those that spawns other monads? */
-	//if(tranny_exec(m, command, 0)) return 1;
-	
-	///* Is the command one of the ones deals with memory? */
-	//if(tranny_memory(m, command)) return 1;
-	
-	///* Is the command one of the ones that binds variables? */
-	//if(tranny_binders(m, 0)) return 1;
-	
-	///* */
-	//if(!strcmp(command, "guess-segments")) {
-		//guess_segments(m);
-		//list_free(m->command);
-		//m->command = 0;
-		//return 1;
-	//}
-	
-	//if(!strcmp(command, "into")) {
-		//monad_parse_into(m, 0, 0);
-		//list_free(m->command);
-		//m->command = 0;
-		//return 1;
-	//}
-	//if(!strcmp(command, "return")) {
-		//monad_parse_return(m);
-		//list_free(m->command);
-		//m->command = 0;
-		//return 1;
-	//}
-	//if(!strcmp(command, "open")) {
-		//monad_learn_open(m, 0);
-		//list_free(m->command);
-		//m->command = 0;
-		//return 1;
-	//}
-	//if(!strcmp(command, "tag")) {
-		//learn_tag(m);
-		//list_free(m->command);
-		//m->command = 0;
-		//return 1;
-	//}
-	
-	//printf("No such command as %s in the program LEARN.\n", command);
-
-	//m->alive = 0;
-	//return 0;
-//}

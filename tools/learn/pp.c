@@ -30,7 +30,6 @@ char * path_to_language(char * lang) {
 
 int parsesection(FILE * fp) {
 
-	FILE * outfile = fopen("pp.out", "a");
 	
 	/* get the language name and sentence from the first line in the 
 	 * section. 
@@ -56,6 +55,7 @@ int parsesection(FILE * fp) {
 	char * srctext = getfield(2);
 	char * srcfn = path_to_language(srclang);
 	
+	//fprintf(stderr, "%s\n", srctext);
 	monad * m = monad_new();
 	monad_rules(m, srcfn);
 		
@@ -73,42 +73,55 @@ int parsesection(FILE * fp) {
 	monad_map(m, remove_ns, "record", -1);
 	monad_map(m, remove_ns, "theta", -1);
 	
-	while(strlen(currentline)) {
-		nextline(fp);
-		
-		char * lang = getfield(1);
-		if(!lang) return 1;
-		if(!strlen(lang)) return 1;
-		
-		char * txt = getfield(2);
-		
-		monad * n = monad_duplicate(m);
-		if(!n) continue;
-		char * fn = path_to_language(lang);
+	nextline(fp);
+
+	char * lang = getfield(1);
+	if(!lang) return 1;
+	if(!strlen(lang)) {
+		free(srcfn);
+		free(srctext);
+		free(srclang);
 		free(lang);
-		monad_rules(n, fn);
-		
-		progpc(HAPPY, stage);
-		
-		char * exec = malloc(strlen(EXEC1) + strlen(EXEC2) + 20);
-		strcpy(exec, EXEC1);
-		strcat(exec, stage);
-		strcat(exec, EXEC2);
-		
-		if(!panini_learn(n, exec, outfile, txt, 20)) {
-			progpc(SAD, stage);
-		} else {
-			progpc(DOTS, stage);
-		}
-		free(exec);
+		monad_free(m);
+		return 1;
 	}
+	
+	char * txt = getfield(2);
+	
+	char * fn = path_to_language(lang);
+	free(lang);
+	monad_rules(m, fn);
+	free(fn);
+	progpc(HAPPY, stage);
+	
+	char * exec = malloc(strlen(EXEC1) + strlen(EXEC2) + 20);
+	strcpy(exec, EXEC1);
+	strcat(exec, stage);
+	strcat(exec, EXEC2);
+	
+	FILE * outfile = fopen("pp.out", "a");
+	//fprintf(stderr, "%s\n", txt);
+	if(!panini_learn(m, exec, outfile, txt, 20)) {
+		progpc(SAD, stage);
+	} else {
+		progpc(DOTS, stage);
+	}
+	fclose(outfile);
+	nextline(fp);
+	
+	free(exec);
+	monad_free(m);
+	free(srctext);
+	free(srclang);
+	free(srcfn);
+	free(txt);
 	return 1;
 }
 
 int main(int argc, char * argv[]) {
 
 	/* Open the textfile that has all the sentences in it. */
-	FILE * fp = fopen("data.txt", "r");
+	FILE * fp = fopen(argv[1], "r");
 	if(!fp) {
 		fprintf(stderr,"Cannot open %s.\n", argv[1]);
 		exit(1);

@@ -221,7 +221,8 @@ void tranny_call(monad * m, int adjunct, int * switches) {
 
 void tranny_fork(monad * m, int * switches) {
 	list_drop(m->command, 1);
-	monad_join(m, exec_spawn(m, m->command, 0, switches));
+	monad * n = exec_spawn(m, m->command, 0, switches);
+	monad_join(m, n);
 	m->alive = 0;
 }
 

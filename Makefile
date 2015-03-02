@@ -126,6 +126,7 @@ clean:
 	make -C tools/pcomp clean
 	make -C tools/learn clean
 	make -C tools/ekan clean
+	make -C tools/sword clean
 	make -C languages/ainu clean
 	make -C languages/algonquian clean
 	make -C languages/czech clean

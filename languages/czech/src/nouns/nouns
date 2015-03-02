@@ -11,6 +11,11 @@
 ; How to learn a nounstem
 (df nounstem
 	(flags .gender .animacy)
+	(fork
+		((rection (animacy -animate) (animacy .animacy) (gender .gender) (gender neuter)))
+		((rection (animacy -animate) (animacy .animacy) (gender .gender) (gender feminine)))
+		((rection (animacy -animate) (animacy .animacy) (gender .gender) (gender masculine)))
+		((rection (animacy  animate) (animacy .animacy) (gender .gender) (gender masculine))))
 	(open nounstem
 		(segments 10)
 		(flags .gender .animacy)

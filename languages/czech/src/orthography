@@ -2,11 +2,11 @@
 
 ; The hard vowels
 (for hard (a á e é o ó u ú ů y ý)
-	(segment (sandhi -# -softvowel -fleetp) (underlying .hard) (surface .hard)))
+	(segment (sandhi -# -softvowel -fleetp) (underlying .hard) (surface .hard) (sandhi fleetp)))
 
 ; The soft vowels
 (for soft (i í ě)
-	(segment (sandhi -# softvowel) (underlying .soft) (surface .soft)))
+	(segment (sandhi -# softvowel) (underlying .soft) (surface .soft) (sandhi fleetp)))
 
 ; The fleeting vowel (that sometimes isn't there)
 (segment (sandhi -# -fleetp) (underlying ?e) (surface e)    (sandhi  fleet fleetp -#))

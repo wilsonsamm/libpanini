@@ -1,6 +1,7 @@
 #include "../monad/monad.h"
 #include "panini.h"
 #include "tranny.h"
+#include <stdlib.h>
 
 #include <string.h> 
 
@@ -218,6 +219,7 @@ int panini_learn(monad * m, char * commands, FILE * out, char * intext, int thre
 
 	/* Then print out what we learned. */
 	monad_map(m, (int(*)(monad * m, void * argp))print_out, out, threshold);
+	fflush(out);
 	
 	return retval;
 }

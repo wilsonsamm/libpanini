@@ -1,10 +1,12 @@
-english:spanish
+czech:spanish
 (call pronoun):(call prolex nominative)
-I:yo
-thou:tu
+já:yo
+ty:tu
+on:el
+ona:ella
 
 english:spanish
-(call noun):(call nounstem)
+(call noun):(call noun)
 whale:ballena
 worm:lombriz
 bird:pajaro

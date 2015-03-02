@@ -7,59 +7,37 @@
 	(flags .case .person .number)
 	(seme (head referential) (person .person) (number .number))
 	(rection (head referential) (person .person) (number .number))
-;	(debug)
 	(open pronoun
 		(flags .case .person .number)
 		(seme head person number)
 		(rection head person number)
 		(segments 4))))))
-	
+
+; We only need to put the nominative pronouns in here, because the vocab
+; importer will take care of the rest.
 
 ;; FIRST PERSON SINGULAR
 (df pronoun
-	(lit já) (space)
+	(flags nominative explicit)
+	(lit já)
 	(rection (case nominative) (person first) (number singular))
-	(seme (head referential) (person first) (number singular)))
-
-(df pronoun
-	(lit mě) (space)
-	(rection (case accusative) (person first) (number singular))
-	(seme (head referential) (person first) (number singular)))
-	
-(df pronoun
-	(lit mi) (space)
-	(rection (case dative) (person first) (number singular))
 	(seme (head referential) (person first) (number singular)))
 	
 ;; SECOND PERSON SINGULAR
 (df pronoun
-	(lit ty) (space)
+	(flags nominative explicit)
+	(lit ty)
 	(rection (case nominative) (person second) (number singular))
 	(seme (head referential) (person second) (number singular)))
-
-(df pronoun
-	(fork ((lit tě)) ((lit tebe))) (space)
-	(rection (case accusative) (person second) (number singular))
-	(seme (head referential) (person second) (number singular)))
-	
-(df pronoun
-	(fork ((lit ti)) ((lit tobě))) (space)
-	(rection (case dative) (person second) (number singular))
-	(seme (head referential) (person second) (number singular)))
-
 	
 ;; THIRD PERSON SINGULAR
 (df pronoun
-	(lit on) (space)
+	(flags nominative explicit)
+	(lit on)
 	(rection (case nominative) (person third) (number singular) (gender masculine))
 	(seme (head referential) (person third) (number singular) (gender male)))
-
 (df pronoun
-	(fork ((lit ho)) ((lit tebe))) (space)
-	(rection (case accusative) (person third) (number singular) (gender masculine))
-	(seme (head referential) (person third) (number singular) (gender male)))
-	
-(df pronoun
-	(fork ((lit mu)) ((lit tobě))) (space)
-	(rection (case dative) (person third) (number singular) (gender masculine))
-	(seme (head referential) (person third) (number singular) (gender male)))
+	(flags nominative explicit)
+	(lit ona)
+	(rection (case nominative) (person third) (number singular) (gender feminine))
+	(seme (head referential) (person third) (number singular) (gender female)))

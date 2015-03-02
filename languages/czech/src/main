@@ -22,6 +22,8 @@
 
 (include orthography)
 
+(load vocab)
+
 (df main
 	(call sentence))
 

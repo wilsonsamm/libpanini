@@ -2,3 +2,11 @@
 ; rection case and number.
 (df nounsuffix	(segments o) (rection (gender masculine) (number singular)))
 (df nounsuffix	(segments a) (rection (gender feminine)  (number singular)))
+
+; nounstem is something you can define to say "this is the semantically
+; significant part of the noun",
+(df nounstem
+	(open nounstem
+		(segments 8)
+		(seme head gender)
+		(rection gender)))

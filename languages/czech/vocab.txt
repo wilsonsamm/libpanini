@@ -1,12 +1,12 @@
 czech:czech
-(call pronoun nominative):(call pronoun accusative)
+(call pronoun nominative explicit):(call pronoun accusative)
 já:mě
 ty:tě
 ty:tebe
 on:ho
 
 czech:czech
-(call pronoun nominative):(call pronoun dative)
+(call pronoun nominative explicit):(call pronoun dative)
 já:mi
 ty:ti
 ty:tobě

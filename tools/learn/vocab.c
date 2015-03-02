@@ -68,7 +68,7 @@ int parsesection(FILE * fp) {
 		char * text2 = getfield(2);
 
 		clear_progpc();
-		printf("%s", text2);
+		printf(" vocab: %s\r", text2);
 		progpc(NONE, 0);
 		
 		monad * m = monad_new();
@@ -103,6 +103,7 @@ int parsesection(FILE * fp) {
 		}
 		
 	}
+	fclose(outfile);
 	free(fn1);
 	free(fn2);
 	free(exec1);
