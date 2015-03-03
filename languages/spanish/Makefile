@@ -1,10 +1,10 @@
-spanish: stage1
+spanish: stage3
 	echo
 	echo Compiling spanish.
 	$(PANINI)/tools/pcomp/pcomp -d ./src/ -i src/main -o spanish
 
 # Stage 1: 
-vocab.out:
+vocab.out: vocab.txt
 	$(PANINI)/tools/pcomp/pcomp -d ./src/ -i src/main -l $(PANINI)/languages/pp/pp -o spanish
 	echo -n Learning vocab
 	$(PANINI)/tools/learn/vocab vocab.txt

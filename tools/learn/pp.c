@@ -101,7 +101,7 @@ int parsesection(FILE * fp) {
 	
 	FILE * outfile = fopen("pp.out", "a");
 	//fprintf(stderr, "%s\n", txt);
-	if(!panini_learn(m, exec, outfile, txt, 20)) {
+	if(!panini_learnpp(m, exec, outfile, txt, 20)) {
 		progpc(SAD, stage);
 	} else {
 		progpc(DOTS, stage);

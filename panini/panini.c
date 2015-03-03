@@ -130,7 +130,7 @@ int panini_despatch(monad * m, int * switches) {
 	}
 	
 	if(!strcmp(command, "tag")) {
-		learn_tag(m);
+		if(*switches & L_TAG) learn_tag(m);
 		post_pc(m);
 		return 1;
 	}
@@ -187,7 +187,7 @@ int panini_parse(monad *m, char * commands, char * intext, int editdistance, int
 	return retval;
 }
 
-int panini_learn(monad * m, char * commands, FILE * out, char * intext, int threshold) {
+int panini_learnvocab(monad * m, char * commands, FILE * out, char * intext, int threshold) {
 	
 	int retval;
 	int switches = INTEXT | L_OPEN;
@@ -223,7 +223,44 @@ int panini_learn(monad * m, char * commands, FILE * out, char * intext, int thre
 	
 	return retval;
 }
+
+int panini_learnpp(monad * m, char * commands, FILE * out, char * intext, int threshold) {
 	
+	int retval;
+	int switches = INTEXT | L_TAG;
+	
+	/* First, set the stack to contain the right instructions */
+	monad_map(m, (int(*)(monad * m, void * argp))set_stack, commands, threshold);
+	
+	/* Next, set the INTEXT up */
+	monad_map(m, (int(*)(monad * m, void * argp))set_intext, intext, threshold);
+	
+	/* Then, learn the language given the intext */
+	monad_map(m, (int(*)(monad * m, void * argp))panini_despatch, &switches, threshold);
+	
+	/* Then, kill any monad that didn't finish the program, */
+	retval = monad_map(m, kill_not_done, (void *)0, -1);
+	
+	/* and any that have not finished processing the intext */
+	monad_kill_unfinished_intext(m);
+
+	/* and then any that have a higher brake value than any other, */
+	monad_kill_braked(m);
+	
+	/* and any that have an identical outtext to any other monad, */
+	monad_map(m, (int(*)(monad * m, void * argp))kill_identical_outtexts, (void*)0, -1);
+	
+	/* and then free any monads that are not still alive
+	 * (this forgets their state so that the memory becomes free. */
+	monad_unlink_dead(m, 0);
+
+	/* Then print out what we learned. */
+	monad_map(m, (int(*)(monad * m, void * argp))print_out, out, threshold);
+	fflush(out);
+	
+	return retval;
+}
+
 int panini_generate(monad *m, char * commands, int record, int threshold) {
 	
 	int retval;

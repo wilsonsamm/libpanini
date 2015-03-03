@@ -1,5 +1,5 @@
 czech:spanish
-(call pronoun):(call prolex nominative)
+(call pronoun explicit):(call prolex nominative)
 já:yo
 ty:tu
 on:el

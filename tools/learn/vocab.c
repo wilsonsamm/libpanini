@@ -86,7 +86,7 @@ int parsesection(FILE * fp) {
 			progpc(HAPPY, 0);
 			monad_rules(m, fn2);
 			
-			if(!panini_learn(m, exec2, outfile, text2, 20)) {
+			if(!panini_learnvocab(m, exec2, outfile, text2, 20)) {
 				progpc(SAD, 0);
 			} else {
 				progpc(DOTS, 0);

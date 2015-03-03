@@ -13,9 +13,10 @@
 #define CR_SEME  2 // Can we create variables in the seme namespace?
 #define INTEXT   4 // Should we take the string from the INTEXT?
 #define L_OPEN   8 // Can we use (open...) to learn?
-#define P_OPEN  16 // Can we use (open...) to learn?
-#define TAG     32 // Can we use (tag...) to attest?
-#define RECORD  64 // Should we record each segment as we process it?
+#define L_TAG	16 // Does (tag ...) do anything or does it get ignored?
+#define P_OPEN  32 // Can we use (open...) to learn?
+#define TAG     64 // Can we use (tag...) to attest?
+#define RECORD 128 // Should we record each segment as we process it?
 
 void learn_tag(monad * m);
 void guess_segments(monad * m);
