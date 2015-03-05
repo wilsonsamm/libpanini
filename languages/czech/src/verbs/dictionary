@@ -14,7 +14,7 @@
 (df verbstem
 	(theta (nominative patient))
 	(lit umř)
-	(flags perfective 97)
+	(flags inherent perfective 97)
 	(seme (head dead) (aspect inchoative))
 	(rection perfective)
 	(fork ((seme (tense future))) ((seme (tense past)))))

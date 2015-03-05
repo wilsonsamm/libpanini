@@ -1,6 +1,9 @@
-/* THIS HEADER FILE SHOULD NEVER BE USED BY ANY FILE THAT COMPILES INTO LIBPANINI.A. At install time it is copied to /usr/includes,
- * so that other programs can link against libtranny.a. The point of this is black-box abstraction: programs that link against 
- * libtranny shouldn't ever poke around in the monad struct, for example (this approach makes the thing more future proof too).
+/* THIS HEADER FILE SHOULD NEVER BE USED BY ANY FILE THAT COMPILES INTO
+ * LIBPANINI.A. At install time it is copied to /usr/includes, so that other
+ * programs can link against libtranny.a. The point of this is black-box
+ * abstraction: programs that link against libtranny shouldn't ever poke around
+ * in the monad struct, for example (this approach makes the thing more future
+ * proof too).
  */
 
 #ifndef __TRANNY_H
@@ -13,7 +16,8 @@ typedef void monad;
 /* This function creates a new monad. */
 monad * monad_new();
 
-/* This function frees a monad so that it's no longer occupying the computer's memory. */
+/* This function frees a monad so that it's no longer occupying the computer's
+ * memory. */
 monad * monad_free();
 
 /* This function calls the chosen function on the monads that:
@@ -30,7 +34,8 @@ void monad_rules(monad * m, void * t);
 monad * monad_duplicate(monad * m); 
 monad * monad_duplicate_all(monad * m); 
 
-/* These following functions can be used with monad_map to set various parts of the state of all monads. */
+/* These following functions can be used with monad_map to set various parts o
+ * the state of all monads. */
 int set_trace(monad * m, void * n); // TRACE says "Set the debug flag on this monad."
 int set_intext(monad * m, void * t); // INTEXT says "Translate this."
 int set_stack(monad * m, void * s); // STACK says "Do this."

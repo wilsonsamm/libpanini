@@ -21,21 +21,21 @@ stage1: pp.txt vocab.out
 	echo -n Learning Spanish
 	$(PANINI)/tools/learn/pp pp.txt 1
 	mv pp.out stage1
-	cat stage1 | sort | uniq >> src/pp-out
+	cat stage1 | sort | uniq > src/pp-out
 	
 stage2: stage1 pp.txt
 	$(PANINI)/tools/pcomp/pcomp -d ./src/ -i src/main -l $(PANINI)/languages/pp/pp -o spanish
 	echo -n Learning Spanish
 	$(PANINI)/tools/learn/pp pp.txt 2
 	mv pp.out stage2
-	cat stage2 | sort | uniq >> src/pp-out
+	cat stage2 stage1 | sort | uniq > src/pp-out
 	
 stage3: stage2 pp.txt
 	$(PANINI)/tools/pcomp/pcomp -d ./src/ -i src/main -l $(PANINI)/languages/pp/pp -o spanish
 	echo -n Learning Spanish
 	$(PANINI)/tools/learn/pp pp.txt 3
 	mv pp.out stage3
-	cat stage3 | sort | uniq >> src/pp-out
+	cat stage3 stage2 stage1 | sort | uniq > src/pp-out
 
 clean:
 	rm -f spanish src/pp-out src/vocab-out pp-out core spanish-pp-out SpaRV

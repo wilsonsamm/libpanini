@@ -1,0 +1,8 @@
+english: you die.
+czech: umřeš.
+
+english: I sleep.
+czech: spím.
+
+english: I read a book.
+czech: čtu knihu.

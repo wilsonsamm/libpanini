@@ -56,6 +56,14 @@ int panini_despatch(monad * m, int * switches) {
 		post_pc(m);
 		return 1;
 	}
+
+	/* (check)
+	 */
+	if(!strcmp(command, "check")) {
+		monad_parse_check(m);
+		post_pc(m);
+		return 1;
+	}
 	
 	/* (confidence 12) 
 	 * Each monad has in it an integer called confidence. This instruction adds

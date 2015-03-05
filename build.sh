@@ -2,7 +2,7 @@
 
 # This file sets up some environment variables and eventually builds the whole
 # system. The first section of this file sets some variables and these are
-# arranged so that you can choose what to build and how. 
+# arranged so that you can choose what to build and how.
 
 # This is the root path where libpanini is. Later, Makefiles, compilers and
 # other things use this to find the tools, header files, and the library, etc.
@@ -40,12 +40,12 @@ export PANINI_EKAN="ekan.out"
 # PP_SWORD may be set to 0 for no or 1 for yes.
 export PP_SWORD=1
 # Uncomment some of these, to use a bible for a particular language.
-export PP_SWORD_EN="BBE"		# To use the Basic English Bible
-#export PP_SWORD_EN="KJV"		# To use the King James Version
+export PP_SWORD_EN="BBE"	# To use the Basic English Bible
+#export PP_SWORD_EN="KJV"	# To use the King James Version
 #export PP_SWORD_CZ="CzeBKR" 	# To use the Czech Bible Kralicka
-export PP_SWORD_CZ="CzeKMS" 	# To use the Czech Překlad KMS Nová smlouva
+#export PP_SWORD_CZ="CzeKMS" 	# To use the Czech Překlad KMS Nová smlouva
 #export PP_SWORD_LA="Vulgata" 	# To use the Latin Vulgate
-#export PP_SWORD_SP="SpaRV"		# To use the Spanish Reina-Valera
+#export PP_SWORD_SP="SpaRV"	# To use the Spanish Reina-Valera
 
 echo Building the system in $PANINI
 
@@ -53,7 +53,7 @@ echo Building the system in $PANINI
 echo Building the runtime library libpanini.a.
 make $MAKEOPTS libpanini.a
 
-# Then, build the compiler and other tools, which get used to build language 
+# Then, build the compiler and other tools, which get used to build language
 # modules later.
 echo Building the compiler.
 make $MAKEOPTS -C tools/pcomp pcomp

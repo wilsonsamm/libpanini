@@ -23,6 +23,7 @@
 (include orthography)
 
 (load vocab)
+(load pp-out)
 
 (df main
 	(call sentence))

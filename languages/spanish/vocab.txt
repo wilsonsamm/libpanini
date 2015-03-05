@@ -18,3 +18,9 @@ father:padre
 house:casa
 day:dias
 man:hombre
+
+english:spanish
+(call verb infinitive):(call verbstem)
+read:le
+see:ve
+kiss:bes

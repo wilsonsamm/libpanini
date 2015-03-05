@@ -101,8 +101,14 @@ int parsesection(FILE * fp) {
 	
 	FILE * outfile = fopen("pp.out", "a");
 	//fprintf(stderr, "%s\n", txt);
-	if(!panini_learnpp(m, exec, outfile, txt, 20)) {
-		progpc(SAD, stage);
+	monad * n = monad_duplicate(m);
+	monad * o = monad_duplicate(m);
+	if(!panini_parse(m, exec, txt, 0, 0, 20)) {
+		if(!panini_learnpp(n, exec, outfile, txt, 20)) {
+			if(!panini_learnvocab(o, exec, outfile, txt, 20)) {
+				progpc(SAD, stage);
+			}
+		}
 	} else {
 		progpc(DOTS, stage);
 	}
@@ -111,6 +117,8 @@ int parsesection(FILE * fp) {
 	
 	free(exec);
 	monad_free(m);
+	monad_free(n);
+	monad_free(o);
 	free(srctext);
 	free(srclang);
 	free(srcfn);
