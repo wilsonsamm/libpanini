@@ -35,8 +35,8 @@ int panini_despatch(monad * m, int * switches) {
 	 *   - matches something against the input, or
 	 *   - appends something to the output,
 	 * depending on whether or not we're generating? */
-	if((*switches & INTEXT)  && tranny_intext (m, command)) return 1;
-	if((*switches & OUTTEXT) && tranny_outtext(m, command)) return 1;
+	//if((*switches & INTEXT)  && tranny_intext (m, command)) return 1;
+	//if((*switches & OUTTEXT) && tranny_outtext(m, command)) return 1;
 	
 	/* Is the command one of those that spawns other monads? */
 	if(tranny_exec(m, command, switches)) return 1;
@@ -102,6 +102,20 @@ int panini_despatch(monad * m, int * switches) {
 		post_pc(m);
 		return 1;
 	}
+
+	/* (lit )
+	 * reads in a string from the intext or appends to the outtext */
+	if((*switches & INTEXT)  && !strcmp(command, "lit")) {
+		scan_intext(m, list_get_token(m->command, 2));
+		post_pc(m);
+		return 1;
+	}
+	if((*switches & OUTTEXT)  && !strcmp(command, "lit")) {
+		append_to_outtext(m, list_get_token(m->command, 2));
+		post_pc(m);
+		return 1;
+	}
+
 	
 	/* (nop)
 	 * Does nothing. */
@@ -147,6 +161,19 @@ int panini_despatch(monad * m, int * switches) {
 	 * Removes any sandhi information. */
 	if(!strcmp(command, "sandhiblock")) {
 		list_remove(m->namespace, "sandhi");
+		post_pc(m);
+		return 1;
+	}
+
+	/* (space)
+	 * reads in a space from the intext or appends to the outtext */
+	if((*switches & INTEXT)  && !strcmp(command, "space")) {
+		scan_intext(m, "space");
+		post_pc(m);
+		return 1;
+	}
+	if((*switches & OUTTEXT)  && !strcmp(command, "lit")) {
+		append_to_outtext(m, " ");
 		post_pc(m);
 		return 1;
 	}

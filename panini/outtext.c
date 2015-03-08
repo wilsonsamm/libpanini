@@ -1,5 +1,6 @@
 #include "../monad/monad.h"
 #include "tranny.h"
+#include "panini.h"
 #include <string.h>
 #include <stdlib.h>
 
@@ -72,57 +73,4 @@ void gen_open(monad * m) {
 	append_to_outtext(m, " ");
 	
 	return;
-}
-
-/* This function executes the instruction, and returns 1 if it was possible to do so.
- * Otherwise it returns 0.
- */
-int tranny_outtext_ops(monad * m, char * command) {
-	
-	/* (lit ...) */
-	if(!strcmp(command, "lit")) {
-		append_to_outtext(m, list_get_token(m->command, 2));
-		return 1;
-	}
-	
-	/* (read-ahead ...) */
-	if(!strcmp(command, "read-ahead")) {
-		m->alive = 0;
-		return 1;
-	}
-	
-	/* (space) */
-	if(!strcmp(command, "space")) {
-		append_to_outtext(m, " ");
-		return 1;
-	}
-	/* (fullstop) */
-	if(!strcmp(command, "fullstop")) {
-		append_to_outtext(m, ".");
-		return 1;
-	}
-	/* (open) */
-	if(!strcmp(command, "open")) {
-		gen_open(m);
-		return 1;
-	}
-	/* None of these matches; going to return 0. */
-	return 0;
-}
-
-
-/* This tries to execute the instruction, and if it was possible to do that:
- *   - frees some memory up 
- *   - returns 1 to say "Success"
- * If it was not possible to execute the instruction, returns 0.
- */
-int tranny_outtext(monad * m, char * command) {
-	
-	if(tranny_outtext_ops(m, command)) {
-		list_free(m->command);
-		m->command = 0;
-		return 1;
-	} else {
-		return 0;
-	}
 }

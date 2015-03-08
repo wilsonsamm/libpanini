@@ -24,3 +24,5 @@ void monad_learn_open(monad * m);
 
 int reduce(monad * m, list * l, int * switches);
 list * get_namespace(monad * m, char * nsname, int create);
+void append_to_outtext(monad * m, char * segment);
+void scan_intext(monad * m, char * segment);
