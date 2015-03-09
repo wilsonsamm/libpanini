@@ -26,3 +26,8 @@ int reduce(monad * m, list * l, int * switches);
 list * get_namespace(monad * m, char * nsname, int create);
 void append_to_outtext(monad * m, char * segment);
 void scan_intext(monad * m, char * segment);
+void panini_call(monad * m, int adjunct, int * switches);
+void panini_fork(monad * m, int * switches);
+void panini_segments(monad * m, int generate);
+void panini_fuzzy(monad * m);
+void panini_fork(monad * m, int * switches);

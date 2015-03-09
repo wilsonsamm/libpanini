@@ -31,16 +31,6 @@ int panini_despatch(monad * m, int * switches) {
 	
 	char * command = list_get_token(m->command, 1);
 	
-	/* Is the current command one that either:
-	 *   - matches something against the input, or
-	 *   - appends something to the output,
-	 * depending on whether or not we're generating? */
-	//if((*switches & INTEXT)  && tranny_intext (m, command)) return 1;
-	//if((*switches & OUTTEXT) && tranny_outtext(m, command)) return 1;
-	
-	/* Is the command one of those that spawns other monads? */
-	if(tranny_exec(m, command, switches)) return 1;
-	
 	/* Is the command one of the ones deals with memory? */
 	if(tranny_memory(m, command)) return 1;
 	
@@ -48,6 +38,13 @@ int panini_despatch(monad * m, int * switches) {
 	if( (*switches & CR_SEME) && (tranny_binders(m, 1))) return 1;
 	if(!(*switches & CR_SEME) && (tranny_binders(m, 0))) return 1;
 
+	
+	if(!strcmp(command, "adjunct")) {
+		panini_call(m, 1, switches);
+		post_pc(m);
+		return 1;
+	}
+	
 	/* (brake)
 	 * Increments the brake register. If this goes beyond some threshold, 
 	 * execution will stop for that monad. */
@@ -57,6 +54,13 @@ int panini_despatch(monad * m, int * switches) {
 		return 1;
 	}
 
+	/* (call)
+	 */
+	if(!strcmp(command, "call")) {
+		panini_call(m, 0, switches);
+		post_pc(m);
+		return 1;
+	}
 	/* (check)
 	 */
 	if(!strcmp(command, "check")) {
@@ -91,6 +95,16 @@ int panini_despatch(monad * m, int * switches) {
 		return 1;
 	}
 	
+	if(!strcmp(command, "fork")) {
+		panini_fork(m, switches);
+		post_pc(m);
+		return 1;
+	}
+	if(!strcmp(command, "fuzzy")) {
+		panini_fuzzy(m);
+		post_pc(m);
+		return 1;
+	}
 	if(!strcmp(command, "guess-segments")) {
 		guess_segments(m);
 		post_pc(m);
@@ -178,6 +192,11 @@ int panini_despatch(monad * m, int * switches) {
 		return 1;
 	}
 	
+	if(!strcmp(command, "segments")) {
+		panini_segments(m, *switches & OUTTEXT);
+		post_pc(m);
+		return 1;
+	}
 	/* (unbrake)
 	 * Undoes the effect of a matching (brake). */
 	if(!strcmp(command, "unbrake")) {

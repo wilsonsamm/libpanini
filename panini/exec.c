@@ -72,7 +72,7 @@ monad * exec_spawn(monad * m, list * rules, list * flags, int * switches) {
 	return first;
 }
 
-void tranny_segments(monad * m, int generate) {
+void panini_segments(monad * m, int generate) {
 	
 	/* Base case: no more segments to do. */
 	if(m->command->length == 1) return;
@@ -168,7 +168,7 @@ void tranny_forgive(monad * m) {
 	monad_join(m, monad_spawn(m, rules, 0));
 }
 
-void tranny_call(monad * m, int adjunct, int * switches) {
+void panini_call(monad * m, int adjunct, int * switches) {
 	/* We'll get the list of rules that need to be parsed */
 	list * patterns = 0;
 	char * rulename = list_get_token(m->command, 2);
@@ -219,14 +219,14 @@ void tranny_call(monad * m, int adjunct, int * switches) {
 	return;
 }
 
-void tranny_fork(monad * m, int * switches) {
+void panini_fork(monad * m, int * switches) {
 	list_drop(m->command, 1);
 	monad * n = exec_spawn(m, m->command, 0, switches);
 	monad_join(m, n);
 	m->alive = 0;
 }
 
-void tranny_fuzzy(monad * m) {
+void panini_fuzzy(monad * m) {
 	list * rules = list_new();
 	list_append_list(rules);
 	list * child = list_append_list(rules);
@@ -245,42 +245,3 @@ void tranny_fuzzy(monad * m) {
 	list_free(rules);
 }
 
-/* This tries to execute the instruction, and if it was possible to do that:
- *   - frees some memory up 
- *   - returns 1 to say "Success"
- * If it was not possible to execute the instruction, returns 0.
- */
-int tranny_exec(monad * m, char * command, int * switches) {
-	
-	if(!strcmp(command, "call")) {
-		tranny_call(m, 0, switches);
-		list_free(m->command);
-		m->command = 0;
-		return 1;
-	}
-	if(!strcmp(command, "adjunct")) {
-		tranny_call(m, 1, switches);
-		list_free(m->command);
-		m->command = 0;
-		return 1;
-	}
-	if(!strcmp(command, "fork")) {
-		tranny_fork(m, switches);
-		list_free(m->command);
-		m->command = 0;
-		return 1;
-	}
-	if(!strcmp(command, "fuzzy")) {
-		tranny_fuzzy(m);
-		list_free(m->command);
-		m->command = 0;
-		return 1;
-	}
-	if(!strcmp(command, "segments")) {
-		tranny_segments(m, *switches & OUTTEXT);
-		list_free(m->command);
-		m->command = 0;
-		return 1;
-	}
-	return 0;
-}
