@@ -78,16 +78,21 @@ int main(int argc, char **argv)
 	}
 
 	std:cout << endl;
+	
 	/* Ideal verses for learning a language may be listed below. I have chosen
 	 * some that consist of fairly simple sentences or fragments, to increase
 	 * the chance that the source text may be understood by the Panini language
-	 * module (because only then may something be learned from it) */
+	 * module (because only then may something be learned from it)
+	 */
 
 	verse(argv[1], source, argv[3], target, "Matthew 6:11");
 	verse(argv[1], source, argv[3], target, "Matthew 7:18");
 	verse(argv[1], source, argv[3], target, "Matthew 8:23");
-
-	/* You can add as many as you wish. */
+	verse(argv[1], source, argv[3], target, "Psalm 56:3");
+	verse(argv[1], source, argv[3], target, "1 Thessalonians 5:16");
+	verse(argv[1], source, argv[3], target, "Deuteronomy 5:19");
+	/* These verses are chosen for their syntactic simplicity; you can add as
+	 * many as you wish. */
 	
 	return 0;
 }

@@ -182,11 +182,11 @@ int panini_despatch(monad * m, int * switches) {
 	/* (space)
 	 * reads in a space from the intext or appends to the outtext */
 	if((*switches & INTEXT)  && !strcmp(command, "space")) {
-		scan_intext(m, "space");
+		scan_intext(m, " ");
 		post_pc(m);
 		return 1;
 	}
-	if((*switches & OUTTEXT)  && !strcmp(command, "lit")) {
+	if((*switches & OUTTEXT)  && !strcmp(command, "space")) {
 		append_to_outtext(m, " ");
 		post_pc(m);
 		return 1;

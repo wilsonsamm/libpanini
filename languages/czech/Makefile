@@ -5,7 +5,7 @@ czech: stage1
 
 # Read the bibles and learn some Czech.
 $(PP_SWORD_CZ):
-	$(PANINI)/tools/sword/query english $(PP_SWORD_EN) czech $(PP_SWORD_CZ) > pp.txt
+	$(PANINI)/tools/sword/query english $(PP_SWORD_EN) czech $(PP_SWORD_CZ) > $(PP_SWORD_CZ)
 
 pp.txt: $(PP_SWORD_CZ) data.txt
 	cat $(PP_SWORD_CZ) data.txt > pp.txt
@@ -25,7 +25,8 @@ vocab.out:
 	cat vocab.out | sort | uniq > src/vocab
 
 clean:
-	rm -f czech core vocab.out pp.txt src/vocab
+	rm -f czech core vocab.out pp.txt src/vocab src/pp-out
+	rm -f CzeBKR CzeKMS stage1
 
 install:
 	cp czech /usr/panini/languages

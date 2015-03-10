@@ -30,6 +30,10 @@
 	(call verb infinitive)
 	(call verbal-argument))
 
+(df vp
+	(flags to-infinitive)
+	(lit to) (space)
+	(call vp infinitive))
 
 ;; To be -- Takes different arguments from other verbs.
 (df vp

@@ -28,11 +28,12 @@ monad * pmonad;
 /* This function, given a headword and a reading, 
  * will return the panini code to match or generate that headword/reading.
  */
-char * segmentation(char * headword, char * moras, kanji * klist) {
+char * segmentation(char * headword, char * moras, kanji * klist, char * suffix) {
 
 	if(!headword) return 0;
 	if(!moras) return 0;
 	if(!strlen(headword) && !strlen(moras)) return strdup("");
+	if(suffix && !strcmp(moras, suffix)) return strdup("");
 	
 	kanji * tklist = klist;
 	
@@ -44,7 +45,7 @@ char * segmentation(char * headword, char * moras, kanji * klist) {
 			continue;
 		}
 		
-		char * next = segmentation(headword + strlen(hiragana[i]), moras + strlen(latin[i]), klist);
+		char * next = segmentation(headword + strlen(hiragana[i]), moras + strlen(latin[i]), klist, suffix);
 		if(!next) return 0;
 		
 		char * def = malloc(strlen(next) + strlen("(segments ) ") + strlen(latin[i]) + 1);
@@ -55,6 +56,24 @@ char * segmentation(char * headword, char * moras, kanji * klist) {
 		return def;
 	}
 	
+	i = 0;
+	while(strlen(katakana[i])) {
+		
+		if(strncmp(katakana[i], headword, strlen(katakana[i]))) {
+			i++;
+			continue;
+		}
+		
+		char * next = segmentation(headword + strlen(katakana[i]), moras + strlen(latin[i]), klist, suffix);
+		if(!next) return 0;
+		
+		char * def = malloc(strlen(next) + strlen("(segments ) ") + strlen(latin[i]) + 1);
+		strcpy(def, latin[i]);
+		strcat(def, " ");
+		strcat(def, next);
+		free(next);
+		return def;
+	}
 	
 	while(tklist) {
 		if(!tklist->glyph) {
@@ -72,7 +91,7 @@ char * segmentation(char * headword, char * moras, kanji * klist) {
 				continue;
 			}
 			if(!strncmp(r->moras, moras, strlen(r->moras))) {
-				char * next = segmentation(headword + strlen(tklist->glyph), moras + strlen(r->moras), klist);
+				char * next = segmentation(headword + strlen(tklist->glyph), moras + strlen(r->moras), klist, suffix);
 				if(!next) return 0;
 				char * def = malloc(+ strlen(tklist->jiscode) + strlen(r->moras) + strlen(next) + 5);
 				strcpy(def, tklist->jiscode);
@@ -107,7 +126,7 @@ char * segmentation(char * headword, char * moras, kanji * klist) {
  *                   (eg. noun, verb etc.)
  */
 int learnentry_func(char * headword, char * reading, char * ttemp, \
-                 kanji * klist, char * postag, char * incode, char * jpos, char * flags) {
+                 kanji * klist, char * postag, char * incode, char * jpos, char * flags, char * suffix) {
 	
 	/* If this is not actually a [noun/verb/adj-i/...] then just quit.
 	 * We need to look for the tag between the parentheses. First find 
@@ -153,7 +172,7 @@ int learnentry_func(char * headword, char * reading, char * ttemp, \
 	
 	/* this string will hold the code to generate the japanese word */
 	char * tr = transliterate(reading);
-	char * seg = segmentation(headword, tr, klist);
+	char * seg = segmentation(headword, tr, klist, suffix);
 	
 	if(!seg) return 0;
 	
@@ -178,9 +197,11 @@ int learnentry_func(char * headword, char * reading, char * ttemp, \
 
 int learnentry(char * headword, char * reading, char * translation, kanji * klist) {
 	
-	learnentry_func(headword, reading, translation, klist, "n",  "(call Headword noun)(fullstop)", "noun", "");
-	learnentry_func(headword, reading, translation, klist, "pn", "(call Headword noun)(fullstop)", "noun", "");
-	learnentry_func(headword, reading, translation, klist, "vs", "(call Headword noun)(fullstop)", "verb", "suru");
+	learnentry_func(headword, reading, translation, klist, "n",  "(call noun)(lit .)", "noun", "", 0);
+	learnentry_func(headword, reading, translation, klist, "pn", "(call noun)(lit .)", "noun", "", 0);
+	learnentry_func(headword, reading, translation, klist, "vs", "(call verb)(lit .)", "verb", "suru", 0);
+	learnentry_func(headword, reading, translation, klist, "vs", "(call vp to-infinitive)(lit .)", "verb", "suru", 0);
+	learnentry_func(headword, reading, translation, klist, "v1", "(call vp to-infinitive)(lit .)", "verb", "ichidan", "る");
 	return 0;
 }
 
