@@ -31,7 +31,7 @@ stage2: stage1 pp.txt
 	cat stage2 stage1 | sort | uniq > src/pp-out
 	
 stage3: stage2 pp.txt
-	$(PANINI)/tools/pcomp/pcomp -d ./src/ -i src/main -l $(PANINI)/languages/pp/pp -o spanish
+	$(PANINI)/tools/pcomp/pcomp -d ./src/ -i src/last -l $(PANINI)/languages/pp/pp -o spanish
 	echo -n Learning Spanish
 	$(PANINI)/tools/learn/pp pp.txt 3
 	mv pp.out stage3

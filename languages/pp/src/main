@@ -27,7 +27,9 @@
 (include principles/verbs)
 (include principles/verb-phrase)
 
+(include punctuation)
+
 (df main
-	(tag)
 	(call defparam)
-	(call principles))
+	(call principles)
+	(call punctuation sentence-final))

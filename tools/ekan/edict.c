@@ -38,7 +38,7 @@ char * segmentation(char * headword, char * moras, kanji * klist, char * suffix)
 	kanji * tklist = klist;
 	
 	int i = 0;
-	while(strlen(hiragana[i])) {
+	while(hiragana[i] && strlen(hiragana[i])) {
 		
 		if(strncmp(hiragana[i], headword, strlen(hiragana[i]))) {
 			i++;
@@ -57,7 +57,7 @@ char * segmentation(char * headword, char * moras, kanji * klist, char * suffix)
 	}
 	
 	i = 0;
-	while(strlen(katakana[i])) {
+	while(katakana[i] && strlen(katakana[i])) {
 		
 		if(strncmp(katakana[i], headword, strlen(katakana[i]))) {
 			i++;

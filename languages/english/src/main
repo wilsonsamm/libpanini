@@ -30,7 +30,10 @@
 
 (include punctuation)
 
+(include segments/segments)
 (include segments/punctuation)
+
+(load bootstrap)
 
 ; Evaluation starts with "main".
 (df main

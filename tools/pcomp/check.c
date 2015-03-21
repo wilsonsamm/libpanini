@@ -44,13 +44,14 @@ int check_syntax1(list * input) {
 			return 1;
 		}
 		
-		if(!strcmp(c, "include"))			continue;
-		if(!strcmp(c, "load"))   			continue;
-		if(!strcmp(c, "for"))				continue;
-		if(!strcmp(c, "df"))				continue;
-		if(!strcmp(c, "segment"))			continue;
-		if(!strcmp(c, "tag"))				continue;
-		if(!strcmp(c, "close"))				continue;
+		if(!strcmp(c, "include"))  continue;
+		if(!strcmp(c, "load"))     continue;
+		if(!strcmp(c, "for"))      continue;
+		if(!strcmp(c, "df"))       continue;
+		if(!strcmp(c, "segment"))  continue;
+		if(!strcmp(c, "glyph"))    continue;
+		if(!strcmp(c, "tag"))      continue;
+		if(!strcmp(c, "close"))    continue;
 		
 		fprintf(stderr, "\tI do not know any such command as \"%s\".\n", c);
 		return 1;

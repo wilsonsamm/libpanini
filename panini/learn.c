@@ -261,8 +261,6 @@ void monad_learn_open(monad * m, int * switches) {
 	strcat(new, "\n");
 	strcat(new, m->outtext);
 	strcat(new, "\n");
-	
-//	fprintf(stderr, "%s\n", definition);
 
 	free(definition);
 	free(m->outtext);
@@ -273,8 +271,6 @@ void monad_learn_open(monad * m, int * switches) {
 	if(ntheta)   list_free(ntheta);
 	if(into)     list_free(into);
 	list_free(df);
-	
-	list_remove(m->namespace, "record");
 	
 	m->learned = 1;
 }

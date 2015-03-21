@@ -1,64 +1,31 @@
-; Animals
-(for headword (whale bird worm duck rabbit)
-	(df nounstem
-		(adjunct species-preword .headword)
-		(lit .headword)
-		(seme (head .headword))
-		(theta (possessive owner)))
-	
-	(df nounstem
-		(call species-preword .headword headless)
-		(seme (head .headword))
-		(theta (possessive owner))))
-
-; Humans
-(for headword (friend uncle soldier visitor person mother father)
-	(df nounstem
-		(lit .headword)
-		(seme (head .headword))
-		(theta (possessive relation))))
-
-
-; Places
-(for headword (road beach house room cave village world)
-	(df nounstem
-		(lit .headword)
-		(seme (head .headword))))
-
-; Months
-(for headword (january february march april june july august september november december)
-	(df nounstem
-		(lit .headword)
-		(seme (head .headword))))
-
-; Quarters of the Compass
-(for headword (north east south west)
-	(df nounstem
-		(lit .headword)
-		(seme (head .headword))))
-
-; Things
-(for headword (axe thing banana book eraser condom boat car)
-	(df nounstem
-		(lit .headword)
-		(seme (head .headword))))
+; These symbols get called by tools/learn/bootstrap.
+; For each English word which is also a semantic prime in the ontology, we bind
+; that word as the value of the head variable, and then we call bootstrap-thing
+; to learn the segmentation of the word.
+(for theta (owner relation partitive)
+(df bootstrap-nounstem
+	(flags .theta)
+	(theta (possessive .theta))
+	(open nounstem
+		(segments 7)
+		(seme head)
+		(theta possessive))))
+(df bootstrap-nounstem
+	(flags none)
+	(open nounstem
+		(segments 7)
+		(seme head)))
 
 (df nounstem
-	(lit rubber)
+	(segments r u b b e r)
 	(seme (head eraser))
 	(language (norm british)))
 	
 (df nounstem
-	(lit rubber)
+	(segments r u b b e r)
 	(seme (head condom))
 	(fuzzy 10 language -formal)
 	(language (norm american)))
-
-; Times
-(for headword (day week year summer winter time)
-	(df nounstem
-		(lit .headword)
-		(seme (head .headword))))
 
 ;;; Regular nouns are defined down here as something which consists of a nounstem plus an optional plural suffix.
 (df noun
@@ -79,7 +46,7 @@
 
 ; Child.
 (df noun
-	(lit child) (segments space)
+	(segments c h i l d space)
 	(rection countable (number singular))
 	(flags lemma singular)
 	(seme (head child) (number singular)))
@@ -87,13 +54,13 @@
 ; Children.
 (df noun
 	(flags plural)
-	(lit children) (segments space)
+	(segments c h i l d r e n space)
 	(rection countable (number plural))
 	(seme (head child) (number plural)))
 
 ; Woman.
 (df noun
-	(lit woman) (segments space)
+	(segments w o m a n space)
 	(rection countable (number singular))
 	(flags lemma singular)
 	(seme (head woman) (number singular)))
@@ -101,13 +68,13 @@
 ; Women.
 (df noun
 	(flags plural)
-	(lit women) (segments space)
+	(segments w o m e n space)
 	(rection countable (number plural))
 	(seme (head woman) (number plural)))
 
 ; Man.
 (df noun
-	(lit man) (segments space)
+	(segments m a n space)
 	(rection countable (number singular))
 	(flags lemma singular)
 	(seme (head man) (number singular)))
@@ -115,6 +82,6 @@
 ; Men.
 (df noun
 	(flags plural)
-	(lit men) (segments space)
+	(segments m e n space)
 	(rection countable (number plural))
 	(seme (head man) (number plural)))

@@ -45,6 +45,13 @@ int panini_despatch(monad * m, int * switches) {
 		return 1;
 	}
 	
+	/* (all-caps)
+	 * unimplemented for now. */
+	if(!strcmp(command, "all-caps")) {
+		post_pc(m);
+		return 1;
+	}
+	
 	/* (brake)
 	 * Increments the brake register. If this goes beyond some threshold, 
 	 * execution will stop for that monad. */
@@ -157,6 +164,21 @@ int panini_despatch(monad * m, int * switches) {
 		return 1;
 	}
 
+	if(!strcmp(command, "recorded-segments")) {
+		list_append_token(m->command, "segments");
+		list * record = list_find_list(m->namespace, "record");
+		list * newstack = list_new();
+		list * next = list_append_list(newstack);
+		list_append_token(next, "segments");
+		list_append_copy(next, record);
+		list_drop(next, 2);
+		list_append_copy(newstack, m->stack);
+		list_free(m->stack);
+		m->stack = newstack;
+		remove_ns(m, "record");
+		post_pc(m);
+		return 1;
+	}
 	/* (return)
 	 * Returns from a matching (into ...) instruction. */
 	if(!strcmp(command, "return")) {
@@ -193,7 +215,8 @@ int panini_despatch(monad * m, int * switches) {
 	}
 	
 	if(!strcmp(command, "segments")) {
-		panini_segments(m, *switches & OUTTEXT);
+		//panini_segments(m, (*switches & OUTTEXT) || (*switches & L_OPEN));
+		panini_segments(m, (*switches & OUTTEXT));
 		post_pc(m);
 		return 1;
 	}
@@ -246,6 +269,9 @@ int panini_learnvocab(monad * m, char * commands, FILE * out, char * intext, int
 	int retval;
 	int switches = INTEXT | L_OPEN;
 	
+	/* We want to record the segments */
+	monad_map(m, append_record_ns, (void*)0, threshold);
+
 	/* First, set the stack to contain the right instructions */
 	monad_map(m, (int(*)(monad * m, void * argp))set_stack, commands, threshold);
 	
@@ -272,8 +298,10 @@ int panini_learnvocab(monad * m, char * commands, FILE * out, char * intext, int
 	monad_unlink_dead(m, 0);
 
 	/* Then print out what we learned. */
-	monad_map(m, (int(*)(monad * m, void * argp))print_out, out, threshold);
-	fflush(out);
+	if(out) {
+		monad_map(m, (int(*)(monad * m, void * argp))print_out, out, threshold);
+		fflush(out);
+	}
 	
 	return retval;
 }
@@ -309,8 +337,10 @@ int panini_learnpp(monad * m, char * commands, FILE * out, char * intext, int th
 	monad_unlink_dead(m, 0);
 
 	/* Then print out what we learned. */
-	monad_map(m, (int(*)(monad * m, void * argp))print_out, out, threshold);
-	fflush(out);
+	if(out) {
+		monad_map(m, (int(*)(monad * m, void * argp))print_out, out, threshold);
+		fflush(out);
+	}
 	
 	return retval;
 }
@@ -319,6 +349,9 @@ int panini_generate(monad *m, char * commands, int record, int threshold) {
 	
 	int retval;
 	int switches = OUTTEXT;
+	
+	/* If we want to record the segments, then do so */
+	if(record) monad_map(m, append_record_ns, (void*)0, threshold);
 	
 	/* First, set the stack to contain the right instructions */
 	monad_map(m, (int(*)(monad * m, void * argp))set_stack, commands, threshold);

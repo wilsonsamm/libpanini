@@ -28,17 +28,6 @@ int define(char * name, list * definition, list * output, char * outfn) {
 	list * sandhi = list_append_list(new_pattern);
 	list_append_token(sandhi, "sandhi");
 	
-	/* It is theoretically faster to bind variables as early as possible, so we
-	 * will add (seme), (language) and (rection) here. In a later pass, we will 
-	 * move any variables bound later on. This will (hopefully!) speed the program
-	 * up a little. */
-//	list * rection = list_append_list(new_pattern);
-//	list_append_token(rection, "rection");
-//	list * seme = list_append_list(new_pattern);
-//	list_append_token(seme, "seme");
-//	list * language = list_append_list(new_pattern);
-//	list_append_token(language, "language");
-	
 	/* We'll add a (brake) command in here to the beginning of the rule.
 	 * In a later pass it gets removed from patterns that must not have 
 	 * it. */
@@ -72,7 +61,6 @@ int df(list * command, list * input, list * output, char * outfn) {
 	int retval;
 	
 	char * name = list_get_token(command, 2);
-	//fprintf(stderr, "\tNow defining %s.\n", name);
 	
 	list * rule = list_new();
 	int i;
@@ -113,5 +101,63 @@ int segment(list * command, list * input, list * output) {
 		
 	}
 
+	return 0;
+}
+
+int glyph(list * command, list * input, list * output) {
+	
+	list * rule;
+	list * flags;
+	list * lit;
+	list * caps;
+
+	/* All Upper case */
+	rule = list_append_list(input);
+	list_append_token(rule, "df");
+	list_append_token(rule, "Glyph");
+	flags = list_append_list(rule);
+	list_append_token(flags, "flags");
+	list_append_token(flags, list_get_token(command, 2));
+	lit = list_append_list(rule);
+	list_append_token(lit, "lit");
+	list_append_token(lit, list_get_token(command, 3));
+	caps = list_append_list(rule);
+	list_append_token(caps, "all-caps");
+
+	/* Upper case initial */
+	rule = list_append_list(input);
+	list_append_token(rule, "df");
+	list_append_token(rule, "Glyph");
+	flags = list_append_list(rule);
+	list_append_token(flags, "flags");
+	list_append_token(flags, list_get_token(command, 2));
+	lit = list_append_list(rule);
+	caps = list_append_list(rule);
+	list_append_token(caps, "sandhi");
+	list_append_token(caps, "caps");
+	list_append_token(lit, "lit");
+	list_append_token(lit, list_get_token(command, 4));
+	caps = list_append_list(rule);
+	list_append_token(caps, "sandhi");
+	list_append_token(caps, "-caps");
+
+	/* All lower case */
+	rule = list_append_list(input);
+	list_append_token(rule, "df");
+	list_append_token(rule, "Glyph");
+	flags = list_append_list(rule);
+	list_append_token(flags, "flags");
+	list_append_token(flags, list_get_token(command, 2));
+	caps = list_append_list(rule);
+	list_append_token(caps, "sandhi");
+	list_append_token(caps, "-caps");
+	lit = list_append_list(rule);
+	list_append_token(lit, "lit");
+	list_append_token(lit, list_get_token(command, 5));
+	caps = list_append_list(rule);
+	list_append_token(caps, "sandhi");
+	list_append_token(caps, "-caps");
+
+	
 	return 0;
 }

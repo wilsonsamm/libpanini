@@ -1,0 +1,23 @@
+(df punctuation
+	(tag)
+	(flags sentence-final)
+	(sandhi nospace)
+	(lit .)
+	(seme -exclamation -interrogative))
+
+(df punctuation
+	(tag)
+	(flags sentence-final)
+	(sandhi nospace)
+	(lit !)
+	(seme exclamation -interrogative))
+
+(df punctuation
+	(tag)
+	(flags sentence-final)
+	(sandhi nospace)
+	(lit ?)
+	(seme interrogative))
+
+(segment (underlying space) (sandhi nospace) (sandhiblock))
+(segment (underlying space) (sandhi -nospace)(space)(sandhiblock))

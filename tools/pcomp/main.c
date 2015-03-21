@@ -274,8 +274,9 @@ int main(int argv, char * argc[]) {
 	 * linguistically common features */
 	pass(input, output, "tag", tagg);
 	
-	/* Next pass is to create all the definitions, (def's are mostly dictionary definitions and such) 
-	 * and then to check they're OK. */
+	/* Next pass is to create all the definitions, (def's are mostly dictionary
+	 * definitions and such) and then to check they're OK. */
+	pass(input, output, "glyph", glyph);
 	pass(input, output, "segment", segment);
 	passdf(input, output, "df", outfilename);
 	pass(input, output, "close", tclose);

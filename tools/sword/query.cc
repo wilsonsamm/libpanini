@@ -4,7 +4,7 @@
 #include <swmgr.h>
 #include <swmodule.h>
 #include <markupfiltmgr.h>
-#include <string>
+#include <string.h>
 
 using namespace::sword;
 using namespace std;

@@ -8,8 +8,8 @@
 export PANINI=$(pwd)/
 
 # These are the compilers to use for plain C, and C++
-export CCOMPILER="clang"
-#export CCOMPILER="gcc"
+#export CCOMPILER="clang"
+export CCOMPILER="gcc"
 export CXXCOMPILER="clang"
 #export CXXCOMPILER="g++"
 
@@ -45,8 +45,10 @@ export PANINI_EKAN="ekan.out"
 # PP_SWORD may be set to 0 for no or 1 for yes.
 export PP_SWORD=1
 # Uncomment some of these, to use a bible for a particular language.
-export PP_SWORD_EN="BBE"		# To use the Basic English Bible
-#export PP_SWORD_EN="KJV"		# To use the King James Version
+# For each language, enable at most one bible.
+
+#export PP_SWORD_EN="BBE"		# To use the Basic English Bible
+export PP_SWORD_EN="KJV"		# To use the King James Version
 export PP_SWORD_CZ="CzeBKR" 	# To use the Czech Bible Kralicka
 #export PP_SWORD_CZ="CzeKMS" 	# To use the Czech Překlad KMS Nová smlouva
 #export PP_SWORD_LA="Vulgata" 	# To use the Latin Vulgate

@@ -45,6 +45,7 @@ int set_seme(monad * m, char * seme) {
 }
 
 int print_out(monad * m, FILE * fp) {
+	//printf(";%s\n", m->outtext);
 	if(m->outtext) fprintf(fp,"%s\n", m->outtext);
 	return 0;
 }
