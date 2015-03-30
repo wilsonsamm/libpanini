@@ -30,13 +30,6 @@ int panini_despatch(monad * m, int * switches) {
 	}
 	
 	char * command = list_get_token(m->command, 1);
-	
-	/* Is the command one of the ones deals with memory? */
-	if(tranny_memory(m, command)) return 1;
-	
-	/* Is the command one of the ones that binds variables? */
-	if( (*switches & CR_SEME) && (tranny_binders(m, 1))) return 1;
-	if(!(*switches & CR_SEME) && (tranny_binders(m, 0))) return 1;
 
 	
 	if(!strcmp(command, "adjunct")) {
@@ -123,6 +116,13 @@ int panini_despatch(monad * m, int * switches) {
 		post_pc(m);
 		return 1;
 	}
+	
+	/* (language ...) */
+	if(!strcmp(command, "language")) {
+		if(checkvars(m, m->command, 0)) m->alive = 0;
+		post_pc(m);
+		return 1;
+	}
 
 	/* (lit )
 	 * reads in a string from the intext or appends to the outtext */
@@ -163,6 +163,13 @@ int panini_despatch(monad * m, int * switches) {
 		post_pc(m);
 		return 1;
 	}
+	
+	/* (rection ...) */
+	if(!strcmp(command, "rection")) {
+		if(checkvars(m, m->command, 0)) m->alive = 0;
+		post_pc(m);
+		return 1;
+	}
 
 	if(!strcmp(command, "recorded-segments")) {
 		list_append_token(m->command, "segments");
@@ -187,8 +194,9 @@ int panini_despatch(monad * m, int * switches) {
 		return 1;
 	}
 	
-	if(!strcmp(command, "tag")) {
-		if(*switches & L_TAG) learn_tag(m);
+	/* (sandhi ...) */
+	if(!strcmp(command, "sandhi")) {
+		if(checkvars(m, m->command, 0)) m->alive = 0;
 		post_pc(m);
 		return 1;
 	}
@@ -197,6 +205,13 @@ int panini_despatch(monad * m, int * switches) {
 	 * Removes any sandhi information. */
 	if(!strcmp(command, "sandhiblock")) {
 		list_remove(m->namespace, "sandhi");
+		post_pc(m);
+		return 1;
+	}
+	
+	/* (seme ...) */
+	if(!strcmp(command, "seme")) {
+		if(checkvars(m, m->command, !(*switches & CR_SEME))) m->alive = 0;
 		post_pc(m);
 		return 1;
 	}
@@ -220,6 +235,20 @@ int panini_despatch(monad * m, int * switches) {
 		post_pc(m);
 		return 1;
 	}
+	
+	if(!strcmp(command, "tag")) {
+		if(*switches & L_TAG) learn_tag(m);
+		post_pc(m);
+		return 1;
+	}
+	
+	/* (theta ...) */
+	if(!strcmp(command, "theta")) {
+		if(checkvars(m, m->command, 0)) m->alive = 0;
+		post_pc(m);
+		return 1;
+	}
+	
 	/* (unbrake)
 	 * Undoes the effect of a matching (brake). */
 	if(!strcmp(command, "unbrake")) {
@@ -227,6 +256,13 @@ int panini_despatch(monad * m, int * switches) {
 		post_pc(m);
 		return 1;
 	}
+	
+	/* Is the command one of the ones deals with memory? */
+	if(tranny_memory(m, command)) return 1;
+	
+	/* Is the command one of the ones that binds variables? */
+//	if( (*switches & CR_SEME) && (tranny_binders(m, 1))) return 1;
+//	if(!(*switches & CR_SEME) && (tranny_binders(m, 0))) return 1;
 	
 	printf("No such command as %s.\n", command);
 

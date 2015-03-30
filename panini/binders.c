@@ -70,59 +70,59 @@ list * get_namespace(monad * m, char * nsname, int create) {
  * Iff create is non-zero, then the scope may be created.
  * Iff write is nonzero, then the variable will be bound (and not just
  * checked for compatibility). */
-void bind_vars(monad * m) {
-	list * namespace = get_namespace(m, list_get_token(m->command, 1), create);
+//void bind_vars(monad * m) {
+	//list * namespace = get_namespace(m, list_get_token(m->command, 1), create);
 	
-	if(!namespace) {
-		m->alive = 0;
-		return;
-	}
+	//if(!namespace) {
+		//m->alive = 0;
+		//return;
+	//}
 	
-	/* If the WRITE flag is off, then do not create any new variables */
-	if(!write) {
-		int i;
-		for(i = 2; i <= m->command->length; i++) {
-			list * var = list_get_list(m->command, i);
-			if(!var) continue;
-			char * varname = list_get_token(var, 1);
-			if(list_find_list(namespace, varname)) continue;
-			if(list_contains_neg(namespace, varname)) continue;
+	///* If the WRITE flag is off, then do not create any new variables */
+	//if(!write) {
+		//int i;
+		//for(i = 2; i <= m->command->length; i++) {
+			//list * var = list_get_list(m->command, i);
+			//if(!var) continue;
+			//char * varname = list_get_token(var, 1);
+			//if(list_find_list(namespace, varname)) continue;
+			//if(list_contains_neg(namespace, varname)) continue;
 			
-			if(m->debug) {
-				printf("The WRITE flag is off.\n");
-				printf("There is no variable %s in the ", varname);
-				printf("relevant namespace so I'm not going to ");
-				printf("create it either.\n");
-			}
-			list_drop(m->command, i);
-		}
-	}
+			//if(m->debug) {
+				//printf("The WRITE flag is off.\n");
+				//printf("There is no variable %s in the ", varname);
+				//printf("relevant namespace so I'm not going to ");
+				//printf("create it either.\n");
+			//}
+			//list_drop(m->command, i);
+		//}
+	//}
 	
-	list_drop(m->command, 1);
-	if(m->debug) {
-		printf("These variables will be bound: \n");
-		list_prettyprinter(m->command);
-		printf("\nHere is the scopestack: \n");
-		list_prettyprinter(m->scopestack);
-		printf("\nThis is the relevant scope: \n");
-		list_prettyprinter(namespace);
-		printf("\n");
-	}
+	//list_drop(m->command, 1);
+	//if(m->debug) {
+		//printf("These variables will be bound: \n");
+		//list_prettyprinter(m->command);
+		//printf("\nHere is the scopestack: \n");
+		//list_prettyprinter(m->scopestack);
+		//printf("\nThis is the relevant scope: \n");
+		//list_prettyprinter(namespace);
+		//printf("\n");
+	//}
 	
-	if(bind(m->command,namespace)) {
-		m->alive = 0;
-		if(m->debug) {
-			printf("This monad has kicked the bucket due to some");
-			printf("thing not binding.\n");
-		}
-	}
+	//if(bind(m->command,namespace)) {
+		//m->alive = 0;
+		//if(m->debug) {
+			//printf("This monad has kicked the bucket due to some");
+			//printf("thing not binding.\n");
+		//}
+	//}
 	
-	if(m->debug) {
-		printf("Here is the namespace as it is now:\n");
-		list_prettyprinter(m->namespace);
-		printf("\n");
-	}
-}
+	//if(m->debug) {
+		//printf("Here is the namespace as it is now:\n");
+		//list_prettyprinter(m->namespace);
+		//printf("\n");
+	//}
+//}
 
 /* This function checks that it is possible to bind a list of variables in a namespace.
  * returns 1 for possible,
@@ -170,52 +170,52 @@ int check_vars(list * namespace, list * vars) {
 	return 1;
 }
 
-int tranny_binders_ops(monad * m, int gen) {
-
-	char * command = list_get_token(m->command, 1);
-
-	write = 0;
-	create = 0;
-	
-	if(gen & !strcmp(command, "seme")) write = 1;
-	else {
-		write = 1;
-		create = 1;
-	}
-	
-	if(!strcmp(command, "language") || \
-	   !strcmp(command, "rection")  || \
-	   !strcmp(command, "theta")    || \
-	   !strcmp(command, "clues")    || \
-	   !strcmp(command, "sandhi")) {
-		   write = 1;
-		   create = 1;
-		   bind_vars(m);
-		   return 1;
-	}
-	
-	if(!strcmp(command, "seme")) {
-		write = 1;
-		if(!gen) create = 1;	
-		bind_vars(m);
-		return 1;
-	}
-	
-	return 0;
-}
+//int tranny_binders_ops(monad * m, int gen) {
+//
+//	char * command = list_get_token(m->command, 1);
+//
+//	write = 0;
+//	create = 0;
+//	
+//	if(gen & !strcmp(command, "seme")) write = 1;
+//	else {
+//		write = 1;
+//		create = 1;
+//	}
+//	
+//	if(!strcmp(command, "language") || \
+//	   !strcmp(command, "rection")  || \
+//	   !strcmp(command, "theta")    || \
+//	   !strcmp(command, "clues")    || \
+//	   !strcmp(command, "sandhi")) {
+//		   write = 1;
+//		   create = 1;
+//		   bind_vars(m);
+//		   return 1;
+//	}
+//	
+//	if(!strcmp(command, "seme")) {
+//		write = 1;
+//		if(!gen) create = 1;	
+//		bind_vars(m);
+//		return 1;
+//	}
+//	
+//	return 0;
+//}
 
 /* This tries to execute the instruction, and if it was possible to do that:
  *   - frees some memory up 
  *   - returns 1 to say "Success"
  * If it was not possible to execute the instruction, returns 0.
  */
-int tranny_binders(monad * m, int gen) {
-	
-	if(tranny_binders_ops(m, gen)) {
-		list_free(m->command);
-		m->command = 0;
-		return 1;
-	} else {
-		return 0;
-	}
-}
+//int tranny_binders(monad * m, int gen) {
+//	
+//	if(tranny_binders_ops(m, gen)) {
+//		list_free(m->command);
+//		m->command = 0;
+//		return 1;
+//	} else {
+//		return 0;
+//	}
+//}

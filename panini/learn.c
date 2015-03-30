@@ -130,11 +130,14 @@ void monad_learn_open(monad * m, int * switches) {
 		m->debug = 1;
 	}
 	
+	if(m->debug) {
+		printf("this monad%d  has had debugging turned on.\n", m->id);
+	}
 	/* Check that this monad has not yet learned anything else */
 	if(m->learned) {
-			if(m->debug) {
-				printf("this monad will die because it, or it's ancestor has already learned something.\n");
-			}
+		if(m->debug) {
+			printf("this monad will die because it, or it's ancestor has already learned something.\n");
+		}
 		m->alive = 0;
 		return;
 	}
