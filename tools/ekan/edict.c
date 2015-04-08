@@ -264,8 +264,9 @@ int main(int argc, char * argv[], char * envp[]) {
 	/* Read the edict file in line by line */
 	int i = 0;
 	for(;;) {
+		char * headword = 0;
 		/* Read in the headword. */
-		char * headword = readword(edict);
+		headword = readword(edict);
 		if(!headword) break;
 		if(!strlen(headword)) break;
 		
@@ -274,9 +275,6 @@ int main(int argc, char * argv[], char * envp[]) {
 		 */
 		if(i == (i & ~(0777)))
 			fprintf(stderr, "EDICT importer: %d%% \r", (i*100)/elen);
-		
-		/* Print the line number of the EDICT file (good for debugging) */
-		//fprintf(stderr, "EDICT importer: %d%% - %d \r", (i*100)/elen, i);
 		
 		/* Parse the line and try to generate Panini source code */
 		readentry(edict, headword, klist);

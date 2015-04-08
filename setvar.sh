@@ -14,7 +14,8 @@ export CXXCOMPILER="clang"
 #export CXXCOMPILER="g++"
 
 # These are the options that will be passed to the compiler.
-export CCOPTS="-ggdb -Wall -c"
+#export CCOPTS="-ggdb -Wall -c"
+export CCOPTS="-fopenmp -Wall -c"
 
 # These are the options that will be passed to make.
 export MAKEOPTS="-j4 --quiet --no-print-directory"
