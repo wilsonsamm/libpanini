@@ -5,7 +5,7 @@ spanish: stage3
 
 # Stage 1: 
 vocab.out: vocab.txt
-	$(PANINI)/tools/pcomp/pcomp -d ./src/ -i src/main -l $(PANINI)/languages/pp/pp -o spanish
+	$(PANINI)/tools/pcomp/pcomp -d ./src/ -i src/main -l $(PANINI)/targets/pp/pp -o spanish
 	echo -n Learning vocab
 	$(PANINI)/tools/learn/vocab vocab.txt
 	cat vocab.out | sort | uniq > src/vocab-out
@@ -17,21 +17,21 @@ $(PP_SWORD_SP):
 	$(PANINI)/tools/sword/query english $(PP_SWORD_EN) spanish $(PP_SWORD_SP) >> $(PP_SWORD_SP) 
 
 stage1: pp.txt vocab.out
-	$(PANINI)/tools/pcomp/pcomp -d ./src/ -i src/main -l $(PANINI)/languages/pp/pp -o spanish
+	$(PANINI)/tools/pcomp/pcomp -d ./src/ -i src/main -l $(PANINI)/targets/pp/pp -o spanish
 	echo -n Learning Spanish
 	$(PANINI)/tools/learn/pp pp.txt 1
 	mv pp.out stage1
 	cat stage1 | sort | uniq > src/pp-out
 	
 stage2: stage1 pp.txt
-	$(PANINI)/tools/pcomp/pcomp -d ./src/ -i src/main -l $(PANINI)/languages/pp/pp -o spanish
+	$(PANINI)/tools/pcomp/pcomp -d ./src/ -i src/main -l $(PANINI)/targets/pp/pp -o spanish
 	echo -n Learning Spanish
 	$(PANINI)/tools/learn/pp pp.txt 2
 	mv pp.out stage2
 	cat stage2 stage1 | sort | uniq > src/pp-out
 	
 stage3: stage2 pp.txt
-	$(PANINI)/tools/pcomp/pcomp -d ./src/ -i src/last -l $(PANINI)/languages/pp/pp -o spanish
+	$(PANINI)/tools/pcomp/pcomp -d ./src/ -i src/last -l $(PANINI)/targets/pp/pp -o spanish
 	echo -n Learning Spanish
 	$(PANINI)/tools/learn/pp pp.txt 3
 	mv pp.out stage3

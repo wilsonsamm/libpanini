@@ -69,43 +69,43 @@ docs:
 	make -C doc
 
 ainu:
-	+make -C languages/ainu ainu
+	+make -C targets/ainu ainu
 algonquian:
-	+make -C languages/algonquian algonquian
+	+make -C targets/algonquian algonquian
 czech:
-	+make -C languages/czech czech
+	+make -C targets/czech czech
 english:
-	+make -C languages/english english
+	+make -C targets/english english
 japanese:
-	+make -C languages/japanese japanese
+	+make -C targets/japanese japanese
 nahuatl:
-	+make -C languages/nahuatl nahuatl
+	+make -C targets/nahuatl nahuatl
 pp:
-	+make -C languages/pp pp
+	+make -C targets/pp pp
 quenya:
-	+make -C languages/quenya quenya
+	+make -C targets/quenya quenya
 spanish:
-	+make -C languages/spanish spanish
+	+make -C targets/spanish spanish
 swahili:
-	+make -C languages/swahili swahili
+	+make -C targets/swahili swahili
 world:
-	+make -C languages/world world
+	+make -C targets/world world
 
 install: uninstall
-	mkdir -p /usr/panini/languages
+	mkdir -p /usr/panini/targets
 	cp libpanini.a /usr/lib/
 	cp panini.h /usr/include
-	make -C languages/ainu install
-	make -C languages/algonquian install
-	make -C languages/czech install
-	make -C languages/english install
-	make -C languages/japanese install
-	make -C languages/nahuatl install
-	make -C languages/pp install
-	make -C languages/quenya install
-	make -C languages/spanish install
-	make -C languages/swahili install
-	make -C languages/world install
+	make -C targets/ainu install
+	make -C targets/algonquian install
+	make -C targets/czech install
+	make -C targets/english install
+	make -C targets/japanese install
+	make -C targets/nahuatl install
+	make -C targets/pp install
+	make -C targets/quenya install
+	make -C targets/spanish install
+	make -C targets/swahili install
+	make -C targets/world install
 
 uninstall:
 	rm -rf /usr/panini
@@ -127,16 +127,16 @@ clean:
 	make -C tools/learn clean
 	make -C tools/ekan clean
 	make -C tools/sword clean
-	make -C languages/ainu clean
-	make -C languages/algonquian clean
-	make -C languages/czech clean
-	make -C languages/english clean
-	make -C languages/japanese clean
-	make -C languages/nahuatl clean
-	make -C languages/pp clean
-	make -C languages/quenya clean
-	make -C languages/spanish clean
-	make -C languages/swahili clean
+	make -C targets/ainu clean
+	make -C targets/algonquian clean
+	make -C targets/czech clean
+	make -C targets/english clean
+	make -C targets/japanese clean
+	make -C targets/nahuatl clean
+	make -C targets/pp clean
+	make -C targets/quenya clean
+	make -C targets/spanish clean
+	make -C targets/swahili clean
 
 # Git commands might be useful to have in a Makefile.
 pull:

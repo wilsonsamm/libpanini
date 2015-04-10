@@ -5,7 +5,7 @@
 #include "read.h"
 #include "reading.h"
 
-#define PATHTOENGLISH "/languages/english/english"
+#define PATHTOENGLISH "/targets/english/english"
 
 monad * pmonad;
 /* 

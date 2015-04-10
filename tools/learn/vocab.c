@@ -10,10 +10,10 @@ char * lang1;
 char * lang2;
 
 char * path_to_language(char * lang) {
-	char * fn = malloc(strlen(getenv("PANINI")) + strlen("/languages/") + \
+	char * fn = malloc(strlen(getenv("PANINI")) + strlen("/targets/") + \
 	                  (strlen(lang) *2) + 2);
 	strcpy(fn, getenv("PANINI"));
-	strcat(fn, "/languages/");
+	strcat(fn, "/targets/");
 	strcat(fn, lang);
 	strcat(fn, "/");
 	strcat(fn, lang);
