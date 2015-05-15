@@ -61,8 +61,8 @@ list * learn_namespace(monad * m, char * nsname) {
 		if(list_contains(ns, varname))
 			list_append_token(instr, varname);
 		
-		/* If the namespace contains a positive binding, something like
-		 * (seme -variable-name), then append that to the instruction */
+		/* If the namespace contains a negative binding, something like
+		 * (seme -variablename), then append that to the instruction */
 		if(list_contains_neg(ns, varname)) {
 			char * neg = malloc(strlen(varname) + 2);
 			strcpy(neg, "-");

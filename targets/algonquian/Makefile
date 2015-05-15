@@ -6,4 +6,4 @@ clean:
 	rm -f algonquian core
 
 install:
-	cp algonquian /usr/panini/languages
+	cp algonquian /usr/panini/targets

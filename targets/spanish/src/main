@@ -1,9 +1,0 @@
-(load pp-out)
-(load vocab-out)
-
-(include verbstem)
-(include nouns)
-(include phonotactics)
-
-(df defparam)
-

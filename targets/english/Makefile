@@ -11,4 +11,4 @@ clean:
 	rm -f english core bootstrap.out src/bootstrap
 
 install:
-	cp english /usr/panini/languages
+	cp english /usr/panini/targets

@@ -6,4 +6,4 @@ clean:
 	rm -f pp core
 
 install:
-	cp pp /usr/panini/languages
+	cp pp /usr/panini/targets

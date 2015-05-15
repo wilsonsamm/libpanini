@@ -8,8 +8,8 @@ main.o: main.c
 check.o: check.c
 	gcc $(CCOPTS) -o check.o check.c
 
-close.o: close.c
-	gcc $(CCOPTS) -o close.o close.c
+#close.o: close.c
+#	gcc $(CCOPTS) -o close.o close.c
 
 ontology.o: ontology.c
 	gcc $(CCOPTS) -o ontology.o ontology.c

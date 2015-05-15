@@ -18,6 +18,7 @@
 #define TAG     64 // Can we use (tag...) to attest?
 #define RECORD 128 // Should we record each segment as we process it?
 
+
 void learn_tag(monad * m);
 void guess_segments(monad * m);
 void monad_learn_open(monad * m);

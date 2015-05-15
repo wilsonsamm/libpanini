@@ -103,7 +103,6 @@ install: uninstall
 	make -C targets/nahuatl install
 	make -C targets/pp install
 	make -C targets/quenya install
-	make -C targets/spanish install
 	make -C targets/swahili install
 	make -C targets/world install
 
@@ -135,7 +134,6 @@ clean:
 	make -C targets/nahuatl clean
 	make -C targets/pp clean
 	make -C targets/quenya clean
-	make -C targets/spanish clean
 	make -C targets/swahili clean
 
 # Git commands might be useful to have in a Makefile.

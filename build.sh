@@ -58,11 +58,10 @@ make $MAKEOPTS english
 make $MAKEOPTS world
 
 # And then build the rest of languages.
-if [ 1 == "$PANINI_AI" ]; then make $MAKEOPTS ainu; fi
-if [ 1 == "$PANINI_AL" ]; then make $MAKEOPTS algonquian; fi
-if [ 1 == "$PANINI_CZ" ]; then make $MAKEOPTS czech; fi
-if [ 1 == "$PANINI_JP" ]; then make $MAKEOPTS japanese; fi
-if [ 1 == "$PANINI_AZ" ]; then make $MAKEOPTS nahuatl; fi
-if [ 1 == "$PANINI_QU" ]; then make $MAKEOPTS quenya; fi
-if [ 1 == "$PANINI_SP" ]; then make $MAKEOPTS spanish; fi
-if [ 1 == "$PANINI_SW" ]; then make $MAKEOPTS swahili; fi
+make $MAKEOPTS ainu
+make $MAKEOPTS algonquian
+make $MAKEOPTS czech
+make $MAKEOPTS japanese
+make $MAKEOPTS nahuatl
+make $MAKEOPTS quenya
+make $MAKEOPTS swahili

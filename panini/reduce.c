@@ -67,7 +67,7 @@ int reduce_vars(monad * m, list * l, int * switches) {
 }
 
 int reduce(monad * m, list * l, int * switches) {
-	if(reduce_vars(m, l, switches)) return 1;
+	//if(reduce_vars(m, l, switches)) return 1;
 	if((*switches & INTEXT) && (reduce_lit_in(m, l))) return 1;
 	return 0;
 }

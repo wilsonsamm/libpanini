@@ -5,7 +5,16 @@
 #define THRESHOLD 20 /* How many times a monad will brake before it will buy the farm */
 
 /* The path where we'll find our files */
-#define FN_PATH	"/usr/panini/languages/"
+#define FN_PATH	"/usr/panini/targets/"
+
+#define COW_SCOPE   0
+#define COW_SANDHI  1
+#define COW_LANG    2
+#define COW_RECTION 3
+#define COW_SEME    4
+#define COW_THETA   5
+#define COW_CHECK	6
+
 
 /* The monad. I have put all the pointers at the beginning of the monad
  * so as to keep alignment problems from swelling up the amount of memory
@@ -17,8 +26,7 @@ typedef struct _monad {
 	int ralloc;
 	
 	list * namespace;	/* Variables can be bound in here. */
-	list * scopestack;	/* This keeps track of which scope we're currently in */
-	
+
 	char * outtext;		/* This is where the translation will be put */
 	char * intext;		/* This is where the original text should be */
 	int index;			/* How far through the intext have we already scanned ? */
@@ -26,6 +34,9 @@ typedef struct _monad {
 	int learned;		/* We will only ever learn one thing at a time. */
 	long padding;
 	struct _monad * child;		/* The linked list of spawned monads */
+
+	int cowallocs;
+	list * cow[8];
 
 	int alive;			/* Is the monad alive? */
 	int debug;
@@ -125,4 +136,8 @@ int kill_braked_monads(monad * m, int * c);
 
 void monad_child_tester(monad * m);
 void monad_kill_unfinished_intext(monad * m);
+
+
+list * monadcow_get(monad * m, int which);
+list * monadcow_copy(monad * m, int which);
 #endif

@@ -6,4 +6,4 @@ clean:
 	rm -f swahili core
 
 install:
-	cp swahili /usr/panini/languages
+	cp swahili /usr/panini/targets

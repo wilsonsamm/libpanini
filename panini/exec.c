@@ -83,7 +83,8 @@ void panini_segments(monad * m, int generate) {
 	
 	/* While parsing, we might need to append this to the (record) 
 	 */
-	list * record = list_find_list(m->namespace, "record");
+	list * record = 0;
+	if(m->namespace) record = list_find_list(m->namespace, "record");
 	if(record && generate == 0) list_append_token(record, segment);
 		
 	/* While generating, we might need to check that this is indeed the
@@ -115,7 +116,7 @@ void panini_segments(monad * m, int generate) {
 	list_append_copy(segments, m->command);
 	list_drop(segments, 2);
 	
-	if(!generate && list_find_list(m->namespace, "edit")) {
+	if(!generate && m->namespace && list_find_list(m->namespace, "edit")) {
 	/* Also, try not calling the segment, but decreasing the edit 
 	 * distance. */
 		list * edit1 = list_append_list(spawn);

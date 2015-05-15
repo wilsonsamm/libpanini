@@ -10,27 +10,16 @@ export PANINI=$(pwd)/
 # These are the compilers to use for plain C, and C++
 #export CCOMPILER="clang"
 export CCOMPILER="gcc"
-export CXXCOMPILER="clang"
-#export CXXCOMPILER="g++"
+#export CXXCOMPILER="clang"
+export CXXCOMPILER="g++"
 
 # These are the options that will be passed to the compiler.
-#export CCOPTS="-ggdb -Wall -c"
-export CCOPTS="-fopenmp -Wall -c"
+export CCOPTS="-ggdb -Wall -c"
+#export CCOPTS="-fopenmp -Wall -c"
 
 # These are the options that will be passed to make.
 export MAKEOPTS="-j4 --quiet --no-print-directory"
 #export MAKEOPTS="-j4"
-
-# Select which language module you want to build. If you don't care about a
-# particular language module, you can set the variable to zero here.
-export PANINI_AI=1	# Ainu
-export PANINI_AL=1	# Algonquian (includes Cree, Ojibwe, etc.)
-export PANINI_CZ=1	# Czech
-export PANINI_JP=1	# Japanese
-export PANINI_AZ=1	# Nahuatl (aka. Aztec)
-export PANINI_QU=1	# Quenya
-export PANINI_SP=1	# Spanish
-export PANINI_SW=1	# Swahili
 
 # If you have EDICT and KANJIDIC installed, then ekan can use them to learn some
 # important Japanese phrases, words and symbols. Uncomment this following line

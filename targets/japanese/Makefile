@@ -18,4 +18,4 @@ clean:
 	rm -f edict kanjidic edict.txt kanjidic.txt src/ekan
 
 install:
-	cp japanese /usr/panini/languages
+	cp japanese /usr/panini/targets

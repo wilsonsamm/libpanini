@@ -1,7 +1,0 @@
-; nounstem is something you can define to say "this is the semantically
-; significant part of the noun",
-(df noun
-	(open noun
-		(segments 8)
-		(seme head gender number)
-		(rection gender number)))

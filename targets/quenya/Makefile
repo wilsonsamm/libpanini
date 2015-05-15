@@ -6,4 +6,4 @@ clean:
 	rm -f quenya core
 
 install:
-	cp quenya /usr/panini/languages
+	cp quenya /usr/panini/targets

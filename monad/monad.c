@@ -12,7 +12,6 @@ monad * monad_new() {
 	m->ralloc = 0;
 	m->alive = 1;
 	m->namespace = 0;
-	m->scopestack = 0;
 	m->stack = 0;
 	m->child = 0;
 	m->command = 0;
@@ -30,6 +29,16 @@ monad * monad_new() {
 	m->outtext = 0;
 	m->parent_id = 0;
 
+	m->cowallocs = 0;
+	m->cow[0] = 0;
+	m->cow[1] = 0;
+	m->cow[2] = 0;
+	m->cow[3] = 0;
+	m->cow[4] = 0;
+	m->cow[5] = 0;
+	m->cow[6] = 0;
+	m->cow[7] = 0;
+
 	return m;
 }
 
@@ -40,22 +49,21 @@ monad * monad_duplicate(monad * m) {
 		m = m->child;
 		if(!m) return 0;
 	}
-	
+
 	monad * n = monad_new();
 	n->rules = m->rules;
 	n->ralloc = 0;
 	n->alive = m->alive;
 	n->namespace = list_new();
 	if(m->namespace) list_append_copy(n->namespace, m->namespace);
-	n->scopestack = list_new();
-	if(m->scopestack) list_append_copy(n->scopestack, m->scopestack);
+	
 	n->stack = list_new();
 	if(m->stack) list_append_copy(n->stack, m->stack);
 	n->command = list_new();
 	if(m->command) list_append_copy(n->command, m->command);
-	
+
 	n->id = m->id;
-	
+
 	if(m->outtext) n->outtext = strdup(m->outtext);
 	n->index = m->index;
 	n->trace = m->trace;
@@ -65,6 +73,16 @@ monad * monad_duplicate(monad * m) {
 	n->brake = m->brake;
 	n->learned = m->learned;
 	n->child = 0; 
+
+	n->cow[0] = m->cow[0];
+	n->cow[1] = m->cow[1];
+	n->cow[2] = m->cow[2];
+	n->cow[3] = m->cow[3];
+	n->cow[4] = m->cow[4];
+	n->cow[5] = m->cow[5];
+	n->cow[6] = m->cow[6];
+	n->cow[7] = m->cow[7];
+
 	return n;
 }
 
@@ -90,7 +108,6 @@ void monad_free(monad * m) {
 		if(m->ralloc) list_free(m->rules);
 		if(m->outtext)	free(m->outtext);
 		if(m->namespace)	list_free(m->namespace);
-		if(m->scopestack)	list_free(m->scopestack);
 		if(m->stack)	list_free(m->stack);
 
 		monad * tmp = m->child;
@@ -182,13 +199,15 @@ void print_debugging_info(monad * m) {
 	} else {
 		printf("This monad has no stack.");
 	}
-	printf("\nNamespace: ");
-	if(m->namespace) list_prettyprinter(m->namespace);
+	print_ns(m, (void*)0);
+	
 	printf("\n");
 	printf("Intext: (%d) \"%s\"\n", m->index, m->intext);
 	printf("Outtext: \"%s\"\n", m->outtext);
+
 	printf("Scopestack:");
-	if(m->scopestack) list_prettyprinter(m->scopestack);
+	list_prettyprinter(monadcow_get(m, COW_SCOPE));
+	
 	if(m->adjunct) printf("Adjuncts starting from monad %d\n", m->adjunct->id);
 	printf("\nParent: %d\n", m->parent_id);
 }
@@ -313,7 +332,6 @@ void monad_unlink_dead(monad * m, monad * end) {
 		if(n->command)	 list_free(n->command);
 		if(n->stack)	 list_free(n->stack);
 		if(n->namespace) list_free(n->namespace);
-		if(n->scopestack)list_free(n->scopestack);
 		if(n->outtext)   free(n->outtext);
 
 		monad * tmp = n->child;
@@ -360,5 +378,50 @@ void monad_kill_unfinished_intext(monad * m) {
 	while(m) {
 		if(m->intext[m->index] != '\0') m->alive = 0;
 		m = m->child;
+	}
+}
+
+list * monadcow_get(monad * m, int which) {
+	if(m->cow[which] == 0) {
+		m->cow[which] = list_new();
+		m->cowallocs |= (1 << which);
+	}
+	return m->cow[which];
+}
+
+list * monadcow_copy(monad * m, int which) {
+	/* the cowallocs member keeps track of what's allocated where. */
+
+	/* If the requested list structure is already allocated, then just return
+	 * it. */
+	if((1 << which) & m->cowallocs) {
+		return m->cow[which];
+	}
+
+	/* Otherwise, copy it to this monad, and then mark it as allocated
+	 * before returning the list. */
+	else {
+		list * tmp = list_new();
+		if(m->cow[which]) list_append_copy(tmp, m->cow[which]);
+		m->cow[which] = tmp;
+		m->cowallocs |= (1 << which);
+		return m->cow[which];
+	}
+}
+
+
+void monadcow_delete(monad * m, int which) {
+	/* the cowallocs member keeps track of what's allocated where. */
+
+	/* If the requested list structure is not allocated, then just set the
+	 * pointer to NULL. */
+	if((1 << which) & m->cowallocs) {
+		m->cow[which] = 0;
+	}
+
+	/* Otherwise, copy it to this monad, and then mark it as allocated
+	 * before returning the list. */
+	else {
+		m->cow[which] = 0;
 	}
 }

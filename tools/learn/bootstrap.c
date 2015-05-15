@@ -34,15 +34,23 @@ int parsesection(FILE * fp) {
 		monad * m = monad_new();
 		monad_rules(m, "./english");
 
+		char * sexec = malloc(2048);
+		strcpy(sexec, "(seme (head ");
+		strcat(sexec, btext);
+		strcat(sexec, ")");
+		
+
 		char * bexec = malloc(2048);
-		strcpy(bexec, "(language (norm british)) (seme (head ");
-		strcat(bexec, btext);
-		strcat(bexec, "))(call bootstrap-");
+		strcpy(bexec, "(language (norm british)) (call bootstrap-");
 		strcat(bexec, boot);
 		strcat(bexec, ")");
 
 		char * aexec = malloc(80);
 		strcpy(aexec, "(language (norm american)) (recorded-segments)");
+
+		/* Set up the (seme ...) namespace so that the meaning may be picked up
+		 * by the learning subroutines. */
+		panini_parse(m, sexec, "", 0, 0, 10);
 
 		/* Generate all possible segmentations of the word, in British and
 		 * American spellings */

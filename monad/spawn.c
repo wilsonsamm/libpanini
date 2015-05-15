@@ -20,11 +20,15 @@ monad * monad_copy_one(monad * m) {
 		child->namespace = list_new();
 		list_append_copy(child->namespace, m->namespace);
 	}
-	
-	if(m->scopestack) {
-		child->scopestack = list_new();
-		list_append_copy(child->scopestack, m->scopestack);
-	}
+
+	child->cow[0] = m->cow[0];
+	child->cow[1] = m->cow[1];
+	child->cow[2] = m->cow[2];
+	child->cow[3] = m->cow[3];
+	child->cow[4] = m->cow[4];
+	child->cow[5] = m->cow[5];
+	child->cow[6] = m->cow[6];
+	child->cow[7] = m->cow[7];
 	
 	if(child->outtext) {
 		free(child->outtext);

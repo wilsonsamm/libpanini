@@ -6,4 +6,4 @@ clean:
 	rm -f nahuatl core
 
 install:
-	cp nahuatl /usr/panini/languages
+	cp nahuatl /usr/panini/targets

@@ -1,6 +1,0 @@
-; Last, when all the learning is finished, we'll compile this file instead of
-; main. That will ensure that when using the spanish module, instead of calling
-; the  Principles & Parameters routines, we'll call the thing called sentence.
-
-(include main)
-(df main (call sentence) (call punctuation sentence-final))

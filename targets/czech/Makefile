@@ -29,4 +29,4 @@ clean:
 	rm -f CzeBKR CzeKMS stage1
 
 install:
-	cp czech /usr/panini/languages
+	cp czech /usr/panini/targets

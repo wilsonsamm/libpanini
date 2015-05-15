@@ -47,20 +47,20 @@ list * enter_scope(list * namespace, list * scopelist, int create, int debug) {
  * namespace if it does not exist, and then return it.
  */
 list * get_namespace(monad * m, char * nsname, int create) {
-	list * namespace;
+
+	/* Unscoped namespaces */
+	if(!strcmp(nsname, "language")) return monadcow_copy(m, COW_LANG);
+	if(!strcmp(nsname, "sandhi"))   return monadcow_copy(m, COW_SANDHI);
+	if(!strcmp(nsname, "check"))    return monadcow_copy(m, COW_CHECK);
+
+	/* Scoped namespaces */
+	list * scopestack = monadcow_get(m, COW_SCOPE);
 	
-	if(!m->namespace)  m->namespace  = list_new();
-	if(!m->scopestack) m->scopestack = list_new();
-	
-	if(!(namespace = list_find_list(m->namespace, nsname))) {
-		namespace = list_append_list(m->namespace);
-		list_append_token(namespace, nsname);
-	}
-	
-	if(!strcmp(nsname, "language")) return namespace;
-	if(!strcmp(nsname, "sandhi")) return namespace;
-	
-	return enter_scope(namespace, m->scopestack, create, m->debug);
+	list * namespace = 0;
+	if(!strcmp(nsname, "rection"))  namespace = monadcow_copy(m, COW_RECTION);
+	if(!strcmp(nsname, "seme"))     namespace = monadcow_copy(m, COW_SEME);
+	if(!strcmp(nsname, "theta"))    namespace = monadcow_copy(m, COW_THETA);
+	if(namespace) return enter_scope(namespace, scopestack, create, m->debug);
 	
 	return namespace;
 }

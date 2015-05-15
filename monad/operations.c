@@ -52,7 +52,29 @@ int print_out(monad * m, FILE * fp) {
 
 int print_ns(monad * m, void * nothing) {
 	printf("\nMonad %d:\nBRAKE: %d\nCONFIDENCE: %d\n", m->id, m->brake, m->confidence);
-	list_prettyprinter(m->namespace);
+
+	list * seme = monadcow_get(m, COW_SEME);
+	if(seme) {
+		printf("SEME ");
+		list_prettyprinter(seme);
+	}
+
+	list * rection = monadcow_get(m, COW_RECTION);
+	if(rection) {
+		printf("\nRECTION ");
+		list_prettyprinter(rection);
+	}
+
+	list * theta = monadcow_get(m, COW_THETA);
+	if(theta) {
+		printf("\nTHETA ");
+		list_prettyprinter(theta);
+	}
+
+	if(m->namespace) {
+		printf("\nNamespace: ");
+		list_prettyprinter(m->namespace);
+	}
 	printf("\n");
 	return 0;
 }
@@ -65,6 +87,9 @@ int print_seme(monad * m, void * nothing) {
 
 int remove_ns(monad * m, char * n) {
 	if(m->namespace) list_remove(m->namespace, n);
+	if(!strcmp(n, "seme")) monadcow_delete(m, COW_SEME);
+	if(!strcmp(n, "rection")) monadcow_delete(m, COW_RECTION);
+	if(!strcmp(n, "theta")) monadcow_delete(m, COW_THETA);
 	return 0;
 }
 int kill_least_confident(monad * m, void * nothing) {

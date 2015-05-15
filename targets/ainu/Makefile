@@ -6,4 +6,4 @@ clean:
 	rm -f ainu core
 
 install:
-	cp ainu /usr/panini/languages
+	cp ainu /usr/panini/targets

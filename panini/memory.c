@@ -21,13 +21,12 @@ void mem_begin(monad * m, char * memname) {
 	list_append_token(flashbulb, memname);
 	list * scope = list_append_list(flashbulb);
 	list_append_token(scope, "scope");
-	list_append_copy(scope, m->scopestack);
+	list_append_copy(scope, monadcow_copy(m, COW_SCOPE));
 	
 	if(m->debug) {
 		printf("Here are the current memory regions: ");
 		list_prettyprinter(memory);
 	}
-		
 }
 
 /* This block of code ends the life of a flashbulb with a particular name, by deleting the last one so called from the list of 
@@ -54,6 +53,11 @@ void mem_end(monad *m, char * memname) {
 void recall(monad * m, char * memname) {
 	list * flashbulb = 0;
 	int i;
+	
+	if(!m->namespace) {
+		m->alive = 0;
+		return;
+	}
 	
 	list * memory = list_find_list(m->namespace, "memory");
 	if(!memory) {

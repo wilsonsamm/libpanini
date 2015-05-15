@@ -20,5 +20,5 @@
 
 (df main
 	(call cp)
-	(fullstop))
+	(lit .))
 

@@ -41,6 +41,7 @@ int panini_despatch(monad * m, int * switches) {
 	/* (all-caps)
 	 * unimplemented for now. */
 	if(!strcmp(command, "all-caps")) {
+		m->alive = 0;
 		post_pc(m);
 		return 1;
 	}
@@ -204,7 +205,7 @@ int panini_despatch(monad * m, int * switches) {
 	/* (sandhiblock) 
 	 * Removes any sandhi information. */
 	if(!strcmp(command, "sandhiblock")) {
-		list_remove(m->namespace, "sandhi");
+		monadcow_delete(m, COW_SANDHI);
 		post_pc(m);
 		return 1;
 	}
@@ -258,11 +259,7 @@ int panini_despatch(monad * m, int * switches) {
 	}
 	
 	/* Is the command one of the ones deals with memory? */
-	if(tranny_memory(m, command)) return 1;
-	
-	/* Is the command one of the ones that binds variables? */
-//	if( (*switches & CR_SEME) && (tranny_binders(m, 1))) return 1;
-//	if(!(*switches & CR_SEME) && (tranny_binders(m, 0))) return 1;
+	//if(tranny_memory(m, command)) return 1;
 	
 	printf("No such command as %s.\n", command);
 
