@@ -80,8 +80,11 @@ int print_ns(monad * m, void * nothing) {
 }
 
 int print_seme(monad * m, void * nothing) {
-	list * s = list_find_list(m->namespace, "seme");
+	list * s = list_new();
+	list_append_token(s, "seme");
+	list_append_copy(s, monadcow_get(m, COW_SEME));
 	list_prettyprinter(s);
+	list_free(s);
 	return 0;
 }
 

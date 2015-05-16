@@ -68,22 +68,23 @@ int main(int argc, char **argv)
 	source = library.getModule(argv[2]);
 	if (!source) {
 		fprintf(stderr, "sword/query could not find [%s].\n", argv[2]);
-		exit(-1);
+		exit(1);
 	}
 
 	target = library.getModule(argv[4]);
 	if (!target) {
 		fprintf(stderr, "sword/query could not find [%s].\n", argv[4]);
-		exit(-1);
+		exit(1);
 	}
 
 	std:cout << endl;
 	
 	/* Ideal verses for learning a language may be listed below. I have chosen
 	 * some that consist of fairly simple sentences or fragments, to increase
-	 * the chance that the source text may be understood by the Panini language
-	 * module (because only then may something be learned from it)
-	 */
+	 * the chance that the source text may be parsed by the Panini target
+	 * (because only then may something be learned from it)
+	 * These verses are chosen for their syntactic simplicity; you can add as
+	 * many as you wish. */
 
 	verse(argv[1], source, argv[3], target, "Matthew 6:11");
 	verse(argv[1], source, argv[3], target, "Matthew 7:18");
@@ -91,8 +92,6 @@ int main(int argc, char **argv)
 	verse(argv[1], source, argv[3], target, "Psalm 56:3");
 	verse(argv[1], source, argv[3], target, "1 Thessalonians 5:16");
 	verse(argv[1], source, argv[3], target, "Deuteronomy 5:19");
-	/* These verses are chosen for their syntactic simplicity; you can add as
-	 * many as you wish. */
 	
 	return 0;
 }

@@ -67,10 +67,6 @@ int df(list * command, list * input, list * output, char * outfn) {
 	for(i = 1; i <= command->length; i++) {
 		list * instr = list_get_list(command, i);
 		if(instr) list_append_copy(list_append_list(rule), instr);
-		if(instr && !strcmp(list_get_token(instr, 1), "lit")) {
-			list * sandhi = list_append_list(rule);
-			list_append_token(sandhi, "sandhi");
-		}
 	}
 	
 	retval = define(name, rule, output, outfn);

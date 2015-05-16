@@ -84,6 +84,13 @@ int check_wronginstruction(list * output) {
 			if(!instr) continue;
 			char * iname; // name of the instruction
 			iname = list_get_token(instr, 1);
+
+			if(!iname) {	
+				fprintf(stderr, "\tWhat is this?\n");
+				fprintf(stderr, "\tA definition of %s has an ", name);
+				fprintf(stderr, "instruction [NULL].\n");
+			}
+			
 			if(!strcmp(iname, "into")) iname = list_get_token(instr, 3);
 			if(!strcmp(iname, "lit")) continue;
 			if(!strcmp(iname, "flags")) continue;
@@ -109,10 +116,10 @@ int check_wronginstruction(list * output) {
 			if(!strcmp(iname, "segments")) continue;
 			if(!strcmp(iname, "call")) continue;
 			if(!strcmp(iname, "sandhiblock")) continue;
-			if(!strcmp(iname, "kill-flashbulb")) continue;
-			if(!strcmp(iname, "flashbulb")) continue;
-			if(!strcmp(iname, "remember")) continue;
-			if(!strcmp(iname, "recall")) continue;
+			//if(!strcmp(iname, "kill-flashbulb")) continue;
+			//if(!strcmp(iname, "flashbulb")) continue;
+			//if(!strcmp(iname, "remember")) continue;
+			//if(!strcmp(iname, "recall")) continue;
 			if(!strcmp(iname, "record")) continue;
 			if(!strcmp(iname, "phrase")) continue;
 			if(!strcmp(iname, "tag")) continue;

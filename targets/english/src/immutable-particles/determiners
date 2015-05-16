@@ -1,21 +1,14 @@
 (df determiner
-	(recall determiner))
-
-(df determiner
 	(seme -owner)
 	(lit that) (segments space)
 	(seme definite (spatiodeixis distal))
-	(rection (definition definite))
-	(remember determiner
-		(todo (seme definite (spatiodeixis distal)) (rection (definition definite)))))
+	(rection (definition definite)))
 
 (df determiner
 	(seme -owner)
 	(lit the) (segments space)
 	(seme definite)
-	(rection (definition definite))
-	(remember determiner
-		(todo (seme definite) (rection (definition definite)))))
+	(rection (definition definite)))
 
 (df determiner
 	(seme -owner)
@@ -23,40 +16,32 @@
 		((lit a) (segments space) (sandhi -vowel))
 		((lit an) (segments space) (sandhi vowel)))
 	(seme -definite (number singular))
-	(rection (definition indefinite) countable)
-	(remember determiner
-		(todo (seme -definite (number singular)) (rection (definition indefinite) countable))))
+	(rection (definition indefinite) countable))
 
 (df determiner
 	(seme -owner)
 	(rection countable)
 	(seme -definite (number plural))
-	(rection (definition indefinite))
-	(remember determiner (todo (seme -definite (number plural)) (rection (definition indefinite)))))
+	(rection (definition indefinite)))
 	
 (df determiner
 	(seme -owner)
 	(rection -countable)
 	(seme -definite (number singular))
-	(rection (definition indefinite))
-	(remember determiner (todo (seme -definite (number singular)) (rection (definition indefinite)))))
+	(rection (definition indefinite)))
 
 (df determiner
 	(lit my) (segments space)
-	(into (theta possessive) seme (head referential) (person first) (number singular))
-	(remember determiner (todo (into (theta possessive) seme (head referential) (person first)))))
+	(into (theta possessive) seme (head referential) (person first) (number singular)))
 
 (df determiner
 	(lit your) (segments space)
-	(into (theta possessive) seme (head referential) (person second) (number singular))
-	(remember determiner (todo (into (theta possessive) seme (head referential) (person second)))))
+	(into (theta possessive) seme (head referential) (person second) (number singular)))
 
 (df determiner
 	(lit his) (segments space)
-	(into (theta possessive) seme (head referential) (person third) (number singular) (gender male))
-	(remember determiner (todo (into (theta possessive) seme (head referential) (person third) (number singular) (gender male)))))
+	(into (theta possessive) seme (head referential) (person third) (number singular) (gender male)))
 
 (df determiner
 	(lit her) (segments space)
-	(into (theta possessive) seme (head referential) (person third) (number singular) (gender female))
-	(remember determiner (todo (into (theta possessive) seme (head referential) (person third) (number singular) (gender female)))))
+	(into (theta possessive) seme (head referential) (person third) (number singular) (gender female)))
