@@ -44,7 +44,9 @@ make $MAKEOPTS -C tools/pcomp pcomp
 echo Building the machine learning tools.
 make $MAKEOPTS -C tools/learn
 echo Building the EDICT and KANJIDIC importer.
-make $MAKEOPTS -C tools/ekan  ekan
+make $MAKEOPTS -C tools/ekan ekan
+echo Building the interface to WordNet.
+make $MAKEOPTS -C tools/wn
 
 if [ $PP_SWORD -eq 1 ]; then
 	echo Building the SWORD API interface.

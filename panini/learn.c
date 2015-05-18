@@ -131,7 +131,7 @@ void monad_learn_open(monad * m, int * switches) {
 	}
 	
 	if(m->debug) {
-		printf("this monad%d  has had debugging turned on.\n", m->id);
+		printf("this monad %d has had debugging turned on.\n", m->id);
 	}
 	/* Check that this monad has not yet learned anything else */
 	if(m->learned) {
@@ -146,28 +146,21 @@ void monad_learn_open(monad * m, int * switches) {
 	char * symb = list_get_token(m->command, 2);
 	list * deff = list_find_list(m->rules, symb);
 	if(deff && list_contains(deff, "closed")) {
+		if(m->debug) {
+			printf("this monad will die because it's been set to open a ");
+			printf("definition of %s,\n", symb);
+			printf("which has already been marked as closed.\n");
+		}
 		m->alive = 0;
 		return;
-	}
-	
-	/* We can't learn anything if there is no namespace. In that case, 
-	 * then, the monad will just die.
-	 */
-	if(!m->namespace) {
-		m->alive = 0;
-		return;
-	}
-
-	/* Make sure we record all the segments we guess for this. */
-	list * record = list_find_list(m->namespace, "record");
-	if(!record) {
-		record = list_append_list(m->namespace);
-		list_append_token(record, "record");
 	}
 	
 	/* Guess a segment if we need to */
 	list * segments = list_find_list(m->command, "segments");
 	if(segments) {
+		if(m->debug) {
+			printf("guessing another segment\n ");
+		}
 		int i = atoi(list_get_token(segments, 2)) - 1;
 		if(i > 0) {
 
@@ -209,7 +202,7 @@ void monad_learn_open(monad * m, int * switches) {
 	}
 	list * alos = list_find_list(m->command, "at-least-one-segment");
 	if(alos) {
-		list * record = list_find_list(m->namespace, "record");
+		list * record = get_namespace(m, "record", 0);
 		if(record->length == 1) {
 			m->alive = 0;
 			return;
@@ -234,8 +227,8 @@ void monad_learn_open(monad * m, int * switches) {
 	
 	list * segs = list_append_list(df);
 	list_append_token(segs, "segments");
-	list_append_copy(segs, list_find_list(m->namespace, "record"));
-	list_drop(segs, 2);
+	list_append_copy(segs, get_namespace(m, "record", 0));
+	//list_drop(segs, 2);
 	if(segments && segs->length == 1) {
 		m->alive = 0;
 		list_free(df);
@@ -291,4 +284,40 @@ void learn_tag(monad * m) {
 	m->outtext = realloc(m->outtext, newlen);
 	strcat(m->outtext, out);
 	m->brake++;
+}
+
+/* This function has been especially written so that semantic primes may be
+ * automatically bootstrapped. This means, that suppose you come across some as
+ * yet unknown word, in some input, then it will be bound to the (head ...)
+ * variable, and then picked up by some (open ...) routine which will generate
+ * the dictionary definition.
+ */
+void learn_bootstrap(monad * m) {
+
+	char word[1024];
+
+	/* Find the next word in the input, skipping whitespace and punctuation */
+	int i;
+	for(i = 0; i<1024; i++) {
+		if(m->index + i > strlen(m->intext)) break;
+		char ch = m->intext[m->index];
+		if(ch == ' ') break;
+		if(ch == '.') break;
+		if(ch == ',') break;
+		if(ch == '?') break;
+		if(ch == '!') break;
+		word[i] = ch;
+		m->index++;
+	}
+	word[i] = '\0'; /* null-termination */
+
+	list * rule = list_new();
+	list * seme = list_append_list(rule);
+	list_append_token(seme, "seme");
+	list * head = list_append_list(seme);
+	list_append_token(head, "head");
+	list_append_token(head, word);
+
+	m->brake++;
+	monad_join(m, monad_spawn(m, rule, 0));
 }

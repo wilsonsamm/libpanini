@@ -72,26 +72,42 @@ int parsesection(FILE * fp) {
 		progpc(NONE, 0);
 		
 		monad * m = monad_new();
-		monad_rules(m, fn1);
+
+		if(strcmp(lang1, "head")) {
+			monad_rules(m, fn1);
 		
-		if(!panini_parse(m, exec1, text1, 0, 0, 5)) {
+			if(!panini_parse(m, exec1, text1, 0, 0, 5)) {
+				progpc(SAD, 0);
+				free(text1);
+				free(text2);
+				monad_free(m);
+				nextline(fp);
+				continue;
+			}
+		} else {
+			char exec[2048];
+			strcpy(exec, "(seme (head ");
+			strcat(exec, text2);
+			strcat(exec, "))");
+			
+			panini_parse(m, exec, "", 0, 0, 1);
+			panini_parse(m, exec1, "", 0, 0, 1);
+		}
+
+		/* Prepare the monads for generation */
+		monad_map(m, remove_ns, "rection", -1);
+		monad_map(m, remove_ns, "record", -1);
+		monad_map(m, remove_ns, "theta", -1);
+		
+		progpc(HAPPY, 0);
+		monad_rules(m, fn2);
+		
+		if(!panini_learnvocab(m, exec2, outfile, text2, 20)) {
 			progpc(SAD, 0);
 		} else {
-			
-			/* Prepare the monads for generation */
-			monad_map(m, remove_ns, "rection", -1);
-			monad_map(m, remove_ns, "record", -1);
-			monad_map(m, remove_ns, "theta", -1);
-			
-			progpc(HAPPY, 0);
-			monad_rules(m, fn2);
-			
-			if(!panini_learnvocab(m, exec2, outfile, text2, 20)) {
-				progpc(SAD, 0);
-			} else {
-				progpc(DOTS, 0);
-			}
-		} 
+			progpc(DOTS, 0);
+		}
+		 
 
 		free(text1);
 		free(text2);

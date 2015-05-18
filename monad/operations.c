@@ -24,7 +24,7 @@ int set_intext(monad * m, char * n) {
 
 int set_stack(monad * m, char * stack) {
 	if(m->stack) list_free(m->stack);
-	
+
 	if(m->command) list_free(m->command);
 
 	m->stack = list_new();
@@ -38,7 +38,7 @@ int set_seme(monad * m, char * seme) {
 	list_remove(m->namespace, "seme");
 	list * s = list_append_list(m->namespace);
 	list_append_token(s, "seme");
-	
+
 	list_tokenise_chars(s, seme);
 
 	return 0;
@@ -71,6 +71,12 @@ int print_ns(monad * m, void * nothing) {
 		list_prettyprinter(theta);
 	}
 
+	list * language = monadcow_get(m, COW_LANG);
+	if(language) {
+		printf("\nLANGUAGE ");
+		list_prettyprinter(language);
+	}
+
 	if(m->namespace) {
 		printf("\nNamespace: ");
 		list_prettyprinter(m->namespace);
@@ -93,6 +99,7 @@ int remove_ns(monad * m, char * n) {
 	if(!strcmp(n, "seme")) monadcow_delete(m, COW_SEME);
 	if(!strcmp(n, "rection")) monadcow_delete(m, COW_RECTION);
 	if(!strcmp(n, "theta")) monadcow_delete(m, COW_THETA);
+	if(!strcmp(n, "language")) monadcow_delete(m, COW_LANG);
 	return 0;
 }
 int kill_least_confident(monad * m, void * nothing) {
@@ -153,28 +160,18 @@ int kill_less_confident(monad * m, int * c) {
 	if(m->confidence < *c) m->alive = 0;
 	return 0;
 }
-	
-// Put a (record) in each monad's namespace
-int append_record_ns(monad * m, void * nothing) {
-	if(m->namespace == 0) m->namespace = list_new();
-	if(!list_find_list(m->namespace, "record")) {
-		list * r = list_append_list(m->namespace);
-		list_append_token(r, "record");
-	}
-	return 0;
-}
-	
+
 // Set the edit distance
 int set_edit(monad * m, int * edit) {
 	char str[15];
 	sprintf(str, "%d", *(int*)edit);
-	
+
 	if(m->namespace == 0) m->namespace = list_new();
 	list_remove(m->namespace, "edit");
-	
+
 	list * editns = list_append_list(m->namespace);
 	list_append_token(editns, "edit");
 	list_append_token(editns, str);
-	
+
 	return 0;
 }

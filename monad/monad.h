@@ -14,6 +14,7 @@
 #define COW_SEME    4
 #define COW_THETA   5
 #define COW_CHECK	6
+#define COW_RECORD	7
 
 
 /* The monad. I have put all the pointers at the beginning of the monad
@@ -128,7 +129,6 @@ int print_out(monad * m, FILE * fp);
 int set_trace(monad * m, int * i);
 int kill_not_done(monad * m, void * nothing);
 int kill_least_confident(monad * m, void * nothing); // Kills monads except the most confident ones.
-int append_record_ns(monad * m, void * nothing);
 int max_confidence(monad * m, int * c);
 int min_brake(monad * m, int * c);
 int kill_less_confident(monad * m, int * c);

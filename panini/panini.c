@@ -30,7 +30,6 @@ int panini_despatch(monad * m, int * switches) {
 	}
 	
 	char * command = list_get_token(m->command, 1);
-
 	
 	if(!strcmp(command, "adjunct")) {
 		panini_call(m, 1, switches);
@@ -51,6 +50,19 @@ int panini_despatch(monad * m, int * switches) {
 	 * execution will stop for that monad. */
 	if(!strcmp(command, "brake")) {
 		m->brake++;
+		post_pc(m);
+		return 1;
+	}
+	
+	/* (bootstrap)
+	 * This function has been especially written so that semantic primes may be
+	 * automatically bootstrapped. This means, that suppose you come across some
+	 * as yet unknown word, in some input, then it will be bound to the
+	 * (head ...) variable, and then picked up by some (open ...) routine which
+	 * will generate the dictionary definition.
+	 */
+	if(!strcmp(command, "bootstrap-seme")) {
+		learn_bootstrap(m);
 		post_pc(m);
 		return 1;
 	}
@@ -174,7 +186,7 @@ int panini_despatch(monad * m, int * switches) {
 
 	if(!strcmp(command, "recorded-segments")) {
 		list_append_token(m->command, "segments");
-		list * record = list_find_list(m->namespace, "record");
+		list * record = get_namespace(m, "record", 0);
 		list * newstack = list_new();
 		list * next = list_append_list(newstack);
 		list_append_token(next, "segments");
@@ -273,7 +285,7 @@ int panini_parse(monad *m, char * commands, char * intext, int editdistance, int
 	int switches = CR_SEME | INTEXT;
 	
 	/* If we want to record the segments, then do so */
-	if(record) monad_map(m, append_record_ns, (void*)0, threshold);
+	if(record) switches |= RECORD;
 	
 	/* If we have to set some edit distance, then do so */
 	if(editdistance) monad_map(m, (int(*)(monad * m, void * argp))set_edit, &editdistance, threshold);
@@ -301,9 +313,6 @@ int panini_learnvocab(monad * m, char * commands, FILE * out, char * intext, int
 	
 	int retval;
 	int switches = INTEXT | L_OPEN;
-	
-	/* We want to record the segments */
-	monad_map(m, append_record_ns, (void*)0, threshold);
 
 	/* First, set the stack to contain the right instructions */
 	monad_map(m, (int(*)(monad * m, void * argp))set_stack, commands, threshold);
@@ -384,7 +393,7 @@ int panini_generate(monad *m, char * commands, int record, int threshold) {
 	int switches = OUTTEXT;
 	
 	/* If we want to record the segments, then do so */
-	if(record) monad_map(m, append_record_ns, (void*)0, threshold);
+	if(record) switches |= RECORD;
 	
 	/* First, set the stack to contain the right instructions */
 	monad_map(m, (int(*)(monad * m, void * argp))set_stack, commands, threshold);

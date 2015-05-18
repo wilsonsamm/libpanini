@@ -126,6 +126,7 @@ clean:
 	make -C tools/learn clean
 	make -C tools/ekan clean
 	make -C tools/sword clean
+	make -C tools/wn clean
 	make -C targets/ainu clean
 	make -C targets/algonquian clean
 	make -C targets/czech clean

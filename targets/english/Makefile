@@ -1,14 +1,13 @@
-english: bootstrap.out
+english: bootstrap
 	echo Compiling english.
 	$(PANINI)/tools/pcomp/pcomp -d src -i src/main -o english
 
-bootstrap.out:
-	$(PANINI)/tools/pcomp/pcomp -d src -i src/main -o english
-	$(PANINI)/tools/learn/bootstrap bootstrap.txt
-	cat bootstrap.out | sort | uniq > src/bootstrap
+bootstrap:
+	./bootstrap.sh > bootstrap
+	cat bootstrap | sort | uniq > src/bootstrap
 
 clean:
-	rm -f english core bootstrap.out src/bootstrap
+	rm -f english core src/bootstrap
 
 install:
 	cp english /usr/panini/targets

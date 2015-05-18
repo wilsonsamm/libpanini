@@ -52,6 +52,7 @@ list * get_namespace(monad * m, char * nsname, int create) {
 	if(!strcmp(nsname, "language")) return monadcow_copy(m, COW_LANG);
 	if(!strcmp(nsname, "sandhi"))   return monadcow_copy(m, COW_SANDHI);
 	if(!strcmp(nsname, "check"))    return monadcow_copy(m, COW_CHECK);
+	if(!strcmp(nsname, "record"))   return monadcow_copy(m, COW_RECORD);
 
 	/* Scoped namespaces */
 	list * scopestack = monadcow_get(m, COW_SCOPE);

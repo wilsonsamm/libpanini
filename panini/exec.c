@@ -84,7 +84,7 @@ void panini_segments(monad * m, int generate) {
 	/* While parsing, we might need to append this to the (record) 
 	 */
 	list * record = 0;
-	if(m->namespace) record = list_find_list(m->namespace, "record");
+	record = get_namespace(m, "record", 0);
 	if(record && generate == 0) list_append_token(record, segment);
 		
 	/* While generating, we might need to check that this is indeed the

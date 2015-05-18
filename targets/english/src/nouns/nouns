@@ -3,15 +3,18 @@
 ; that word as the value of the head variable, and then we call bootstrap-thing
 ; to learn the segmentation of the word.
 (for theta (owner relation partitive)
-(df bootstrap-nounstem
+(df bootstrap-nounstem 
 	(flags .theta)
 	(theta (possessive .theta))
+	(debug)
+	(bootstrap-seme)
 	(open nounstem
 		(segments 7)
 		(seme head)
 		(theta possessive))))
 (df bootstrap-nounstem
 	(flags none)
+	(bootstrap-seme)
 	(open nounstem
 		(segments 7)
 		(seme head)))
