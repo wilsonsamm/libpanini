@@ -7,7 +7,7 @@ bootstrap:
 	cat bootstrap | sort | uniq > src/bootstrap
 
 clean:
-	rm -f english core src/bootstrap bootstrap
+	rm -f english core src/bootstrap bootstrap out.txt
 
 install:
 	cp english /usr/panini/targets
