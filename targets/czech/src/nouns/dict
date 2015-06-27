@@ -54,7 +54,7 @@
 	(seme (head august)))
 
 (df nounstem
-	(segments září)
+	(segments z á ř í)
 	(flags masculine -animate)
 	(seme (head september)))
 

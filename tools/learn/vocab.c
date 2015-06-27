@@ -62,38 +62,38 @@ int parsesection(FILE * fp) {
 	}
 	
 	nextline(fp);
-	while(strlen(currentline)) {
+	while(currentline && strlen(currentline)) {
 		
 		char * text1 = getfield(1);
 		char * text2 = getfield(2);
+		
+ 		if(!text1) break;
+ 		if(!text2) break;
+ 		if((strlen(text1) == 0) || (strlen(text2) == 0)) {
+//			nextline(fp);
+//			continue;
+			break;
+		}
 
 		clear_progpc();
-		printf(" vocab: %s\r", text2);
+		fprintf(stderr, " vocab: %s\r", text2);
 		progpc(NONE, 0);
 		
 		monad * m = monad_new();
 
-		if(strcmp(lang1, "head")) {
-			monad_rules(m, fn1);
+		monad_rules(m, fn1);
+	
+		progpc(DOTS, 0);
 		
-			if(!panini_parse(m, exec1, text1, 0, 0, 5)) {
-				progpc(SAD, 0);
-				free(text1);
-				free(text2);
-				monad_free(m);
-				nextline(fp);
-				continue;
-			}
-		} else {
-			char exec[2048];
-			strcpy(exec, "(seme (head ");
-			strcat(exec, text2);
-			strcat(exec, "))");
-			
-			panini_parse(m, exec, "", 0, 0, 1);
-			panini_parse(m, exec1, "", 0, 0, 1);
+		if(!panini_parse(m, exec1, text1, 0, 0, 5)) {
+			progpc(SAD, 0);
+			free(text1);
+			free(text2);
+			monad_free(m);
+			nextline(fp);
+			continue;
 		}
-
+		panini_keep_confident(m);
 		/* Prepare the monads for generation */
 		monad_map(m, remove_ns, "rection", -1);
 		monad_map(m, remove_ns, "record", -1);
@@ -101,13 +101,15 @@ int parsesection(FILE * fp) {
 		
 		progpc(HAPPY, 0);
 		monad_rules(m, fn2);
-		
-		if(!panini_learnvocab(m, exec2, outfile, text2, 20)) {
+	
+		monad_keep_first(m);
+
+		if(!panini_learnvocab(m, exec2, stdout, text2, 20)) {
 			progpc(SAD, 0);
 		} else {
 			progpc(DOTS, 0);
 		}
-		 
+		monad_map(m, print_df, (void *)0, 5);
 
 		free(text1);
 		free(text2);
@@ -122,6 +124,10 @@ int parsesection(FILE * fp) {
 	fclose(outfile);
 	free(fn1);
 	free(fn2);
+	free(lang1);
+	lang1 = 0;
+	free(lang2);
+	lang2 = 0;
 	free(exec1);
 	free(exec2);
 	return 1;

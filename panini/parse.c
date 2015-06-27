@@ -138,7 +138,7 @@ void monad_parse_into(monad * m, int head, int create) {
 		printf("%s.\n", intowhat);
 	}
 
-	list * scopestack = monadcow_copy(m, COW_SCOPE);
+	list * scopestack = get_namespace(m, "scopestack", 1);
 
 	list_append_token(scopestack, intowhat);
 	
@@ -209,7 +209,7 @@ void monad_parse_return(monad * m) {
 		if(theta) list_rename(theta, head);
 	}
 
-	list * scopestack = monadcow_copy(m, COW_SCOPE);
+	list * scopestack = get_namespace(m, "scopestack", 1);
 	list_drop(scopestack, scopestack->length);
 	
 }

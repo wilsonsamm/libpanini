@@ -6,6 +6,9 @@ pp: pp.o readfile.o
 vocab:	vocab.o readfile.o
 	$(CCOMPILER) -o vocab vocab.o readfile.o $(PANINI)/libpanini.a
 
+word:	word.o 
+	$(CCOMPILER) -o word word.o $(PANINI)/libpanini.a
+
 bootstrap: bootstrap.o readfile.o
 	$(CCOMPILER) -o bootstrap bootstrap.o readfile.o $(PANINI)/libpanini.a
 
@@ -17,6 +20,9 @@ vocab.o: vocab.c readfile.h
 
 readfile.o: readfile.c readfile.h
 	$(CCOMPILER) $(CCOPTS) readfile.c
+
+word.o: word.c
+	$(CCOMPILER) $(CCOPTS) word.c
 
 bootstrap.o: bootstrap.c readfile.h
 	$(CCOMPILER) $(CCOPTS) bootstrap.c

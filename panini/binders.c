@@ -10,7 +10,7 @@ int write;	// May we write variables?
  * This function takes a list of names of scopes, and enters each subscope */
 list * enter_scope(list * namespace, list * scopelist, int create, int debug) {
 	int i;
-	for(i = 1; i <= scopelist->length; i++) {
+	for(i = 2; i <= scopelist->length; i++) {
 		char * scopename = list_get_token(scopelist, i);
 		
 		if(list_contains_neg(namespace, scopename)) {
@@ -41,6 +41,18 @@ list * enter_scope(list * namespace, list * scopelist, int create, int debug) {
 	return namespace;
 }
 
+list * getns_unscoped(monad * m, char * nsname) {
+	if(!m->namespace) {
+		m->namespace = list_new();
+	}
+	list * ns = list_find_list(m->namespace, nsname);
+	if(!ns) {
+		ns = list_append_list(m->namespace);
+		list_append_token(ns, nsname);
+	}
+	return ns;
+}
+
 /* This function returns the place where the variables are bound. 
  * If the integer "create" is zero, then if the namespace does not exist, then 
  * the function will return zero. Otherwise, the function will create the
@@ -49,18 +61,21 @@ list * enter_scope(list * namespace, list * scopelist, int create, int debug) {
 list * get_namespace(monad * m, char * nsname, int create) {
 
 	/* Unscoped namespaces */
-	if(!strcmp(nsname, "language")) return monadcow_copy(m, COW_LANG);
-	if(!strcmp(nsname, "sandhi"))   return monadcow_copy(m, COW_SANDHI);
-	if(!strcmp(nsname, "check"))    return monadcow_copy(m, COW_CHECK);
-	if(!strcmp(nsname, "record"))   return monadcow_copy(m, COW_RECORD);
+	if(!strcmp(nsname, "scopestack")) return getns_unscoped(m, "scopestack");
+	if(!strcmp(nsname, "language"))   return getns_unscoped(m, "language");
+	if(!strcmp(nsname, "sandhi"))     return getns_unscoped(m, "sandhi");
+	if(!strcmp(nsname, "check"))      return getns_unscoped(m, "check");
+	if(!strcmp(nsname, "record"))     return getns_unscoped(m, "record");
+	if(!strcmp(nsname, "df"))         return getns_unscoped(m, "df");
 
 	/* Scoped namespaces */
-	list * scopestack = monadcow_get(m, COW_SCOPE);
+	list * scopestack = get_namespace(m, "scopestack", 1);
 	
 	list * namespace = 0;
-	if(!strcmp(nsname, "rection"))  namespace = monadcow_copy(m, COW_RECTION);
-	if(!strcmp(nsname, "seme"))     namespace = monadcow_copy(m, COW_SEME);
-	if(!strcmp(nsname, "theta"))    namespace = monadcow_copy(m, COW_THETA);
+	
+	if(!strcmp(nsname, "rection"))  namespace = getns_unscoped(m, "rection");
+	if(!strcmp(nsname, "seme"))     namespace = getns_unscoped(m, "seme");
+	if(!strcmp(nsname, "theta"))    namespace = getns_unscoped(m, "theta");
 	if(namespace) return enter_scope(namespace, scopestack, create, m->debug);
 	
 	return namespace;

@@ -17,24 +17,26 @@
 		((rection (animacy -animate) (gender feminine)))
 		((rection (animacy -animate) (gender masculine)))
 		((rection (animacy  animate) (gender masculine))))
-	(open nounstem
-		(segments 10)
-		(flags .gender .animacy)
-		(seme head)))
+	(open nounstem)
+	(call guess-syllables)
+	(add-record-to-df nounstem)
+	(add-flags-to-df nounstem .gender .animacy)
+	(add-ns-to-df nounstem seme head)
+	(add-tag-to-df nounstem))
 
 ; The functional head
 (df noun
 	(sandhi #)
 	(flags .gender .case .animacy .number)
+	(rection (animacy .animacy) (gender .gender) (case .case))
 	(call nounstem .gender .animacy)
 	(call case-ending .gender .case)
-	(call Segment space)
-	(rection (animacy .animacy) (gender .gender) (case .case)))))))
+	(segments space))))))
 	
-(df noun (flags lemma feminine) (call noun feminine singular nominative))
-(df noun (flags lemma neuter)   (call noun neuter   singular nominative))
-(df noun (flags lemma masculine animate) (call noun masculine animate singular nominative))
-(df noun (flags lemma masculine inanimate) (call noun masculine -animate singular nominative))
+(df noun (flags lemma feminine) (call noun feminine singular nominative) (segments space))
+(df noun (flags lemma neuter)   (call noun neuter   singular nominative) (segments space))
+(df noun (flags lemma masculine animate) (call noun masculine animate singular nominative) (segments space))
+(df noun (flags lemma masculine inanimate) (call noun masculine -animate singular nominative) (segments space))
 
 (df nounphrase
 	(rection (person third))

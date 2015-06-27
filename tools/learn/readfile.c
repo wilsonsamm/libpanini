@@ -34,19 +34,19 @@ void count_lines(FILE * fp) {
 }
 
 void progpc(int smile, char * stage) {
-	printf("\r\t\t\t\t");
-	if(stage) printf("stage %s/3     \t", stage);
-	printf("%3d%%", (progress * 100/totallines * 100)/100);
+	fprintf(stderr, "\r\t\t\t\t");
+	if(stage) fprintf(stderr, "stage %s/3     \t", stage);
+	fprintf(stderr, "%3d%%", (progress * 100/totallines * 100)/100);
 	//printf(", line %d,\t", progress);
-	if(smile == DONE)  printf(" All done!\r");
-	if(smile == NONE)  printf("          \r");
-	if(smile == HAPPY) printf(" :-)      \r");
-	if(smile == SAD)   printf(" :-(      \r");
-	if(smile == DOTS)  printf(" ...      \r");
-	fflush(stdout);
+	if(smile == DONE)  fprintf(stderr, " All done!\r");
+	if(smile == NONE)  fprintf(stderr, "          \r");
+	if(smile == HAPPY) fprintf(stderr, " :-)      \r");
+	if(smile == SAD)   fprintf(stderr, " :-(      \r");
+	if(smile == DOTS)  fprintf(stderr, " ...      \r");
+	fflush(stderr);
 }
 void clear_progpc() {
-	printf("                                                       \r");
+	fprintf(stderr, "                                                       \r");
 }
 
 int nextline(FILE * fp) {
@@ -78,7 +78,6 @@ int nextline(FILE * fp) {
 	}
 	
 	currentline = line;
-	//printf("next line: %s\n=============\n", currentline);
 	progress++;
 	if(strlen(line)) return 1;
 	return 0;
@@ -87,6 +86,7 @@ int nextline(FILE * fp) {
 char * getfield(int n) {
 	
 	if(!currentline) return 0;
+	if(!strlen(currentline)) return 0;
 	
 	int alloc = 10;
 	int offs = 0;
@@ -105,6 +105,8 @@ char * getfield(int n) {
 		c = currentline[offs++];
 		if(c == ':') break;
 		if(c == '\n') break;
+		if(c == '\r') break;
+		if(c == '\t') break;
 		line[loffs++] = c;
 		if(loffs == alloc) {
 			alloc += 5;

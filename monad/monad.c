@@ -29,16 +29,6 @@ monad * monad_new() {
 	m->outtext = 0;
 	m->parent_id = 0;
 
-	m->cowallocs = 0;
-	m->cow[0] = 0;
-	m->cow[1] = 0;
-	m->cow[2] = 0;
-	m->cow[3] = 0;
-	m->cow[4] = 0;
-	m->cow[5] = 0;
-	m->cow[6] = 0;
-	m->cow[7] = 0;
-
 	return m;
 }
 
@@ -73,15 +63,6 @@ monad * monad_duplicate(monad * m) {
 	n->brake = m->brake;
 	n->learned = m->learned;
 	n->child = 0; 
-
-	n->cow[0] = m->cow[0];
-	n->cow[1] = m->cow[1];
-	n->cow[2] = m->cow[2];
-	n->cow[3] = m->cow[3];
-	n->cow[4] = m->cow[4];
-	n->cow[5] = m->cow[5];
-	n->cow[6] = m->cow[6];
-	n->cow[7] = m->cow[7];
 
 	return n;
 }
@@ -204,9 +185,6 @@ void print_debugging_info(monad * m) {
 	printf("\n");
 	printf("Intext: (%d) \"%s\"\n", m->index, m->intext);
 	printf("Outtext: \"%s\"\n", m->outtext);
-
-	printf("Scopestack:");
-	list_prettyprinter(monadcow_get(m, COW_SCOPE));
 	
 	if(m->adjunct) printf("Adjuncts starting from monad %d\n", m->adjunct->id);
 	printf("\nParent: %d\n", m->parent_id);
@@ -381,47 +359,19 @@ void monad_kill_unfinished_intext(monad * m) {
 	}
 }
 
-list * monadcow_get(monad * m, int which) {
-	if(m->cow[which] == 0) {
-		m->cow[which] = list_new();
-		m->cowallocs |= (1 << which);
+void monad_keep_first(monad * m) {
+	/* find first monad that's alive */
+	while(m) {
+		if(m->alive) break;
+		m = m->child;
 	}
-	return m->cow[which];
+	if(!m) return;
+	/* Kill the rest */
+	m = m->child;
+	while(m) {
+		m->alive = 0;
+		m = m->child;
+	}
+	return;
 }
 
-list * monadcow_copy(monad * m, int which) {
-	/* the cowallocs member keeps track of what's allocated where. */
-
-	/* If the requested list structure is already allocated, then just return
-	 * it. */
-	if((1 << which) & m->cowallocs) {
-		return m->cow[which];
-	}
-
-	/* Otherwise, copy it to this monad, and then mark it as allocated
-	 * before returning the list. */
-	else {
-		list * tmp = list_new();
-		if(m->cow[which]) list_append_copy(tmp, m->cow[which]);
-		m->cow[which] = tmp;
-		m->cowallocs |= (1 << which);
-		return m->cow[which];
-	}
-}
-
-
-void monadcow_delete(monad * m, int which) {
-	/* the cowallocs member keeps track of what's allocated where. */
-
-	/* If the requested list structure is not allocated, then just set the
-	 * pointer to NULL. */
-	if((1 << which) & m->cowallocs) {
-		m->cow[which] = 0;
-	}
-
-	/* Otherwise, copy it to this monad, and then mark it as allocated
-	 * before returning the list. */
-	else {
-		m->cow[which] = 0;
-	}
-}

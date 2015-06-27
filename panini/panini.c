@@ -30,6 +30,30 @@ int panini_despatch(monad * m, int * switches) {
 	}
 	
 	char * command = list_get_token(m->command, 1);
+
+	if(!strcmp(command, "add-flags-to-df")) {
+		add_flags_to_df(m);
+		post_pc(m);
+		return 1;
+	}
+
+	if(!strcmp(command, "add-ns-to-df")) {
+		add_ns_to_df(m);
+		post_pc(m);
+		return 1;
+	}
+
+	if(!strcmp(command, "add-record-to-df")) {
+		add_record_to_df(m);
+		post_pc(m);
+		return 1;
+	}
+
+	if(!strcmp(command, "add-tag-to-df")) {
+		add_tag_to_df(m);
+		post_pc(m);
+		return 1;
+	}
 	
 	if(!strcmp(command, "adjunct")) {
 		panini_call(m, 1, switches);
@@ -115,11 +139,6 @@ int panini_despatch(monad * m, int * switches) {
 	}
 	if(!strcmp(command, "fuzzy")) {
 		panini_fuzzy(m);
-		post_pc(m);
-		return 1;
-	}
-	if(!strcmp(command, "guess-segments")) {
-		guess_segments(m);
 		post_pc(m);
 		return 1;
 	}
@@ -217,7 +236,7 @@ int panini_despatch(monad * m, int * switches) {
 	/* (sandhiblock) 
 	 * Removes any sandhi information. */
 	if(!strcmp(command, "sandhiblock")) {
-		monadcow_delete(m, COW_SANDHI);
+		remove_ns(m, "sandhi");
 		post_pc(m);
 		return 1;
 	}
@@ -313,7 +332,6 @@ int panini_learnvocab(monad * m, char * commands, FILE * out, char * intext, int
 	
 	int retval;
 	int switches = INTEXT | L_OPEN;
-
 	/* First, set the stack to contain the right instructions */
 	monad_map(m, (int(*)(monad * m, void * argp))set_stack, commands, threshold);
 	
@@ -331,19 +349,25 @@ int panini_learnvocab(monad * m, char * commands, FILE * out, char * intext, int
 
 	/* and then any that have a higher brake value than any other, */
 	monad_kill_braked(m);
+
+	/* and then any that have a lower confidnce value than any other, */
+	panini_keep_confident(m);
 	
-	/* and any that have an identical outtext to any other monad, */
+//	/* and any that have an identical outtext to any other monad, */
 	monad_map(m, (int(*)(monad * m, void * argp))kill_identical_outtexts, (void*)0, -1);
+
+	/* and after that we want only one monad, */
+	monad_keep_first(m);
 	
 	/* and then free any monads that are not still alive
 	 * (this forgets their state so that the memory becomes free. */
 	monad_unlink_dead(m, 0);
 
 	/* Then print out what we learned. */
-	if(out) {
-		monad_map(m, (int(*)(monad * m, void * argp))print_out, out, threshold);
-		fflush(out);
-	}
+//	if(out) {
+//		monad_map(m, (int(*)(monad * m, void * argp))print_out, out, threshold);
+//		fflush(out);
+//	}
 	
 	return retval;
 }
@@ -412,7 +436,7 @@ int panini_generate(monad *m, char * commands, int record, int threshold) {
 int panini_keep_confident(monad * m) {
 	
 	/* Find the highest confidence of all the monads */
-	int confidence;
+	int confidence = 0;
 	monad_map(m, (int(*)(monad * m, void * argp))max_confidence, &confidence, -1);
 	
 	/* The kill all monads that are less confident */

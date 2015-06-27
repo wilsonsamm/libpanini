@@ -19,18 +19,21 @@ int main(int argc, char * argv[], char * envp[]) {
 	SynsetPtr result_ds = findtheinfo_ds(argv[2], pos, OVERVIEW, ALLSENSES);
 
 	int i = 0;
+	int confid = 0;
 	while(result_ds) {
 		
 		printf("; %s\n", result_ds->defn);
 		int j;
 		for(j = 0; j < result_ds->wcount; j++) {
 			printf("(df nounstem (seme (head %d%s)) ", i, argv[2]);
-			printf("(lit %s))\n", result_ds->words[j]);
+			printf("(lit %s) ", result_ds->words[j]);
+			printf("(confidence %d))\n", confid);
 		}
 
 		result_ds = result_ds->nextss;
 		printf("\n");
 		i++;
+		confid--;
 	}
 	
 	return 0;

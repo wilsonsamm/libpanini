@@ -7,16 +7,6 @@
 /* The path where we'll find our files */
 #define FN_PATH	"/usr/panini/targets/"
 
-#define COW_SCOPE   0
-#define COW_SANDHI  1
-#define COW_LANG    2
-#define COW_RECTION 3
-#define COW_SEME    4
-#define COW_THETA   5
-#define COW_CHECK	6
-#define COW_RECORD	7
-
-
 /* The monad. I have put all the pointers at the beginning of the monad
  * so as to keep alignment problems from swelling up the amount of memory
  * this takes. */
@@ -35,9 +25,6 @@ typedef struct _monad {
 	int learned;		/* We will only ever learn one thing at a time. */
 	long padding;
 	struct _monad * child;		/* The linked list of spawned monads */
-
-	int cowallocs;
-	list * cow[8];
 
 	int alive;			/* Is the monad alive? */
 	int debug;
@@ -136,7 +123,7 @@ int kill_braked_monads(monad * m, int * c);
 
 void monad_child_tester(monad * m);
 void monad_kill_unfinished_intext(monad * m);
-
+void monad_keep_first(monad * m);
 
 list * monadcow_get(monad * m, int which);
 list * monadcow_copy(monad * m, int which);

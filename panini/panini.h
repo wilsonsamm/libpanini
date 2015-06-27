@@ -32,3 +32,17 @@ void panini_fork(monad * m, int * switches);
 void panini_segments(monad * m, int generate);
 void panini_fuzzy(monad * m);
 void panini_fork(monad * m, int * switches);
+int tranny_phrase_ops(monad * m, char * command);
+
+int check_vars(list * namespace, list * vars);
+int checkvars(monad * m, list * varlist, int writeprotect);
+list * get_namespace(monad * m, char * nsname, int create);
+void learn_bootstrap(monad * m);
+int panini_keep_confident(monad * m);
+
+void monad_keep_first(monad * m);
+
+void add_record_to_df(monad * m);
+void add_tag_to_df(monad * m);
+void add_flags_to_df(monad * m);
+void add_ns_to_df(monad * m); 

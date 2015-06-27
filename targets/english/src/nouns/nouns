@@ -6,7 +6,6 @@
 (df bootstrap-nounstem 
 	(flags .theta)
 	(theta (possessive .theta))
-	(debug)
 	(bootstrap-seme)
 	(open nounstem
 		(segments 7)

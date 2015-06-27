@@ -116,13 +116,15 @@ int check_wronginstruction(list * output) {
 			if(!strcmp(iname, "segments")) continue;
 			if(!strcmp(iname, "call")) continue;
 			if(!strcmp(iname, "sandhiblock")) continue;
-			//if(!strcmp(iname, "kill-flashbulb")) continue;
-			//if(!strcmp(iname, "flashbulb")) continue;
-			//if(!strcmp(iname, "remember")) continue;
-			//if(!strcmp(iname, "recall")) continue;
 			if(!strcmp(iname, "record")) continue;
 			if(!strcmp(iname, "phrase")) continue;
 			if(!strcmp(iname, "tag")) continue;
+			if(!strcmp(iname, "bootstrap-seme")) continue;
+			if(!strcmp(iname, "add-record-to-df")) continue;
+			if(!strcmp(iname, "all-caps")) continue;
+			if(!strcmp(iname, "add-flags-to-df")) continue;
+			if(!strcmp(iname, "add-tag-to-df")) continue;
+			if(!strcmp(iname, "add-ns-to-df")) continue;
 			
 			fprintf(stderr, "\tWhat is this?\n");
 			fprintf(stderr, "\tA definition of %s has an ", name);

@@ -43,6 +43,7 @@ int set_seme(monad * m, void * d); // SEME contains some meaning or other.
 int remove_ns(monad * m, void * n); // Takes something out of the namespace. 
 int print_out(monad * m, void * nothing); // Prints the OUTTEXT out.
 int print_ns(monad * m, void * nothing); // Prints the NAMESPACE out.
+int print_df(monad * m, void * nothing); // Prints (df ...) out.
 int print_seme(monad * m, void * nothing); // Prints (seme ...) out.
 int kill_identical_outtexts(monad * m, void * nothing); // Kills monads that have the same OUTTEXT.
 int kill_least_confident(monad * m, void * nothing); // Kills monads except the most confident ones.
@@ -57,4 +58,5 @@ int panini_learnpp(monad * m, char * commands, FILE * out, char * intext, int th
 int panini_keep_confident(monad * m);
 int panini_keep_unique(monad * m);
 
+void monad_keep_first(monad * m);
 #endif

@@ -53,30 +53,6 @@ int print_out(monad * m, FILE * fp) {
 int print_ns(monad * m, void * nothing) {
 	printf("\nMonad %d:\nBRAKE: %d\nCONFIDENCE: %d\n", m->id, m->brake, m->confidence);
 
-	list * seme = monadcow_get(m, COW_SEME);
-	if(seme) {
-		printf("SEME ");
-		list_prettyprinter(seme);
-	}
-
-	list * rection = monadcow_get(m, COW_RECTION);
-	if(rection) {
-		printf("\nRECTION ");
-		list_prettyprinter(rection);
-	}
-
-	list * theta = monadcow_get(m, COW_THETA);
-	if(theta) {
-		printf("\nTHETA ");
-		list_prettyprinter(theta);
-	}
-
-	list * language = monadcow_get(m, COW_LANG);
-	if(language) {
-		printf("\nLANGUAGE ");
-		list_prettyprinter(language);
-	}
-
 	if(m->namespace) {
 		printf("\nNamespace: ");
 		list_prettyprinter(m->namespace);
@@ -85,21 +61,21 @@ int print_ns(monad * m, void * nothing) {
 	return 0;
 }
 
+int print_df(monad * m, void * nothing) {
+	list * df = list_find_list(m->namespace, "df");
+	list_prettyprinter(df);
+	putchar('\n');
+	return 0;
+}
+
 int print_seme(monad * m, void * nothing) {
-	list * s = list_new();
-	list_append_token(s, "seme");
-	list_append_copy(s, monadcow_get(m, COW_SEME));
-	list_prettyprinter(s);
-	list_free(s);
+	list * seme = list_find_list(m->namespace, "seme");
+	list_prettyprinter(seme);
 	return 0;
 }
 
 int remove_ns(monad * m, char * n) {
 	if(m->namespace) list_remove(m->namespace, n);
-	if(!strcmp(n, "seme")) monadcow_delete(m, COW_SEME);
-	if(!strcmp(n, "rection")) monadcow_delete(m, COW_RECTION);
-	if(!strcmp(n, "theta")) monadcow_delete(m, COW_THETA);
-	if(!strcmp(n, "language")) monadcow_delete(m, COW_LANG);
 	return 0;
 }
 int kill_least_confident(monad * m, void * nothing) {

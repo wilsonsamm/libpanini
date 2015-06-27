@@ -7,11 +7,13 @@
 	(flags .case .person .number)
 	(seme (head referential) (person .person) (number .number))
 	(rection (head referential) (person .person) (number .number))
-	(open pronoun
-		(flags .case .person .number)
-		(seme head person number)
-		(rection head person number)
-		(segments 4))))))
+	(open pronoun)
+	(call guess-syllables)
+	(add-record-to-df pronoun)
+	(add-flags-to-df pronoun .case .person .number)
+	(add-ns-to-df pronoun rection head person number)
+	(add-ns-to-df pronoun seme head person number)
+	(add-tag-to-df pronoun)))))
 
 ; We only need to put the nominative pronouns in here, because the vocab
 ; importer will take care of the rest.

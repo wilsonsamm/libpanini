@@ -14,8 +14,9 @@ monad * pmonad;
  * Breen and others at the Monash University. I extend a gesture of gratitude
  * to those who made this possible.
  * 
- * (The file itself is copied by build.sh from /usr/share/edict/, where Debian
- * puts the file.)
+ * (On Debian, edict and kanjidic get installed at /usr/share/edict/.
+ * These files should get copied at compile-time and converted to whatever the
+ * local encoding is.)
  * 
  * This program is part of the Panini Project, which aims to unify various 
  * computer-readable dictionaries and provide something of a computational
@@ -160,6 +161,7 @@ int learnentry_func(char * headword, char * reading, char * ttemp, \
 	monad * m = monad_duplicate_all(pmonad);
 	if(!panini_parse(m, incode, translation, 0, 0, 20)) {
 		monad_free(m);
+		free(translation);
 		return 0;
 	}
 	
@@ -174,7 +176,13 @@ int learnentry_func(char * headword, char * reading, char * ttemp, \
 	char * tr = transliterate(reading);
 	char * seg = segmentation(headword, tr, klist, suffix);
 	
-	if(!seg) return 0;
+	if(!seg) {
+		monad_free(m);
+		free(translation);
+		printf("; Trouble working the segments out for ");
+		printf("; %s [%s]\n", headword, reading);
+		return 0;
+	}
 	
 	/* Define a [whatever the part of speech is] */
 	printf("; %s [%s] (%s) %s\n", headword, reading, jpos, translation);
@@ -208,8 +216,14 @@ int learnentry(char * headword, char * reading, char * translation, kanji * klis
 int readentry(FILE * kanjidic, char * headword, kanji * klist) {
 	char * line = readline(kanjidic);
 	
-	if(!strstr(line, "[")) return 1;
-	if(!strstr(line, "]")) return 1;
+	if(!strstr(line, "[")) {
+		free(line);
+		return 1;
+	}
+	if(!strstr(line, "]")) {
+		free(line);
+		return 1;
+	}
 	
 	char * reading = strdup(strstr(line, "[") + strlen("["));
 	char * nulterm = strstr(reading, "]");
@@ -221,7 +235,8 @@ int readentry(FILE * kanjidic, char * headword, kanji * klist) {
 		if(!strstr(translation, "/")) break;
 		translation = strstr(translation, "/") + strlen("/");
 	}
-	
+	free(line);
+	free(reading);
 	return 0;
 }
 
@@ -258,6 +273,7 @@ int main(int argc, char * argv[], char * envp[]) {
 	strcat(fn, PATHTOENGLISH);
 	monad_rules(pmonad, fn);
 	free(fn);
+	free(buildpath);
 	
 	int elen = count_lines(edict);
 	
@@ -268,7 +284,10 @@ int main(int argc, char * argv[], char * envp[]) {
 		/* Read in the headword. */
 		headword = readword(edict);
 		if(!headword) break;
-		if(!strlen(headword)) break;
+		if(!strlen(headword)) {
+			free(headword);
+			break;
+		}
 		
 		/* Every 512th line, print out how far we've come. 
 		 * (This test is an optimisation; stderr is a slow thing to print to.) 
@@ -278,7 +297,7 @@ int main(int argc, char * argv[], char * envp[]) {
 		
 		/* Parse the line and try to generate Panini source code */
 		readentry(edict, headword, klist);
-		
+		free(headword);
 		i++;
 	}
 	

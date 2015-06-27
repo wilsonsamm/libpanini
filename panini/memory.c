@@ -21,7 +21,7 @@ void mem_begin(monad * m, char * memname) {
 	list_append_token(flashbulb, memname);
 	list * scope = list_append_list(flashbulb);
 	list_append_token(scope, "scope");
-	list_append_copy(scope, monadcow_copy(m, COW_SCOPE));
+	list_append_copy(scope, get_namespace(m, "scope", 0));
 	
 	if(m->debug) {
 		printf("Here are the current memory regions: ");

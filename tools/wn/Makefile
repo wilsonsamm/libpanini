@@ -5,4 +5,4 @@ bootstrap.o: bootstrap.c
 	$(CCOMPILER) $(CCOPTS) bootstrap.c
 
 clean:
-	rm bootstrap.o wn-bootstrap
+	rm -f bootstrap.o wn-bootstrap
