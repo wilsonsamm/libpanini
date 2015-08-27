@@ -11,3 +11,4 @@ void clear_progpc();
 void progpc(int smile, char * stage);
 int nextline(FILE * fp);
 char * getfield(int n);
+int eof();

@@ -263,7 +263,7 @@ int panini_despatch(monad * m, int * switches) {
 	
 	if(!strcmp(command, "segments")) {
 		//panini_segments(m, (*switches & OUTTEXT) || (*switches & L_OPEN));
-		panini_segments(m, (*switches & OUTTEXT));
+		panini_segments(m, !!(*switches & OUTTEXT) && !!(*switches & RECORD));
 		post_pc(m);
 		return 1;
 	}
@@ -364,10 +364,10 @@ int panini_learnvocab(monad * m, char * commands, FILE * out, char * intext, int
 	monad_unlink_dead(m, 0);
 
 	/* Then print out what we learned. */
-//	if(out) {
-//		monad_map(m, (int(*)(monad * m, void * argp))print_out, out, threshold);
-//		fflush(out);
-//	}
+	if(out) {
+		monad_map(m, (int(*)(monad * m, void * argp))print_df, out, threshold);
+		fflush(out);
+	}
 	
 	return retval;
 }
@@ -404,7 +404,7 @@ int panini_learnpp(monad * m, char * commands, FILE * out, char * intext, int th
 
 	/* Then print out what we learned. */
 	if(out) {
-		monad_map(m, (int(*)(monad * m, void * argp))print_out, out, threshold);
+		monad_map(m, (int(*)(monad * m, void * argp))print_df, out, threshold);
 		fflush(out);
 	}
 	

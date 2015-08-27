@@ -185,6 +185,9 @@ void print_debugging_info(monad * m) {
 	printf("\n");
 	printf("Intext: (%d) \"%s\"\n", m->index, m->intext);
 	printf("Outtext: \"%s\"\n", m->outtext);
+	printf("Namespace: ");
+	list_prettyprinter(m->namespace);
+	printf("\n");
 	
 	if(m->adjunct) printf("Adjuncts starting from monad %d\n", m->adjunct->id);
 	printf("\nParent: %d\n", m->parent_id);

@@ -1,4 +1,5 @@
 #!/bin/bash
+
 if [ -z $PANINI ]; then
 	echo You need to set some variables up first. The best way to do that is
 	echo to type "source setvar.sh" at your prompt.
@@ -45,6 +46,10 @@ echo Building the machine learning tools.
 make $MAKEOPTS -C tools/learn
 echo Building the EDICT and KANJIDIC importer.
 make $MAKEOPTS -C tools/ekan ekan
+echo Building the interface to Unihan.
+make $MAKEOPTS -C tools/unihan
+echo Building the interface to Wiktionary.
+make $MAKEOPTS -C tools/wiktionary
 echo Building the interface to WordNet.
 make $MAKEOPTS -C tools/wn
 

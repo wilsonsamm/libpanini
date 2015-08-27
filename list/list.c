@@ -379,7 +379,7 @@ int list_contains_neg(list * l, char * t) {
 	for(i = 1; i < l->length; i++) {
 		if(l->types[i] != TOKEN) continue;
 		
-		if(((char *)l->data[i])[1] != '-') continue;
+		if(((char *)l->data[i])[0] != '-') continue;
 		
 		if(!strcmp(l->data[i]+1, t)) return 1;
 	}

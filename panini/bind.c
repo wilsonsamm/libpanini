@@ -87,8 +87,18 @@ int checkvars(monad * m, list * varlist, int writeprotect) {
 		}
 
 		/* Check if the variable can be bound */
-		if(found && value && ovalue && strcmp(value, ovalue)) return i;
-		if(found && polarity != opolarity) return i;
+		if(found && value && ovalue && strcmp(value, ovalue)) {
+			if(m->debug) {
+				printf("%s cannot be bound 1.\n", key);
+			}
+			return i;
+		}
+		if(found && polarity != opolarity) {
+			if(m->debug) {
+				printf("%s cannot be bound 2.\n", key);
+			}
+			return i;
+		}
 
 		/* Unless write protection is turned on, or the variable already exists
 		 * and already has a value, we can go ahead in append the variable to

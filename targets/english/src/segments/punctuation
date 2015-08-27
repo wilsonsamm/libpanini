@@ -1,6 +1,8 @@
-(for v (-vowel vowel)
-(segment (sandhi .v) (underlying space) (space) (sandhi .v -nospace))
-(segment (sandhi .v) (underlying space)         (sandhi .v  nospace)))
+(for v  (-vowel vowel)
+(segment         (sandhi .v -nospace) (underlying space) (space) (sandhi .v -nospace))
+(segment         (sandhi .v  nospace) (underlying space)         (sandhi .v  nospace)))
 
-(segment (sandhi  nospace) (underlying period) (surface .))
-(segment (sandhi -nospace) (underlying comma)  (surface ,))
+(segment (sandhi nospace)  (underlying period) (surface .))
+(segment (sandhi nospace)  (underlying comma)  (surface ,))
+(segment (sandhi -nospace) (underlying lquote) (surface "))
+(segment (sandhi  nospace) (underlying rquote) (surface "))

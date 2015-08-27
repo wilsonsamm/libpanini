@@ -92,16 +92,16 @@ install: uninstall
 	mkdir -p /usr/panini/targets
 	cp libpanini.a /usr/lib/
 	cp panini.h /usr/include
-	make -C targets/ainu install
-	make -C targets/algonquian install
-	make -C targets/czech install
-	make -C targets/english install
-	make -C targets/japanese install
-	make -C targets/nahuatl install
-	make -C targets/pp install
-	make -C targets/quenya install
-	make -C targets/swahili install
-	make -C targets/world install
+	+make -C targets/ainu install
+	+make -C targets/algonquian install
+	+make -C targets/czech install
+	+make -C targets/english install
+	+make -C targets/japanese install
+	+make -C targets/nahuatl install
+	+make -C targets/pp install
+	+make -C targets/quenya install
+	+make -C targets/swahili install
+	+make -C targets/world install
 
 uninstall:
 	rm -rf /usr/panini
@@ -115,24 +115,26 @@ clean:
 	rm -f list/*.gch panini/*.o panini/*.gch compiler/*.o panini/*.o
 	rm -f ainu algonquian czech english japanese nahuatl pp quenya 
 	rm -f spanish swahili
-	make -C demos/tranny clean
-	make -C demos/kanjify clean
-	make -C demos/flashcards clean
-	make -C doc clean
-	make -C tools/pcomp clean
-	make -C tools/learn clean
-	make -C tools/ekan clean
-	make -C tools/sword clean
-	make -C tools/wn clean
-	make -C targets/ainu clean
-	make -C targets/algonquian clean
-	make -C targets/czech clean
-	make -C targets/english clean
-	make -C targets/japanese clean
-	make -C targets/nahuatl clean
-	make -C targets/pp clean
-	make -C targets/quenya clean
-	make -C targets/swahili clean
+	+make -C demos/tranny clean
+	+make -C demos/kanjify clean
+	+make -C demos/flashcards clean
+	+make -C doc clean
+	+make -C tools/pcomp clean
+	+make -C tools/learn clean
+	+make -C tools/ekan clean
+	+make -C tools/sword clean
+	+make -C tools/unihan clean
+	+make -C tools/wn clean
+	+make -C tools/wiktionary clean
+	+make -C targets/ainu clean
+	+make -C targets/algonquian clean
+	+make -C targets/czech clean
+	+make -C targets/english clean
+	+make -C targets/japanese clean
+	+make -C targets/nahuatl clean
+	+make -C targets/pp clean
+	+make -C targets/quenya clean
+	+make -C targets/swahili clean
 
 # Git commands might be useful to have in a Makefile.
 pull:

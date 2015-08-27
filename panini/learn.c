@@ -15,7 +15,7 @@ void add_record_to_df(monad * m) {
 	}
 	if(!test2) {
 		m->alive = 0;
-		fprintf(stderr, "Problem with (df ...) ns.\n");
+//		fprintf(stderr, "Problem with (df ...) ns.\n");
 		return;
 	}
 	if(strcmp(test1, test2)) {
@@ -181,11 +181,6 @@ list * learn_into(monad * m) {
 }
 			
 void monad_learn_open(monad * m, int * switches) {
-	
-	/* Turn on debugging if we need to */
-	if(list_find_list(m->command, "debug")) {
-		m->debug = 1;
-	}
 	
 	if(m->debug) {
 		printf("this monad %d has had debugging turned on.\n", m->id);

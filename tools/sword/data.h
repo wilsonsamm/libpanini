@@ -5,8 +5,7 @@
  * may something be learned from it).
  * 
  * These verses are chosen for their syntactic simplicity; you can add as many
- * as you wish but you must put a zero at the end because the array is
- * null-terminated.
+ * as you wish but you must make sure that VERSNUM has the correct number.
  */
 #define VERSNUM 7
 char * verses[VERSNUM] = {
@@ -30,6 +29,6 @@ char * verses[VERSNUM] = {
 	"Deuteronomy 5:17",
 	
 	// And you shall not steal.
-	"Deuteronomy 5:19",
+	"Deuteronomy 5:19"
 
 };

@@ -93,6 +93,10 @@ void panini_segments(monad * m, int generate) {
 		char * current = list_get_token(record,2);
 		
 		if(!current || strcmp(segment, list_get_token(record,2))) {
+			if(m->debug) {
+				printf("This monad has died because it's not the right segment\n");
+				printf("(TODO: why is this test in place?)\n");
+			}
 			m->alive = 0;
 			return;
 		}
@@ -100,10 +104,14 @@ void panini_segments(monad * m, int generate) {
 		list_drop(record, 2);
 	}
 	
-	list * spawn = list_new();
 	/* A list of segments is really a list of function calls. Generate
 	 * the list where the first instruction is that function call and 
-	 * the second instrction is the next (segments x y z): */
+	 * the second instrction is the next load of segments, eg:
+	 *   (segments x y z)
+	 * will become:
+	 *   (call Segment x) (segments y z)
+	 */
+	list * spawn = list_new();
 	list * calls = list_append_list(spawn);
 		
 	list * call = list_append_list(calls);

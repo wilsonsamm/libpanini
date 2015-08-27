@@ -13,7 +13,7 @@
 #define SAD   2
 #define DONE  3
 #define DOTS  4
-
+#define PROGOUT stdout
 
 char * stage;
 char * learnlang = 0;
@@ -34,19 +34,18 @@ void count_lines(FILE * fp) {
 }
 
 void progpc(int smile, char * stage) {
-	fprintf(stderr, "\r\t\t\t\t");
-	if(stage) fprintf(stderr, "stage %s/3     \t", stage);
-	fprintf(stderr, "%3d%%", (progress * 100/totallines * 100)/100);
-	//printf(", line %d,\t", progress);
-	if(smile == DONE)  fprintf(stderr, " All done!\r");
-	if(smile == NONE)  fprintf(stderr, "          \r");
-	if(smile == HAPPY) fprintf(stderr, " :-)      \r");
-	if(smile == SAD)   fprintf(stderr, " :-(      \r");
-	if(smile == DOTS)  fprintf(stderr, " ...      \r");
-	fflush(stderr);
+	if(stage) fprintf(PROGOUT, " %s \t", stage);
+	fprintf(PROGOUT, "%3d%%", (progress * 100/totallines * 100)/100);
+//	printf(", line %d,\t", progress);
+	if(smile == DONE)  fprintf(PROGOUT, " All done!\n");
+	if(smile == NONE)  fprintf(PROGOUT, "          \r");
+	if(smile == HAPPY) fprintf(PROGOUT, " :-)      \r");
+	if(smile == SAD)   fprintf(PROGOUT, " :-(      \r");
+	if(smile == DOTS)  fprintf(PROGOUT, " ...      \r");
+	fflush(PROGOUT);
 }
 void clear_progpc() {
-	fprintf(stderr, "                                                       \r");
+	fprintf(PROGOUT, "                                                     \r");
 }
 
 int nextline(FILE * fp) {
@@ -115,4 +114,11 @@ char * getfield(int n) {
 		line[loffs] = '\0';
 	}
 	return line;
+}
+
+int eof() {
+//	printf("progress: %d\ttotallines: %d\n", progress, totallines);
+	
+	if(progress == totallines) return 1;
+	return 0;
 }

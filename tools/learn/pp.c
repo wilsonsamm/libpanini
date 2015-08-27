@@ -127,7 +127,7 @@ int parsesection(FILE * fp) {
 }
 
 int main(int argc, char * argv[]) {
-
+	printf("This program is being deprecated!\n");
 	/* Open the textfile that has all the sentences in it. */
 	FILE * fp = fopen(argv[1], "r");
 	if(!fp) {

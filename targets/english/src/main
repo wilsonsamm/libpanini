@@ -28,8 +28,6 @@
 (include pronouns/personal)
 (include pronouns/reflexive)
 
-(include punctuation)
-
 (include segments/segments)
 (include segments/punctuation)
 

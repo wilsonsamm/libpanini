@@ -61,10 +61,10 @@ int print_ns(monad * m, void * nothing) {
 	return 0;
 }
 
-int print_df(monad * m, void * nothing) {
+int print_df(monad * m, FILE * out) {
 	list * df = list_find_list(m->namespace, "df");
-	list_prettyprinter(df);
-	putchar('\n');
+	list_fprettyprinter(out, df);
+	fprintf(out, "\n");
 	return 0;
 }
 

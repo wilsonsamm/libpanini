@@ -113,6 +113,7 @@ int set_edit(monad * m, int * edit);
 int remove_ns(monad * m, char * n);
 int print_ns(monad * m, void * nothing);
 int print_out(monad * m, FILE * fp);
+int print_df(monad * m, FILE * out);
 int set_trace(monad * m, int * i);
 int kill_not_done(monad * m, void * nothing);
 int kill_least_confident(monad * m, void * nothing); // Kills monads except the most confident ones.
