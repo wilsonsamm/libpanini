@@ -185,8 +185,12 @@ void print_debugging_info(monad * m) {
 	printf("\n");
 	printf("Intext: (%d) \"%s\"\n", m->index, m->intext);
 	printf("Outtext: \"%s\"\n", m->outtext);
-	printf("Namespace: ");
-	list_prettyprinter(m->namespace);
+	if(m->namespace) {
+		printf("Namespace: ");
+		list_prettyprinter(m->namespace);
+	} else {
+		printf("No namespace.\n");
+	}
 	printf("\n");
 	
 	if(m->adjunct) printf("Adjuncts starting from monad %d\n", m->adjunct->id);
@@ -378,3 +382,15 @@ void monad_keep_first(monad * m) {
 	return;
 }
 
+void monad_kill_if_no_df(monad * m) {
+	list * df;
+	while(m) {
+		df = get_namespace(m, "df");
+		if(!df) {
+			m->alive = 0;
+		} else if(df->length > 1) {
+			m->alive = 0;
+		}
+		m = m->child;
+	}
+}

@@ -1,0 +1,13 @@
+
+(for th (locative instrumental comitative)
+	(for p (preposition postposition)
+		(df adposition
+			(flags .p .c)
+			(theta (case .c))
+			(fork
+				(open adposition)
+					(call guess-syllables)
+					(add-record-to-df adposition)
+					(add-flags-to-df adposition .p .th)
+					(add-ns-to-df adposition theta)
+					(add-tag-to-df adposition))

@@ -38,4 +38,7 @@ clean:
 	rm -rf kMandarin kSimplifiedVariant kTraditionalVariant
 	rm -rf Unihan_Readings.txt Unihan_Variants.txt
 	rm -rf pinyin.o unihan_lookup.o unihan_lookup
-	rm -rf Unihan.zip UnihanOutput
+	rm -rf UnihanOutput
+
+deepclean: clean
+	rm -rf Unihan.zip

@@ -102,11 +102,9 @@ int parsesection(FILE * fp) {
 		return 1;
 	}
 
-	if(!strcmp(tag, "go")) {
+	if(!strcmp(tag, "go") && !strcmp(value, "vocab") ) {
 		monad * m = monad_new();
 		monad_rules(m, srclang);
-		
-		int retval = panini_parse(m, srcexec, srctext, 0, 0, 5);
 	
 		/* Prepare the monads for generation */
 		monad_map(m, remove_ns, "rection", -1);
@@ -117,16 +115,29 @@ int parsesection(FILE * fp) {
 		
 		/* If the word is already known, then skip it! */
 		monad * n = monad_duplicate(m);
-		if(panini_parse(m, dstexec, dsttext, 0, 0, 20))
+		if(panini_parse(m, dstexec, dsttext, 0, 0, 20)) {
+			monad_free(m);
 			return 1;
+		}
 
 		FILE * out = fopen(outfile, "a");
-		if(!strcmp(value, "vocab")) 
-			panini_learnvocab(n, dstexec, out, dsttext, 20);
+		panini_learnvocab(n, dstexec, out, dsttext, 20);
 		
 		fclose(out);
 		monad_free(m);
 		monad_free(n);
+		return 1;
+	}
+
+	if(!strcmp(tag, "go") && !strcmp(value, "bootstrap")) {
+		monad * m = monad_new();
+		monad_rules(m, dstlang);
+		FILE * out = fopen(outfile, "a");
+
+		panini_learnvocab(m, dstexec, out, dsttext, 20);
+		
+		fclose(out);
+		monad_free(m);
 		return 1;
 	}
 	

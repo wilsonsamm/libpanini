@@ -22,7 +22,7 @@
 
 (include orthography)
 
-(load vocab)
+(load vocab.out)
 (load pp-out)
 
 (df main

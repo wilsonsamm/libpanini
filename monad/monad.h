@@ -125,6 +125,7 @@ int kill_braked_monads(monad * m, int * c);
 void monad_child_tester(monad * m);
 void monad_kill_unfinished_intext(monad * m);
 void monad_keep_first(monad * m);
+void monad_kill_if_no_df(monad * m);
 
 list * monadcow_get(monad * m, int which);
 list * monadcow_copy(monad * m, int which);

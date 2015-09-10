@@ -1,0 +1,15 @@
+#!/bin/bash
+rm -rf src/autoincludes
+
+# Prepositions.
+mkdir -p src/adpositions/
+cp /mnt/share/sam/proj/libpanini//tools/wals/repo//adpositions ./src/adpositions/prepositions
+echo "(include adpositions/prepositions)" >> src/autoincludes
+mkdir -p src/adpositions/
+cp /mnt/share/sam/proj/libpanini//tools/wals/repo//adpositions ./src/adpositions/adpositions
+echo "(include adpositions/adpositions)" >> src/autoincludes
+
+# Adjectives.
+mkdir -p src/adjectives/adjectives/
+cp /mnt/share/sam/proj/libpanini//tools/wals/repo//adjectives/adjectives ./src/adjectives/adjectives/adjectives/
+echo "(include adjectives/adjectives/adjectives/)" >> src/autoincludes

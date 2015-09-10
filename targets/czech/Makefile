@@ -3,6 +3,7 @@ czech: k-out
 	$(PANINI)/tools/pcomp/pcomp -d src -i src/main -o czech
 
 kfile-czech:
+	touch $(PANINI)/tools/wiktionary/kfile-czech
 	cp $(PANINI)/tools/wiktionary/kfile-czech ./
 
 # Something that imports some vocabulary. 
@@ -15,6 +16,9 @@ k-out: kfile-czech
 	rm src/vocab.out
 	cp vocab.out src/
 
+install:
+	cp czech /usr/panini/targets
+	
 clean:
 	rm -rf vocab.out czech kfile-czech
 

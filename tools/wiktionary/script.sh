@@ -1,48 +1,19 @@
 #!/bin/bash
 
-./getpage.sh April noun
-./getpage.sh animal noun
-./getpage.sh arm noun
-./getpage.sh August noun
-./getpage.sh axe noun
-./getpage.sh banana noun
-./getpage.sh beginning noun
-./getpage.sh beach noun
-./getpage.sh bird noun
-./getpage.sh boat noun
-./getpage.sh body noun
-./getpage.sh bone noun
-./getpage.sh book noun
-./getpage.sh bread noun
-./getpage.sh cabbage noun
-./getpage.sh car noun
-./getpage.sh cat noun
-./getpage.sh cave noun
-./getpage.sh chick noun
-./getpage.sh clams noun
-./getpage.sh class noun
-./getpage.sh clip noun
-./getpage.sh colour noun
-./getpage.sh condom noun
-./getpage.sh core noun
-./getpage.sh cosmos noun
-./getpage.sh daylight noun
-./getpage.sh day noun
-./getpage.sh December noun
-./getpage.sh dog noun
-./getpage.sh duck noun
-./getpage.sh eraser noun
-./getpage.sh flavour noun
-./getpage.sh fruit noun
-./getpage.sh heaven noun
-./getpage.sh house noun
-./getpage.sh oyster noun
-./getpage.sh rabbit noun
-./getpage.sh road noun
-./getpage.sh room noun
-./getpage.sh thing noun
-./getpage.sh tree noun
-./getpage.sh village noun
-./getpage.sh whale noun
-./getpage.sh world noun
-./getpage.sh worm noun
+# First we need to remove any kfiles. These might contain some old stuff, and if
+# anything is still relevant, a new kfile will get created.
+rm -rf kfile-*
+rm -rf english
+
+
+# Next, various semantically loaded words should be passed to ./getpage.sh.
+# ./getpage.sh is a script that looks the word up on wiktionary and ./parse-wt
+# to extract information from the page.
+for i in January February March April May June July August September October \
+			November December
+do
+	./getpage.sh $i noun
+done
+
+./getpage.sh "axe" noun
+./getpage.sh "hammer" noun

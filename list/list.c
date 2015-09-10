@@ -316,12 +316,12 @@ list * list_tokenise_csv(FILE *fp) {
 		}
 		
 		/* Have we reached the end of the cell? (these are comma-seperated) */
-		if(ch == ',' ) {
+		if(ch == ',') {
 			cell = list_append_list(line);
 		}
 		
 		/* Have we reached the end of the line? (these are newline-seperated) */
-		if(ch == '\n' ) {
+		if(ch == '\n') {
 			line = list_append_list(file);
 			cell = list_append_list(line);
 		}

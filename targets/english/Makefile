@@ -3,8 +3,9 @@ english: bootstrap
 	$(PANINI)/tools/pcomp/pcomp -d src -i src/main -o english
 
 bootstrap:
-	cp $(PANINI)/tools/wiktionary/english ./bootstrap
-	cat bootstrap | sort | uniq > src/bootstrap
+	touch $(PANINI)/tools/wiktionary/english 
+	cat $(PANINI)/tools/wiktionary/english | sort | uniq > src/bootstrap
+	touch bootstrap
 
 clean:
 	rm -f english core bootstrap out.txt src/bootstrap k-out

@@ -243,6 +243,9 @@ int panini_despatch(monad * m, int * switches) {
 	
 	/* (seme ...) */
 	if(!strcmp(command, "seme")) {
+		if(m->debug) {
+			printf("calling checkvars(m, m->command, %d)", !(*switches & CR_SEME));
+		}
 		if(checkvars(m, m->command, !(*switches & CR_SEME))) m->alive = 0;
 		post_pc(m);
 		return 1;
@@ -331,7 +334,7 @@ int panini_parse(monad *m, char * commands, char * intext, int editdistance, int
 int panini_learnvocab(monad * m, char * commands, FILE * out, char * intext, int threshold) {
 	
 	int retval;
-	int switches = INTEXT | L_OPEN;
+	int switches = INTEXT | L_OPEN | CR_SEME;
 	/* First, set the stack to contain the right instructions */
 	monad_map(m, (int(*)(monad * m, void * argp))set_stack, commands, threshold);
 	
@@ -350,7 +353,10 @@ int panini_learnvocab(monad * m, char * commands, FILE * out, char * intext, int
 	/* and then any that have a higher brake value than any other, */
 	monad_kill_braked(m);
 
-	/* and then any that have a lower confidnce value than any other, */
+	/* and any that didn't learn anything, */
+	monad_kill_if_no_df(m);
+
+	/* and then any that have a lower confidence value than any other, */
 	panini_keep_confident(m);
 	
 //	/* and any that have an identical outtext to any other monad, */
@@ -394,6 +400,9 @@ int panini_learnpp(monad * m, char * commands, FILE * out, char * intext, int th
 
 	/* and then any that have a higher brake value than any other, */
 	monad_kill_braked(m);
+
+	/* and any that didn't learn anything, */
+	monad_kill_if_no_df(m);
 	
 	/* and any that have an identical outtext to any other monad, */
 	monad_map(m, (int(*)(monad * m, void * argp))kill_identical_outtexts, (void*)0, -1);
@@ -445,4 +454,3 @@ int panini_keep_confident(monad * m) {
 	monad_unlink_dead(m, 0);
 	return retval;
 }
-	

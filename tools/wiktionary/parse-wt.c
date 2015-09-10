@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <panini.h>
 
 #define NOUN 1
 #define VERB 2
@@ -40,6 +41,26 @@ int nextline(FILE * wt, char * s) {
 	return 1;
 }
 
+int test(char * lang, char * seme, char * exec, char * lex) {
+	char e[4096];
+	int retval;
+	
+	strcpy(e, "(seme (head ");
+	strcat(e, seme);
+	strcat(e, ") ");
+	strcat(e, exec);
+	
+	fprintf(stderr, "Testing %s ...\r", e);
+
+	monad * m = monad_new();
+	monad_rules(m, lang);
+	
+	retval = panini_parse(m, e, lex, 0, 0, 10);
+	monad_free(m);
+	fprintf(stderr, "Done testing.\n");
+	return retval;
+}
+
 void englishlemma(int sense, int pos) {
 	if(!english) {
 		english = fopen("english", "a+");
@@ -53,7 +74,10 @@ void englishlemma(int sense, int pos) {
 
 void czechtranslation(int sense, int pos, char * line) {
 	char word[1024];
+	char seme[32];
 	int gender = 0;
+
+	sprintf(seme, "%d%s", sense, en_lemma);
 	
 	if(!strncmp(line, "* Czech: {{t+|cs|", 17)) {
 		strcpy(word, line + 17);
@@ -85,16 +109,17 @@ void czechtranslation(int sense, int pos, char * line) {
 		fprintf(czech, "label:%s\n", en_lemma);
 	}
 	if(pos == NOUN) {
-		fprintf(czech, "srctext:%s\n", en_lemma);
+		if(!test("czech", seme, "(call noun singular)", word)) return;
 		fprintf(czech, "dsttext:%s\n", word);
-		fprintf(czech, "srcexec:(seme (%d%s)) (call noun)\n", sense, en_lemma);
+		fprintf(czech, "dstexec:(seme (head %s))", seme);
+		
 		if(gender == MASC)
-			fprintf(czech, "dstexec:(call noun singular masculine) \n");
+			fprintf(czech, "(call noun singular masculine) \n");
 		if(gender == FEM)
-			fprintf(czech, "dstexec:(call noun singular feminine) \n");
+			fprintf(czech, "(call noun singular feminine) \n");
 		if(gender == NEUT)
-			fprintf(czech, "dstexec:(call noun singular neuter) \n");
-		fprintf(czech, "go:vocab\n");
+			fprintf(czech, "(call noun singular neuter) \n");
+		fprintf(czech, "go:bootstrap\n");
 	}
 }
 
@@ -140,7 +165,7 @@ void translate_from_english(FILE * wt) {
 
 int main(int argc, char * argv[]) {
 
-	FILE * wt;
+	FILE * wt = 0;
 	
 	int i;
 	for(i = 1; i < argc; i++) {
