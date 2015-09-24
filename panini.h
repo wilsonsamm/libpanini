@@ -57,6 +57,7 @@ int panini_learnvocab(monad * m, char * commands, FILE * out, char * intext, int
 int panini_learnpp(monad * m, char * commands, FILE * out, char * intext, int threshold);
 int panini_keep_confident(monad * m);
 int panini_keep_unique(monad * m);
+monad * panini_test(char * srclang, char * srcexec, char * intext, char * dstlang, char * dstexec);
 
 void monad_keep_first(monad * m);
 #endif

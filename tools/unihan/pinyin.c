@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "pinyin.h"
+#include "unihan_lookup.h"
 
 /* This function will convert pinyin with tonal diacritics to pinyin with tone
  * numbers. */
@@ -34,6 +35,5 @@ char * convert(char * pinyin, int from, int to) {
 		if(r) return strdup(py);
 	}
 	
-	fprintf(stderr, "; %s is no pinyin syllable.\n", pinyin);
 	return 0;
 }

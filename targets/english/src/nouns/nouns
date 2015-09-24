@@ -28,6 +28,10 @@
 	(seme (head condom))
 	(fuzzy 10 language -formal)
 	(language (norm american)))
+	
+(df nounstem
+	(segments b o t t l e)
+	(seme (head bottle)))
 
 ;;; Regular nouns are defined down here as something which consists of a nounstem plus an optional plural suffix.
 (df noun

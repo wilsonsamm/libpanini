@@ -17,7 +17,7 @@
 		((rection (animacy -animate) (gender feminine)))
 		((rection (animacy -animate) (gender masculine)))
 		((rection (animacy  animate) (gender masculine))))
-	(open nounstem)
+	(open nounstem) 
 	(call guess-syllables)
 	(add-record-to-df nounstem)
 	(add-flags-to-df nounstem .gender .animacy)

@@ -1,21 +1,11 @@
 #!/bin/bash
 
+# If the user forgot to initialise some variables, then we'll tell him off and
+# give up.
 if [ -z $PANINI ]; then
 	echo You need to set some variables up first. The best way to do that is
 	echo to type "source setvar.sh" at your prompt.
 	exit 1
-fi
-
-# If kanjidic or edict are not installed on the computer and it was requested
-# that they be included in the build, you'll get a warning here.
-ls /usr/share/edict/kanjidic /usr/share/edict/edict &> /dev/null
-if [ $? != 0 ]; then
-	echo Warning: Either edict, kanjidic or both are not installed on your puter.
-	if [ -n $PANINI_EKAN ];  then
-		echo WARNING: It was requested that this build include data from the
-		echo edict and kanjidic files, but these files are not both installed.
-	fi
-	export PANINI_EKAN=""
 fi
 
 # If the requested compiler is not found, then stop.
@@ -26,37 +16,24 @@ if [ $? != 0 ]; then
 	exit 1
 fi
 
-which $CXXCOMPILER  &> /dev/null
-if [ $? != 0 ]; then
-	echo ERROR: $CXXCOMPILER: command not found. Look in setvar.sh to choose
-	echo another C++ compiler.
-fi
+# If kanjidic and edict and panini are all installed on the computer, then it
+# may be possible to use them to learn some extra Japanese.
+(cd tools/ekan && ./build.sh)
 
+# Run the Unihan tools to build various CJK script definitions.
+(cd tools/unihan && ./build.sh)
+
+# Query the Wiktionary for unknown words.
+(cd tools/wiktionary && ./build.sh)
+
+# We need to build the runtime library
 echo Building the system in $PANINI
-
-# First, we need to build the runtime library
 echo Building the runtime library libpanini.a.
 make $MAKEOPTS libpanini.a
 
-# Then, build the compiler and other tools, which get used to build language
-# modules later.
+# Then, build the compiler, which will get used to build language modules later.
 echo Building the compiler.
 make $MAKEOPTS -C tools/pcomp pcomp
-echo Building the machine learning tools.
-make $MAKEOPTS -C tools/learn
-echo Building the EDICT and KANJIDIC importer.
-make $MAKEOPTS -C tools/ekan ekan
-echo Building the interface to Unihan.
-make $MAKEOPTS -C tools/unihan
-echo Building the interface to Wiktionary.
-make $MAKEOPTS -C tools/wiktionary
-echo Building the interface to WordNet.
-make $MAKEOPTS -C tools/wn
-
-if [ $PP_SWORD -eq 1 ]; then
-	echo Building the SWORD API interface.
-	make $MAKEOPTS -C tools/sword
-fi
 
 # Some languages depend on others to already have been built. So build those
 # first.
@@ -72,3 +49,4 @@ make $MAKEOPTS japanese
 make $MAKEOPTS nahuatl
 make $MAKEOPTS quenya
 make $MAKEOPTS swahili
+make $MAKEOPTS kalaallisut

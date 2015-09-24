@@ -1,5 +1,0 @@
-(for theta (locative instrumental comitative)
-(df adpositional-phrase
-	(theta (case .case))
-	(call dp)
-	(call adposition postposition .case)))

@@ -46,21 +46,17 @@ int test(char * lang, char * seme, char * exec, char * lex) {
 	int retval;
 	
 	strcpy(e, "(seme (head ");
-	strcat(e, seme);
-	strcat(e, ") ");
-	strcat(e, exec);
-	
-	fprintf(stderr, "Testing %s ...\r", e);
+	strcpy(e, seme);
+	strcpy(e, ") ");
+	strcpy(e, exec);
 
 	monad * m = monad_new();
 	monad_rules(m, lang);
 	
 	retval = panini_parse(m, e, lex, 0, 0, 10);
 	monad_free(m);
-	fprintf(stderr, "Done testing.\n");
 	return retval;
 }
-
 void englishlemma(int sense, int pos) {
 	if(!english) {
 		english = fopen("english", "a+");
@@ -72,75 +68,55 @@ void englishlemma(int sense, int pos) {
 	}
 }
 
-void learn_noun(char * fn, char * exec, char * lang, char * word) {
-	FILE * outfile = fopen(fn, "a");
-
-	monad * m = monad_new();
-	monad_rules(m, lang);
-	if(!panini_parse(m, exec, word, 0, 0, 5))
-		panini_learnvocab(m, exec, outfile, word, 5);
-}
-
-void mfn_translation(int sense, int pos, char * line, char * lang, char * shortcode, char * plang) {
+void czechtranslation(int sense, int pos, char * line) {
 	char word[1024];
-	char itest[1024];
-	char test[1024];
-	char fname[1024];
 	char seme[32];
+	int gender = 0;
 
 	sprintf(seme, "%d%s", sense, en_lemma);
-	sprintf(fname, "./%s.panini", plang);
-	sprintf(fname, "/usr/panini/targets/%s", plang);
-
-	/* Check that the language module is already installed. */
-	FILE * tst = fopen(itest, "r");
-	if(!tst) return;
-	fclose(tst);
-
-	/* Check that the line in the file really has the expected information.
-	 * For example, for Latin, we'd expect the line to start like this:
-	 * * Latin: {{t|la|ascia|f}}
-	 */
-	sprintf(test, "* %s: {{t+|%s|", lang, shortcode);
-	if(!strncmp(line, test, strlen(test))) {
-		strcpy(word, line + strlen(test));
-	} else {
-		sprintf(test, "* %s: {{t|%s|", lang, shortcode);
-		if(!strncmp(line, test, strlen(test))) {
-			strcpy(word, line + strlen(test));
-		} else {
-			return;
-		}
-	}
-
-	char exec[4096];
-	strcpy(exec, "(seme (head ");
-	strcat(exec, seme);
-	strcat(exec, ")) ");
 	
-
+	if(!strncmp(line, "* Czech: {{t+|cs|", 17)) {
+		strcpy(word, line + 17);
+	} else {
+//		fprintf(stderr, "; rejected\n");
+		return;
+	}
 	if(pos == NOUN) {
 		char * end;
-		
-		strcat(exec, "(call noun singular nominative ");
-	
 		if((end = strstr(word, "|f}}"))) {
-			strcat(exec, "feminine");
 			end[0] = '\0';
+			gender = FEM;
 		}
 		if((end = strstr(word, "|m}}"))) {
-			strcat(exec, "masculine");
 			end[0] = '\0';
+			gender = MASC;
 		}
 		if((end = strstr(word, "|n}}"))) {
-			strcat(exec, "neuter");
 			end[0] = '\0';
+			gender = NEUT;
 		}
 	}
-	strcat(exec, ") ");
-
-	learn_noun(fname, exec, plang, word);
 	
+	if(!czech) {
+		czech = fopen("kfile-czech", "a+");
+		fprintf(czech, "outfile:k-out\n");
+		fprintf(czech, "srclang:english\n");
+		fprintf(czech, "dstlang:czech\n");
+		fprintf(czech, "label:%s\n", en_lemma);
+	}
+	if(pos == NOUN) {
+		if(!test("czech", seme, "(call noun singular)", word)) return;
+		fprintf(czech, "srctext:%s\n", en_lemma);
+		fprintf(czech, "dsttext:%s\n", word);
+		fprintf(czech, "srcexec:(seme (%s)) (call noun)\n", seme);
+		if(gender == MASC)
+			fprintf(czech, "dstexec:(call noun singular masculine) \n");
+		if(gender == FEM)
+			fprintf(czech, "dstexec:(call noun singular feminine) \n");
+		if(gender == NEUT)
+			fprintf(czech, "dstexec:(call noun singular neuter) \n");
+		fprintf(czech, "go:vocab\n");
+	}
 }
 
 void translate_from_english(FILE * wt) {
@@ -176,12 +152,8 @@ void translate_from_english(FILE * wt) {
 		}
 		
 		if(!strncmp(buffer, "* Czech: ", 9)) {
-			mfn_translation(sense, pos, buffer, "Czech", "cs", "czech");
-			continue;
-		}
-		
-		if(!strncmp(buffer, "* Latin: ", 9)) {
-			mfn_translation(sense, pos, buffer, "Latin", "la", "latin");
+//			fprintf(stderr, "; Found translation: %s\n", buffer);
+			czechtranslation(sense, pos, buffer);
 			continue;
 		}
 	}

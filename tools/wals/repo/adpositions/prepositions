@@ -1,5 +1,0 @@
-(for case (locative instrumental comitative)
-(df adpositional-phrase
-	(rection (case .case))
-	(call adposition preposition .case)
-	(call dp)))

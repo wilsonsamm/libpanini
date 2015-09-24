@@ -184,6 +184,7 @@ int panini_despatch(monad * m, int * switches) {
 	 * target text) */
 	if(!strcmp(command, "open")) {
 		if(*switches & L_OPEN) monad_learn_open(m);
+		else m->alive = 0;
 //		if(*switches & P_OPEN) monad_parse_open(m);
 		post_pc(m);
 		return 1;
@@ -359,12 +360,6 @@ int panini_learnvocab(monad * m, char * commands, FILE * out, char * intext, int
 	/* and then any that have a lower confidence value than any other, */
 	panini_keep_confident(m);
 	
-//	/* and any that have an identical outtext to any other monad, */
-	monad_map(m, (int(*)(monad * m, void * argp))kill_identical_outtexts, (void*)0, -1);
-
-	/* and after that we want only one monad, */
-	monad_keep_first(m);
-	
 	/* and then free any monads that are not still alive
 	 * (this forgets their state so that the memory becomes free. */
 	monad_unlink_dead(m, 0);
@@ -418,6 +413,32 @@ int panini_learnpp(monad * m, char * commands, FILE * out, char * intext, int th
 	}
 	
 	return retval;
+}
+
+monad * panini_test(char * srclang, char * srcexec, char * intext, char * dstlang, char * dstexec) {
+
+	monad * m = monad_new();
+
+	/* As far as we know, does this word exist in the srclanguage? */
+	monad_rules(m, srclang);
+	if(!panini_parse(m, srcexec, intext, 0, 0, 5)) {
+		monad_free(m);
+		fprintf(stderr, ";This word is not known in %s\n", srclang);
+		return 0;
+	}
+
+	/* Do we already know how to put it in the dstlanguage? */
+	monad_rules(m, dstlang);
+	monad * n = monad_duplicate(m);
+	if(panini_parse(m, dstexec, intext, 0, 0, 5)) {
+		monad_free(m);
+		monad_free(n);
+		fprintf(stderr, ";This word is already known in %s\n", dstlang);
+		return 0;
+	}
+	monad_free(m);
+	
+	return n;
 }
 
 int panini_generate(monad *m, char * commands, int record, int threshold) {

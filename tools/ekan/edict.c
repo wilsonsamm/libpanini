@@ -5,8 +5,6 @@
 #include "read.h"
 #include "reading.h"
 
-#define PATHTOENGLISH "/targets/english/english"
-
 monad * pmonad;
 /* 
  * This program reads in all the entries in the edict.locale file. This is 
@@ -268,12 +266,7 @@ int main(int argc, char * argv[], char * envp[]) {
 		fprintf(stderr, "The environment variable PANINI has not been set");
 		exit(99);
 	}
-	char * fn = malloc(strlen(buildpath) + strlen(PATHTOENGLISH) + 1);
-	strcpy(fn, buildpath);
-	strcat(fn, PATHTOENGLISH);
-	monad_rules(pmonad, fn);
-	free(fn);
-	free(buildpath);
+	monad_rules(pmonad, "english");
 	
 	int elen = count_lines(edict);
 	

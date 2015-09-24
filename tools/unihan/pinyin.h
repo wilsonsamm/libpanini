@@ -1,10 +1,5 @@
-
-#define PINYIN_DIA 0
-#define PINYIN_NUM 1
-
 #define INITIALS 23
 #define CODAS 165
-char * convert(char * pinyin, int from, int to);
 /* These arrays define the various orthographies of mandarin chinese.
  * Those #defines up there are array subscripts that define where to look in the
  * array for your orthographic representation. */

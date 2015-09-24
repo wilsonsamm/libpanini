@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
-#include "pinyin.h"
+#include "unihan_lookup.h"
 #include "../../list/list.h"
 
 int linecount;
@@ -56,8 +56,10 @@ void def_trad(FILE * out, char * codepoint) {
 
 void def_pinyin(FILE * out, char * codepoint, list * pinyin) {
 	char * tonenumber = convert(list_get_token(pinyin, 2), PINYIN_DIA, PINYIN_NUM);
-	if(!tonenumber) return;
-	
+	if(!tonenumber) {
+		fprintf(out, "; %s is no pinyin syllable.\n",list_get_token(pinyin, 2));
+		return;
+	}
 	fprintf(out, "(df %s (language (orthography pinyin) -tonenumbers) ", codepoint);
 	fprintf(out, "(flags %s) ", tonenumber);
 	fprintf(out, "(lit %s))\n", list_get_token(pinyin, 2));

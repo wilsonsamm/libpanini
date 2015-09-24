@@ -6,11 +6,9 @@
 /* number of bytes to allocate to column heading. */
 #define COLHEAD 1024
 
-
-
 int main(int argc, char * argv[]) {
 	
-	FILE * lang = fopen(argv[1], "r+");
+	FILE * lang = fopen(argv[1], "r");
 	if(!lang) exit(1);
 
 	int wc = 1;
@@ -27,7 +25,7 @@ int main(int argc, char * argv[]) {
 		int offs = 0;
 
 		/* Read in the entire field. */
-		while(ch != '\n' && ch != ',') {
+		while(ch != '\n' && ch != ',' && ch != '\n') {
 			if(ch == '\"') {
 				ch = fgetc(lang);
 				while(ch != '\"') {
@@ -39,7 +37,8 @@ int main(int argc, char * argv[]) {
 			field[offs++] = ch;
 			field[offs] = '\0';
 			ch = fgetc(lang);
-			if(offs > COLHEAD - 2) break;
+			if(ch == EOF) exit(2);
+			if(offs > COLHEAD - 2) exit(2);
 		}
 		c++;
 		
@@ -50,7 +49,8 @@ int main(int argc, char * argv[]) {
 		}
 		ch = fgetc(lang);
 	}
-	ch = fgetc(lang);
+	ch = fgetc(lang); // work-around for the bug that means the last column couldn't ever be queried.
+		  // (what was happening: ch would equal '\n', and the while loop down there wouldn't fire.)
 
 	/* Search the first field of every subsequent line for the language code
 	 * we're after. */
@@ -60,9 +60,12 @@ int main(int argc, char * argv[]) {
 
 		/* Read in the entire first field of the line. */
 		while(ch != ',') {
-			langcode[offs++] = ch;
-			langcode[offs] = '\0';
+			if(offs < COLHEAD) {
+				langcode[offs++] = ch;
+				langcode[offs] = '\0';
+			}
 			ch = fgetc(lang);
+			if(ch == EOF) exit(2);
 		}
 		l++;
 		if(offs > COLHEAD - 2) break;
@@ -87,6 +90,7 @@ int main(int argc, char * argv[]) {
 		}
 		while(ch != ',') {
 			ch = fgetc(lang);
+			if(ch == EOF) exit(2);
 		}
 		ch = fgetc(lang);
 		wc--;
@@ -108,6 +112,5 @@ int main(int argc, char * argv[]) {
 
 	fclose(lang);
 
-//	printf("column %d/ line %d\n",wc,l);
-	
+	return 0;
 }

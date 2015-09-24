@@ -239,7 +239,7 @@ int monad_map(monad * m, int(*fn)(monad * m, void * argp), void * arg, int thr) 
 	while(m) {
 		
 		/* Every nth time we step across a monad, we'll run something across the
-		 * chain a monads which unlinks the dead ones. This should save the 
+		 * chain of monads which unlinks the dead ones. This should keep the 
 		 * program from allocating gigabytes and gigabytes of memory 
 		 * unnecessarily. */
 		i++;
@@ -385,10 +385,10 @@ void monad_keep_first(monad * m) {
 void monad_kill_if_no_df(monad * m) {
 	list * df;
 	while(m) {
-		df = get_namespace(m, "df");
+		df = get_namespace(m, "df", 0);
 		if(!df) {
 			m->alive = 0;
-		} else if(df->length > 1) {
+		} else if(df->length < 2) {
 			m->alive = 0;
 		}
 		m = m->child;

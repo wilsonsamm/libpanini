@@ -12,7 +12,7 @@ reading.o : reading.c reading.h
 	$(CCOMPILER) $(CCOPTS) reading.c
 
 ekan: kanjidic.o edict.o readword.o 
-	$(CCOMPILER) -o ekan edict.o kanjidic.o readword.o $(PANINI)/libpanini.a
+	$(CCOMPILER) -o ekan edict.o kanjidic.o readword.o -lpanini
 
 kanjidic.o: kanjidic.c
 	$(CCOMPILER) $(CCOPTS) kanjidic.c

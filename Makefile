@@ -87,6 +87,8 @@ swahili:
 	+make -C targets/swahili swahili
 world:
 	+make -C targets/world world
+kalaallisut:
+	+make -C targets/kalaallisut kalaallisut
 
 install: uninstall
 	mkdir -p /usr/panini/targets

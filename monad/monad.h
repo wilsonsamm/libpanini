@@ -51,10 +51,11 @@ char * eval(list * namespace, char * varname);
 
 monad * monad_spawn(monad * m, list * rules, list * flags);
 
-int tranny_parse(monad * m, void * nothing);
-int tranny_generate(monad * m, void * nothing);
-int tranny_gowild(monad * m, void * nothing);
-int tranny_learn(monad * m, void * nothing);
+//int tranny_parse(monad * m, void * nothing);
+//int tranny_generate(monad * m, void * nothing);
+//int tranny_gowild(monad * m, void * nothing);
+//int tranny_learn(monad * m, void * nothing);
+list * get_namespace(monad * m, char * nsname, int create);
 
 void monad_parse_constituent(monad * m, int adjunct);
 void monad_parse_nop();

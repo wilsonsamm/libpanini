@@ -15,4 +15,7 @@ language.csv:
 clean:
 	rm -rf wals-language.csv.zip README.txt
 	rm -rf *.o parselang 
-	rm -rf ain cze sno wel prh
+	rm -rf *autogen.panini
+
+deepclean: clean
+	rm -rf language.csv

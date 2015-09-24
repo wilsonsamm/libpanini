@@ -22,8 +22,7 @@
 
 (include orthography)
 
-(load vocab.out)
-(load pp-out)
+(include wt)
 
 (df main
 	(call sentence))
