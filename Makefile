@@ -125,7 +125,7 @@ clean:
 	+make -C tools/learn clean
 	+make -C tools/ekan clean
 	+make -C tools/sword clean
-	+make -C tools/unihan clean
+	+make -C tools/cjk clean
 	+make -C tools/wn clean
 	+make -C tools/wiktionary clean
 	+make -C targets/ainu clean

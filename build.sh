@@ -16,37 +16,39 @@ if [ $? != 0 ]; then
 	exit 1
 fi
 
-# If kanjidic and edict and panini are all installed on the computer, then it
-# may be possible to use them to learn some extra Japanese.
-(cd tools/ekan && ./build.sh)
+# Go and download all the resources we can make use of. (These jobs will be
+# running in the background
+for dir in $(ls resources/)
+do
+	make -s -C resources/$dir download &
+done
 
-# Run the Unihan tools to build various CJK script definitions.
-(cd tools/unihan && ./build.sh)
-
-# Query the Wiktionary for unknown words.
-(cd tools/wiktionary && ./build.sh)
-
-# We need to build the runtime library
+# We can build the runtime library while we wait for the downloads to finish.
 echo Building the system in $PANINI
 echo Building the runtime library libpanini.a.
 make $MAKEOPTS libpanini.a
 
-# Then, build the compiler, which will get used to build language modules later.
-echo Building the compiler.
-make $MAKEOPTS -C tools/pcomp pcomp
+# Wait until all the downloads have finished
+echo Waiting for downloads to finish ...
+for dir in $(ls resources/)
+do
+	make -sq -C resources/$dir
+	while [ $? != 0 ]
+	do
+		sleep 1
+		make -sq -C resources/$dir download
+	done
+done
 
-# Some languages depend on others to already have been built. So build those
-# first.
-make $MAKEOPTS pp
-make $MAKEOPTS english
-make $MAKEOPTS world
+# Go and build all the various tools that help with machine learning,
+# compilation, and so on. These are all found in the tools/ directory.
+for dir in $(ls tools/)
+do
+	(cd tools/$dir && ./build.sh)
+done
 
-# And then build the rest of languages.
-make $MAKEOPTS ainu
-make $MAKEOPTS algonquian
-make $MAKEOPTS czech
-make $MAKEOPTS japanese
-make $MAKEOPTS nahuatl
-make $MAKEOPTS quenya
-make $MAKEOPTS swahili
-make $MAKEOPTS kalaallisut
+# Lastly, build all of the targets.
+for dir in $(ls targets)
+do
+	(cd targets/$dir && make)
+done

@@ -1,4 +1,5 @@
 
+
 ; Features of the functional head above the nounstem are case and number. 
 (for case (nominative accusative genitive dative 
            vocative prepositional instrumental)
@@ -11,13 +12,8 @@
 ; How to learn a nounstem
 (df nounstem
 	(flags .gender .animacy)
-	(rection (animacy .animacy) (gender .gender))
-	(fork
-		((rection (animacy -animate) (gender neuter)))
-		((rection (animacy -animate) (gender feminine)))
-		((rection (animacy -animate) (gender masculine)))
-		((rection (animacy  animate) (gender masculine))))
-	(open nounstem) 
+	(call phi .gender .animacy)
+	(open nounstem)
 	(call guess-syllables)
 	(add-record-to-df nounstem)
 	(add-flags-to-df nounstem .gender .animacy)
@@ -28,15 +24,10 @@
 (df noun
 	(sandhi #)
 	(flags .gender .case .animacy .number)
-	(rection (animacy .animacy) (gender .gender) (case .case))
+	(call phi .gender .animacy)
 	(call nounstem .gender .animacy)
 	(call case-ending .gender .case)
 	(segments space))))))
-	
-(df noun (flags lemma feminine) (call noun feminine singular nominative) (segments space))
-(df noun (flags lemma neuter)   (call noun neuter   singular nominative) (segments space))
-(df noun (flags lemma masculine animate) (call noun masculine animate singular nominative) (segments space))
-(df noun (flags lemma masculine inanimate) (call noun masculine -animate singular nominative) (segments space))
 
 (df nounphrase
 	(rection (person third))

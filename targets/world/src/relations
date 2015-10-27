@@ -30,7 +30,6 @@
 
 ;;; See
 (df relation
-	(debug)
 	(seme (head see)) (flags see)
 	(fuzzy 1 into agent call relation sentient)
 	(fuzzy 1 into patient call relation visible))

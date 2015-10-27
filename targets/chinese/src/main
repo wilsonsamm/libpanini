@@ -1,0 +1,4 @@
+(include wt)
+(include autogen-chinese.panini)
+(include mandarin.panini)
+(include canto.panini)

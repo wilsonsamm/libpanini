@@ -415,36 +415,10 @@ int panini_learnpp(monad * m, char * commands, FILE * out, char * intext, int th
 	return retval;
 }
 
-monad * panini_test(char * srclang, char * srcexec, char * intext, char * dstlang, char * dstexec) {
-
-	monad * m = monad_new();
-
-	/* As far as we know, does this word exist in the srclanguage? */
-	monad_rules(m, srclang);
-	if(!panini_parse(m, srcexec, intext, 0, 0, 5)) {
-		monad_free(m);
-		fprintf(stderr, ";This word is not known in %s\n", srclang);
-		return 0;
-	}
-
-	/* Do we already know how to put it in the dstlanguage? */
-	monad_rules(m, dstlang);
-	monad * n = monad_duplicate(m);
-	if(panini_parse(m, dstexec, intext, 0, 0, 5)) {
-		monad_free(m);
-		monad_free(n);
-		fprintf(stderr, ";This word is already known in %s\n", dstlang);
-		return 0;
-	}
-	monad_free(m);
-	
-	return n;
-}
-
 int panini_generate(monad *m, char * commands, int record, int threshold) {
 	
 	int retval;
-	int switches = OUTTEXT;
+	int switches = OUTTEXT | CR_SEME;
 	
 	/* If we want to record the segments, then do so */
 	if(record) switches |= RECORD;
@@ -474,4 +448,28 @@ int panini_keep_confident(monad * m) {
 	
 	monad_unlink_dead(m, 0);
 	return retval;
+}
+
+monad * panini_test(char * srclang, char * srcexec, char * intext, char * dstlang, char * dstexec) {
+
+	monad * m = monad_new();
+
+	/* As far as we know, does this word exist in the srclanguage? */
+	monad_rules(m, srclang);
+	if(!panini_parse(m, srcexec, intext, 0, 0, 5)) {
+		monad_free(m);
+		return 0;
+	}
+	
+	/* Do we already know how to put it in the dstlanguage? */
+	monad_rules(m, dstlang);
+	monad * n = monad_duplicate(m);
+	if(panini_generate(m, dstexec, 0, 5)) {
+		monad_free(m);
+		monad_free(n);
+		return 0;
+	}
+	monad_free(m);
+	
+	return n;
 }

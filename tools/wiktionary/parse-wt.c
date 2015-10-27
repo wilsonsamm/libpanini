@@ -77,8 +77,9 @@ void learn_noun(char * fn, char * exec, char * lang, char * word) {
 
 	monad * m = monad_new();
 	monad_rules(m, lang);
-	if(!panini_parse(m, exec, word, 0, 0, 5))
+	// if(!panini_parse(m, exec, word, 0, 0, 5))
 		panini_learnvocab(m, exec, outfile, word, 5);
+	fclose(outfile);
 }
 
 void mfn_translation(int sense, int pos, char * line, char * lang, char * shortcode, char * plang) {
@@ -90,8 +91,7 @@ void mfn_translation(int sense, int pos, char * line, char * lang, char * shortc
 
 	sprintf(seme, "%d%s", sense, en_lemma);
 	sprintf(fname, "./%s.panini", plang);
-	sprintf(fname, "/usr/panini/targets/%s", plang);
-
+	sprintf(itest, "/usr/panini/targets/%s", plang);
 	/* Check that the language module is already installed. */
 	FILE * tst = fopen(itest, "r");
 	if(!tst) return;
@@ -101,28 +101,20 @@ void mfn_translation(int sense, int pos, char * line, char * lang, char * shortc
 	 * For example, for Latin, we'd expect the line to start like this:
 	 * * Latin: {{t|la|ascia|f}}
 	 */
-	sprintf(test, "* %s: {{t+|%s|", lang, shortcode);
-	if(!strncmp(line, test, strlen(test))) {
-		strcpy(word, line + strlen(test));
-	} else {
-		sprintf(test, "* %s: {{t|%s|", lang, shortcode);
-		if(!strncmp(line, test, strlen(test))) {
-			strcpy(word, line + strlen(test));
-		} else {
-			return;
-		}
-	}
-
+	if(!strstr(line, "{{")) return;
+	if(!strstr(strstr(line, "{{") + 2, "|")) return;
+	if(strncmp(strstr(strstr(line, "{{") + 2, "|") + 1, shortcode, strlen(shortcode))) return;
+	strcpy(word, strstr(strstr(strstr(line, "{{") + 2, "|") + 1, "|") + 1);
+	
 	char exec[4096];
 	strcpy(exec, "(seme (head ");
 	strcat(exec, seme);
 	strcat(exec, ")) ");
 	
-
 	if(pos == NOUN) {
 		char * end;
 		
-		strcat(exec, "(call noun singular nominative ");
+		strcat(exec, " (call noun singular nominative ");
 	
 		if((end = strstr(word, "|f}}"))) {
 			strcat(exec, "feminine");
@@ -138,7 +130,7 @@ void mfn_translation(int sense, int pos, char * line, char * lang, char * shortc
 		}
 	}
 	strcat(exec, ") ");
-
+	printf("\nGoing to learn the %s %s %s.\n", lang, "noun", word);
 	learn_noun(fname, exec, plang, word);
 	
 }
@@ -174,13 +166,16 @@ void translate_from_english(FILE * wt) {
 			englishlemma(pos, sense);
 			continue;
 		}
+
 		
 		if(!strncmp(buffer, "* Czech: ", 9)) {
+			printf("\n%s\n", buffer);
 			mfn_translation(sense, pos, buffer, "Czech", "cs", "czech");
 			continue;
 		}
 		
 		if(!strncmp(buffer, "* Latin: ", 9)) {
+			printf("\n%s\n", buffer);
 			mfn_translation(sense, pos, buffer, "Latin", "la", "latin");
 			continue;
 		}
