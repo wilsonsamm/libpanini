@@ -3,6 +3,8 @@
 #include <string.h>
 #include <stdlib.h>
 
+#define MAXLENGTH 32
+
 int create; // May we create a scope?
 int write;	// May we write variables?
 
@@ -41,12 +43,12 @@ list * enter_scope(list * namespace, list * scopelist, int create, int debug) {
 	return namespace;
 }
 
-list * getns_unscoped(monad * m, char * nsname) {
+list * getns_unscoped(monad * m, char * nsname, int create) {
 	if(!m->namespace) {
 		m->namespace = list_new();
 	}
 	list * ns = list_find_list(m->namespace, nsname);
-	if(!ns) {
+	if(!ns && create) {
 		ns = list_append_list(m->namespace);
 		list_append_token(ns, nsname);
 	}
@@ -61,21 +63,21 @@ list * getns_unscoped(monad * m, char * nsname) {
 list * get_namespace(monad * m, char * nsname, int create) {
 
 	/* Unscoped namespaces */
-	if(!strcmp(nsname, "scopestack")) return getns_unscoped(m, "scopestack");
-	if(!strcmp(nsname, "language"))   return getns_unscoped(m, "language");
-	if(!strcmp(nsname, "sandhi"))     return getns_unscoped(m, "sandhi");
-	if(!strcmp(nsname, "check"))      return getns_unscoped(m, "check");
-	if(!strcmp(nsname, "record"))     return getns_unscoped(m, "record");
-	if(!strcmp(nsname, "df"))         return getns_unscoped(m, "df");
+	if(!strcmp(nsname, "scopestack")) return getns_unscoped(m, "scopestack", create);
+	if(!strcmp(nsname, "language"))   return getns_unscoped(m, "language", create);
+	if(!strcmp(nsname, "sandhi"))     return getns_unscoped(m, "sandhi", create);
+	if(!strcmp(nsname, "check"))      return getns_unscoped(m, "check", create);
+	if(!strcmp(nsname, "record"))     return getns_unscoped(m, "record", create);
+	if(!strcmp(nsname, "df"))         return getns_unscoped(m, "df", create);
 
 	/* Scoped namespaces */
 	list * scopestack = get_namespace(m, "scopestack", 1);
 	
 	list * namespace = 0;
 	
-	if(!strcmp(nsname, "rection"))  namespace = getns_unscoped(m, "rection");
-	if(!strcmp(nsname, "seme"))     namespace = getns_unscoped(m, "seme");
-	if(!strcmp(nsname, "theta"))    namespace = getns_unscoped(m, "theta");
+	if(!strcmp(nsname, "rection"))  namespace = getns_unscoped(m, "rection", create);
+	if(!strcmp(nsname, "seme"))     namespace = getns_unscoped(m, "seme", create);
+	if(!strcmp(nsname, "theta"))    namespace = getns_unscoped(m, "theta", create);
 	if(namespace) return enter_scope(namespace, scopestack, create, m->debug);
 	
 	return namespace;
@@ -87,9 +89,9 @@ list * get_namespace(monad * m, char * nsname, int create) {
  */
 int check_vars(list * namespace, list * vars) {
 	
-	char varname[32];
-	char varneg[32];
-	char value[32];
+	char varname[MAXLENGTH];
+	char varneg[MAXLENGTH];
+	char value[MAXLENGTH];
 	value[0] = '\0';
 	
 	int i;
@@ -97,18 +99,18 @@ int check_vars(list * namespace, list * vars) {
 
 		list * var = list_get_list(vars, i);
 		if(var) {
-			strcpy(varname, list_get_token(var, 1));
-			strcpy(value, list_get_token(var, 2));
+			strncpy(varname, list_get_token(var, 1), MAXLENGTH);
+			strncpy(value, list_get_token(var, 2), MAXLENGTH);
 		}
 		
 		char * t = list_get_token(vars, i);
 		if(t) strcpy(varname, t);
 		
 		if(varname[0] != '-') {
-				strcpy(varneg, "-");
-				strcat(varneg, varname);
+				strncpy(varneg, "-", MAXLENGTH);
+				strncat(varneg, varname, MAXLENGTH - 1);
 		} else {
-			strcpy(varneg, varname+1);
+			strncpy(varneg, varname+1, MAXLENGTH - 1);
 		}
 		
 		if(list_contains(namespace, varneg)) return 0;

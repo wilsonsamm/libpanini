@@ -41,9 +41,17 @@
 	(call guess-fleeting)
 	(call guess-coda simple))
 
-(df guess-syllables
+(df guess-syllables-old
 	(call guess-syllable))
 
-(df guess-syllables
+(df guess-syllables-old
 	(call guess-syllable)
 	(call guess-syllable))
+
+(for segment (b c č d ď f g h j k l m n ň p r ř s š t v z ž a á e é ě i í o ó u ú ů y ý)
+(df guess-syllables
+	(segments .segment) 
+	(call guess-syllables))
+(df guess-syllables
+	(segments .segment)))
+	

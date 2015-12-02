@@ -1,4 +1,20 @@
 
+; Czech nouns.
+; There are a thousand and one different declension paradigms, and each noun
+; belongs to one. Here's a list:
+
+; ma1		- masculine animate nouns like pták, člověk, ...
+; mi2		- masculine inanimate nouns like padák, telefon, 
+; fem1		- hard feminine nouns like žena, škola
+; fem2		- soft feminine nouns like ulice, kategorie
+; fem3		- feminines ending in a consonant: klec, láhev
+; neut1		- neuters ending in -o: dřevo
+; neut2		- neuters ending in -e: moře
+
+(df phi (flags ma1 masculine animate) (rection (gender masculine) (animacy animate) (person third)))
+(df phi (flags mi2 masculine inanimate) (rection (gender masculine) (animacy inanimate) (person third)))
+(df phi (flags fem1 fem2 fem3 feminine) (rection (gender feminine) (person third)))
+(df phi (flags neut1 neut2 neuter) (rection (gender neuter) (person third)))
 
 ; Features of the functional head above the nounstem are case and number. 
 (for case (nominative accusative genitive dative 
@@ -8,15 +24,17 @@
 ; Features of the nounstem itself are gender and animacy.
 (for gender (feminine masculine neuter)
 (for animacy (-animate animate)
+(for paradigm (ma1 mi2 fem1 fem2 fem3 neut1 neut2)
 
 ; How to learn a nounstem
-(df nounstem
-	(flags .gender .animacy)
-	(call phi .gender .animacy)
+(df noun
+	(flags learn .gender .animacy .case .number)
 	(open nounstem)
+	(call phi .paradigm .gender)
 	(call guess-syllables)
+	(call case-ending .case .paradigm)
 	(add-record-to-df nounstem)
-	(add-flags-to-df nounstem .gender .animacy)
+	(add-flags-to-df nounstem .gender .animacy .paradigm)
 	(add-ns-to-df nounstem seme head)
 	(add-tag-to-df nounstem))
 
@@ -25,9 +43,9 @@
 	(sandhi #)
 	(flags .gender .case .animacy .number)
 	(call phi .gender .animacy)
-	(call nounstem .gender .animacy)
-	(call case-ending .gender .case)
-	(segments space))))))
+	(call nounstem .gender .animacy .paradigm)
+	(call case-ending .paradigm .case)
+	(call space)))))))
 
 (df nounphrase
 	(rection (person third))

@@ -1,5 +1,4 @@
 czech: 
-	echo Compiling czech.
 	touch $(PANINI)/tools/wiktionary/czech.panini
 	cat $(PANINI)/tools/wiktionary/czech.panini src/wt | sort | uniq > ./wt
 	mv ./wt	src/
@@ -11,5 +10,5 @@ install:
 clean:
 	rm -rf vocab.out czech kfile-czech
 
-deepclean:
+deepclean: clean
 	rm -rf src/vocab.out

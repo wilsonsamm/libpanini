@@ -3,7 +3,7 @@
 	(rection (gender masculine) (animacy animate)))
 
 (df phi
-	(flags masculine inanimate)
+	(flags masculine -animate)
 	(rection (gender masculine) (animacy inanimate)))
 
 (df phi
@@ -11,5 +11,5 @@
 	(rection (gender masculine) (animacy animate)))
 
 (df phi
-	(flags neuter inanimate)
+	(flags neuter -animate)
 	(rection (gender neuter) (animacy inanimate)))

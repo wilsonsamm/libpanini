@@ -1,8 +1,10 @@
-wn-bootstrap: bootstrap.o
-	$(CCOMPILER) -o wn-bootstrap bootstrap.o -lwordnet
+pan: pan.o
+	$(CCOMPILER) -o pan pan.o -lpanini
 	
-bootstrap.o: bootstrap.c
-	$(CCOMPILER) $(CCOPTS) bootstrap.c
+pan.o: pan.c
+	$(CCOMPILER) $(CCOPTS) pan.c
 
 clean:
-	rm -f bootstrap.o wn-bootstrap
+	rm -f *.o pan
+
+deepclean: clean

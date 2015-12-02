@@ -1,7 +1,23 @@
-(df case-ending	(flags feminine  accusative hard singular)	(segments u)	(seme (number singular)))
-(df case-ending	(flags feminine  nominative hard singular)	(segments a)	(seme (number singular)))
+; ma1		- masculine animate nouns like pták, člověk, ...
+; mi2		- masculine inanimate nouns like padák, telefon, 
+; fem1		- hard feminine nouns like žena, škola
+; fem2		- soft feminine nouns like ulice, kategorie
+; fem3		- feminines ending in a consonant: klec, láhev
+; neut1		- neuters ending in -o: dřevo
+; neut2		- neuters ending in -e: moře
 
-(df case-ending	(flags masculine nominative hard singular)	                (seme (number singular)))
-(df case-ending	(flags masculine accusative hard singular)	(segments a)    (seme (number singular)))
+; nouns that have no ending in the nominative singular:
+; ma1, mi2, fem3
+(df case-ending (flags nominative singular ma1 mi2 fem3) (seme (number singular)))
 
-(df case-ending	(flags neuter nominative accusative)        (segments o)    (seme (number singular)))
+; nouns ending in -e in the nominative singular:
+; fem2 neut2
+(df case-ending (flags nominative singular fem2 neut2) (seme (number singular)) (segments e))
+
+; nouns ending in -a in the nominative singular:
+; fem1
+(df case-ending (flags nominative singular fem1) (seme (number singular)) (segments e))
+
+; nouns ending in -o in the nominative singular:
+; neut1
+(df case-ending (flags nominative singular fem1) (seme (number singular)) (segments e))

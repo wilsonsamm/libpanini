@@ -11,3 +11,4 @@ programming.pdf: programming.tex
 clean:
 	rm -f *.aux *.out *.log
 	
+deepclean: clean

@@ -12,3 +12,5 @@ genders.o: genders.c
 
 clean:
 	rm -rf flashcards *.o genders.csv vocab.csv
+
+deepclean: clean

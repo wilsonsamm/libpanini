@@ -8,8 +8,9 @@ edict.euc-jp: edict.gz
 	zcat edict.gz > edict.euc-jp
 
 edict.gz:
-	echo Downloading EDICT
 	wget -q http://ftp.monash.edu.au/pub/nihongo/edict.gz
 
 clean:
 	rm -f edict*
+
+deepclean: clean

@@ -27,6 +27,7 @@ int panini_despatch(monad * m, int * switches) {
 		printf("Monad %d is executing: ", m->id);
 		if(m->command) list_prettyprinter(m->command);
 		printf("\n");
+		printf("Switches: %d\n", *switches);
 	}
 	
 	char * command = list_get_token(m->command, 1);
@@ -183,8 +184,18 @@ int panini_despatch(monad * m, int * switches) {
 	 * such, which are not translated but simply transferred verbatim into the
 	 * target text) */
 	if(!strcmp(command, "open")) {
-		if(*switches & L_OPEN) monad_learn_open(m);
-		else m->alive = 0;
+		if(*switches & L_OPEN) {
+			if(m->debug) {
+				printf("learning ...");
+			}
+			monad_learn_open(m);
+		}
+		else {
+			if(m->debug) {
+				printf("dying ...");
+			}
+			m->alive = 0;
+		}
 //		if(*switches & P_OPEN) monad_parse_open(m);
 		post_pc(m);
 		return 1;
@@ -216,6 +227,7 @@ int panini_despatch(monad * m, int * switches) {
 		list_free(m->stack);
 		m->stack = newstack;
 		remove_ns(m, "record");
+		get_namespace(m, "record", 1);
 		post_pc(m);
 		return 1;
 	}
@@ -302,13 +314,19 @@ int panini_despatch(monad * m, int * switches) {
 	return 0;
 }
 
+int panini_addrecord(monad * m, void * nothing) {
+	get_namespace(m, "record" , 1);
+	return 0;
+}
+
 int panini_parse(monad *m, char * commands, char * intext, int editdistance, int record, int threshold) {
 	
 	int retval;
 	int switches = CR_SEME | INTEXT;
 	
 	/* If we want to record the segments, then do so */
-	if(record) switches |= RECORD;
+	//if(record) switches |= RECORD;
+	if(record) monad_map(m, panini_addrecord, 0, -1);
 	
 	/* If we have to set some edit distance, then do so */
 	if(editdistance) monad_map(m, (int(*)(monad * m, void * argp))set_edit, &editdistance, threshold);

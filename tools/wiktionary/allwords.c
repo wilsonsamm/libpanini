@@ -5,7 +5,7 @@
 
 int main(int argc, char * argv[]) {
 
-	FILE * all = fopen("AllWords.txt", "w");
+	FILE * all = fopen("AllEnglishWords.txt", "w");
 	monad * m = monad_new();
 	
 	monad_rules(m, argv[1]);

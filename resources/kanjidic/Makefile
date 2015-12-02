@@ -7,8 +7,9 @@ kanjidic.euc-jp: kanjidic.gz
 	zcat kanjidic.gz > kanjidic.euc-jp
 
 kanjidic.gz:
-	echo Downloading KANJIDIC
 	wget -q http://ftp.monash.edu.au/pub/nihongo/kanjidic.gz
 
 clean:
-	rm kanjidic*
+	rm -f kanjidic*
+
+deepclean: clean

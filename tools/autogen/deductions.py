@@ -17,9 +17,9 @@ def CaseAlignments(alignments, cases):
 		cases.append('accusative')
 	elif '4 Ergative - absolutive' in alignments:
 		cases.append('ergative')
-		cases.append('absolutive' in alignments)
+		cases.append('absolutive')
 	elif '5 Tripartite' in alignments:
-		cases.append('ergaive')
+		cases.append('ergative')
 		cases.append('absolutive')
 		cases.append('accusative')
 
@@ -63,9 +63,42 @@ def deductions(features):
 			features['WordOrders'].append('OVS')
 	if 'SubjectPlacement' not in features:
 		features['SubjectPlacement'] = []
+	if 'VPHead' not in features:
+		features['VPHead'] = []
 	if 'SOV' in features['WordOrders']:
 		features['SubjectPlacement'].append('high')
+		features['VPHead'].append('final')
 	if 'SVO' in features['WordOrders']:
 		features['SubjectPlacement'].append('high')
+		features['VPHead'].append('initial')
 	if 'VSO' in features['WordOrders']:
 		features['SubjectPlacement'].append('low')
+
+# For now, because WALS does not contain all the information I need, I go and
+# stick some values into the features dictionary based on the target's name.
+# (In other words, this subroutine sticks random facts into the knowledge base,
+#  like "chinese has this word order"; "swahili does quirky thing A" etc.)
+# It's a really inartful solution, but for now it's the shortest way to proceed ...
+def languagefixes(features):
+	if 'WordOrders' not in features:
+		features['WordOrders'] = []
+	if features['target'] == 'ainu':
+		features['WordOrders'].append('SOV')
+	if features['target'] == 'algonquian':
+		features['WordOrders'].append('SOV')
+	if features['target'] == 'czech':
+		features['WordOrders'].append('SVO')
+	if features['target'] == 'chinese':
+		features['WordOrders'].append('SVO')
+	if features['target'] == 'english':
+		features['WordOrders'].append('SVO')
+	if features['target'] == 'inuit':
+		features['WordOrders'].append('SOV')
+	if features['target'] == 'latvian':
+		features['WordOrders'].append('SVO')
+	if features['target'] == 'saami':
+		features['WordOrders'].append('SVO')
+	if features['target'] == 'scandi':
+		features['WordOrders'].append('SVO')
+	if features['target'] == 'swahili':
+		features['WordOrders'].append('SVO')

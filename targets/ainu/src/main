@@ -18,6 +18,10 @@
 (include constraint)
 (include modal-particles)
 
+(include segments)
+
+(include wt)
+
 (df main
 	(call cp)
 	(lit .))

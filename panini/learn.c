@@ -187,16 +187,16 @@ void monad_learn_open(monad * m, int * switches) {
 	}
 	
 	/* Check that this monad has not yet learned anything else */
-	if(list_find_list(m->namespace, "df")) {
+	if(get_namespace(m, "df", 0)) {
 		if(m->debug) {
 			printf("this monad will die because it, or its ancestor has already learned something.\n");
 		}
 		m->alive = 0;
 		return;
 	}
-	list * df = list_append_list(m->namespace);
-	list_append_token(df, "df");
+	list * df = get_namespace(m, "df", 1);
 	list_append_token(df, list_get_token(m->command, 2));
+	get_namespace(m, "record", 1);
 }
 
 void learn_tag(monad * m) {

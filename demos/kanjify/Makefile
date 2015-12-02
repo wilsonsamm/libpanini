@@ -14,3 +14,5 @@ install:
 
 uninstall:
 	rm -rf /usr/bin/kanjify
+
+deepclean: clean

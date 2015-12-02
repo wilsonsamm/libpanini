@@ -30,3 +30,5 @@ clean:
 	rm -rf *.o ekan *.txt *.gz core
 	rm -rf edict ekan.out gmon.out 
 	rm -rf kanjidic
+
+deepclean: clean

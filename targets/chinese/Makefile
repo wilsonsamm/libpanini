@@ -1,5 +1,4 @@
 chinese: wt autogen readings
-	echo Compiling chinese.
 	touch $(PANINI)/tools/wiktionary/chinese.panini
 	cat $(PANINI)/tools/wiktionary/chinese.panini src/wt | sort | uniq > ./wt
 	mv ./wt	src/
@@ -8,7 +7,8 @@ chinese: wt autogen readings
 # Get the new words from Chinese wiktionary.
 wt:
 	touch $(PANINI)/tools/wiktionary/chinese.panini
-	cat $(PANINI)/tools/wiktionary/chinese.panini src/wt | sort | uniq > ./wt
+	touch $(PANINI)/tools/cedict/chinese.panini
+	cat $(PANINI)/tools/wiktionary/chinese.panini $(PANINI)/tools/cedict/chinese.panini src/wt | sort | uniq > ./wt
 	mv ./wt	src/
 	touch wt
 
@@ -27,5 +27,5 @@ install:
 clean:
 	rm -rf chinese wt autogen readings
 
-deepclean:
+deepclean: clean
 	rm -rf src/vocab.out

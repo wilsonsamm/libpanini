@@ -25,3 +25,5 @@ tag.o: tag.c
 
 clean:
 	rm -rf pcomp *.o *.gch core 
+
+deepclean: clean

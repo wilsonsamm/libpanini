@@ -5,3 +5,5 @@ query: query.cc
 
 clean:
 	rm -f query query.o
+
+deepclean: clean

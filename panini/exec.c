@@ -86,7 +86,9 @@ void panini_segments(monad * m, int generate) {
 	list * record = 0;
 	record = get_namespace(m, "record", 0);
 	if(record && generate == 0) list_append_token(record, segment);
-		
+	if(record && m->debug) {
+		list_prettyprinter(record);
+	}	
 	/* While generating, we might need to check that this is indeed the
 	 * segment we want to call. */
 	if(record && generate != 0) {

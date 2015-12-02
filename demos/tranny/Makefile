@@ -17,3 +17,5 @@ install:
 
 uninstall:
 	rm -rf /usr/bin/tranny
+
+deepclean: clean

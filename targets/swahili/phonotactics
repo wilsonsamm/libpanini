@@ -1,0 +1,37 @@
+; The consonants of the Swahili language.
+(for cons (
+
+; Plosives
+	p t ch k b d j g 
+
+; Pre-nasalised plosives
+	mb nd nj ng
+
+; Fricatives
+	f v th dh s z sh kh gh h
+
+; Pre-nasalised fricatives:
+	mv nz
+)
+
+(df guess-cons
+	(segments .cons)))
+	
+; The swahili vowels.
+(for vowel (a e i o u)
+(df guess-vowel
+	(segments .vowel)))
+
+(df guess-onset (call guess-cons))
+(df guess-nucleus (call guess-vowel))
+
+; The syllable of the Swahili language
+(df guess-syllable
+	(call guess-onset)
+	(call guess-nucleus))
+
+(df guess-syllables
+	(call guess-syllable))
+(df guess-syllables
+	(call guess-syllable)
+	(call guess-syllable))

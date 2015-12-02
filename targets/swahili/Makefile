@@ -1,5 +1,4 @@
 swahili:
-	@echo Compiling swahili.
 	@$(PANINI)/tools/pcomp/pcomp -d src -i src/main > swahili
 
 clean:
@@ -7,3 +6,5 @@ clean:
 
 install:
 	cp swahili /usr/panini/targets
+
+deepclean: clean

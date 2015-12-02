@@ -31,7 +31,7 @@
 (include segments/segments)
 (include segments/punctuation)
 
-(load bootstrap)
+(load wt)
 
 ; Evaluation starts with "main".
 (df main

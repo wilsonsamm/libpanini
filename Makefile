@@ -65,37 +65,13 @@ spawn.o: monad/monad.h monad/monad.c monad/spawn.c
 docs:
 	make -C doc
 
-ainu:
-	+make -C targets/ainu ainu
-algonquian:
-	+make -C targets/algonquian algonquian
-czech:
-	+make -C targets/czech czech
-english:
-	+make -C targets/english english
-japanese:
-	+make -C targets/japanese japanese
-nahuatl:
-	+make -C targets/nahuatl nahuatl
-pp:
-	+make -C targets/pp pp
-quenya:
-	+make -C targets/quenya quenya
-spanish:
-	+make -C targets/spanish spanish
-swahili:
-	+make -C targets/swahili swahili
-world:
-	+make -C targets/world world
-kalaallisut:
-	+make -C targets/kalaallisut kalaallisut
-
 install: uninstall
 	mkdir -p /usr/panini/targets
 	cp libpanini.a /usr/lib/
 	cp panini.h /usr/include
 	+make -C targets/ainu install
 	+make -C targets/algonquian install
+	+make -C targets/chinese install
 	+make -C targets/czech install
 	+make -C targets/english install
 	+make -C targets/japanese install
@@ -111,41 +87,8 @@ uninstall:
 	rm -rf /usr/include/panini.h
 
 clean: 
-	rm -f *.o *.gch *.a *.txt *.gz vlad core tc learn a.out gmon.out 
+	rm -f *.o *.gch *.a *.gz vlad core tc learn a.out gmon.out 
 	rm -f imports-japanese
 	rm -f monad/*.o monad/*.gch panini/*.o panini/*.gch list/*.o 
 	rm -f list/*.gch panini/*.o panini/*.gch compiler/*.o panini/*.o
-	rm -f ainu algonquian czech english japanese nahuatl pp quenya 
-	rm -f spanish swahili
-	+make -C demos/tranny clean
-	+make -C demos/kanjify clean
-	+make -C demos/flashcards clean
-	+make -C doc clean
-	+make -C tools/pcomp clean
-	+make -C tools/learn clean
-	+make -C tools/ekan clean
-	+make -C tools/sword clean
-	+make -C tools/cjk clean
-	+make -C tools/wn clean
-	+make -C tools/wiktionary clean
-	+make -C targets/ainu clean
-	+make -C targets/algonquian clean
-	+make -C targets/czech clean
-	+make -C targets/english clean
-	+make -C targets/japanese clean
-	+make -C targets/nahuatl clean
-	+make -C targets/pp clean
-	+make -C targets/quenya clean
-	+make -C targets/swahili clean
 
-# Git commands might be useful to have in a Makefile.
-pull:
-	git pull
-
-push: clean
-	git commit -a
-	git push
-
-# I keep making these typoes.
-celan: clean
-isntall: install

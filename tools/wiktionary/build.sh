@@ -1,5 +1,5 @@
 #!/bin/bash
-for file in /usr/lib/libpanini.a /usr/include/panini.h 
+for file in /usr/lib/libpanini.a /usr/include/panini.h
 do
 	if [ ! -e "$file" ]; then
 		echo -n "$file has not been installed, "
@@ -14,28 +14,29 @@ rm -rf kfile-*
 rm -rf english
 
 # We'll need to build the executables.
-make all
+make -s all
 
 # Next, various semantically loaded words should be passed to ./getpage.sh.
 # ./getpage.sh is a script that looks the word up on wiktionary and ./parse-wt
 # to extract information from the page.
 # (Eventually, I'll write something that queries Panini for words known in one
 # language and not another. These are the words that needs to be looked up.)
+echo -ne Querying for words ...
 ./allwords english "(call noun singular)"
-TOTAL=$(cat AllWords.txt | wc -l)
+echo done.
 CURR=0
+for lexeme in $(cat AllEnglishWords.txt ExtraWords.txt)
+do
+	echo $lexeme | xargs >> AllWords.txt
+done
+cat AllWords.txt | sort | uniq > AllWordsSorted.txt
+TOTAL=$(cat AllWordsSorted.txt | wc -l) 
 while IFS='' read -r line || [[ -n "$line" ]]
 do
-	CURR=$((CURR + 1))
-	for lang in czech swahili
-	do
-		$(./testword english "(call noun)" "$line" $lang "(call noun)") 
-		if [ $? -gt 0 ]; then
-			echo -ne Looking at Wiktionary data "$((CURR * 100 / TOTAL))%" 
-			echo -ne " $line          " "\r"
-			./getpage.sh $line
-			break
-		fi
-	done
-done < AllWords.txt
+	CURR=$(($CURR + 1))
+
+	echo -ne Looking at Wiktionary data "$((CURR * 100 / TOTAL))%" 
+	echo -ne " $line          " "\r"
+	./getpage.sh $line
+done < AllWordsSorted.txt
 echo

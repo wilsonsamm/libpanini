@@ -157,7 +157,7 @@ int learnentry_func(char * headword, char * reading, char * ttemp, \
 	if(!strlen(headword)) return 0;
 	
 	monad * m = monad_duplicate_all(pmonad);
-	if(!panini_parse(m, incode, translation, 0, 0, 20)) {
+	if(!panini_parse(m, incode, translation, 0, 0, 3)) {
 		monad_free(m);
 		free(translation);
 		return 0;
@@ -203,8 +203,8 @@ int learnentry_func(char * headword, char * reading, char * ttemp, \
 
 int learnentry(char * headword, char * reading, char * translation, kanji * klist) {
 	
-	learnentry_func(headword, reading, translation, klist, "n",  "(call noun)(lit .)", "noun", "", 0);
-	learnentry_func(headword, reading, translation, klist, "pn", "(call noun)(lit .)", "noun", "", 0);
+	learnentry_func(headword, reading, translation, klist, "n",  "(call noun)(debug)(lit .)", "noun", "", 0);
+	learnentry_func(headword, reading, translation, klist, "pn", "(call noun)(debug)(lit .)", "noun", "", 0);
 	learnentry_func(headword, reading, translation, klist, "vs", "(call verb)(lit .)", "verb", "suru", 0);
 	learnentry_func(headword, reading, translation, klist, "vs", "(call vp to-infinitive)(lit .)", "verb", "suru", 0);
 	learnentry_func(headword, reading, translation, klist, "v1", "(call vp to-infinitive)(lit .)", "verb", "ichidan", "る");
@@ -286,7 +286,7 @@ int main(int argc, char * argv[], char * envp[]) {
 		 * (This test is an optimisation; stderr is a slow thing to print to.) 
 		 */
 		if(i == (i & ~(0777)))
-			fprintf(stderr, "EDICT importer: %d%% \r", (i*100)/elen);
+			fprintf(stderr, "EDICT importer: %d%% L%d \r", (i*100)/elen, i);
 		
 		/* Parse the line and try to generate Panini source code */
 		readentry(edict, headword, klist);

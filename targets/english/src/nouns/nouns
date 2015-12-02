@@ -18,21 +18,6 @@
 		(segments 7)
 		(seme head)))
 
-(df nounstem
-	(segments r u b b e r)
-	(seme (head eraser))
-	(language (norm british)))
-	
-(df nounstem
-	(segments r u b b e r)
-	(seme (head condom))
-	(fuzzy 10 language -formal)
-	(language (norm american)))
-	
-(df nounstem
-	(segments b o t t l e)
-	(seme (head bottle)))
-
 ;;; Regular nouns are defined down here as something which consists of a nounstem plus an optional plural suffix.
 (df noun
 	(flags lemma singular)
@@ -55,39 +40,50 @@
 	(segments c h i l d space)
 	(rection countable (number singular))
 	(flags lemma singular)
-	(seme (head child) (number singular)))
+	(seme (head 0child) (number singular)))
 
 ; Children.
 (df noun
 	(flags plural)
 	(segments c h i l d r e n space)
 	(rection countable (number plural))
-	(seme (head child) (number plural)))
+	(seme (head 0child) (number plural)))
 
 ; Woman.
 (df noun
 	(segments w o m a n space)
 	(rection countable (number singular))
 	(flags lemma singular)
-	(seme (head woman) (number singular)))
+	(seme (head 0woman) (number singular)))
 
 ; Women.
 (df noun
 	(flags plural)
 	(segments w o m e n space)
 	(rection countable (number plural))
-	(seme (head woman) (number plural)))
+	(seme (head 0woman) (number plural)))
 
 ; Man.
 (df noun
 	(segments m a n space)
 	(rection countable (number singular))
 	(flags lemma singular)
-	(seme (head man) (number singular)))
+	(seme (head 0man) (number singular)))
 
 ; Men.
 (df noun
 	(flags plural)
 	(segments m e n space)
 	(rection countable (number plural))
-	(seme (head man) (number plural)))
+	(seme (head 0man) (number plural)))
+
+
+; How to learn a nounstem
+(df learn-a-singular-noun
+	(flags singular)
+	(open nounstem)
+	(call guess-segments)
+	(add-record-to-df nounstem)
+	(add-flags-to-df nounstem singular)
+	(add-ns-to-df nounstem seme head)
+	(add-tag-to-df nounstem))

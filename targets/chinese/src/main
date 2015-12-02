@@ -2,3 +2,16 @@
 (include autogen-chinese.panini)
 (include mandarin.panini)
 (include canto.panini)
+
+(df noun
+	(open noun)
+	(call guess-syllables)
+	(add-record-to-df noun)
+	(add-ns-to-df noun seme head)
+	(add-ns-to-df noun language language))
+
+(df guess-syllables
+	(call guess-cjk))
+(df guess-syllables
+	(call guess-cjk)
+	(call guess-cjk))

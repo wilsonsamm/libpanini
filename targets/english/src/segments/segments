@@ -1,45 +1,21 @@
 ; All the letters of the alphabet.
 (for i (a b c d e f g h i j k l m n o p q r s t u v w x y z)
-	(segment (underlying .i) (call Glyph .i)))
+	(segment (underlying .i) (lit .i)))
 
 ; Where British spelling uses <u>, but American spelling doesn't.
-(segment (underlying brit-u) (language (norm british)) (call Glyph u))
-(segment (underlying brit-u) (language (norm american)))
+; <colour/color>; <splendour/splendor>
+(segment (underlying brit-u) (language (norm british)) (lit ou))
+(segment (underlying brit-u) (language (norm american)) (lit o))
 
-; Where British spelling uses <re>, but American spelling uses <er.
-(segment (underlying -re) (language (norm british)) (call Glyph r) (call Glyph e))
-(segment (underlying -re) (language (norm american)) (call Glyph e) (call Glyph r))
+; Where British spelling uses <re>, but American spelling uses <er>.
+; <centre/center>; <metre/meter>
+(segment (underlying -re) (language (norm british)) (lit re))
+(segment (underlying -re) (language (norm american)) (lit er))
 
-; Description of the various letters of the English language. A list starting
-; with the word "glyph" has four other tokens:
-;  - The name of the glyph
-;  - The glyph as it appears in ALL CAPS WORDS LIKE THIS.
-;  - The glyph as it appears initially when Each Word Has A Capital Letter.
-;  - The glyph as it appears in running lower case text.
 
-(glyph a A A a)
-(glyph b B B b)
-(glyph c C C c)
-(glyph d D D d)
-(glyph e E E e)
-(glyph f F F f)
-(glyph g G G g)
-(glyph h H H h)
-(glyph i I I i)
-(glyph j J J j)
-(glyph k K K k)
-(glyph l L L l)
-(glyph m M M m)
-(glyph n N N n)
-(glyph o O O o)
-(glyph p P P p)
-(glyph q Q Q q)
-(glyph r R R r)
-(glyph s S S s)
-(glyph t T T t)
-(glyph u U U u)
-(glyph v V V v)
-(glyph w W W w)
-(glyph x X X x)
-(glyph y Y Y y)
-(glyph z Z Z z)
+(for segment (a b c d e f g h i j k l m n o p q r s t u v w x y z brit-u -re)
+(df guess-segments
+	(segments .segment) 
+	(call guess-segments))
+(df guess-segments
+	(segments .segment)))

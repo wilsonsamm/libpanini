@@ -3,7 +3,7 @@ import os
 import csv
 
 from generate import generate_src
-from deductions import deductions
+from deductions import deductions, languagefixes
 db = {}
 
 db['target'] = sys.argv[1]
@@ -27,5 +27,6 @@ with open(os.environ['PANINI']+'/resources/wals/language.csv', 'rb') as wals:
 					if line[headers.index(header)] not in db[feature]:
 						db[feature].append(line[headers.index(header)])
 
+languagefixes(db)
 deductions(db)
 generate_src(db)

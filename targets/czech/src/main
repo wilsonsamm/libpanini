@@ -5,7 +5,7 @@
 
 (include punctuation)
 
-(include nouns/dict)
+;(include nouns/dict)
 (include nouns/case-endings)
 (include nouns/nouns)
 (include nouns/phi)

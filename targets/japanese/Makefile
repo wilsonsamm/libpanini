@@ -1,5 +1,4 @@
 japanese: 
-	echo Compiling japanese.
 	touch $(PANINI)/tools/ekan/ekan.out
 	cat src/ekan.out $(PANINI)/tools/ekan/ekan.out > ekan.out
 	mv ekan.out src/ekan.out
@@ -11,3 +10,5 @@ clean:
 
 install:
 	cp japanese /usr/panini/targets
+
+deepclean: clean
