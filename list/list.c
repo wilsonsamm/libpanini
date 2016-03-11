@@ -9,11 +9,20 @@ list * list_new() {
 	l->length = 0;
 	l->types = 0;
 	l->data = 0;
+	l->rcount = 0;
 	return l;
 }
 
 void list_free(list * l) {
 	if(!l) return;
+
+	if(l->rcount) {
+		l->rcount--;
+		return;
+	}
+
+	if(l->rcount) return;
+
 	int i = 0;
 	while(i < l->length) {
 		if(!l->types) break;
@@ -31,6 +40,10 @@ void list_free(list * l) {
 }
 
 void list_rename(list * l, char * c) {
+	if(l->rcount) {
+		fprintf(stderr, "Immutable list cannot be changed error");
+		exit(4);
+	}
 	/* The first element in the list, if it's a token, serves to name the list in some cases. This function, given a name and a 
 	 * C-string, gives the list a new name. */
 	
@@ -43,6 +56,10 @@ void list_rename(list * l, char * c) {
 }
 
 int list_extend(list * l) {
+	if(l->rcount) {
+		fprintf(stderr, "Immutable list cannot be changed error");
+		exit(4);
+	}
 
 	/* This first case deals with when there has been nothing allocated yet */
 	if(!l->allocated) {
@@ -69,6 +86,10 @@ int list_extend(list * l) {
 }
 
 int list_append_token(list * l, char * token) {
+	if(l->rcount) {
+		fprintf(stderr, "Immutable list cannot be changed error");
+		exit(4);
+	}
 	if(l->allocated == l->length) if(list_extend(l)) return 1;
 
 	l->types[l->length] = TOKEN;
@@ -79,11 +100,15 @@ int list_append_token(list * l, char * token) {
 }
 
 list * list_append_list(list * l) {
+	if(l->rcount) {
+		fprintf(stderr, "Immutable list cannot be changed error");
+		exit(4);
+	}
 	if(l->allocated == l->length) if(list_extend(l)) return 0;
 	
 	l->data[l->length]  = list_new();
 	if(!l->data[l->length]) return 0;
-	l->types[l->length] = LIST;	
+	l->types[l->length] = LIST;
 
 	l->length++;
 	return l->data[l->length - 1];
@@ -122,7 +147,7 @@ char * list_tochar(list * l) {
 int list_prettyprinter(list * l) {
 	int i = 0;
 	printf("(");
-		
+	
 	while(i < l->length) {
 		if(!l->types) break;
 		if(l->types[i] == TOKEN) printf("%s", (char *)l->data[i]);
@@ -138,7 +163,7 @@ int list_prettyprinter(list * l) {
 int list_fprettyprinter(FILE * fp, list * l) {
 	int i = 0;
 	fprintf(fp, "(");
-		
+	
 	while(i < l->length) {
 		if(!l->types) break;
 		if(l->types[i] == TOKEN) fprintf(fp, "%s", (char *)l->data[i]);
@@ -151,27 +176,6 @@ int list_fprettyprinter(FILE * fp, list * l) {
 	return 0;
 }
 
-int list_uglyprinter(list*l) {
-	int i = 0;
-	printf("( [length = %d; alloc'd = %d]\n", l->length, l->allocated);
-		
-	while(i < l->length) {
-		if(!l->types) break;
-		
-		if(l->types[i] == TOKEN) {
-			printf("TOKEN\t0x%x\t%s\n", (int)l->data[i], (char *)l->data[i]);
-		}
-		else if(l->types[i] == LIST) {
-			printf("LIST\t0x%x\n", (int)l->data[i]);
-			list_uglyprinter(l->data[i]);
-		}
-		i++;
-	}
-
-	printf(")\n");
-	return 0;
-}
-	
 /* This function gets the nth element out of the list iff it is a
  * string. If the nth element is not a string you get the NULL pointer.
  */
@@ -206,8 +210,14 @@ list * list_get_list(list * l, int n) {
 	if(!l->types) return 0;
 	if(!l->data) return 0;
 #endif
-
+	
 	if(l->types[n] != LIST) return 0;
+	list * retval = l->data[n];
+	if(retval->rcount) {
+		l->data[n] = list_new();
+		list_append_copy(l->data[n], retval);
+		retval->rcount--;
+	}
 	return l->data[n];
 }
 
@@ -219,7 +229,7 @@ int list_tokenise_chars(list * l, char * string) {
 	list_free(toks);
 	return 0;
 }
-	
+
 /* A wrapper to __list_tokeniser that gives it the contents of a file. */
 int list_tokenise_file(list * l, FILE *fp) {
 	int alloc = 1024;
@@ -346,18 +356,36 @@ list * list_find_list(list * l, char * lname) {
 		t = list_get_token(p, 1);
 		if(!t) continue;
 
-		if(!strcmp(t, lname)) return p;
+		if(!strcmp(t, lname)) return list_get_list(l, i);
 	}
 	return 0;
 }
 
+void list_append_copy_q(list * dst, list * elem) {
+	if(dst->rcount) {
+		fprintf(stderr, "Immutable list cannot be changed error");
+		exit(4);
+	}
+	if(dst->allocated == dst->length) list_extend(dst);
+	
+	dst->data[dst->length] = elem;
+	dst->types[dst->length] = LIST;
+	dst->length++;
+	elem->rcount++;
+	return;
+}
+
 int list_append_copy(list * dst, list * src) {
+	if(dst->rcount) {
+		fprintf(stderr, "Immutable list cannot be changed error");
+		exit(4);
+	}
 	int i;
 	for(i = 0; i < src->length; i++) {
 		if(src->types[i] == TOKEN)
 			list_append_token(dst, (char*)src->data[i]);
 		if(src->types[i] == LIST)
-			list_append_copy(list_append_list(dst), (list*)src->data[i]);
+			list_append_copy_q(dst, (list*)src->data[i]);
 	}
 	return 0;
 }
@@ -387,6 +415,10 @@ int list_contains_neg(list * l, char * t) {
 }
 
 void list_remove(list * l, char * c) {
+	if(l->rcount) {
+		fprintf(stderr, "Immutable list cannot be changed error");
+		exit(4);
+	}
 	int i;
 	char * t = 0;
 	list * k;
@@ -409,23 +441,19 @@ void list_remove(list * l, char * c) {
 				list_drop(l, i);
 				i--;
 			}
-		} 
+		}
 	}
-	
+
 }
 
 
 int list_drop(list * l, int offset) {
+	if(l->rcount) {
+		fprintf(stderr, "Immutable list cannot be changed error");
+		exit(4);
+	}
 	/* If the list is empty, don't do anything at all */
 	if(l->length == 0) return 1;
-	
-	/* Another special case is if the list has only one element */
-//	if(l->length == 1) {
-//		l->length = 0;
-//		l->data[0] = 0;
-//		l->types[0] = UNDEF;
-//		return 1;
-//	}
 	
 	int i = offset - 1;
 	if(l->types[i] == TOKEN) free(l->data[i]);

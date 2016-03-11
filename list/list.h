@@ -20,10 +20,11 @@
 #define EXTENDBY 4
 
 typedef struct __list {
-	int allocated;	/* Should be how many entries are allocated for */
-	int length;		/* Should be how many entries in the array */
+	int allocated;	/* How many entries are allocated for */
+	int length;	/* How many entries in the array */
 	int * types;
 	void ** data;
+	int rcount; 	/* How many times is this list referenced ? */
 } list;
 int list_drop(list * l, int offset);
 list * list_new();
