@@ -61,6 +61,7 @@ int noun_learn(char * english, char * pinyin, char * traditional, char * simplif
 		
 	/* If the parse wasn't successful, then exit. */
 	if(!retval) {
+	printf("%s ERROR\n", english);
 		monad_free(m);
 		return 0;
 	}

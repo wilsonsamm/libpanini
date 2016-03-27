@@ -202,9 +202,9 @@ int learnentry_func(char * headword, char * reading, char * ttemp, \
 }
 
 int learnentry(char * headword, char * reading, char * translation, kanji * klist) {
-	
-	learnentry_func(headword, reading, translation, klist, "n",  "(call noun)(debug)(lit .)", "noun", "", 0);
-	learnentry_func(headword, reading, translation, klist, "pn", "(call noun)(debug)(lit .)", "noun", "", 0);
+
+	learnentry_func(headword, reading, translation, klist, "n",  "(call noun)(lit .)", "noun", "", 0);
+	learnentry_func(headword, reading, translation, klist, "pn", "(call noun)(lit .)", "noun", "", 0);
 	learnentry_func(headword, reading, translation, klist, "vs", "(call verb)(lit .)", "verb", "suru", 0);
 	learnentry_func(headword, reading, translation, klist, "vs", "(call vp to-infinitive)(lit .)", "verb", "suru", 0);
 	learnentry_func(headword, reading, translation, klist, "v1", "(call vp to-infinitive)(lit .)", "verb", "ichidan", "る");

@@ -128,6 +128,6 @@ void monad_kill_unfinished_intext(monad * m);
 void monad_keep_first(monad * m);
 void monad_kill_if_no_df(monad * m);
 
-list * monadcow_get(monad * m, int which);
-list * monadcow_copy(monad * m, int which);
+void monad_set_stack(monad * m, char * stack);
+
 #endif

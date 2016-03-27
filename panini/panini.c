@@ -332,7 +332,8 @@ int panini_parse(monad *m, char * commands, char * intext, int editdistance, int
 	if(editdistance) monad_map(m, (int(*)(monad * m, void * argp))set_edit, &editdistance, threshold);
 	
 	/* First, set the stack to contain the right instructions */
-	monad_map(m, (int(*)(monad * m, void * argp))set_stack, commands, threshold);
+	monad_set_stack(m, commands);
+//	monad_map(m, (int(*)(monad * m, void * argp))set_stack, commands, threshold);
 	
 	/* Next, set the INTEXT up */
 	monad_map(m, (int(*)(monad * m, void * argp))set_intext, intext, threshold);
@@ -355,7 +356,8 @@ int panini_learnvocab(monad * m, char * commands, FILE * out, char * intext, int
 	int retval;
 	int switches = INTEXT | L_OPEN | CR_SEME;
 	/* First, set the stack to contain the right instructions */
-	monad_map(m, (int(*)(monad * m, void * argp))set_stack, commands, threshold);
+	monad_set_stack(m, commands);
+//	monad_map(m, (int(*)(monad * m, void * argp))set_stack, commands, threshold);
 	
 	/* Next, set the INTEXT up */
 	monad_map(m, (int(*)(monad * m, void * argp))set_intext, intext, threshold);
@@ -397,7 +399,8 @@ int panini_learnpp(monad * m, char * commands, FILE * out, char * intext, int th
 	int switches = INTEXT | L_TAG;
 	
 	/* First, set the stack to contain the right instructions */
-	monad_map(m, (int(*)(monad * m, void * argp))set_stack, commands, threshold);
+	monad_set_stack(m, commands);
+//	monad_map(m, (int(*)(monad * m, void * argp))set_stack, commands, threshold);
 	
 	/* Next, set the INTEXT up */
 	monad_map(m, (int(*)(monad * m, void * argp))set_intext, intext, threshold);
@@ -442,7 +445,8 @@ int panini_generate(monad *m, char * commands, int record, int threshold) {
 	if(record) switches |= RECORD;
 	
 	/* First, set the stack to contain the right instructions */
-	monad_map(m, (int(*)(monad * m, void * argp))set_stack, commands, threshold);
+	monad_set_stack(m, commands);
+//	monad_map(m, (int(*)(monad * m, void * argp))set_stack, commands, threshold);
 	
 	/* Then, parse the instructions, generating OUTTEXT */
 	retval = monad_map(m, (int(*)(monad * m, void * argp))panini_despatch, &switches, threshold);

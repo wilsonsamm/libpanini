@@ -14,7 +14,7 @@
  * return the null pointer and the program will segfault and you can then
  * determine why in your debugger.
  */
-#define BOUNDSCHECK
+//#define BOUNDSCHECK
 
 /* Define how much space to allocate to the list each time it needs to be extended */
 #define EXTENDBY 4

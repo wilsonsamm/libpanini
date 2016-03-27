@@ -394,3 +394,19 @@ void monad_kill_if_no_df(monad * m) {
 		m = m->child;
 	}
 }
+
+void monad_set_stack(monad * m, char * stack) {
+
+	
+	list * st = list_new();
+	list_tokenise_chars(st, stack);
+
+	while(m) {
+		while(!m->alive) m = m->child;
+		if(m->stack) list_free(m->stack);
+		m->stack = list_new();
+		list_append_copy(m->stack, st);
+		m = m->child;
+	}
+	return;
+}

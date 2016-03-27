@@ -80,22 +80,8 @@ if [ "$1" == "resources" ]; then
 	for dir in $(ls resources/)
 	do
 		echo Downloading $dir
-		(make -s -C resources/$dir download) &
+		make -s -C resources/$dir
 	done
-
-# Wait until all the downloads have finished
-	echo -n "Waiting for downloads to finish: "
-	for dir in $(ls resources/)
-	do
-		echo -n "$dir "
-		make -sq -C resources/$dir download
-		while [ $? != 0 ]
-		do
-			sleep 1
-			make -sq -C resources/$dir download
-		done
-	done
-	echo
 fi
 
 if [ "$1" == "libpanini" ]; then

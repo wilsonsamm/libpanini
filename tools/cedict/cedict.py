@@ -11,6 +11,7 @@ def parserow(row, count):
 	for english in row.split('/')[1:-1]:
 		if english[:2] != 'CL:':
 			pr = subprocess.Popen(['./enzh', english + '.', pinyin, traditional, simplified])
+#			print ['./enzh', english + '.', pinyin, traditional, simplified]
 			pr.wait()
 		
 

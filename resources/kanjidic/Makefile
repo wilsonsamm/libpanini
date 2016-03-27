@@ -1,7 +1,7 @@
 download: kanjidic.gz
 
 kanjidic.txt: kanjidic.euc-jp
-	iconv -f EUC-JP edict.euc-jp > kanjidic.txt
+	iconv -f EUC-JP kanjidic.euc-jp > kanjidic.txt
 
 kanjidic.euc-jp: kanjidic.gz
 	zcat kanjidic.gz > kanjidic.euc-jp
